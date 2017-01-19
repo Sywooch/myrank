@@ -21,97 +21,97 @@ class m170117_090006_init_tables_user_block extends Migration {
 	    'id_account'	=> $this->bigPrimaryKey(20),
 	    'role_user_id'	=> $this->bigInteger(20),
 	    'role_access_id'	=> $this->bigInteger(20),
-	    'account_page'	=> $this->string(255),
-	    'account_email'	=> $this->string(50),
-	    'account_password_hash' => $this->string(60),
-	    'account_password_salt' => $this->string(60),
-	    'account_password_reset_code' => $this->string(4),
-	    'account_password_reset_code_expires' => $this->dateTime(),
-	    'account_user_auth_token' => $this->string(50),
-	    'account_auth_key' => $this->string(32),
-	    'account_active' => 'tinyint(1) NOT NULL DEFAULT 0',
-	    'account_create_date' => $this->timestamp(),
-	    'account_status' => $this->smallInteger(6),
-	    'account_locale' => $this->string(30),
-	    'account_timezone' => $this->integer(3),
+	    'page'	=> $this->string(255),
+	    'email'	=> $this->string(50),
+	    'password_hash' => $this->string(60),
+	    'password_salt' => $this->string(60),
+	    'password_reset_code' => $this->string(4),
+	    'password_reset_code_expires' => $this->dateTime(),
+	    'user_auth_token' => $this->string(50),
+	    'auth_key' => $this->string(32),
+	    'active' => 'tinyint(1) NOT NULL DEFAULT 0',
+	    'create_date' => $this->timestamp(),
+	    'status' => $this->smallInteger(6),
+	    'locale' => $this->string(30),
+	    'timezone' => $this->integer(3),
 	], $tableOptions);
 	
 	$this->createTable("{{auth}}", [
 	    'id_auth' => $this->bigPrimaryKey(),
 	    'user_id' => $this->bigInteger(20),
-	    'auth_provider' => $this->string(50),
-	    'auth_uid' => $this->string(255),
-	    'auth_access_token' => $this->text(),
-	    'auth_secret' => $this->text(),
-	    'auth_created_at' => $this->integer(11),
-	    'auth_updated_at' => $this->integer(11),
-	    'auth_expires' => $this->integer(12),
-	    'auth_refresh_token' => $this->string(255),
-	    'auth_link' => $this->string(255),
-	    'auth_verifed' => $this->string(10),
-	    'auth_photo_url' => $this->string(255)
+	    'provider' => $this->string(50),
+	    'uid' => $this->string(255),
+	    'access_token' => $this->text(),
+	    'secret' => $this->text(),
+	    'created_at' => $this->integer(11),
+	    'updated_at' => $this->integer(11),
+	    'expires' => $this->integer(12),
+	    'refresh_token' => $this->string(255),
+	    'link' => $this->string(255),
+	    'verifed' => $this->string(10),
+	    'photo_url' => $this->string(255)
 	], $tableOptions);
 	
 	$this->createTable("{{user}}", [
-	    'id_user' => $this->bigPrimaryKey(20),
+	    'id' => $this->bigPrimaryKey(20),
 	    'account_id' => $this->bigInteger(20),
 	    'contact_id' => $this->bigInteger(20),
 	    'company_id' => $this->bigInteger(20),
 	    'profileviews' => $this->bigInteger(20),
-	    'user_profile_company' => $this->string(40),
-	    'user_image' => $this->string(255),
-	    'user_first_name' => $this->string(50),
-	    'user_last_name' => $this->string(50),
-	    'user_about' => $this->string(50),
-	    'user_last_login' => $this->dateTime(),
-	    'user_rating' => $this->integer(11),
-	    'user_birthdate' => $this->date(),
-	    'user_gender' => $this->string(40),
+	    'profile_company' => $this->string(40),
+	    'image' => $this->string(255),
+	    'first_name' => $this->string(50),
+	    'last_name' => $this->string(50),
+	    'about' => $this->string(50),
+	    'last_login' => $this->dateTime(),
+	    'rating' => $this->integer(11),
+	    'birthdate' => $this->date(),
+	    'gender' => $this->string(40),
 	], $tableOptions);
 	
 	$this->createTable("{{access_category_rating}}", [
-	    'id_access_category_rating' => $this->bigPrimaryKey(20),
+	    'id' => $this->bigPrimaryKey(20),
 	    'user_id' => $this->bigInteger(20),
 	    'category_id' => $this->bigInteger(20),
-	    'access_category_rating_value' => 'tinyint(1) NOT NULL DEFAULT 0',
+	    'value' => 'tinyint(1) NOT NULL DEFAULT 0',
 	], $tableOptions);
 	
 	$this->createTable("{{access_category_view}}", [
-	    'id_access_category_view' => $this->bigPrimaryKey(20),
+	    'id' => $this->bigPrimaryKey(20),
 	    'user_id' => $this->bigInteger(20),
 	    'category_id' => $this->bigInteger(20),
-	    'access_category_view_value' => 'tinyint(1) NOT NULL DEFAULT 0',
+	    'value' => 'tinyint(1) NOT NULL DEFAULT 0',
 	], $tableOptions);
 
 	$this->createTable("{{profile_views}}", [
-	    'id_profile_views' => $this->bigPrimaryKey(20),
-	    'profile_views_lastweek' => $this->bigInteger(20),
-	    'profile_views_lastmonth' => $this->bigInteger(20),
+	    'id' => $this->bigPrimaryKey(20),
+	    'lastweek' => $this->bigInteger(20),
+	    'lastmonth' => $this->bigInteger(20),
 	], $tableOptions);
 
 	$this->createTable("{{profession}}", [
-	    'id_profession' => $this->bigPrimaryKey(20),
-	    'profession_title' => $this->string(255),
+	    'id' => $this->bigPrimaryKey(20),
+	    'title' => $this->string(255),
 	], $tableOptions);
 
 	$this->createTable("{{user_event}}", [
-	    'id_user_event' => $this->bigPrimaryKey(20),
+	    'id' => $this->bigPrimaryKey(20),
 	    'user_id' => $this->bigInteger(20),
-	    'user_event_name' => $this->string(255),
-	    'user_event_datetime' => $this->dateTime(),
+	    'name' => $this->string(255),
+	    'datetime' => $this->dateTime(),
 	], $tableOptions);
 
 	$this->createTable("{{user_profession}}", [
-	    'id_user_profession' => $this->bigPrimaryKey(20),
+	    'id' => $this->bigPrimaryKey(20),
 	    'user_id' => $this->bigInteger(20),
 	    'profession_id' => $this->bigInteger(20),
 	], $tableOptions);
 
 	$this->createTable("{{contact}}", [
-	    'id_contact' => $this->bigPrimaryKey(20),
+	    'id' => $this->bigPrimaryKey(20),
 	    'city_id' => $this->bigInteger(20),
-	    'contact_phone' => $this->string(20),
-	    'contact_site' => $this->string(255),
+	    'phone' => $this->string(20),
+	    'site' => $this->string(255),
 	], $tableOptions);
 /*
 	$this->createTable("{{user_relation}}", [
