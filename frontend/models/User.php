@@ -24,6 +24,8 @@ use Yii;
  * @property integer $city_id
  * @property string $phone
  * @property string $site
+ * @property string $way
+ * @property string $mark
  */
 class User extends \yii\db\ActiveRecord {
     
@@ -78,7 +80,7 @@ class User extends \yii\db\ActiveRecord {
     public function rules() {
 	return [
 	    [['account_id', 'contact_id', 'company_id', 'profileviews', 'rating'], 'integer'],
-	    [['last_login', 'birthdate', 'city_id', 'phone', 'site'], 'safe'],
+	    [['last_login', 'birthdate', 'city_id', 'phone', 'site', 'way', 'mark'], 'safe'],
 	    [['profile_company', 'gender'], 'string', 'max' => 40],
 	    [['image'], 'string', 'max' => 255],
 	    [['first_name', 'last_name', 'about'], 'string', 'max' => 50],
