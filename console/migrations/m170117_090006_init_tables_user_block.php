@@ -6,25 +6,14 @@ class m170117_090006_init_tables_user_block extends Migration {
 
     public function up() {
 	$tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
-	/*
-	$this->createTable("{{role_access}}", [
-	    'id_role_access'	=> $this->bigPrimaryKey(20),
-	    'role_access_name'	=> $this->string(30),
-	], $tableOptions);
 	
-	$this->createTable("{{role_user}}", [
-	    'id_role_user'	=> $this->bigPrimaryKey(20),
-	    'role_user_name'	=> $this->string(30),
-	], $tableOptions);
-	*/
 	$this->createTable("{{account}}", [
-	    'id_account'	=> $this->bigPrimaryKey(20),
+	    'id'	=> $this->bigPrimaryKey(20),
 	    'role_user_id'	=> $this->bigInteger(20),
 	    'role_access_id'	=> $this->bigInteger(20),
 	    'page'	=> $this->string(255),
 	    'email'	=> $this->string(50),
 	    'password_hash' => $this->string(60),
-	    'password_salt' => $this->string(60),
 	    'password_reset_code' => $this->string(4),
 	    'password_reset_code_expires' => $this->dateTime(),
 	    'user_auth_token' => $this->string(50),
@@ -37,7 +26,7 @@ class m170117_090006_init_tables_user_block extends Migration {
 	], $tableOptions);
 	
 	$this->createTable("{{auth}}", [
-	    'id_auth' => $this->bigPrimaryKey(),
+	    'id' => $this->bigPrimaryKey(),
 	    'user_id' => $this->bigInteger(20),
 	    'provider' => $this->string(50),
 	    'uid' => $this->string(255),
@@ -55,10 +44,9 @@ class m170117_090006_init_tables_user_block extends Migration {
 	$this->createTable("{{user}}", [
 	    'id' => $this->bigPrimaryKey(20),
 	    'account_id' => $this->bigInteger(20),
-	    'contact_id' => $this->bigInteger(20),
-	    'company_id' => $this->bigInteger(20),
-	    'profileviews' => $this->bigInteger(20),
-	    'profile_company' => $this->string(40),
+	    'company_id' => $this->bigInteger(20)->defaultValue(0),
+	    'profileviews' => $this->bigInteger(20)->defaultValue(0),
+	    'type' => $this->smallInteger(1)->defaultValue(0)->comment("Type user (user/company)"),
 	    'image' => $this->string(255),
 	    'first_name' => $this->string(50),
 	    'last_name' => $this->string(50),
@@ -66,7 +54,10 @@ class m170117_090006_init_tables_user_block extends Migration {
 	    'last_login' => $this->dateTime(),
 	    'rating' => $this->integer(11),
 	    'birthdate' => $this->date(),
-	    'gender' => $this->string(40),
+	    'gender' => 'tinyint(1) NOT NULL DEFAULT 0',
+	    'city_id' => $this->bigInteger(20),
+	    'phone' => $this->string(20)->comment("Сохранение телефонов в формате json"),
+	    'site' => $this->string(255),
 	], $tableOptions);
 	
 	$this->createTable("{{access_category_rating}}", [
@@ -106,37 +97,9 @@ class m170117_090006_init_tables_user_block extends Migration {
 	    'user_id' => $this->bigInteger(20),
 	    'profession_id' => $this->bigInteger(20),
 	], $tableOptions);
-
-	$this->createTable("{{contact}}", [
-	    'id' => $this->bigPrimaryKey(20),
-	    'city_id' => $this->bigInteger(20),
-	    'phone' => $this->string(20),
-	    'site' => $this->string(255),
-	], $tableOptions);
-/*
-	$this->createTable("{{user_relation}}", [
-	    'id_user_relation' => $this->bigPrimaryKey(20),
-	    'user_relation_name' => $this->string(255),
-	], $tableOptions);
-
-	$this->createTable("{{country}}", [
-	    'id_country' => $this->primaryKey(10),
-	    'country_name' => $this->string(52),
-	    'country_language' => $this->string(30),
-	], $tableOptions);
-
-	$this->createTable("{{city}}", [
-	    'id_city' => $this->bigPrimaryKey(20),
-	    'country_id' => $this->integer(10),
-	    'city_name' => $this->string(50),
-	], $tableOptions);
- * 
- */
     }
 
     public function down() {
-	//$this->dropTable("{{role_access}}");
-	//$this->dropTable("{{role_user}}");
 	$this->dropTable("{{account}}");
 	$this->dropTable("{{auth}}");
 	$this->dropTable("{{user}}");
@@ -146,9 +109,5 @@ class m170117_090006_init_tables_user_block extends Migration {
 	$this->dropTable("{{profession}}");
 	$this->dropTable("{{user_profession}}");
 	$this->dropTable("{{user_event}}");
-	$this->dropTable("{{contact}}");
-	//$this->dropTable("{{user_relation}}");
-	//$this->dropTable("{{country}}");
-	//$this->dropTable("{{city}}");
     }
 }

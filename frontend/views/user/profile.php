@@ -9,13 +9,13 @@
 		<div class="b-user__data">
 		    <div class="b-user__data__left">
 			<div class="b-user__data__image">
-			    <img src="/images/users/1.jpg" alt="">
+			    <img src="<?= $mUser->image ?>" alt="">
 			</div>
 		    </div>
 		    <div class="b-user__data__right">
 			<div class="b-user__data__header">
 			    <div class="b-user__data__name">
-				<h1>David dox</h1>
+				<h1><?= $mUser->fullName ?></h1>
 				<span class="b-user__data__name__edit"></span>
 			    </div>
 			    <div class="b-user__data__info">
@@ -31,7 +31,7 @@
 			<div class="b-user__data__content">
 			    <div class="b-user__data__content__item">
 				<div class="b-user__data__content__item__adress">
-				    Germany, Munchen
+				    <?= $mUser->cityName ?>
 				</div>
 			    </div>
 			    <div class="b-user__data__content__item">

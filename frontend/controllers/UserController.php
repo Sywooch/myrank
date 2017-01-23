@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use yii\web\Controller;
+use app\models\User;
 /**
  * Description of UserController
  *
@@ -9,7 +10,8 @@ use yii\web\Controller;
  */
 class UserController extends Controller {
     
-    public function actionProfile () {
-	return $this->render("profile");
+    public function actionProfile ($id) {
+	$mUser = User::findOne($id);
+	return $this->render("profile", ['mUser' => $mUser]);
     }
 }
