@@ -31,7 +31,7 @@
 			<div class="b-user__data__content">
 			    <div class="b-user__data__content__item">
 				<div class="b-user__data__content__item__adress">
-				    <?= $mUser->cityName ?>
+				    <?= $mUser->position ?>
 				</div>
 			    </div>
 			    <div class="b-user__data__content__item">
@@ -56,11 +56,11 @@
 				Доверенных:
 			    </div>
 			    <div class="b-user__stats__item__number">
-				12
+				0
 			    </div>
-			    <div class="b-user__stats__item__new-number">
+			    <!-- div class="b-user__stats__item__new-number">
 				1
-			    </div>
+			    </div -->
 			</div>
 		    </div>
 		    <div class="b-user__stats__item">
@@ -70,11 +70,11 @@
 				Оценок:
 			    </div>
 			    <div class="b-user__stats__item__number">
-				17
+				0
 			    </div>
-			    <div class="b-user__stats__item__new-number">
+			    <!-- div class="b-user__stats__item__new-number">
 				2
-			    </div>
+			    </div -->
 			</div>
 		    </div>
 		    <div class="b-user__stats__item">
@@ -84,11 +84,11 @@
 				Отзывов:
 			    </div>
 			    <div class="b-user__stats__item__number">
-				5
+				0
 			    </div>
-			    <div class="b-user__stats__item__new-number">
+			    <!-- div class="b-user__stats__item__new-number">
 				1
-			    </div>
+			    </div -->
 			</div>
 		    </div>
 		</div>
@@ -99,15 +99,7 @@
 		    </div>
 		    <div class="b-user__info__content">
 			<div class="b-user__info__text">
-			    <p>Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные
-				тексты. Вдали от всех живут они в буквенных домах на берегу Семантика большого
-				языкового океана. Маленький ручеек Даль журчит по всей стране и обеспечивает ее
-				всеми необходимыми правилами. Эта парадигматическая страна, в которой жаренные
-				члены предложения залетают прямо в рот. Даже всемогущая пунктуация не имеет
-				власти над рыбными текстами, ведущими безорфографичный образ жизни. Однажды
-				одна маленькая строчка рыбного текста по имени Lorem ipsum решила выйти в
-				большой мир грамматики. Великий Оксмокс предупреждал ее о злых запятых, диких
-				знаках вопроса и коварных точках с запятой, но текст не дал сбить себя с толку.</p>
+			    <p><?= $mUser->about ?></p>
 			</div>
 			<div class="b-user__info__list">
 			    <div class="b-user__info__list__col">

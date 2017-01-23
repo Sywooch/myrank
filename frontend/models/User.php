@@ -116,7 +116,15 @@ class User extends \yii\db\ActiveRecord {
     }
     
     public function getCityName () {
-	return ($this->city_id == 0) ? "Не задано" : $this->getCity()->name;
+	return ($this->city_id == 0) ? "Не задано" : $this->getCity()->one()->name;
+    }
+    
+    public function getCountryName () {
+	return ($this->city_id == 0) ? "Не задано" : $this->getCity()->one()->countryName;
+    }
+    
+    public function getPosition () {
+	return $this->getCityName(). ", " . $this->getCountryName();
     }
 
 }

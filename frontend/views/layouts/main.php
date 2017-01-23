@@ -5,23 +5,6 @@ use yii\helpers\Html;
 
 AppAsset::register($this);
 
-$this->registerJs("https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js", yii\web\View::POS_END);
-$this->registerJs("@web/bootstrap/js/bootstrap.min.js", yii\web\View::POS_END);
-$this->registerJs("/js/owlcarousel/owl.carousel.min.js", yii\web\View::POS_END);
-$this->registerJs("/js/jquery-ui/jquery-ui.min.js", yii\web\View::POS_END);
-$this->registerJs("/js/jquery.ui.touch-punch.min.js", yii\web\View::POS_END);
-$this->registerJs("/js/inputmask/inputmask.min.js", yii\web\View::POS_END);
-$this->registerJs("/js/inputmask/inputmask.phone.extensions.min.js", yii\web\View::POS_END);
-$this->registerJs("/js/inputmask/jquery.inputmask.min.js", yii\web\View::POS_END);
-$this->registerJs("//cloud.tinymce.com/stable/tinymce.min.js", yii\web\View::POS_END);
-$this->registerJs("/js/script.js", yii\web\View::POS_END);
-
-$this->registerCssFile("https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700,700i,800&amp;subset=cyrillic,cyrillic-ext");
-$this->registerCssFile("@web/bootstrap/css/bootstrap.min.css");
-$this->registerCssFile("@web/js/owlcarousel/owl.carousel.min.css");
-$this->registerCssFile("@web/css/style.css");
-$this->registerCssFile("@web/css/responsive.css");
-
 $contr = Yii::$app->controller->id;
 $act = Yii::$app->controller->action->id;
 ?>
