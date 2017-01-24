@@ -1,10 +1,14 @@
+<?php
+use yii\helpers\Url;
+?>
+
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
 	<!-- Sidebar user panel -->
 	<div class="user-panel">
 	    <div class="pull-left image">
-		<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+		<img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 	    </div>
 	    <div class="pull-left info">
 		<p>Alexander Pierce</p>
@@ -26,6 +30,18 @@
 	<ul class="sidebar-menu">
 	    <li class="header">MAIN NAVIGATION</li>
 	    <li class="active treeview">
+		<a href="#">
+		    <i class="fa fa-dashboard"></i> <span>Управление</span>
+		    <span class="pull-right-container">
+			<i class="fa fa-angle-left pull-right"></i>
+		    </span>
+		</a>
+		<ul class="treeview-menu">
+		    <li class="active"><a href="<?= Url::toRoute(['site/index']) ?>"><i class="fa fa-circle-o"></i> Главная</a></li>
+		    <li><a href="<?= Url::toRoute(['user/index']) ?>"><i class="fa fa-circle-o"></i> Пользователи</a></li>
+		</ul>
+	    </li>
+	    <!-- li class="active treeview">
 		<a href="#">
 		    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
 		    <span class="pull-right-container">
@@ -192,7 +208,7 @@
 	    <li class="header">LABELS</li>
 	    <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
 	    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-	    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+	    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li -->
 	</ul>
     </section>
     <!-- /.sidebar -->

@@ -4,6 +4,8 @@ use backend\assets\AppAsset;
 use yii\helpers\Html;
 
 AppAsset::register($this);
+
+$mUser = Yii::$app->user->getIdentity();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -19,7 +21,7 @@ AppAsset::register($this);
 	<?php $this->beginBody() ?>
 	<div class="wrapper">
 	    <?= $this->render("_header"); ?>
-	    <?= $this->render("_aside"); ?>
+	    <?= $this->render("_aside", ['mUser' => $mUser]); ?>
 	    <div class="content-wrapper">
 		<section class="content">
 		    <?= $content ?>
