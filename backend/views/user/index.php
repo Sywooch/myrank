@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use frontend\models\User;
+
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -14,33 +16,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
+	<?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?php Pjax::begin(); ?>    
+    <?=
+    GridView::widget([
+	'dataProvider' => $dataProvider,
+	'columns' => [
+	    ['class' => 'yii\grid\SerialColumn'],
+	    
+	    [
+		'label' => "Имя",
+		'content' => function ($data) {
+		    return $data->last_name . " " . $data->first_name;
+		}
+	    ],
+            [
+		'label' => "Тип",
+		'content' => function ($data) {
+		    return User::$typeUser[$data->type];
+		}
+	    ],
 
-            'id',
-            'account_id',
-            'company_id',
-            'profileviews',
-            'type',
-            // 'image',
-            // 'first_name',
-            // 'last_name',
-            // 'about',
-            // 'last_login',
-            // 'rating',
-            // 'birthdate',
-            // 'gender',
-            // 'city_id',
-            // 'phone',
-            // 'site',
-            // 'way:ntext',
-            // 'mark:ntext',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+	    ['class' => 'yii\grid\ActionColumn'],
+	],
+    ]);
+    ?>
 <?php Pjax::end(); ?></div>

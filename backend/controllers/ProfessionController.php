@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use frontend\models\User;
-use yii\data\ActiveDataProvider;
+use frontend\models\Profession;
+use backend\models\ProfessionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * ProfessionController implements the CRUD actions for Profession model.
  */
-class UserController extends Controller {
+class ProfessionController extends Controller {
 
     /**
      * @inheritdoc
@@ -29,38 +29,40 @@ class UserController extends Controller {
     }
 
     /**
-     * Lists all User models.
+     * Lists all Profession models.
      * @return mixed
      */
     public function actionIndex() {
-	$dataProvider = new ActiveDataProvider([
-	    'query' => User::find(),
-	]);
+	$searchModel = new ProfessionSearch();
+	$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 	return $this->render('index', [
+		    'searchModel' => $searchModel,
 		    'dataProvider' => $dataProvider,
 	]);
     }
 
     /**
-     * Displays a single User model.
+     * Displays a single Profession model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id) {
-	return $this->render('view', ['model' => $this->findModel($id)]);
+	return $this->render('view', [
+		    'model' => $this->findModel($id),
+	]);
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new Profession model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate() {
-	$model = new User();
+	$model = new Profession();
 
 	if ($model->load(Yii::$app->request->post()) && $model->save()) {
-	    return $this->redirect(['view', 'id' => $model->id]);
+	    return $this->redirect(['index']);
 	} else {
 	    return $this->render('create', [
 			'model' => $model,
@@ -69,7 +71,7 @@ class UserController extends Controller {
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing Profession model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -78,7 +80,7 @@ class UserController extends Controller {
 	$model = $this->findModel($id);
 
 	if ($model->load(Yii::$app->request->post()) && $model->save()) {
-	    return $this->redirect(['view', 'id' => $model->id]);
+	    return $this->redirect(['index']);
 	} else {
 	    return $this->render('update', [
 			'model' => $model,
@@ -87,7 +89,7 @@ class UserController extends Controller {
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing Profession model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -99,14 +101,14 @@ class UserController extends Controller {
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the Profession model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return User the loaded model
+     * @return Profession the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id) {
-	if (($model = User::findOne($id)) !== null) {
+	if (($model = Profession::findOne($id)) !== null) {
 	    return $model;
 	} else {
 	    throw new NotFoundHttpException('The requested page does not exist.');

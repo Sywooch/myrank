@@ -29,6 +29,9 @@ $mUser = Yii::$app->user->getIdentity();
 	    </div>
 	</div>
 	<?php $this->endBody() ?>
+	<script>
+	    $.widget.bridge('uibutton', $.ui.button);
+	</script>
     </body>
 </html>
 <?php $this->endPage() ?>

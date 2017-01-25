@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace frontend\models;
 
 use Yii;
 
@@ -11,35 +11,41 @@ use Yii;
  * @property integer $user_id
  * @property integer $profession_id
  */
-class UserProfession extends \yii\db\ActiveRecord
-{
+class UserProfession extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
-        return 'user_profession';
+    public static function tableName() {
+	return 'user_profession';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
-        return [
-            [['user_id', 'profession_id'], 'integer'],
-        ];
+    public function rules() {
+	return [
+	    [['user_id', 'profession_id'], 'integer'],
+	];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'profession_id' => Yii::t('app', 'Profession ID'),
-        ];
+    public function attributeLabels() {
+	return [
+	    'id' => Yii::t('app', 'ID'),
+	    'user_id' => Yii::t('app', 'User ID'),
+	    'profession_id' => Yii::t('app', 'Profession ID'),
+	];
     }
+    
+    public function getProfession () {
+	return $this->hasOne(Profession::className(), ['id' => 'profession_id']);
+    }
+    
+    public function getUser () {
+	return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
 }

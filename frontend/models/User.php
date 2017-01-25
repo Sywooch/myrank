@@ -61,7 +61,7 @@ class User extends \yii\db\ActiveRecord {
 	self::TYPE_USER_COMPANY => "company",
     ];
     
-    public $gender = [
+    public $genderUser = [
 	self::GENDER_DEFAULT => "default",
 	self::GENDER_MALE => "Male",
 	self::GENDER_FEMALE => "FEMALE"
@@ -111,6 +111,10 @@ class User extends \yii\db\ActiveRecord {
     
     public function getCity () {
 	return $this->hasOne(City::className(), ['city_id' => 'city_id']);
+    }
+    
+    public function getImages () {
+	return $this->hasMany(Images::className(), ['user_id' => 'id']);
     }
     
     public function getFullName () {

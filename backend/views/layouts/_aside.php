@@ -28,17 +28,19 @@ use yii\helpers\Url;
 	<!-- /.search form -->
 	<!-- sidebar menu: : style can be found in sidebar.less -->
 	<ul class="sidebar-menu">
-	    <li class="header">MAIN NAVIGATION</li>
-	    <li class="active treeview">
+	    <li class="header">Меню</li>
+	    <li class="active"><a href="<?= Url::toRoute(['site/index']) ?>"><i class="fa fa-circle-o text-red"></i> <span>Главная</span></a></li>
+	    <li class="treeview">
 		<a href="#">
-		    <i class="fa fa-dashboard"></i> <span>Управление</span>
+		    <i class="fa fa-dashboard"></i> <span>Пользователи</span>
 		    <span class="pull-right-container">
 			<i class="fa fa-angle-left pull-right"></i>
 		    </span>
 		</a>
 		<ul class="treeview-menu">
-		    <li class="active"><a href="<?= Url::toRoute(['site/index']) ?>"><i class="fa fa-circle-o"></i> Главная</a></li>
-		    <li><a href="<?= Url::toRoute(['user/index']) ?>"><i class="fa fa-circle-o"></i> Пользователи</a></li>
+		    <li><a href="<?= Url::toRoute(['user/index']) ?>"><i class="fa fa-circle-o"></i> Управление</a></li>
+		    <li><a href="<?= Url::toRoute(['profession/index']) ?>"><i class="fa fa-circle-o"></i> Направления</a></li>
+		    <li><a href="<?= Url::toRoute(['marks/index']) ?>"><i class="fa fa-circle-o"></i> Самооценка</a></li>
 		</ul>
 	    </li>
 	    <!-- li class="active treeview">
