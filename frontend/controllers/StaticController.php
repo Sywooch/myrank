@@ -10,6 +10,10 @@ class StaticController extends Controller
         return [
             'page' => [
                 'class' => 'yii\web\ViewAction',
+                //'defaultView'=> '',
+                //'layout'=>'',
+                //'viewParam'=>'',
+                //'viewPrefix' => null,
             ]
         ];
     }
