@@ -39,11 +39,11 @@ return [
 	    'showScriptName' => false,
         //'enableStrictParsing' => true,
 	    'rules' => [
-            '<view:help>' => 'static/page',
-            '<view:feedback>' => 'static/page',
-            '<view:legalinfo>' => 'static/page',
-            '<view:aboutus>' => 'static/page',
-            '<view:contacts>' => 'static/page'
+        //    '<view:help>' => 'static/page',
+        //    '<view:feedback>' => 'static/page',
+        //    '<view:legalinfo>' => 'static/page',
+        //    '<view:aboutus>' => 'static/page',
+        //    '<view:contacts>' => 'static/page'
 	    ],
     ],
 	'assetManager' => [
