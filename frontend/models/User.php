@@ -79,9 +79,8 @@ class User extends \yii\db\ActiveRecord {
      */
     public function rules() {
 	return [
-	    [['account_id', 'contact_id', 'company_id', 'profileviews', 'rating'], 'integer'],
-	    [['last_login', 'birthdate', 'city_id', 'phone', 'site', 'way', 'mark'], 'safe'],
-	    [['profile_company', 'gender'], 'string', 'max' => 40],
+	    [['account_id', 'company_id', 'profileviews', 'rating'], 'integer'],
+	    [['last_login', 'birthdate', 'city_id', 'phone', 'site', 'mark'], 'safe'],
 	    [['image'], 'string', 'max' => 255],
 	    [['first_name', 'last_name', 'about'], 'string', 'max' => 50],
 	];
@@ -131,6 +130,14 @@ class User extends \yii\db\ActiveRecord {
     
     public function getPosition () {
 	return $this->getCityName(). ", " . $this->getCountryName();
+    }
+    
+    public function getMarks () {
+	$mMarks = Marks::find()->all();
+	foreach ($mMarks as $item) {
+	    $arr[$item->parent_id][$item->id] = $item->name;
+	}
+	return $arr;
     }
 
 }

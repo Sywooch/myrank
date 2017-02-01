@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $parent_id
  */
 class Marks extends \yii\db\ActiveRecord {
-    
+
     static $lists = [];
 
     /**
@@ -43,17 +43,17 @@ class Marks extends \yii\db\ActiveRecord {
 	    'parent_id' => Yii::t('app', 'Parent ID'),
 	];
     }
-    
-    public static function getList () {
-	if(empty(self::$lists)) {
-	    $arr = ArrayHelper::map(Marks::find()
-		    ->select(['id', 'name'])
-		    ->where(['parent_id' => 0])
-		    ->asArray()
-		    ->all(), 'id', 'name');
-	    self::$lists = array_merge([
-		0 => 'Без родителя'
-	    ], $arr);
+
+    public static function getList() {
+	if (empty(self::$lists)) {
+	    $mMarks = Marks::find()
+			    ->select(['id', 'name'])->where(['parent_id' => 0])
+			    ->all();
+	    self::$lists[0] = 'Без родителя';
+
+	    foreach ($mMarks as $item) {
+		self::$lists[$item->id] = $item->name;
+	    }
 	}
 	return self::$lists;
     }

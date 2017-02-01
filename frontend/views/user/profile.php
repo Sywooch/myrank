@@ -1,3 +1,7 @@
+<?php
+use frontend\widgets\MarksWidget;
+?>
+
 <div class="container">
     <div id="main">
 
@@ -102,7 +106,7 @@
 			    <p><?= $mUser->about ?></p>
 			</div>
 			<div class="b-user__info__list">
-			    <div class="b-user__info__list__col">
+			    <!-- div class="b-user__info__list__col">
 				<div class="b-user__info__list__item">
 				    <div class="b-user__info__list__item__content">
 					<div class="b-user__info__list__item__title">
@@ -113,7 +117,7 @@
 					</div>
 				    </div>
 				</div>
-			    </div>
+			    </div -->
 			    <div class="b-user__info__list__col">
 				<div class="b-user__info__list__item">
 				    <div class="b-user__info__list__item__content">
@@ -221,164 +225,7 @@
 	    <!-- end b-user -->
 
 	    <!-- begin b-marks -->
-	    <div class="b-marks b-block">
-		<div class="b-title">
-		    Оценки
-		</div>
-		<div class="b-marks__content">
-		    <?php if (!isNull($mUser->mark)) { ?>
-		    <div class="b-marks__item">
-			<div class="b-marks__item__header">
-			    <div class="b-marks__item__header__text">
-				<div class="b-marks__item__header__icon"></div>
-				<span>Работа</span>
-			    </div>
-			    <div class="b-marks__item__header__line">
-			    </div>
-			    <div class="b-marks__item__header__number">
-				9.6
-			    </div>
-			</div>
-			<div class="b-marks__item__content">
-			    <div class="b-marks__item__content__row">
-				<div class="b-marks__item__content__text">
-				    Исполнительность
-				</div>
-				<div class="b-marks__item__content__slider">
-				    <div class="b-marks__item__content__slider__amount">
-					<input type="text" class="marks-slider-amount" value="8.1">
-				    </div>
-				    <div class="b-marks__item__content__slider__content">
-					<div class="marks-slider"></div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-marks__item__content__row">
-				<div class="b-marks__item__content__text">
-				    Обучаемость
-				</div>
-				<div class="b-marks__item__content__slider">
-				    <div class="b-marks__item__content__slider__amount">
-					<input type="text" class="marks-slider-amount" value="7.3">
-				    </div>
-				    <div class="b-marks__item__content__slider__content">
-					<div class="marks-slider"></div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-marks__item__content__row">
-				<div class="b-marks__item__content__text">
-				    Целеустремленность
-				</div>
-				<div class="b-marks__item__content__slider">
-				    <div class="b-marks__item__content__slider__amount">
-					<input type="text" class="marks-slider-amount" value="9.2">
-				    </div>
-				    <div class="b-marks__item__content__slider__content">
-					<div class="marks-slider"></div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-marks__item__content__row">
-				<div class="b-marks__item__content__text">
-				    Пунктуальность
-				</div>
-				<div class="b-marks__item__content__slider">
-				    <div class="b-marks__item__content__slider__amount">
-					<input type="text" class="marks-slider-amount" value="6.7">
-				    </div>
-				    <div class="b-marks__item__content__slider__content">
-					<div class="marks-slider"></div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-marks__item__content__row">
-				<div class="b-marks__item__content__text">
-				    Точность выполнения задач
-				</div>
-				<div class="b-marks__item__content__slider">
-				    <div class="b-marks__item__content__slider__amount">
-					<input type="text" class="marks-slider-amount" value="0">
-				    </div>
-				    <div class="b-marks__item__content__slider__content">
-					<div class="marks-slider"></div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-marks__item__content__row">
-				<div class="b-marks__item__content__text">
-				    Качество работы
-				</div>
-				<div class="b-marks__item__content__slider">
-				    <div class="b-marks__item__content__slider__amount">
-					<input type="text" class="marks-slider-amount" value="0">
-				    </div>
-				    <div class="b-marks__item__content__slider__content">
-					<div class="marks-slider"></div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-marks__item__content__row">
-				<div class="b-marks__item__content__text">
-				    Скорость работы
-				</div>
-				<div class="b-marks__item__content__slider">
-				    <div class="b-marks__item__content__slider__amount">
-					<input type="text" class="marks-slider-amount" value="4.2">
-				    </div>
-				    <div class="b-marks__item__content__slider__content">
-					<div class="marks-slider"></div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-marks__item__content__row">
-				<div class="b-marks__item__content__text">
-				    Умение работать в команде
-				</div>
-				<div class="b-marks__item__content__slider">
-				    <div class="b-marks__item__content__slider__amount">
-					<input type="text" class="marks-slider-amount" value="9.8">
-				    </div>
-				    <div class="b-marks__item__content__slider__content">
-					<div class="marks-slider"></div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-marks__item__content__row">
-				<div class="b-marks__item__content__text">
-				    Умение управлять командой
-				</div>
-				<div class="b-marks__item__content__slider">
-				    <div class="b-marks__item__content__slider__amount">
-					<input type="text" class="marks-slider-amount" value="7.7">
-				    </div>
-				    <div class="b-marks__item__content__slider__content">
-					<div class="marks-slider"></div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-marks__item__content__row">
-				<div class="b-marks__item__content__text">
-				    Организаторские способности
-				</div>
-				<div class="b-marks__item__content__slider">
-				    <div class="b-marks__item__content__slider__amount">
-					<input type="text" class="marks-slider-amount" value="9.6">
-				    </div>
-				    <div class="b-marks__item__content__slider__content">
-					<div class="marks-slider"></div>
-				    </div>
-				</div>
-			    </div>
-			</div>
-		    </div>
-		    <?php } ?>
-		</div>
-		<div class="b-marks__button">
-		    <a class="button-small" href="#">Сохранить оценку</a>
-		</div>
-
-	    </div>
+	    <?= MarksWidget::widget(['model' => $mUser]); ?>
 	    <!-- end b-marks -->
 
 
@@ -531,7 +378,9 @@
 	    <div class="b-diagramm b-block">
 		<div class="b-title">Диаграмма оценок</div>
 		<div class="b-diagramm__content">
-		    <img src="/images/b-diagramm.jpg" alt="">
+		    <?= frontend\widgets\MarksDiagramWidget::widget([
+			'model' => $mUser
+		    ]); ?>
 		</div>
 	    </div>
 	    <!-- end b-diagramm -->
