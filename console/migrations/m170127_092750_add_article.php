@@ -20,6 +20,7 @@ class m170127_092750_add_article extends Migration
         $this->createTable('{{%article}}', [
             'id_article'            => $this->bigPrimaryKey(20),                                                        // bigint(20) NOT NULL AUTO_INCREMENT,
             'title'                 => $this->string(255)->notNull()->comment("Наименование статьи"),                   // varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+            'abridgment'            => $this->string(255)->notNull()->comment("Сокращенная часть статьи (для списка статей)"),
             'content'               => $this->text()->comment("Текст статьи"),                                          // text COLLATE utf8_unicode_ci,
             'header_title'          => $this->string(128)->notNull()->comment("Заголовок статьи / Дата"),               // varchar(255) COLLATE utf8_unicode_ci NOT NULL,
             'header_image'          => $this->string(255)->comment("Изображение статьи"),                               // varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -58,6 +59,7 @@ class m170127_092750_add_article extends Migration
 
         $this->insert('article', [
             'title' => 'Самая большая ошибка на собеседовании',
+            'abridgment'=> 'Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты.',
             'content' => 'Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Вдали от всех живут они в буквенных домах на берегу Семантика большого языкового океана. Маленький ручеек Даль журчит по всей стране и обеспечивает ее всеми необходимыми правилами. Эта парадигматическая страна, в которой жаренные члены предложения залетают прямо в рот.',
             'header_title'=>'27.01.2017',
             'header_image'=> 'http://project-1.topsu.ru/images/b-article__header__image/1.jpg',
@@ -70,6 +72,7 @@ class m170127_092750_add_article extends Migration
         ]);
         $this->insert('article', [
             'title' => 'Формула успешного собеседования',
+            'abridgment'=> 'Близко-близко в стране глупых согласных живут рыбные тексты.',
             'content' => 'Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Вдали от всех живут они в буквенных домах на берегу Семантика большого языкового океана. Маленький ручеек Даль журчит по всей стране и обеспечивает ее всеми необходимыми правилами. Эта парадигматическая страна, в которой жаренные члены предложения залетают прямо в рот.',
             'header_title'=>'29.01.2017',
             'header_image'=> '',
