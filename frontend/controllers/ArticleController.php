@@ -41,21 +41,54 @@ class ArticleController extends Controller
     {
         /*$searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);*/
+
         $model = new $this->modelClass;
         $query = $model::find();
         $dataProvider = new ActiveDataProvider(['query' => $query]);
+
         $dataProvider->pagination = false; // отключаем пагинацию
         //$query->andWhere(['user_id' => \Yii::$app->user->identity->id]);
-        //return $dataProvider;
-        return $this->render('index', [
-            'dataProvider' => $dataProvider
-            ]
-        );
+
+        $query_result_counter = $dataProvider->getTotalCount();
+
+        /*$elements_to_index = array(
+            'id_article',
+            'title',
+            'abridgment',
+            //'content',
+            'header_title',
+            //'header_image',
+            'header_image_small',
+            'article_category_id',
+            //'status',
+            //'views',
+            //'create_time',
+            //'update_time'
+        );*/
+        if ($query_result_counter == 0)
+            return 'false';
+        else {
+            //echo 'Количество статей: '.$query_result_counter.'<br>';
+            $posts =  $dataProvider->getModels();
+            /*foreach($posts as $key=>&$post) { //  foreach($posts as &$post) {
+                if(!in_array($key,$elements_to_index))
+                {
+                    unset($posts[$key]);
+                }
+            }
+            unset($post); // разорвать ссылку на последний элемент
+            */
+            return $this->render('index', [
+                    'posts' => $posts,
+                    'articles_count' => $query_result_counter,
+                    //'model' => $this->findModel(1)
+                ]
+            );
+        }
     }
 
     /**

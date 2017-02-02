@@ -28,7 +28,7 @@ $act = Yii::$app->controller->action->id;
     <?= Html::csrfMetaTags() ?>
     <?php $this->head() ?>
 </head>
-<body>
+<body class="gray-bg">
     <?php $this->beginBody() ?>
     <div id="container">
 

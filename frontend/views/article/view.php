@@ -8,9 +8,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-
-
-
 <div class="container">
     <div id="main">
 

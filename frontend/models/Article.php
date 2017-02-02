@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id_article
  * @property string $title
+ * @property string $abridgment
  * @property string $content
  * @property string $header_title
  * @property string $header_image

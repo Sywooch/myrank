@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ArticleSearch */
@@ -13,145 +14,209 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="container">
     <div id="main">
-
         <!-- begin b-content -->
-        <div class="b-content">
+        <div class="b-block articles-list"> <!-- b-content -->
+            <div class="b-title">Блог статей</div>
 
-            <!-- begin b-block articles-list -->
-            <div class="b-block articles-list">
-
-                <!-- begin b-title -->
-                <div class="b-title">Блог статей</div>
-                <!-- end b-title -->
-
-                <?php
-                    //var_dump($searchModel,$dataProvider);
-
-                    $query_result_counter = $dataProvider->getTotalCount();
-                    if ($query_result_counter == 0)
-                        return 'false';
-                    else {
-                        echo 'Количество статей: '.$query_result_counter.'<br>';
-                        $posts =  $dataProvider->getModels();
-                        foreach($posts as &$post) {
-                            if(isset($post['id_article']) && !empty($post['id_article'])) {
-                                echo $post['id_article'].'<br>';
-                            }
-                            if(isset($post['title']) && !empty($post['title'])) {
-                                echo $post['title'].'<br>';
-                            }
-                            if(isset($post['abridgment']) && !empty($post['abridgment'])) {
-                                echo $post['abridgment'].'<br>';
-                            }
-                            if(isset($post['content']) && !empty($post['content'])) {
-                                echo $post['content'].'<br>';
-                            }
-                            if(isset($post['header_title']) && !empty($post['header_title'])) {
-                                echo $post['header_title'].'<br>';
-                            }
-                            if(isset($post['header_image']) && !empty($post['header_image'])) {
-                                echo $post['header_image'].'<br>';
-                            }
-                            if(isset($post['header_image_small']) && !empty($post['header_image_small'])) {
-                                echo $post['header_image_small'].'<br>';
-                            }
-                            if(isset($post['article_category_id']) && !empty($post['article_category_id'])) {
-                                echo $post['article_category_id'].'<br>';
-                            }
-                            if(isset($post['status']) && !empty($post['status'])) {
-                                echo $post['status'].'<br>';
-                            }
-                            if(isset($post['views']) && !empty($post['views'])) {
-                                echo $post['views'].'<br>';
-                            }
-                            if(isset($post['create_time']) && !empty($post['create_time'])) {
-                                echo $post['create_time'].'<br>';
-                            }
-                            if(isset($post['update_time']) && !empty($post['update_time'])) {
-                                echo $post['update_time'].'<br>';
-                            }
-
-                            echo '<br>';
-
-                        }
-                        /*echo yii\grid\GridView::widget([
-                            'dataProvider' => $dataProvider,
-                        ]);*/
-                    }
-                    //var_dump($dataProvider->models);
-                ?>
-
-                <!-- begin b-articles__content -->
-                <div class="b-articles__content">
-                    <div class="articles-list__item">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6">
-                                <div class="b-articles__item b-articles__item_large">
-                                    <div class="b-articles__item__image">
-                                        <img src="images/b-articles/b-articles_large/1.jpg" alt="">
-                                    </div>
-                                    <div class="b-articles__item__content">
-                                        <div class="b-articles__item__title">
-                                            Формула успешного собеседования
-                                        </div>
-                                        <div class="b-articles__item__text">
-                                            ТОП пользователей с максимальным рейтингом. ТОП
-                                            пользователей с максимальным рейтингом. Пользователи с
-                                            максимальным рейтингом.
-                                        </div>
-                                        <div class="b-articles__item__tags">
-                                            <a href="#">Продуктивность</a>
-                                            <a href="#">Новости</a>
-                                        </div>
-                                    </div>
+            <!-- begin b-articles__content !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+            <div class="b-articles__content">
+                <?php if ($articles_count>0) {
+                    $counter = 0;
+                    foreach ($posts as $post) {
+                        ++$counter;
+                        if ($counter % 2 !== 0) {?>
+                            <div class="articles-list__item">
+                            <div class="row">
+                        <?php } ?>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="b-articles__item b-articles__item_large">
+                                <div class="b-articles__item__image">
+                                    <a href="/article/<?= $post->id_article; ?>"><img src="<?= $post->header_image_small; ?>" alt=""></a>
                                 </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <div class="b-articles__item b-articles__item_large">
-                                    <div class="b-articles__item__image">
-                                        <img src="images/b-articles/b-articles_large/1.jpg" alt="">
+                                <div class="b-articles__item__content">
+                                    <div class="b-articles__item__title">
+                                        <a href="/article/<?= $post->id_article; ?>"><?= $post->title; ?></a>
                                     </div>
-                                    <div class="b-articles__item__content">
-                                        <div class="b-articles__item__title">
-                                            Формула успешного собеседования
-                                        </div>
-                                        <div class="b-articles__item__text">
-                                            ТОП пользователей с максимальным рейтингом. ТОП
-                                            пользователей с максимальным рейтингом. Пользователи с
-                                            максимальным рейтингом.
-                                        </div>
-                                        <div class="b-articles__item__tags">
-                                            <a href="#">Продуктивность</a>
-                                            <a href="#">Новости</a>
-                                        </div>
+                                    <div class="b-articles__item__text">
+                                        <?= $post->abridgment; ?>
+                                    </div>
+                                    <div class="b-articles__item__tags">
+                                        <a href="#"><?= $post->article_category_id; ?></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-
-                </div>
-                <!-- end b-articles__content -->
-
-                <!-- begin b-pagination -->
-                <!--<div class="b-pagination">
-                    <ul>
-                        <li class="b-pagination__prev"><a href="#"></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li class="b-pagination__next"><a href="#"></a></li>
-                    </ul>
-                </div>-->
-                <!-- end b-pagination -->
+                        <?php if ($counter % 2 == 0) { ?>
+                            </div>
+                            </div>
+                        <?php }
+                    }
+                } ?>
             </div>
-            <!-- end b-block articles-list -->
+            <!-- end b-articles__content !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
+
+
+            <div class="b-pagination">
+                <ul>
+                    <li class="b-pagination__prev"><a href="#"></a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li class="b-pagination__next"><a href="#"></a></li>
+                </ul>
+            </div>
         </div>
         <!-- end b-content -->
-
+        <!-- begin b-sidebar -->
+        <aside class="b-sidebar">
+            <div class="b-block">
+                <div class="b-title">Последние материалы</div>
+                <div class="b-articles__content">
+                    <div class="b-articles__item">
+                        <div class="b-articles__item__image">
+                            <img src="http://project-1.topsu.ru/images/b-article__header__image/1.jpg" alt="">
+                        </div>
+                        <div class="b-articles__item__content">
+                            <div class="b-articles__item__title">
+                                что вы себе пожелали бы в следующем году?
+                            </div>
+                            <div class="b-articles__item__text">
+                                ТОП пользователей с максимальным рейтингом. ТОП
+                                пользователей с максимальным рейтингом.
+                            </div>
+                            <div class="b-articles__item__tags">
+                                <a href="#">Продуктивность</a>
+                                <a href="#">Новости</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b-articles__item">
+                        <div class="b-articles__item__image">
+                            <img src="http://project-1.topsu.ru/images/b-article__header__image/1.jpg" alt="">
+                        </div>
+                        <div class="b-articles__item__content">
+                            <div class="b-articles__item__title">
+                                Amazon заменила курьеров дронами
+                            </div>
+                            <div class="b-articles__item__text">
+                                ТОП пользователей с максимальным рейтингом. ТОП
+                                пользователей с максимальным рейтингом.
+                            </div>
+                            <div class="b-articles__item__tags">
+                                <a href="#">Образование</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b-articles__item">
+                        <div class="b-articles__item__image">
+                            <img src="http://project-1.topsu.ru/images/b-article__header__image/1.jpg" alt="">
+                        </div>
+                        <div class="b-articles__item__content">
+                            <div class="b-articles__item__title">
+                                25 фраз для собеседования на английском
+                            </div>
+                            <div class="b-articles__item__text">
+                                ТОП пользователей с максимальным рейтингом. ТОП
+                                пользователей с максимальным рейтингом.
+                            </div>
+                            <div class="b-articles__item__tags">
+                                <a href="#">Продуктивность</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- end b-sidebar -->
     </div>
 </div>
+
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- begin b-block articles-list -->
+<div class="b-block articles-list"> <!-- b-block articles-list -->
+    <!-- begin b-title -->
+    <div class="b-title">Блог статей</div>
+    <!-- end b-title -->
+
+
+    <!-- begin b-articles__content -->
+    <div class="b-articles__content">
+        <?php if ($articles_count>0) {
+            $counter = 0;
+            foreach ($posts as $post) {
+                ++$counter;
+                if ($counter % 2 !== 0) {?>
+                    <div class="articles-list__item">
+                    <div class="row">
+                <?php } ?>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="b-articles__item b-articles__item_large">
+                        <div class="b-articles__item__image">
+                            <a href="/article/<?= $post->id_article; ?>"><img src="<?= $post->header_image_small; ?>" alt=""></a>
+                        </div>
+                        <div class="b-articles__item__content">
+                            <div class="b-articles__item__title">
+                                <a href="/article/<?= $post->id_article; ?>"><?= $post->title; ?></a>
+                            </div>
+                            <div class="b-articles__item__text">
+                                <?= $post->abridgment; ?>
+                            </div>
+                            <div class="b-articles__item__tags">
+                                <a href="#"><?= $post->article_category_id; ?></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php if ($counter % 2 == 0) { ?>
+                    </div>
+                    </div>
+                <?php }
+            }
+        } ?>
+    </div>
+    <!-- end b-articles__content -->
+
+    <!-- begin b-pagination -->
+    <!-- <div class="b-pagination">
+        <ul>
+            <li class="b-pagination__prev"><a href="#"></a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li class="b-pagination__next"><a href="#"></a></li>
+        </ul>
+    </div> -->
+    <!-- end b-pagination -->
+</div>
+<!-- end b-block articles-list -->
+
+<!-- begin b-text -->
+<div class="b-article b-block">
+    <div class="b-title">
+        <h1>model->title</h1>
+    </div>
+    <div class="b-article__header">
+        <div class="b-article__header__title">
+            <span>$model->header_title</span>
+        </div>
+        <div class="b-article__header__image">
+            <img src="model->header_image" alt="">
+        </div>
+        <div class="b-article__header__info">
+            <div class="b-articles__item__tags">
+                <a href="#">model->article_category_id</a>
+            </div>
+            <div class="b-article__header__info__social">
+            </div>
+        </div>
+    </div>
+    <div class="b-article__content">
+        model->content
+    </div>
+</div>
+<!-- end b-text -->
