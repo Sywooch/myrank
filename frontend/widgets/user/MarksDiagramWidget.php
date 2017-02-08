@@ -1,8 +1,6 @@
 <?php
 
-namespace frontend\widgets;
-
-use yii\base\Widget;
+namespace frontend\widgets\user;
 
 class MarksDiagramWidget extends MarksWidget {
     

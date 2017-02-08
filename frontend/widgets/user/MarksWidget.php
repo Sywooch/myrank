@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\widgets;
+namespace frontend\widgets\user;
 
 use yii\base\Widget;
 use yii\helpers\Json;

@@ -1,5 +1,10 @@
 <?php
-use frontend\widgets\MarksWidget;
+use frontend\widgets\user\MarksWidget;
+use frontend\widgets\user\MarksDiagramWidget;
+use frontend\widgets\user\UserInfoWidget;
+use frontend\widgets\user\TestimonialsWidget;
+
+$fieldVal = $mUser->attributeLabels();
 ?>
 
 <div class="container">
@@ -106,102 +111,12 @@ use frontend\widgets\MarksWidget;
 			    <p><?= $mUser->about ?></p>
 			</div>
 			<div class="b-user__info__list">
-			    <!-- div class="b-user__info__list__col">
-				<div class="b-user__info__list__item">
-				    <div class="b-user__info__list__item__content">
-					<div class="b-user__info__list__item__title">
-					    Специализация
-					</div>
-					<div class="b-user__info__list__item__text">
-					    Facebook management
-					</div>
-				    </div>
-				</div>
-			    </div -->
-			    <div class="b-user__info__list__col">
-				<div class="b-user__info__list__item">
-				    <div class="b-user__info__list__item__content">
-					<div class="b-user__info__list__item__title">
-					    Номер телефона
-					</div>
-					<div class="b-user__info__list__item__text">
-					    <a href="tel:0443332211">044 333 22 11</a>
-					</div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-user__info__list__col">
-				<div class="b-user__info__list__item">
-				    <div class="b-user__info__list__item__content">
-					<div class="b-user__info__list__item__title">
-					    Количество сотрудников
-					</div>
-					<div class="b-user__info__list__item__text">
-					    100 - 500
-					</div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-user__info__list__col">
-				<div class="b-user__info__list__item">
-				    <div class="b-user__info__list__item__content">
-					<div class="b-user__info__list__item__title">
-					    Дата рагистрации компании
-					</div>
-					<div class="b-user__info__list__item__text">
-					    20.12.1986
-					</div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-user__info__list__col">
-				<div class="b-user__info__list__item">
-				    <div class="b-user__info__list__item__content">
-					<div class="b-user__info__list__item__title">
-					    Ежегодный оборот компании
-					</div>
-					<div class="b-user__info__list__item__text">
-					    1 млн руб - 5 млн руб
-					</div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-user__info__list__col">
-				<div class="b-user__info__list__item">
-				    <div class="b-user__info__list__item__content">
-					<div class="b-user__info__list__item__title">
-					    Директор
-					</div>
-					<div class="b-user__info__list__item__text">
-					    Степаненко Сергей Георгиевич
-					</div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-user__info__list__col">
-				<div class="b-user__info__list__item">
-				    <div class="b-user__info__list__item__content">
-					<div class="b-user__info__list__item__title">
-					    Контактное лицо, ФИО
-					</div>
-					<div class="b-user__info__list__item__text">
-					    Сыромятников Виталий Викторович
-					</div>
-				    </div>
-				</div>
-			    </div>
-			    <div class="b-user__info__list__col">
-				<div class="b-user__info__list__item">
-				    <div class="b-user__info__list__item__content">
-					<div class="b-user__info__list__item__title">
-					    Контактное лицо, должность
-					</div>
-					<div class="b-user__info__list__item__text">
-					    Менеджер
-					</div>
-				    </div>
-				</div>
-			    </div>
+			    <?= UserInfoWidget::widget([
+				'model' => $mUser,
+				'fields' => [
+				    $fieldVal['phone'] => $mUser->phone,
+				],
+			    ]); ?>
 			</div>
 		    </div>
 		</div>
@@ -230,142 +145,9 @@ use frontend\widgets\MarksWidget;
 
 
 	    <!-- begin b-comments -->
-	    <div class="b-comments b-block">
-		<div class="b-title">
-		    Отзывы
-		    <a class="button-small" href="#">Оставить отзыв</a>
-		</div>
-		<div class="b-comments__content">
-		    <div class="b-comments__item">
-			<div class="b-comments__item__image">
-			    <img src="/images/users/2.jpg" alt="">
-			    <div class="b-comments__item__number">
-				978
-			    </div>
-			</div>
-			<div class="b-comments__item__info">
-			    <div class="b-comments__item__date">
-				5.12.2016
-			    </div>
-			    <div class="b-comments__item__smile b-comments__item__smile_positive"></div>
-			    <div class="b-comments__item__actions">
-				<a href="#">Ответить</a>
-				<a href="#">Пожаловаться</a>
-			    </div>
-			</div>
-			<div class="b-comments__item__content">
-			    <div class="b-comments__item__title">
-				Отличный работник!
-			    </div>
-			    <div class="b-comments__item__name">
-				Ева Гарднер
-			    </div>
-			    <div class="b-comments__item__post">
-				Инженер
-			    </div>
-			    <div class="b-comments__item__text">
-				<p>
-				    Далеко-далеко за словесными горами в
-				    стране гласных и согласных живут рыбные
-				    тексты. Вдали от всех живут они в буквенных
-				    домах на берегу Семантика большого
-				    языкового океана. Маленький ручеек журчит.
-				</p>
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-comments__item">
-			<div class="b-comments__item__image">
-			    <img src="/images/users/4.jpg" alt="">
-			    <div class="b-comments__item__number">
-				978
-			    </div>
-			</div>
-			<div class="b-comments__item__info">
-			    <div class="b-comments__item__date">
-				5.12.2016
-			    </div>
-			    <div class="b-comments__item__smile b-comments__item__smile_negative"></div>
-			    <div class="b-comments__item__actions">
-				<a href="#">Ответить</a>
-				<a href="#">Пожаловаться</a>
-			    </div>
-			</div>
-			<div class="b-comments__item__content">
-			    <div class="b-comments__item__title">
-				Доволен сотрудничеством
-			    </div>
-			    <div class="b-comments__item__name">
-				Денис Пашков
-			    </div>
-			    <div class="b-comments__item__post">
-				Менеджер
-			    </div>
-			    <div class="b-comments__item__text">
-				<p>
-				    Далеко-далеко за словесными горами в
-				    стране гласных и согласных живут рыбные
-				    тексты. Вдали от всех живут они в буквенных
-				    домах на берегу Семантика большого
-				    языкового океана.
-				</p>
-			    </div>
-			    <div class="b-comments__item__answer">
-				<div class="b-comments__item__answer__image">
-				    <img src="/images/users/5.jpg" alt="">
-				</div>
-				<div class="b-comments__item__answer__text">
-				    <p>
-					Спасибо за эти замечательные
-					слова! надеюсь поработать вместе
-					еще не раз!
-				    </p>
-				</div>
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-comments__item">
-			<div class="b-comments__item__image">
-			    <img src="/images/users/3.jpg" alt="">
-			    <div class="b-comments__item__number">
-				978
-			    </div>
-			</div>
-			<div class="b-comments__item__info">
-			    <div class="b-comments__item__date">
-				5.12.2016
-			    </div>
-			    <div class="b-comments__item__smile b-comments__item__smile_neutral"></div>
-			    <div class="b-comments__item__actions">
-				<a href="#">Ответить</a>
-				<a href="#">Пожаловаться</a>
-			    </div>
-			</div>
-			<div class="b-comments__item__content">
-			    <div class="b-comments__item__title">
-				Отличный работник!
-			    </div>
-			    <div class="b-comments__item__name">
-				Анна Скрынник
-			    </div>
-			    <div class="b-comments__item__post">
-				Рекрутер
-			    </div>
-			    <div class="b-comments__item__text">
-				<p>
-				    Далеко-далеко за словесными горами в
-				    стране гласных и согласных живут рыбные
-				    тексты.
-				</p>
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-comments__button-more">
-			<span class="b-comments__button-more__default">БОЛЬШЕ</span>
-			<span class="b-comments__button-more__loading"></span>
-		    </div>
-		</div>
-	    </div>
+	    <?= TestimonialsWidget::widget([
+		'model' => $mUser
+	    ]); ?>
 	    <!-- end b-comments -->
 
 	</div>
@@ -378,7 +160,7 @@ use frontend\widgets\MarksWidget;
 	    <div class="b-diagramm b-block">
 		<div class="b-title">Диаграмма оценок</div>
 		<div class="b-diagramm__content">
-		    <?= frontend\widgets\MarksDiagramWidget::widget([
+		    <?= MarksDiagramWidget::widget([
 			'model' => $mUser
 		    ]); ?>
 		</div>

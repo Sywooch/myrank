@@ -71,7 +71,7 @@ class User extends \yii\db\ActiveRecord {
      * @inheritdoc
      */
     public static function tableName() {
-	return 'user';
+	return '{{user}}';
     }
 
     /**
@@ -102,12 +102,17 @@ class User extends \yii\db\ActiveRecord {
 	    'last_name' => Yii::t('app', 'Last Name'),
 	    'about' => Yii::t('app', 'About'),
 	    'last_login' => Yii::t('app', 'Last Login'),
-	    'rating' => Yii::t('app', 'Rating'),
-	    'birthdate' => Yii::t('app', 'Birthdate'),
-	    'gender' => Yii::t('app', 'Gender'),
+	    'rating' => Yii::t('app', 'Рейтинг'),
+	    'birthdate' => Yii::t('app', 'День рождения'),
+	    'gender' => Yii::t('app', 'Пол'),
+	    'city_id' => \Yii::t('app', 'Город'),
+	    'phone' => \Yii::t('app', 'Номер телефона'),
+	    'site' => \Yii::t('app', 'Сайт'),
+	    'mark' => \Yii::t('app', 'Оценка'),
 	];
     }
     
+    // Связи
     public function getCity () {
 	return $this->hasOne(City::className(), ['city_id' => 'city_id']);
     }
@@ -115,6 +120,12 @@ class User extends \yii\db\ActiveRecord {
     public function getImages () {
 	return $this->hasMany(Images::className(), ['user_id' => 'id']);
     }
+    
+    public function getTestimonials () {
+	return $this->hasMany(Testimonials::className(), ['user_to' => 'id']);
+    }
+    
+    //
     
     public function getFullName () {
 	return $this->first_name." ".$this->last_name;

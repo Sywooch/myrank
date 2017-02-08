@@ -119,6 +119,7 @@ $act = Yii::$app->controller->action->id;
     </div>
 
     <?= $this->render("_footer"); ?>
+    <?= $this->render("_modal"); ?>
 
     <?php $this->endBody() ?>
 </body>

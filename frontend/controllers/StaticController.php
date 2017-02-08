@@ -1,7 +1,7 @@
 <?php
 namespace frontend\controllers; //namespace app\controllers;
 
-use yii\web\Controller;
+use frontend\components\Controller;
 
 class StaticController extends Controller
 {
