@@ -10,11 +10,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="container">
     <div id="main">
-
-        <!-- begin b-content -->
         <div class="b-content">
-
-            <!-- begin b-text -->
             <div class="b-article b-block">
                 <div class="b-title">
                     <h1><?= Html::encode($model->title) ?></h1>
@@ -28,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="b-article__header__info">
                         <div class="b-articles__item__tags">
-                            <a href="#"><?= Html::encode($model->article_category_id) ?></a>
+                            <a href="#"><?= Html::encode($model->articleCategory->name) ?></a>
                         </div>
                         <div class="b-article__header__info__social">
                             <!--<a href="#"><img src="images/b-article__header__info__social/1.jpg" alt=""></a>-->
@@ -39,9 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Html::encode($model->content) ?>
                 </div>
             </div>
-            <!-- end b-text -->
-
-            <!-- begin b-articles-list -->
             <div class="b-block articles-list">
                 <div class="b-title">Читайте также</div>
                 <div class="b-articles__content">
@@ -93,14 +86,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
             </div>
-            <!-- end b-articles-list -->
-
         </div>
-        <!-- end b-content -->
-
-        <!-- begin b-sidebar -->
         <aside class="b-sidebar">
-
             <div class="b-block">
                 <div class="b-title">Последние материалы</div>
                 <div class="b-articles__content">
@@ -161,9 +148,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
             </div>
-
         </aside>
-        <!-- end b-sidebar -->
-
     </div>
 </div>
