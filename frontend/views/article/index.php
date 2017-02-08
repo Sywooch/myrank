@@ -23,22 +23,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 $counter_post = 0;
                 foreach ($posts as $post) {
                     ++$counter_post;
-                    if ($counter_post % 2 == 1) { //нечетные
+                    if ($counter_post % 2 == 1) {
               ?>
                     <div class="articles-list__item">
                         <div class="row"><?php
                     }
-                    if ($counter_post % 2 == 0) {//четные
-
-                    }
                       ?>    <div class="col-xs-12 col-sm-6">
                                 <div class="b-articles__item b-articles__item_large">
                                     <div class="b-articles__item__image">
-                                        <a href="/article/' . $post->id_article . '"><img src="<?= $post->header_image_small ?>" alt=""></a>
+                                        <a href="/article/<?= $post->id_article ?>"><img src="<?= $post->header_image_small ?>" alt=""></a>
                                     </div>
                                     <div class="b-articles__item__content">
                                         <div class="b-articles__item__title">
-                                            <a href="/article/' . $post->id_article . '"><?= $post->title ?></a>
+                                            <a href="/article/<?= $post->id_article ?>"><?= $post->title ?></a>
                                         </div>
                                         <div class="b-articles__item__text">
                                             <?= $post->abridgment ?>
@@ -71,9 +68,9 @@ echo '                    </div>'.PHP_EOL;
                             <li class="b-pagination__next"><a href="#"></a></li>
                         </ul>
                     </div>
-                </div> <!-- b-articles__content -->
-            </div> <!-- b-block articles-list -->
-        </div> <!-- b-content -->
+                </div>
+            </div>
+        </div>
         <aside class="b-sidebar">
             <div class="b-block">
                 <div class="b-title">Последние материалы</div>
@@ -133,5 +130,8 @@ echo '                    </div>'.PHP_EOL;
                 </div>
             </div>
         </aside>
-    </div><!-- <div id="main"> -->
-</div><!-- <div class="container"> -->
+    </div>
+</div>
+<?php
+    echo $model->articleCategory->name;
+?>
