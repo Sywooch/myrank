@@ -132,6 +132,3 @@ echo '                    </div>'.PHP_EOL;
         </aside>
     </div>
 </div>
-<?php
-    echo $model->articleCategory->name;
-?>
