@@ -55,20 +55,13 @@ class ArticleController extends Controller
 
         $query_result_counter = $dataProvider->getTotalCount();
 
-        /*$elements_to_index = array(
-            'id_article',
-            'title',
-            'abridgment',
-            //'content',
-            'header_title',
-            //'header_image',
-            'header_image_small',
-            'article_category_id',
-            //'status',
-            //'views',
-            //'create_time',
-            //'update_time'
-        );*/
+        /*$elements_to_index = array('id_article','title','abridgment',
+                    //'content',
+                    'header_title',
+                    //'header_image',
+                    'header_image_small','article_category_id',
+                    //'status','views','create_time','update_time'
+                );*/
         if ($query_result_counter == 0)
             return 'false';
         else {
@@ -83,6 +76,8 @@ class ArticleController extends Controller
             unset($post); // разорвать ссылку на последний элемент
             */
             return $this->render('index', [
+                    'model' => $model,//'model' => $this->findModel(1)
+                    'dataProvider' => $dataProvider,
                     'posts' => $posts,
                     'articles_count' => $query_result_counter,
                     //'model' => $this->findModel(1)
