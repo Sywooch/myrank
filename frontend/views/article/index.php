@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ListView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ArticleSearch */
@@ -31,11 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
                       ?>    <div class="col-xs-12 col-sm-6">
                                 <div class="b-articles__item b-articles__item_large">
                                     <div class="b-articles__item__image">
-                                        <a href="/article/<?= $post->id_article ?>"><img src="<?= $post->header_image_small ?>" alt=""></a>
+                                        <a href="<?= Url::to(['article/view', 'id' => $post->id_article]); ?>"><img src="<?= $post->header_image_small ?>" alt=""></a>
                                     </div>
                                     <div class="b-articles__item__content">
                                         <div class="b-articles__item__title">
-                                            <a href="/article/<?= $post->id_article ?>"><?= $post->title ?></a>
+                                            <a href="<?= Url::to(['article/view', 'id' => $post->id_article]); ?>"><?= $post->title ?></a>
                                         </div>
                                         <div class="b-articles__item__text">
                                             <?= $post->abridgment ?>
