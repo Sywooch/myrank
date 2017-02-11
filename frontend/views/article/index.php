@@ -5,12 +5,16 @@ use yii\grid\GridView;
 use yii\widgets\ListView;
 use yii\helpers\Url;
 
+use yii\data\ActiveDataProvider;
+use app\models\Article;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ArticleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Articles';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="container">
@@ -19,8 +23,36 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="b-block articles-list">
                 <div class="b-title">Блог статей</div>
                 <div class="b-articles__content">
+
+
 <?php
-            if ($articles_count>0) {
+    if ($articlesCount>0) {
+        echo ListView::widget([
+            'dataProvider' => $listDataProvider,
+            'itemView' => '_list',
+            'viewParams' => [
+                'paginationPageSize' => $paginationPageSize,
+                // ...
+            ],
+            //'options'
+            //'layout'
+            //'itemView' => function ($model, $key, $index, $widget) {
+            //    return Html::a(Html::encode($model->title), ['view', 'id' => $model->id_article]);
+            //},
+            //'itemOptions' => ['class' => 'item'],
+            //'summary'
+            //'summaryOptions'
+            //'pager'
+                //'firstPageLabel'
+                //'lastPageLabel'
+                //'nextPageLabel'
+                //'prePageLabel'
+                //'maxButtonCount'
+
+        ]);
+    }
+/////////////////////////////////////////////////////////////////////
+            /*if ($articles_count>0) {
                 $counter_post = 0;
                 foreach ($posts as $post) {
                     ++$counter_post;
@@ -56,9 +88,10 @@ echo '                    </div>'.PHP_EOL;
                     </div><?php
                     }
                 }
-            }
+            }*/
+///////////////////////////////////////////////////////////////////////////
 ?>
-                    <div class="b-pagination">
+                    <!--<div class="b-pagination">
                         <ul>
                             <li class="b-pagination__prev"><a href="#"></a></li>
                             <li class="active"><a href="#">1</a></li>
@@ -68,10 +101,12 @@ echo '                    </div>'.PHP_EOL;
                             <li><a href="#">5</a></li>
                             <li class="b-pagination__next"><a href="#"></a></li>
                         </ul>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
+
+
         <aside class="b-sidebar">
             <div class="b-block">
                 <div class="b-title">Последние материалы</div>
