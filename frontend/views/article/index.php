@@ -5,60 +5,88 @@ use yii\grid\GridView;
 use yii\widgets\ListView;
 use yii\helpers\Url;
 
+use yii\data\ActiveDataProvider;
+use app\models\Article;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ArticleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+//$widget = \yii\widgets\ListView::begin([ some code ]);
+////<ul class="cam-list row clearfix">
+//    <?php echo $widget->renderItems();
+////</ul>
+// echo $widget->renderPager();
+
+
 $this->title = 'Articles';
 $this->params['breadcrumbs'][] = $this->title;
-?>
 
-<div class="container">
-    <div id="main">
-        <div class="b-content">
-            <div class="b-block articles-list">
-                <div class="b-title">Блог статей</div>
-                <div class="b-articles__content">
-<?php
-            if ($articles_count>0) {
-                $counter_post = 0;
-                foreach ($posts as $post) {
-                    ++$counter_post;
-                    if ($counter_post % 2 == 1) {
-              ?>
-                    <div class="articles-list__item">
-                        <div class="row"><?php
-                    }
-                      ?>    <div class="col-xs-12 col-sm-6">
-                                <div class="b-articles__item b-articles__item_large">
-                                    <div class="b-articles__item__image">
-                                        <a href="<?= Url::to(['article/view', 'id' => $post->id_article]); ?>"><img src="<?= $post->header_image_small ?>" alt=""></a>
-                                    </div>
-                                    <div class="b-articles__item__content">
-                                        <div class="b-articles__item__title">
-                                            <a href="<?= Url::to(['article/view', 'id' => $post->id_article]); ?>"><?= $post->title ?></a>
-                                        </div>
-                                        <div class="b-articles__item__text">
-                                            <?= $post->abridgment ?>
-                                        </div>
-                                        <div class="b-articles__item__tags">
-                                            <a href="#"><?= $post->article_category_id ?></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><?php
-                    if (($counter_post % 2 == 1) && ($counter_post == $articles_count)) {
-echo '                        </div>'.PHP_EOL;
-echo '                    </div>'.PHP_EOL;
-                    }
-                    if ($counter_post % 2 == 0) {?>
-                        </div>
-                    </div><?php
-                    }
-                }
-            }
+?>    <div class="container">
+            <div id="main">
+                <div class="b-content">
+                    <div class="b-block articles-list">
+                        <div class="b-title">Блог статей</div>
+                        <!-- div class= b-articles__content -->
+                        <div class="b-articles__content"><?php
+    echo PHP_EOL;
+    echo '                            ';
+    if ($articlesCount>0) {
+        // Виджет списка новостей
+        echo ListView::widget([
+            'dataProvider' => $listDataProvider, // Данные списка
+            'itemView' => '_list', // Имя представления (view) для вывода записи
+            'viewParams' => [
+                //'paginationPageSize' => $paginationPageSize,
+                'articlesCount' => $articlesCount
+            ],
+            'layout' => '{items}<div class="b-pagination">{pager}</div> {summary}',// через \n // string Макет списка
+            'options' => [  // array	Настройка внешнего контейнера списка (HTML атрибуты для контейнера)
+                'tag' => 'div',
+                'class' => 'articles-list__item',
+                'id' => false
+            ],
+            'itemOptions' => [ // array Настройка контейнера записи списка (HTML атрибуты для контейнера)
+                    'tag' => false,
+            ],
+            'pager' => [ // array Постраничная навигация
+                'firstPageLabel' => '<span class="glyphicon glyphicon-backward"></span>',//'<<',
+                'lastPageLabel' => '<span class="glyphicon glyphicon-forward"></span>',//'>>',
+                'nextPageLabel' => '<span class="glyphicon glyphicon-chevron-right"></span>',//'>',
+                'prevPageLabel' => '<span class="glyphicon glyphicon-chevron-left"></span>',//'<',
+                'maxButtonCount' => 5,
+                'hideOnSinglePage'=>true,
+
+                // Customzing options for pager container tag
+                'options' => [
+                    'class' => false,//'b-pagination',
+                    'id' => false,
+                ],
+
+                // Customzing CSS class for pager link
+                //'linkOptions' => ['class' => 'mylink11'],
+                'activePageCssClass' => 'active',//'myactive',
+                'disabledPageCssClass' => null,//'mydisable',
+
+                // Customzing CSS class for navigating link
+                'prevPageCssClass' => 'b-pagination__prev',//'mypre',
+                'nextPageCssClass' => 'b-pagination__next',//'mynext',
+                'firstPageCssClass' => 'b-pagination__first',//'myfirst',
+                'lastPageCssClass' => 'b-pagination__last'// 'mylast',
+            ],
+            'summary' => 'Показано {begin}-{end} из {totalCount}', // string Информация о списке
+            //'summaryOptions' => [ ],// array Настройка контейнера для summary (HTML атрибуты для контейнера)
+            'emptyText' => '<p>Список пуст</p>', // string Текст при отсутствии элементов списка
+            'emptyTextOptions' => [ // array Настройка контейнера для emptyText (HTML атрибуты для контейнера)
+                'tag' => 'p'
+            ],
+            //'itemView' => function ($model, $key, $index, $widget) {
+            //    return Html::a(Html::encode($model->title), ['view', 'id' => $model->id_article]);
+            //},
+        ]);
+    }
 ?>
-                    <div class="b-pagination">
+                    <!--<div class="b-pagination">
                         <ul>
                             <li class="b-pagination__prev"><a href="#"></a></li>
                             <li class="active"><a href="#">1</a></li>
@@ -68,10 +96,12 @@ echo '                    </div>'.PHP_EOL;
                             <li><a href="#">5</a></li>
                             <li class="b-pagination__next"><a href="#"></a></li>
                         </ul>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
+
+
         <aside class="b-sidebar">
             <div class="b-block">
                 <div class="b-title">Последние материалы</div>

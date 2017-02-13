@@ -4,6 +4,7 @@
 namespace frontend\controllers;
 
 use Yii;
+
 use yii\data\ActiveDataProvider;
 use app\models\Article;
 use app\models\ArticleSearch;
@@ -39,6 +40,27 @@ class ArticleController extends Controller
      */
     public function actionIndex()
     {
+        $paginationPageSize = 10;
+        $dataProvider = new ActiveDataProvider([
+            'query' => Article::find()->where(['status'=>10])->orderBy('create_time DESC'),
+            'pagination' => [
+                'pageSize' => $paginationPageSize,
+            ],
+        ]);
+
+        $query_result_counter = $dataProvider->getTotalCount();
+        //$posts =  $dataProvider->getModels();
+
+
+        //$this->view->title = 'Articles';
+        return $this->render(
+            'index', [
+                'listDataProvider' => $dataProvider,
+                'articlesCount' => $query_result_counter,
+                'paginationPageSize' => $paginationPageSize,
+
+            ]);
+
         /*$searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
@@ -46,44 +68,6 @@ class ArticleController extends Controller
             'dataProvider' => $dataProvider,
         ]);*/
 
-        $model = new $this->modelClass;
-        $query = $model::find();
-        $dataProvider = new ActiveDataProvider(['query' => $query]);
-
-        $dataProvider->pagination = false; // отключаем пагинацию
-        //$query->andWhere(['user_id' => \Yii::$app->user->identity->id]);
-
-        $query_result_counter = $dataProvider->getTotalCount();
-
-        /*$elements_to_index = array('id_article','title','abridgment',
-                    //'content',
-                    'header_title',
-                    //'header_image',
-                    'header_image_small','article_category_id',
-                    //'status','views','create_time','update_time'
-                );*/
-        if ($query_result_counter == 0)
-            return 'false';
-        else {
-            //echo 'Количество статей: '.$query_result_counter.'<br>';
-            $posts =  $dataProvider->getModels();
-            /*foreach($posts as $key=>&$post) { //  foreach($posts as &$post) {
-                if(!in_array($key,$elements_to_index))
-                {
-                    unset($posts[$key]);
-                }
-            }
-            unset($post); // разорвать ссылку на последний элемент
-            */
-            return $this->render('index', [
-                    'model' => $model,//'model' => $this->findModel(1)
-                    'dataProvider' => $dataProvider,
-                    'posts' => $posts,
-                    'articles_count' => $query_result_counter,
-                    //'model' => $this->findModel(1)
-                ]
-            );
-        }
     }
 
     /**

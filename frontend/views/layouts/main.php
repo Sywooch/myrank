@@ -2,6 +2,7 @@
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 
@@ -95,12 +96,12 @@ $act = Yii::$app->controller->action->id;
                                     <div class="b-menu__content">
                                         <ul>
                                             <li class="active"><a href="#">главная</a></li>
-                                            <li><a href="#">о нас</a></li>
-                                            <li><a href="#">новости</a></li>
+                                            <li><a href="<?= Url::to(['/aboutus']); ?>">о нас</a></li>
+                                            <li><a href="<?= Url::to(['article/index']); ?>">новости</a></li>
                                             <li><a href="#">баланс</a></li>
-                                            <li><a href="#">помощь</a></li>
-                                            <li><a href="#">контакты</a></li>
-                                            <li><a href="#">условия & защита</a></li>
+                                            <li><a href="<?= Url::to(['/help']); ?>">помощь</a></li>
+                                            <li><a href="<?= Url::to(['/contacts']); ?>">контакты</a></li>
+                                            <li><a href="<?= Url::to(['/legalinfo']); ?>">условия & защита</a></li>
                                         </ul>
                                     </div>
                                 </nav>
