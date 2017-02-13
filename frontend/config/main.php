@@ -4,6 +4,8 @@ $params = array_merge(
 	require(__DIR__ . '/../../common/config/params.php'), require(__DIR__ . '/../../common/config/params-local.php'), require(__DIR__ . '/params.php'), require(__DIR__ . '/params-local.php')
 );
 
+$authClient = require(__DIR__ . '/authClient.php');
+
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
@@ -37,17 +39,17 @@ return [
 	'urlManager' => [
 	    'enablePrettyUrl' => true,
 	    'showScriptName' => false,
-        //'enableStrictParsing' => true,
+	    //'enableStrictParsing' => true,
 	    'rules' => [
-	        'GET article' => 'article/index',
-            'GET article/<id:\d+>' => 'article/view',
-            '<view:help>' => 'static/page',
-            '<view:feedback>' => 'static/page',
-            '<view:legalinfo>' => 'static/page',
-            '<view:aboutus>' => 'static/page',
-            '<view:contacts>' => 'static/page'
+		'GET article' => 'article/index',
+		'GET article/<id:\d+>' => 'article/view',
+		'<view:help>' => 'static/page',
+		'<view:feedback>' => 'static/page',
+		'<view:legalinfo>' => 'static/page',
+		'<view:aboutus>' => 'static/page',
+		'<view:contacts>' => 'static/page'
 	    ],
-    ],
+	],
 	'assetManager' => [
 	    'bundles' => [
 		'yii\web\JqueryAsset' => [
@@ -55,6 +57,7 @@ return [
 		],
 	    ],
 	],
+	'authClientCollection' => $authClient,
     ],
     'params' => $params,
 ];

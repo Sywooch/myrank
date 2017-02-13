@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace frontend\models;
 
 use Yii;
 
@@ -11,36 +11,34 @@ use Yii;
  * @property integer $city_id
  * @property string $name
  */
-class Country extends \yii\db\ActiveRecord
-{
+class Country extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
-        return 'country';
+    public static function tableName() {
+	return 'country';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
-        return [
-            [['city_id'], 'integer'],
-            [['name'], 'string', 'max' => 128],
-        ];
+    public function rules() {
+	return [
+	    [['city_id'], 'integer'],
+	    [['name'], 'string', 'max' => 128],
+	];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
-        return [
-            'country_id' => Yii::t('app', 'Country ID'),
-            'city_id' => Yii::t('app', 'City ID'),
-            'name' => Yii::t('app', 'Name'),
-        ];
+    public function attributeLabels() {
+	return [
+	    'country_id' => Yii::t('app', 'Country ID'),
+	    'city_id' => Yii::t('app', 'City ID'),
+	    'name' => Yii::t('app', 'Name'),
+	];
     }
+
 }

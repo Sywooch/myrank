@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "user".
@@ -27,7 +28,7 @@ use Yii;
  * @property string $way
  * @property string $mark
  */
-class User extends \yii\db\ActiveRecord {
+class User extends \yii\db\ActiveRecord implements IdentityInterface {
     
     const ROLE_USER_TYPE_USER = 0;
     const ROLE_USER_TYPE_MODERATOR = 1;
@@ -66,6 +67,11 @@ class User extends \yii\db\ActiveRecord {
 	self::GENDER_MALE => "Male",
 	self::GENDER_FEMALE => "FEMALE"
     ];
+    
+    public $country_id;
+    public $profession;
+    public $password;
+    public $rePassword;
 
     /**
      * @inheritdoc
@@ -79,6 +85,7 @@ class User extends \yii\db\ActiveRecord {
      */
     public function rules() {
 	return [
+	    [['first_name', 'last_name', 'city_id'], 'required'],
 	    [['account_id', 'company_id', 'profileviews', 'rating'], 'integer'],
 	    [['last_login', 'birthdate', 'city_id', 'phone', 'site', 'mark'], 'safe'],
 	    [['image'], 'string', 'max' => 255],
@@ -98,8 +105,8 @@ class User extends \yii\db\ActiveRecord {
 	    'profileviews' => Yii::t('app', 'Profileviews'),
 	    'profile_company' => Yii::t('app', 'Profile Company'),
 	    'image' => Yii::t('app', 'Image'),
-	    'first_name' => Yii::t('app', 'First Name'),
-	    'last_name' => Yii::t('app', 'Last Name'),
+	    'first_name' => Yii::t('app', 'Имя'),
+	    'last_name' => Yii::t('app', 'Фамилия'),
 	    'about' => Yii::t('app', 'About'),
 	    'last_login' => Yii::t('app', 'Last Login'),
 	    'rating' => Yii::t('app', 'Рейтинг'),
@@ -109,6 +116,9 @@ class User extends \yii\db\ActiveRecord {
 	    'phone' => \Yii::t('app', 'Номер телефона'),
 	    'site' => \Yii::t('app', 'Сайт'),
 	    'mark' => \Yii::t('app', 'Оценка'),
+	    'profession' => \Yii::t('app', 'Специализация'),
+	    'password' => \Yii::t('app', 'Пароль'),
+	    'rePassword' => \Yii::t('app', 'Повторите пароль'),
 	];
     }
     
@@ -131,6 +141,14 @@ class User extends \yii\db\ActiveRecord {
 	return $this->first_name." ".$this->last_name;
     }
     
+    public function getCityList () {
+	$city = City::find()->where(['country_id' => 3159])->orderBy("name")->all();
+	foreach ($city as $item) {
+	    $arr[$item->city_id] = $item->name;
+	}
+	return $arr;
+    }
+    
     public function getCityName () {
 	return ($this->city_id == 0) ? "Не задано" : $this->getCity()->one()->name;
     }
@@ -149,6 +167,137 @@ class User extends \yii\db\ActiveRecord {
 	    $arr[$item->parent_id][$item->id] = $item->name;
 	}
 	return $arr;
+    }
+    
+    public function getProfList () {
+	$model = Profession::find()->orderBy("title")->all();
+	foreach ($model as $item) {
+	    $arr[$item->id] = $item->title;
+	}
+	return $arr;
+    }
+    
+    
+    
+    public function beforeSave($insert) {
+	return parent::beforeSave($insert);
+    }
+    
+    
+    
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentity($id) {
+	return static::findOne(['id' => $id]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentityByAccessToken($token, $type = null) {
+	throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+    }
+
+    /**
+     * Finds user by username
+     *
+     * @param string $username
+     * @return static|null
+     */
+    public static function findByUsername($username) {
+	return static::findOne(['email' => $username]);
+    }
+
+    /**
+     * Finds user by password reset token
+     *
+     * @param string $token password reset token
+     * @return static|null
+     */
+    public static function findByPasswordResetToken($token) {
+	if (!static::isPasswordResetTokenValid($token)) {
+	    return null;
+	}
+
+	return static::findOne(['password_reset_token' => $token]);
+    }
+
+    /**
+     * Finds out if password reset token is valid
+     *
+     * @param string $token password reset token
+     * @return bool
+     */
+    public static function isPasswordResetTokenValid($token) {
+	if (empty($token)) {
+	    return false;
+	}
+
+	$timestamp = (int) substr($token, strrpos($token, '_') + 1);
+	$expire = Yii::$app->params['user.passwordResetTokenExpire'];
+	return $timestamp + $expire >= time();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getId() {
+	return $this->getPrimaryKey();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAuthKey() {
+	return $this->auth_key;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validateAuthKey($authKey) {
+	return $this->getAuthKey() === $authKey;
+    }
+
+    /**
+     * Validates password
+     *
+     * @param string $password password to validate
+     * @return bool if password provided is valid for current user
+     */
+    public function validatePassword($password) {
+	return Yii::$app->security->validatePassword($password, $this->password_hash);
+    }
+
+    /**
+     * Generates password hash from password and sets it to the model
+     *
+     * @param string $password
+     */
+    public function setPassword($password) {
+	$this->password_hash = Yii::$app->security->generatePasswordHash($password);
+    }
+
+    /**
+     * Generates "remember me" authentication key
+     */
+    public function generateAuthKey() {
+	$this->auth_key = Yii::$app->security->generateRandomString();
+    }
+
+    /**
+     * Generates new password reset token
+     */
+    public function generatePasswordResetToken() {
+	$this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+    }
+
+    /**
+     * Removes password reset token
+     */
+    public function removePasswordResetToken() {
+	$this->password_reset_token = null;
     }
 
 }

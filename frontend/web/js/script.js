@@ -164,18 +164,43 @@ $(document).ready(function () {
     });
 
 
+    $('.modal').on('shown.bs.modal', function () {
+	$('.specialization-select select').select2({
+	    placeholder: "Специализация"
+	});
+	$('.country-select select').select2({
+	    placeholder: "Страна"
+	});
+	$('.city-select select').select2({
+	    placeholder: "Город"
+	});
+    })
+
+    $('.input-phone').inputmask('+38 ( 999 ) 999 - 99 - 99');
+    $('.input-phone-company').inputmask('0 44 999 99 99');
+
+
 });
 
-function showModal(url, param, csrf) {
+/**
+ * 
+ * @param string url
+ * @param array param
+ * @param string csrf
+ * @param int n 1/0 новое_окно/старое
+ * @returns Show modal
+ */
+function showModal(url, param, csrf, n) {
     $.ajax({
 	url: url,
 	dataType: 'json',
-	data: {param:param, '_csrf-frontend':csrf},
+	data: {param: param, '_csrf-frontend': csrf},
 	method: 'POST',
-	success: function(out) {
-	    if(out.code == 1) {
-		$("#modalView").modal("toggle");
-		//$("#modelView .modal-content").text(out.title);
+	success: function (out) {
+	    if (out.code == 1) {
+		if (n == 1) {
+		    $("#modalView").modal("toggle");
+		}
 		$("#modalView .modal-content").html(out.data);
 	    }
 	}

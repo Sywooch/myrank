@@ -15,6 +15,7 @@ class AppAsset extends AssetBundle {
 	'https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700,700i,800&amp;subset=cyrillic,cyrillic-ext',
 	'/bootstrap/css/bootstrap.min.css',
 	'/js/owlcarousel/owl.carousel.min.css',
+	'/js/select2/select2.min.css',
 	'/css/style.css',
 	'/css/responsive.css',
 	'/js/jquery-ui/jquery-ui-custom.css'
@@ -29,6 +30,7 @@ class AppAsset extends AssetBundle {
 	'/js/inputmask/inputmask.phone.extensions.min.js',
 	'/js/inputmask/jquery.inputmask.min.js',
 	'//cloud.tinymce.com/stable/tinymce.min.js',
+	'/js/select2/select2.full.min.js',
 	'/js/script.js'
     ];
     public $depends = [

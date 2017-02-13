@@ -77,7 +77,7 @@ $act = Yii::$app->controller->action->id;
                     <div class="container">
                         <div class="row">
                             <div class="col-xs-3">
-                                <a href="#" class="b-logo">
+                                <a href="/" class="b-logo">
                                     <h1 class="b-logo__content">
                                         <img src="/images/logo.png" alt="">
                                     </h1>

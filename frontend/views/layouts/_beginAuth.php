@@ -1,3 +1,7 @@
+<?php
+use yii\helpers\Url;
+
+?>
 <div class="container">
 
     <div class="b-header__title">
@@ -59,7 +63,7 @@
 		    </div>
 		    <div class="b-header__profile__content">
 			<div class="b-header__profile__button">
-			    <a class="button" href="#">Регистрация</a>
+			    <a id="regstep" class="button" href="#">Регистрация</a>
 			</div>
 			<div class="b-social">
 			    <ul>
@@ -76,3 +80,14 @@
 	</div>
     </div>
 </div>
+<?php
+$this->registerJs("$('#regstep').on('click', function() {"
+	. "url = '".Url::toRoute("registration/step1")."';"
+	. "csrf = '".Yii::$app->request->getCsrfToken()."';"
+	. "showModal(url, '', csrf, 1);"
+	. "$('.country-select select').select2({
+			placeholder: \"Страна\"
+		});"
+	. "return false;"
+	. "})", \yii\web\View::POS_END);
+?>
