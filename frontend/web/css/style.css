@@ -2537,7 +2537,7 @@ body.gray-bg .b-header__user:after{
 }
 .b-pagination ul .b-pagination__next{
     border-right: none;
-}
+}/*
 .b-pagination ul .b-pagination__prev a{
     background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAJAgMAAABs9LUOAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACVBMVEX///+ZmZn///9Y2COLAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAdSURBVAjXY2AIYGB0YGBlYBBhADJBJJANFGEIAAAV8wGlG+28YQAAAABJRU5ErkJggg==')
     center no-repeat;
@@ -2553,7 +2553,7 @@ body.gray-bg .b-header__user:after{
 .b-pagination ul .b-pagination__next:hover a{
     background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAJAQMAAAArVM/eAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABlBMVEX///////9VfPVsAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAXSURBVAjXYzjAkMBgwCDBwAPEBkD2AQAZzgLdsExsywAAAABJRU5ErkJggg==')
     #f95200 center no-repeat;
-}
+}*/
 
 
 /* ---- b-article ---- */

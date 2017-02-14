@@ -50,10 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     'tag' => false,
             ],
             'pager' => [ // array Постраничная навигация
-                'firstPageLabel' => '<span class="glyphicon glyphicon-backward"></span>',//'<<',
-                'lastPageLabel' => '<span class="glyphicon glyphicon-forward"></span>',//'>>',
-                'nextPageLabel' => '<span class="glyphicon glyphicon-chevron-right"></span>',//'>',
-                'prevPageLabel' => '<span class="glyphicon glyphicon-chevron-left"></span>',//'<',
+                'firstPageLabel' => '<span class="glyphicon glyphicon-backward"></span>',//'<i class="glyphicon glyphicon-backward"></i>',//'<span class="glyphicon glyphicon-backward"></span>',//'<<',
+                'lastPageLabel' => '<span class="glyphicon glyphicon-forward"></span>',//'<i class="glyphicon glyphicon-forward"></i>',//'<span class="glyphicon glyphicon-forward"></span>',//'>>',
+                'nextPageLabel' => '<span class="glyphicon glyphicon-chevron-right"></span>',//'<i class="glyphicon glyphicon-chevron-right"></i>',//'<span class="glyphicon glyphicon-chevron-right"></span>',//'>',
+                'prevPageLabel' => '<span class="glyphicon glyphicon-chevron-left"></span>',//'<i class="glyphicon glyphicon-chevron-left">',//'<span class="glyphicon glyphicon-chevron-left"></span>',//'<',
+
                 'maxButtonCount' => 5,
                 'hideOnSinglePage'=>true,
 
