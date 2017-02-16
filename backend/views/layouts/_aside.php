@@ -31,18 +31,45 @@ use yii\helpers\Url;
 	    <li class="header">Меню</li>
 	    <li class="active"><a href="<?= Url::toRoute(['site/index']) ?>"><i class="fa fa-circle-o text-red"></i> <span>Главная</span></a></li>
 	    <li class="treeview">
-		<a href="#">
-		    <i class="fa fa-dashboard"></i> <span>Пользователи</span>
-		    <span class="pull-right-container">
-			<i class="fa fa-angle-left pull-right"></i>
-		    </span>
-		</a>
-		<ul class="treeview-menu">
-		    <li><a href="<?= Url::toRoute(['user/index']) ?>"><i class="fa fa-circle-o"></i> Управление</a></li>
-		    <li><a href="<?= Url::toRoute(['profession/index']) ?>"><i class="fa fa-circle-o"></i> Направления</a></li>
-		    <li><a href="<?= Url::toRoute(['marks/index']) ?>"><i class="fa fa-circle-o"></i> Самооценка</a></li>
-		</ul>
+		    <a href="#">
+		        <i class="fa fa-dashboard"></i> <span>Пользователи</span>
+		        <span class="pull-right-container">
+			    <i class="fa fa-angle-left pull-right"></i>
+		        </span>
+		    </a>
+		    <ul class="treeview-menu">
+		        <li><a href="<?= Url::toRoute(['user/index']) ?>"><i class="fa fa-circle-o"></i> Управление</a></li>
+		        <li><a href="<?= Url::toRoute(['profession/index']) ?>"><i class="fa fa-circle-o"></i> Направления</a></li>
+		        <li><a href="<?= Url::toRoute(['marks/index']) ?>"><i class="fa fa-circle-o"></i> Самооценка</a></li>
+		    </ul>
 	    </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-newspaper-o"></i> <span>Новости</span>
+                <span class="pull-right-container">
+			    <i class="fa fa-angle-left pull-right"></i>
+		        </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="<?= Url::toRoute(['article/index']) ?>"><i class="fa fa-circle-o"></i> Управление</a></li>
+                <li><a href="<?= Url::toRoute(['article-category/index']) ?>"><i class="fa fa-circle-o"></i> Категории новостей</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-sticky-note-o"></i> <span>Статические страницы</span>
+                <span class="pull-right-container">
+			    <i class="fa fa-angle-left pull-right"></i>
+		        </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="<?= Url::toRoute(['/help']) ?>"><i class="fa fa-circle-o"></i> Помощь</a></li>
+                <li><a href="<?= Url::toRoute(['/feedback']) ?>"><i class="fa fa-circle-o"></i> Обратная связь</a></li>
+                <li><a href="<?= Url::toRoute(['/legalinfo']) ?>"><i class="fa fa-circle-o"></i> Условия и защита</a></li>
+                <li><a href="<?= Url::toRoute(['/aboutus']) ?>"><i class="fa fa-circle-o"></i> О нас</a></li>
+                <li><a href="<?= Url::toRoute(['/contacts']) ?>"><i class="fa fa-circle-o"></i> Контакты</a></li>
+            </ul>
+        </li>
 	    <li class="treeview">
 		<a href="#">
 		    <i class="fa fa-laptop"></i>
