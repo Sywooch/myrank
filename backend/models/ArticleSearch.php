@@ -1,11 +1,11 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Article;
+use frontend\models\Article;
 
 /**
  * ArticleSearch represents the model behind the search form about `app\models\Article`.
@@ -19,7 +19,7 @@ class ArticleSearch extends Article
     {
         return [
             [['id_article', 'article_category_id', 'status', 'views'], 'integer'],
-            [['title', 'content', 'header_title', 'header_image', 'header_image_small', 'create_time', 'update_time'], 'safe'],
+            [['title', 'abridgment', 'content', 'header_title', 'header_image', 'header_image_small', 'create_time', 'update_time'], 'safe'],
         ];
     }
 
@@ -68,6 +68,7 @@ class ArticleSearch extends Article
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'abridgment', $this->abridgment])
             ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'header_title', $this->header_title])
             ->andFilterWhere(['like', 'header_image', $this->header_image])
