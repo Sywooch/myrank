@@ -6,7 +6,7 @@ use yii\widgets\ListView;
 use yii\helpers\Url;
 
 use yii\data\ActiveDataProvider;
-use app\models\Article;
+//use app\models\Article;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ArticleSearch */
@@ -22,16 +22,22 @@ use app\models\Article;
 $this->title = 'Articles';
 $this->params['breadcrumbs'][] = $this->title;
 
-?>    <div class="container">
+?>    <!-- <div class="container"> -->
+        <div class="container">
+            <!-- <div id="main"> -->
             <div id="main">
+                <!-- <div class="b-content"> -->
                 <div class="b-content">
+                    <!-- ////////////////////////////////////////////////////////////////// -->
+
+                    <!-- <div class="b-block articles-list"> -->
                     <div class="b-block articles-list">
                         <div class="b-title">Блог статей</div>
                         <!-- div class= b-articles__content -->
                         <div class="b-articles__content"><?php
     echo PHP_EOL;
     echo '                            ';
-    if ($articlesCount>0) {
+
         // Виджет списка новостей
         echo ListView::widget([
             'dataProvider' => $listDataProvider, // Данные списка
@@ -40,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 //'paginationPageSize' => $paginationPageSize,
                 'articlesCount' => $articlesCount
             ],
-            'layout' => '{items}<div class="b-pagination">{pager}</div> {summary}',// через \n // string Макет списка
+            'layout' => '{items}<div class="b-pagination">{pager}</div><div class="b-summary">{summary}</div>',// через \n // string Макет списка
             'options' => [  // array	Настройка внешнего контейнера списка (HTML атрибуты для контейнера)
                 'tag' => 'div',
                 'class' => 'articles-list__item',
@@ -50,10 +56,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     'tag' => false,
             ],
             'pager' => [ // array Постраничная навигация
-                'firstPageLabel' => '<span class="glyphicon glyphicon-backward"></span>',//'<i class="glyphicon glyphicon-backward"></i>',//'<span class="glyphicon glyphicon-backward"></span>',//'<<',
-                'lastPageLabel' => '<span class="glyphicon glyphicon-forward"></span>',//'<i class="glyphicon glyphicon-forward"></i>',//'<span class="glyphicon glyphicon-forward"></span>',//'>>',
-                'nextPageLabel' => '<span class="glyphicon glyphicon-chevron-right"></span>',//'<i class="glyphicon glyphicon-chevron-right"></i>',//'<span class="glyphicon glyphicon-chevron-right"></span>',//'>',
-                'prevPageLabel' => '<span class="glyphicon glyphicon-chevron-left"></span>',//'<i class="glyphicon glyphicon-chevron-left">',//'<span class="glyphicon glyphicon-chevron-left"></span>',//'<',
+                'firstPageLabel' =>
+                    //'<i class="glyphicon glyphicon-backward"></i>',
+                    '<span class="glyphicon glyphicon-backward"></span>',//'<<',
+                'lastPageLabel' =>
+                    //'<i class="glyphicon glyphicon-forward"></i>',
+                    '<span class="glyphicon glyphicon-forward"></span>',//'>>',
+                'nextPageLabel' =>
+                    //'<i class="glyphicon glyphicon-chevron-right"></i>',
+                    '<span class="glyphicon glyphicon-chevron-right"></span>',//'>',
+                'prevPageLabel' =>
+                    //'<i class="glyphicon glyphicon-chevron-left">',
+                    '<span class="glyphicon glyphicon-chevron-left"></span>',//'<',
 
                 'maxButtonCount' => 5,
                 'hideOnSinglePage'=>true,
@@ -77,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'summary' => 'Показано {begin}-{end} из {totalCount}', // string Информация о списке
             //'summaryOptions' => [ ],// array Настройка контейнера для summary (HTML атрибуты для контейнера)
-            'emptyText' => '<p>Список пуст</p>', // string Текст при отсутствии элементов списка
+            'emptyText' => 'Список пуст', // string Текст при отсутствии элементов списка
             'emptyTextOptions' => [ // array Настройка контейнера для emptyText (HTML атрибуты для контейнера)
                 'tag' => 'p'
             ],
@@ -85,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //    return Html::a(Html::encode($model->title), ['view', 'id' => $model->id_article]);
             //},
         ]);
-    }
+
 ?>
                     <!--<div class="b-pagination">
                         <ul>
@@ -98,11 +112,16 @@ $this->params['breadcrumbs'][] = $this->title;
                             <li class="b-pagination__next"><a href="#"></a></li>
                         </ul>
                     </div>-->
-                </div>
-            </div>
-        </div>
 
 
+
+                </div> <!-- div class= b-articles__content -->
+            </div> <!-- <div class="b-block articles-list"> -->
+
+<!-- ////////////////////////////////////////////////////////////////// -->
+
+        </div> <!-- <div class="b-content"> -->
+        <!-- <aside class="b-sidebar"> -->
         <aside class="b-sidebar">
             <div class="b-block">
                 <div class="b-title">Последние материалы</div>
@@ -162,5 +181,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         </aside>
-    </div>
-</div>
+        <!-- <aside class="b-sidebar"> -->
+    </div> <!-- <div id="main"> -->
+</div> <!-- <div class="container"> -->

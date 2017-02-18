@@ -1,5 +1,5 @@
 <?php
-
+// $itemView, $model, $key, $index, $widget
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Url;
@@ -13,7 +13,7 @@ use yii\helpers\Url;
             }
             echo PHP_EOL;
             echo '                                    ';
-            ?><div class="col-xs-12 col-sm-6">
+                                  ?><div class="col-xs-12 col-sm-6">
                                         <div class="b-articles__item b-articles__item_large">
                                             <div class="b-articles__item__image">
                                                 <a href="<?= Url::to(['article/view', 'id' => $model->id_article]); ?>"><img src="<?= $model->header_image_small ?>" alt=""></a>
@@ -27,23 +27,22 @@ use yii\helpers\Url;
 
                                                 </div>
                                                 <div class="b-articles__item__tags">
-                                                    <a href="#"><?= $model->articleCategory->name ?></a>
+                                                    <a href="#"><?= $model->articleCategory->name ?><?= 'index='.$index.' key='.$key;?></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div><?php //echo '$index='.$index.'<br>';
-            if (($index % 2 == 0) && ($key == ($articlesCount))) {
+            /*if (($index % 2 == 0) && ($key == ($articlesCount))) { // query_result_counter
                 echo PHP_EOL;
                 echo '                               ';
                 echo '</div>'.PHP_EOL;
+                //echo '</div>'.PHP_EOL;
                 //echo '                    </div>'.PHP_EOL;
-            }
+            }*/
             if ($index % 2 == 1) {
                 echo PHP_EOL;
                 echo '                ';
-                ?>
-                </div>
-                <?php
+                echo '</div>'.PHP_EOL;
                 // <!-- </div> -->
             }
         //echo Html::encode($model->create_time);
