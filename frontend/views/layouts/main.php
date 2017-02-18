@@ -38,17 +38,7 @@ $act = Yii::$app->controller->action->id;
             <div class="b-header__top">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xs-12 col-sm-6">
-                            <div class="b-header__user">
-                                <div class="b-header__user__login">
-                                    <span>Добро пожаловать в MyRank!</span>
-                                    <a href="#">
-                                        <span>Авторизация</span>
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
+			<?= $this->render("_topHeader"); ?>
                         <div class="col-xs-12 col-sm-6">
                             <div class="b-header__region">
                                 <div class="b-header__region__language">

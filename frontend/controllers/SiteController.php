@@ -8,7 +8,7 @@ use yii\web\BadRequestHttpException;
 use frontend\components\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
+use frontend\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -43,7 +43,7 @@ class SiteController extends Controller {
 	    'verbs' => [
 		'class' => VerbFilter::className(),
 		'actions' => [
-		    'logout' => ['post'],
+		    //'logout' => ['post'],
 		],
 	    ],
 	];
@@ -75,7 +75,6 @@ class SiteController extends Controller {
 
     public function successCallback($client) {
 	$attributes = $client->getUserAttributes();
-	
     }
 
     /**
@@ -84,17 +83,17 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionLogin() {
-	if (!Yii::$app->user->isGuest) {
-	    return $this->goHome();
-	}
-
+	$model = new LoginForm();
+	echo \yii\helpers\Json::encode(['code' => 1, 'data' => $this->renderPartial("login", ['model' => $model])]);
+	\Yii::$app->end();
+    }
+    
+    public function actionLoginval () {
 	$model = new LoginForm();
 	if ($model->load(Yii::$app->request->post()) && $model->login()) {
-	    return $this->goBack();
+	    echo \yii\helpers\Json::encode(['code' => 1]);
 	} else {
-	    return $this->render('login', [
-			'model' => $model,
-	    ]);
+	    echo \yii\helpers\Json::encode(['code' => 0, 'errors' => $model->errors]);
 	}
     }
 

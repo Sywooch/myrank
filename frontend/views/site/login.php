@@ -1,39 +1,72 @@
 <?php
-
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Url;
 
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
-
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-
-                <?= $form->field($model, 'password')->passwordInput() ?>
-
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
-
-                <div style="color:#999;margin:1em 0">
-                    If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
-                </div>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
-
-            <?php ActiveForm::end(); ?>
-        </div>
+<div class="b-modal">
+    <?php
+    $form = ActiveForm::begin([
+		'options' => ['id' => 'LoginForm']
+    ]);
+    ?>
+    <div class="b-modal__header">Авторизация</div>
+    <div class="b-modal__content">
+	<div class="row">
+	    <div class="col-xs-12">
+		<span>* Email:</span>
+		<?= $form->field($model, 'username')->textInput(['class' => 'input-text', 'placeholder' => 'example@domain.name'])->label(FALSE); ?>
+	    </div>
+	</div>
+	<div class="row">
+	    <div class="col-xs-12">
+		<span>* Пароль:</span>
+		<?= $form->field($model, 'password')->passwordInput(['class' => 'input-text', 'placeholder' => ''])->label(FALSE); ?>
+	    </div>
+	</div>
+	<div class="row">
+	    <div class="col-xs-12">
+		<?= "" // $form->field($model, 'last_name')->textInput(['class' => 'input-text', 'placeholder' => 'Dox'])->label(FALSE); ?>
+	    </div>
+	</div>
+	<div class="row">
+	    <div class="col-xs-12 col-sm-12" id="regFormStep1Error" style="display: none; color:red;"></div>
+	</div>
+	<div class="b-modal__content__buttons">
+	    <div class="b-modal__content__buttons__item">
+		<a id="loginSave" class="button-small" href="#">Войти</a>
+	    </div>
+	    <div class="b-modal__content__buttons__item">
+		<span><a class="cancelLink" href="#">Отменить</a></span>
+	    </div>
+	</div>
     </div>
+    <?php ActiveForm::end(); ?>
 </div>
+<script type="text/javascript">
+    var csrf = "<?= Yii::$app->request->getCsrfToken(); ?>";
+    $("#loginSave").on('click', function() {
+	url = "<?= Url::toRoute("site/loginval") ?>";
+	$.ajax({
+	    url: url,
+	    method: 'POST',
+	    dataType: 'json',
+	    data: $("#LoginForm").serialize(),
+	    success: function (out) {
+		if(out.code == 1) {
+		    document.location.href = "<?= Url::toRoute(["users/profile"]); ?>";
+		} else {
+		    alert('Не правильный логин или пароль');
+		}
+	    }
+	});
+	return false;
+    });
+</script>

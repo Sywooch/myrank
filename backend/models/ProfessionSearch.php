@@ -10,26 +10,24 @@ use frontend\models\Profession;
 /**
  * ProfessionSearch represents the model behind the search form about `frontend\models\Profession`.
  */
-class ProfessionSearch extends Profession
-{
+class ProfessionSearch extends Profession {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
-        return [
-            [['id'], 'integer'],
-            [['title'], 'safe'],
-        ];
+    public function rules() {
+	return [
+	    [['id'], 'integer'],
+	    [['title'], 'safe'],
+	];
     }
 
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+    public function scenarios() {
+	// bypass scenarios() implementation in the parent class
+	return Model::scenarios();
     }
 
     /**
@@ -39,31 +37,31 @@ class ProfessionSearch extends Profession
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
-        $query = Profession::find();
+    public function search($params) {
+	$query = Profession::find();
 
-        // add conditions that should always apply here
+	// add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+	$dataProvider = new ActiveDataProvider([
+	    'query' => $query,
+	]);
 
-        $this->load($params);
+	$this->load($params);
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+	if (!$this->validate()) {
+	    // uncomment the following line if you do not want to return any records when validation fails
+	    // $query->where('0=1');
+	    return $dataProvider;
+	}
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
+	// grid filtering conditions
+	$query->andFilterWhere([
+	    'id' => $this->id,
+	]);
 
-        $query->andFilterWhere(['like', 'title', $this->title]);
+	$query->andFilterWhere(['like', 'title', $this->title]);
 
-        return $dataProvider;
+	return $dataProvider;
     }
+
 }

@@ -87,7 +87,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	return [
 	    [['first_name', 'last_name', 'city_id'], 'required'],
 	    [['account_id', 'company_id', 'profileviews', 'rating'], 'integer'],
-	    [['last_login', 'birthdate', 'city_id', 'phone', 'site', 'mark'], 'safe'],
+	    [['last_login', 'birthdate', 'city_id', 'phone', 'site', 'mark', 'email'], 'safe'],
 	    [['image'], 'string', 'max' => 255],
 	    [['first_name', 'last_name', 'about'], 'string', 'max' => 50],
 	];
@@ -206,7 +206,16 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      * @return static|null
      */
     public static function findByUsername($username) {
-	return static::findOne(['email' => $username]);
+	return static::findOne(['username' => $username]);
+    }
+    
+    public static function findByEmail ($email) {
+	return static::findOne(['email' => $email]);
+    }
+    
+    
+    public static function getProfile () {
+	return static::findOne(\Yii::$app->user->id);
     }
 
     /**
@@ -267,6 +276,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      * @return bool if password provided is valid for current user
      */
     public function validatePassword($password) {
+	//return $this->
 	return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 

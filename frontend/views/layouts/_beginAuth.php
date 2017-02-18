@@ -1,6 +1,6 @@
 <?php
-use yii\helpers\Url;
 
+use yii\helpers\Url;
 ?>
 <div class="container">
 
@@ -42,6 +42,7 @@ use yii\helpers\Url;
 		</div>
 	    </form>
 	</div>
+	<?php if(Yii::$app->user->id === NULL) { ?>
 	<div class="b-header__profile">
 	    <span>Выберите ваш профиль</span>
 	    <ul class="nav-tabs">
@@ -65,6 +66,9 @@ use yii\helpers\Url;
 			<div class="b-header__profile__button">
 			    <a id="regstep" class="button" href="#">Регистрация</a>
 			</div>
+			<div class="b-header__profile__button">
+			    <a id="signin" class="button" href="#">Вход</a>
+			</div>
 			<div class="b-social">
 			    <ul>
 				<li><a class="b-social__fb" href="#"></a></li>
@@ -78,16 +82,28 @@ use yii\helpers\Url;
 		</div>
 	    </div>
 	</div>
+	<?php } ?>
     </div>
 </div>
 <?php
-$this->registerJs("$('#regstep').on('click', function() {"
-	. "url = '".Url::toRoute("registration/step1")."';"
-	. "csrf = '".Yii::$app->request->getCsrfToken()."';"
-	. "showModal(url, '', csrf, 1);"
-	. "$('.country-select select').select2({
-			placeholder: \"Страна\"
-		});"
-	. "return false;"
-	. "})", \yii\web\View::POS_END);
+$this->registerJs("var csrf = '" . Yii::$app->request->getCsrfToken() . "';
+    $('#regstep').on('click', function () {
+	url = '" . Url::toRoute("registration/step1") . "';
+	showModal(url, '', csrf, 1);
+	$('.country-select select').select2({
+	    placeholder: 'Страна'
+	});
+	return false;
+    });
+
+    $('#signin').on('click', function () {
+	url = '" . Url::toRoute("site/login") . "';
+	showModal(url, '', csrf, 1);
+	return false;
+    });
+    
+    $('body').on('click', '.cancelLink', function() {
+	$('#modalView').modal('toggle');
+	return false;
+    });", \yii\web\View::POS_END);
 ?>

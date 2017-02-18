@@ -203,6 +203,7 @@ function showModal(url, param, csrf, n) {
 		}
 		$("#modalView .modal-content").html(out.data);
 	    }
+	    console.log(out);
 	}
     });
 }

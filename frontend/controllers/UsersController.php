@@ -8,10 +8,14 @@ use frontend\models\User;
  *
  * @author dmitrywp
  */
-class UserController extends Controller {
+class UsersController extends Controller {
     
-    public function actionProfile ($id) {
-	$mUser = User::findOne($id);
+    public function actionProfile () {
+	$req = \Yii::$app->request->get();
+	if(!isset($req['id'])) {
+	    $req['id'] = \Yii::$app->user->id;
+	}
+	$mUser = User::findOne($req['id']);
 	return $this->render("profile", [
 	    'mUser' => $mUser,
 	]);

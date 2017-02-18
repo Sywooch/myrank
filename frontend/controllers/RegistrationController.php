@@ -16,19 +16,25 @@ class RegistrationController extends Controller {
     public function actionStep1save() {
 	$out['code'] = 0;
 	$post = \Yii::$app->request->post();
-	$model = new User();
-	if ($model->load($post)) {
-	    //$model->setPassword($this->password);
-	    //$model->generateAuthKey();
-	    if($model->save()) {
-		$out['code'] = 1;
-		$out['id'] = $model->id;
-		$out['data'] = $this->renderPartial("_regStep2user", ['model' => $model]);
-	    } else {
-		$out['errors'] = ['one' => ['Ошибка']];
-	    }
+	if ($post['password'] != $post['rePassword']) {
+	    $out['errors'] = [
+		'password' => 'Пароль и повтор пароля не совпадают'
+	    ];
 	} else {
-	    $out['errors'] = $model->errors;
+	    $model = new User();
+	    if ($model->load($post)) {
+		$model->setPassword($post['password']);
+		$model->generateAuthKey();
+		if ($model->save()) {
+		    $out['code'] = 1;
+		    $out['id'] = $model->id;
+		    $out['data'] = $this->renderPartial("_regStep2user", ['model' => $model]);
+		} else {
+		    $out['errors'] = ['one' => ['Ошибка']];
+		}
+	    } else {
+		$out['errors'] = $model->errors;
+	    }
 	}
 	echo \yii\helpers\Json::encode($out);
 	\Yii::$app->end();
@@ -48,8 +54,8 @@ class RegistrationController extends Controller {
 	return \yii\helpers\Json::encode($out);
 	\Yii::$app->end();
     }
-    
-    public function actionTest () {
+
+    public function actionTest() {
 	return $this->render("test");
     }
 
