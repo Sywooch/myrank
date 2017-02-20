@@ -44,7 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'itemView' => '_list', // Имя представления (view) для вывода записи
             'viewParams' => [
                 //'paginationPageSize' => $paginationPageSize,
-                'articlesCount' => $articlesCount
+                //'articlesCount' => $articlesCount,
+                //'paginationPageSize' => $paginationPageSize,
+                'paginationTotalPages'=> $paginationTotalPages,
+                'paginationLastPageCount' => $paginationLastPageCount
             ],
             'layout' => '{items}<div class="b-pagination">{pager}</div><div class="b-summary">{summary}</div>',// через \n // string Макет списка
             'options' => [  // array	Настройка внешнего контейнера списка (HTML атрибуты для контейнера)
@@ -99,22 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //    return Html::a(Html::encode($model->title), ['view', 'id' => $model->id_article]);
             //},
         ]);
-
 ?>
-                    <!--<div class="b-pagination">
-                        <ul>
-                            <li class="b-pagination__prev"><a href="#"></a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li class="b-pagination__next"><a href="#"></a></li>
-                        </ul>
-                    </div>-->
-
-
-
                 </div> <!-- div class= b-articles__content -->
             </div> <!-- <div class="b-block articles-list"> -->
 

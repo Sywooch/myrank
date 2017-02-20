@@ -27,18 +27,18 @@ use yii\helpers\Url;
 
                                                 </div>
                                                 <div class="b-articles__item__tags">
-                                                    <a href="#"><?= $model->articleCategory->name ?><?= 'index='.$index.' key='.$key;?></a>
+                                                    <a href="#"><?= $model->articleCategory->name ?></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div><?php //echo '$index='.$index.'<br>';
-            /*if (($index % 2 == 0) && ($key == ($articlesCount))) { // query_result_counter
+           if (($index % 2 == 0) && ($index == ($paginationLastPageCount-1)) && ($paginationTotalPages == Yii::$app->request->get('page'))) { // query_result_counter
                 echo PHP_EOL;
                 echo '                               ';
                 echo '</div>'.PHP_EOL;
                 //echo '</div>'.PHP_EOL;
                 //echo '                    </div>'.PHP_EOL;
-            }*/
+            }
             if ($index % 2 == 1) {
                 echo PHP_EOL;
                 echo '                ';

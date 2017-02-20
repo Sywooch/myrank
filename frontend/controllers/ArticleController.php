@@ -49,17 +49,18 @@ class ArticleController extends Controller
                 'pageSize' => $paginationPageSize,
             ],
         ]);
-
         $query_result_counter = $dataProvider->getTotalCount();
-
+        $paginationTotalPages = ceil($query_result_counter/$paginationPageSize);
+        $paginationLastPageCount = $query_result_counter%$paginationPageSize;
         //$posts =  $dataProvider->getModels();
         //$this->view->title = 'Articles';
-
         return $this->render(
             'index', [
                 'listDataProvider' => $dataProvider,
-                'articlesCount' => $query_result_counter,
-                'paginationPageSize' => $paginationPageSize,
+                //'articlesCount' => $query_result_counter,
+                //'paginationPageSize' => $paginationPageSize,
+                'paginationTotalPages' => $paginationTotalPages,
+                'paginationLastPageCount' => $paginationLastPageCount
 
             ]);
     }
