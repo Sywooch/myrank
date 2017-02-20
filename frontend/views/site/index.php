@@ -1,4 +1,5 @@
 <?php
+use yii\widgets\ListView;
 $this->title = 'My Yii Application';
 ?>
 
@@ -474,96 +475,21 @@ $this->title = 'My Yii Application';
 <!-- end b-info -->
 
 
-
-
 <!-- begin b-articles -->
-<div class="b-articles">
-    <div class="container">
-	<h2>Статьи</h2>
-	<div class="row">
-	    <div class="col-xs-12 col-sm-6">
-		<div class="b-articles__content">
-		    <div class="b-articles__item b-articles__item_large">
-			<div class="b-articles__item__image">
-			    <img src="images/b-articles/b-articles_large/1.jpg" alt="">
-			</div>
-			<div class="b-articles__item__content">
-			    <div class="b-articles__item__title">
-				Формула успешного собеседования
-			    </div>
-			    <div class="b-articles__item__text">
-				ТОП пользователей с максимальным рейтингом. ТОП
-				пользователей с максимальным рейтингом. Пользователи с
-				максимальным рейтингом.
-			    </div>
-			    <div class="b-articles__item__tags">
-				<a href="#">Продуктивность</a>
-				<a href="#">Новости</a>
-			    </div>
-			</div>
-		    </div>
-		</div>
-	    </div>
-	    <div class="col-xs-12 col-sm-6">
-		<div class="b-articles__content">
-		    <div class="b-articles__item">
-			<div class="b-articles__item__image">
-			    <img src="images/b-articles/b-articles_small/1.jpg" alt="">
-			</div>
-			<div class="b-articles__item__content">
-			    <div class="b-articles__item__title">
-				что вы себе пожелали бы в следующем году?
-			    </div>
-			    <div class="b-articles__item__text">
-				ТОП пользователей с максимальным рейтингом. ТОП
-				пользователей с максимальным рейтингом.
-			    </div>
-			    <div class="b-articles__item__tags">
-				<a href="#">Продуктивность</a>
-				<a href="#">Новости</a>
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-articles__item">
-			<div class="b-articles__item__image">
-			    <img src="images/b-articles/b-articles_small/2.jpg" alt="">
-			</div>
-			<div class="b-articles__item__content">
-			    <div class="b-articles__item__title">
-				Amazon заменила курьеров дронами
-			    </div>
-			    <div class="b-articles__item__text">
-				ТОП пользователей с максимальным рейтингом. ТОП
-				пользователей с максимальным рейтингом.
-			    </div>
-			    <div class="b-articles__item__tags">
-				<a href="#">Образование</a>
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-articles__item">
-			<div class="b-articles__item__image">
-			    <img src="images/b-articles/b-articles_small/3.jpg" alt="">
-			</div>
-			<div class="b-articles__item__content">
-			    <div class="b-articles__item__title">
-				25 фраз для собеседования на английском
-			    </div>
-			    <div class="b-articles__item__text">
-				ТОП пользователей с максимальным рейтингом. ТОП
-				пользователей с максимальным рейтингом.
-			    </div>
-			    <div class="b-articles__item__tags">
-				<a href="#">Продуктивность</a>
-			    </div>
-			</div>
-		    </div>
-		</div>
-	    </div>
-	</div>
-    </div>
-</div>
+<?php
+    echo ListView::widget([
+        'dataProvider' => $listDataProvider,
+        'itemView' => '_listArticles',
+        'layout' => '{items}',
+        'emptyText' => 'Нет статей',
+        'emptyTextOptions' => [
+           'tag' => 'p'
+       ],
+    ]);
+?>
+
 <!-- end b-articles -->
+
 
 <!-- begin b-reg-now -->
 <div class="b-reg-now">

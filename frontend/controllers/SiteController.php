@@ -6,6 +6,7 @@ use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use frontend\components\Controller;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\LoginForm;
@@ -13,6 +14,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\Article;
 
 /**
  * Site controller
@@ -70,7 +72,17 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
-	return $this->render('index');
+        $dataProvider = new ActiveDataProvider([
+            'query' => Article::find()->where(['status'=>10])->orderBy('create_time DESC')->limit(4),
+            'totalCount' => 4,
+            'pagination' => [
+                'pageSize' => 4,
+            ]
+        ]);
+        return $this->render(
+            'index', [
+            'listDataProvider' => $dataProvider,
+        ]);
     }
 
     public function successCallback($client) {
