@@ -487,7 +487,6 @@ $this->title = 'My Yii Application';
        ],
     ]);
 ?>
-
 <!-- end b-articles -->
 
 

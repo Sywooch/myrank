@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use frontend\widgets\article\ArticleLastIssuesWidget;
+use frontend\widgets\article\ArticleSeeAlsoWidget;
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['index']];
@@ -35,119 +37,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Html::encode($model->content) ?>
                 </div>
             </div>
-            <div class="b-block articles-list">
-                <div class="b-title">Читайте также</div>
-                <div class="b-articles__content">
-                    <div class="articles-list__item">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6">
-                                <div class="b-articles__item b-articles__item_large">
-                                    <div class="b-articles__item__image">
-                                        <img src="images/b-articles/b-articles_large/1.jpg" alt="">
-                                    </div>
-                                    <div class="b-articles__item__content">
-                                        <div class="b-articles__item__title">
-                                            Формула успешного собеседования
-                                        </div>
-                                        <div class="b-articles__item__text">
-                                            ТОП пользователей с максимальным рейтингом. ТОП
-                                            пользователей с максимальным рейтингом. Пользователи с
-                                            максимальным рейтингом.
-                                        </div>
-                                        <div class="b-articles__item__tags">
-                                            <a href="#">Продуктивность</a>
-                                            <a href="#">Новости</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <div class="b-articles__item b-articles__item_large">
-                                    <div class="b-articles__item__image">
-                                        <img src="images/b-articles/b-articles_large/1.jpg" alt="">
-                                    </div>
-                                    <div class="b-articles__item__content">
-                                        <div class="b-articles__item__title">
-                                            Формула успешного собеседования
-                                        </div>
-                                        <div class="b-articles__item__text">
-                                            ТОП пользователей с максимальным рейтингом. ТОП
-                                            пользователей с максимальным рейтингом. Пользователи с
-                                            максимальным рейтингом.
-                                        </div>
-                                        <div class="b-articles__item__tags">
-                                            <a href="#">Продуктивность</a>
-                                            <a href="#">Новости</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            <?= ArticleSeeAlsoWidget::widget([
+            ]); ?>
+
         </div>
-        <aside class="b-sidebar">
-            <div class="b-block">
-                <div class="b-title">Последние материалы</div>
-                <div class="b-articles__content">
-                    <div class="b-articles__item">
-                        <div class="b-articles__item__image">
-                            <img src="images/b-articles/b-articles_small/1.jpg" alt="">
-                        </div>
-                        <div class="b-articles__item__content">
-                            <div class="b-articles__item__title">
-                                что вы себе пожелали бы в следующем году?
-                            </div>
-                            <div class="b-articles__item__text">
-                                ТОП пользователей с максимальным рейтингом. ТОП
-                                пользователей с максимальным рейтингом.
-                            </div>
-                            <div class="b-articles__item__tags">
-                                <a href="#">Продуктивность</a>
-                                <a href="#">Новости</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="b-articles__item">
-                        <div class="b-articles__item__image">
-                            <img src="images/b-articles/b-articles_small/2.jpg" alt="">
-                        </div>
-                        <div class="b-articles__item__content">
-                            <div class="b-articles__item__title">
-                                Amazon заменила курьеров дронами
-                            </div>
-                            <div class="b-articles__item__text">
-                                ТОП пользователей с максимальным рейтингом. ТОП
-                                пользователей с максимальным рейтингом.
-                            </div>
-                            <div class="b-articles__item__tags">
-                                <a href="#">Образование</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="b-articles__item">
-                        <div class="b-articles__item__image">
-                            <img src="images/b-articles/b-articles_small/3.jpg" alt="">
-                        </div>
-                        <div class="b-articles__item__content">
-                            <div class="b-articles__item__title">
-                                25 фраз для собеседования на английском
-                            </div>
-                            <div class="b-articles__item__text">
-                                ТОП пользователей с максимальным рейтингом. ТОП
-                                пользователей с максимальным рейтингом.
-                            </div>
-                            <div class="b-articles__item__tags">
-                                <a href="#">Продуктивность</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="link">
-                        <a href="#"><span>Посмотреть всех</span></a>
-                    </div>
-                </div>
-            </div>
-        </aside>
+
+        <?= ArticleLastIssuesWidget::widget([
+        ]); ?>
+
     </div>
 </div>

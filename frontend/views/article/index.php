@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ListView;
 use yii\helpers\Url;
+use frontend\widgets\article\ArticleLastIssuesWidget;
 
 use yii\data\ActiveDataProvider;
 //use app\models\Article;
@@ -28,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div id="main">
                 <!-- <div class="b-content"> -->
                 <div class="b-content">
-                    <!-- ////////////////////////////////////////////////////////////////// -->
+
 
                     <!-- <div class="b-block articles-list"> -->
                     <div class="b-block articles-list">
@@ -105,70 +106,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
                 </div> <!-- div class= b-articles__content -->
             </div> <!-- <div class="b-block articles-list"> -->
-
-<!-- ////////////////////////////////////////////////////////////////// -->
-
         </div> <!-- <div class="b-content"> -->
-        <!-- <aside class="b-sidebar"> -->
-        <aside class="b-sidebar">
-            <div class="b-block">
-                <div class="b-title">Последние материалы</div>
-                <div class="b-articles__content">
-                    <div class="b-articles__item">
-                        <div class="b-articles__item__image">
-                            <img src="http://project-1.topsu.ru/images/b-article__header__image/1.jpg" alt="">
-                        </div>
-                        <div class="b-articles__item__content">
-                            <div class="b-articles__item__title">
-                                что вы себе пожелали бы в следующем году?
-                            </div>
-                            <div class="b-articles__item__text">
-                                ТОП пользователей с максимальным рейтингом. ТОП
-                                пользователей с максимальным рейтингом.
-                            </div>
-                            <div class="b-articles__item__tags">
-                                <a href="#">Продуктивность</a>
-                                <a href="#">Новости</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="b-articles__item">
-                        <div class="b-articles__item__image">
-                            <img src="http://project-1.topsu.ru/images/b-article__header__image/1.jpg" alt="">
-                        </div>
-                        <div class="b-articles__item__content">
-                            <div class="b-articles__item__title">
-                                Amazon заменила курьеров дронами
-                            </div>
-                            <div class="b-articles__item__text">
-                                ТОП пользователей с максимальным рейтингом. ТОП
-                                пользователей с максимальным рейтингом.
-                            </div>
-                            <div class="b-articles__item__tags">
-                                <a href="#">Образование</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="b-articles__item">
-                        <div class="b-articles__item__image">
-                            <img src="http://project-1.topsu.ru/images/b-article__header__image/1.jpg" alt="">
-                        </div>
-                        <div class="b-articles__item__content">
-                            <div class="b-articles__item__title">
-                                25 фраз для собеседования на английском
-                            </div>
-                            <div class="b-articles__item__text">
-                                ТОП пользователей с максимальным рейтингом. ТОП
-                                пользователей с максимальным рейтингом.
-                            </div>
-                            <div class="b-articles__item__tags">
-                                <a href="#">Продуктивность</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </aside>
-        <!-- <aside class="b-sidebar"> -->
+
+        <?= ArticleLastIssuesWidget::widget([
+            //'message' => ''
+        ]); ?>
+
     </div> <!-- <div id="main"> -->
 </div> <!-- <div class="container"> -->
