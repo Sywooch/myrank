@@ -2,7 +2,12 @@
 $this->registerJsFile("http://d3js.org/d3.v3.min.js", ['position' => \yii\web\View::POS_END]);
 $this->registerJsFile("/js/RadarChart.js", ['position' => \yii\web\View::POS_END]);
 ?>
-<div id="chart"></div>
+<div class="b-diagramm b-block">
+    <div class="b-title">Диаграмма оценок</div>
+    <div class="b-diagramm__content">
+	<div id="chart"></div>
+    </div>
+</div>
 
 <?php
 $script = '
@@ -17,7 +22,7 @@ var LegendOptions = ["Smartphone","Tablet"];
 var d = [
 		  [';
 foreach ($allList[0] as $key => $item) {
-    $script .= '{axis:"'.$item.'",value:'. (isset($allList[$key]) ? summArr($allList[$key], $list) : 0).'},';
+    $script .= '{axis:"' . $item . '",value:' . (isset($allList[$key]) ? summArr($allList[$key], $list) : 0) . '},';
 }
 $script .= ']
 		];
@@ -86,7 +91,7 @@ var legend = svg.append("g")
 	  ';
 $this->registerJs($script, \yii\web\View::POS_END);
 
-function summArr ($arr, $vals) {
+function summArr($arr, $vals) {
     $summ = 0;
     foreach ($arr as $key => $item) {
 	$summ += $vals[$key];

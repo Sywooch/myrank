@@ -3,24 +3,22 @@
 namespace frontend\models;
 
 use Yii;
-use yii\helpers\Json;
 
 /**
- * This is the model class for table "user_marks".
+ * This is the model class for table "user_trustees".
  *
  * @property integer $id
  * @property integer $user_to
  * @property integer $user_from
- * @property string $description
  * @property string $created
  */
-class UserMarks extends \yii\db\ActiveRecord {
+class UserTrustees extends \yii\db\ActiveRecord {
 
     /**
      * @inheritdoc
      */
     public static function tableName() {
-	return 'user_marks';
+	return 'user_trustees';
     }
 
     /**
@@ -28,8 +26,8 @@ class UserMarks extends \yii\db\ActiveRecord {
      */
     public function rules() {
 	return [
+	    [['user_to', 'user_from'], 'required'],
 	    [['user_to', 'user_from'], 'integer'],
-	    [['description'], 'string'],
 	    [['created'], 'safe'],
 	];
     }
@@ -39,21 +37,15 @@ class UserMarks extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
 	return [
-	    'id' => 'ID',
-	    'user_to' => 'User To',
-	    'user_from' => 'User From',
-	    'description' => 'Description',
-	    'created' => 'Created',
+	    'id' => Yii::t('app', 'ID'),
+	    'user_to' => Yii::t('app', 'User To'),
+	    'user_from' => Yii::t('app', 'User From'),
+	    'created' => Yii::t('app', 'Created'),
 	];
     }
     
     public function getUser () {
-	return $this->hasOne(User::className(), ['id' => 'user_from']);
-    }
-    
-    public function getDescrArr () {
-	$out = Json::decode($this->description, true);
-	return $out[0];
+	return $this->hasOne(User::className(), ['id' => 'user_to']);
     }
 
 }

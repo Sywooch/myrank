@@ -22,7 +22,7 @@ if (Yii::$app->user->id === null) { ?>
 
     	<div class="b-header__user__info">
     	    <div class="b-header__user__info__image">
-    		<img src="images/users/1.jpg" alt="">
+		<img src="<?= $mUser->userImage ?>" alt="">
     	    </div>
     	    <div class="b-header__user__info__text">
 		<a href="<?= Url::toRoute("users/profile"); ?>">

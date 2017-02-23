@@ -4,6 +4,8 @@ use frontend\widgets\user\MarksDiagramWidget;
 use frontend\widgets\user\UserInfoWidget;
 use frontend\widgets\user\TestimonialsWidget;
 use yii\helpers\Url;
+use frontend\widgets\user\LatestMarksWidget;
+use frontend\widgets\user\UserTrusteesWidget;
 
 $fieldVal = $mUser->attributeLabels();
 ?>
@@ -19,7 +21,7 @@ $fieldVal = $mUser->attributeLabels();
 		<div class="b-user__data">
 		    <div class="b-user__data__left">
 			<div class="b-user__data__image">
-			    <img src="<?= $mUser->image ?>" alt="">
+			    <img src="<?= $mUser->userImage ?>" alt="">
 			</div>
 		    </div>
 		    <div class="b-user__data__right">
@@ -33,11 +35,13 @@ $fieldVal = $mUser->attributeLabels();
 				<?php } ?>
 			    </div>
 			    <div class="b-user__data__info">
-				<a class="b-user__data__info__add-trusted" href="#">
-				    В доверенные
+				<?php if(!$mUser->owner && (Yii::$app->user->id !== NULL)) { ?>
+				<a class="b-user__data__info__add-trusted" href="#" data-url="<?= Url::toRoute(['users/trustees', 'id' => $mUser->id]) ?>">
+				    <?= $mUser->trustUser ? "Доверенный" : "В доверенные" ?>
 				</a>
+				<?php } ?>
 				<div class="b-user__data__info__rating">
-				    <span>996</span>
+				    <span>0</span>
 				    Рейтинг
 				</div>
 			    </div>
@@ -48,11 +52,13 @@ $fieldVal = $mUser->attributeLabels();
 				    <?= $mUser->position ?>
 				</div>
 			    </div>
+			    <?php if(isset($mUser->company_name) && ($mUser->company_name != "")) { ?>
 			    <div class="b-user__data__content__item">
 				<div class="b-user__data__content__item__work">
-				    ООО Астам
+				    <?= $mUser->company_name ?>
 				</div>
 			    </div>
+			    <?php } ?>
 			</div>
 			<!-- div class="b-tags">
 			    <span>Web design</span>
@@ -70,7 +76,7 @@ $fieldVal = $mUser->attributeLabels();
 				Доверенных:
 			    </div>
 			    <div class="b-user__stats__item__number">
-				0
+				<?= $mUser->getUserTrusteesFrom()->count() ?>
 			    </div>
 			    <!-- div class="b-user__stats__item__new-number">
 				1
@@ -80,12 +86,8 @@ $fieldVal = $mUser->attributeLabels();
 		    <div class="b-user__stats__item">
 			<div class="b-user__stats__item__content">
 			    <div class="b-user__stats__item__icon b-user__stats__item__icon_2"></div>
-			    <div class="b-user__stats__item__text">
-				Оценок:
-			    </div>
-			    <div class="b-user__stats__item__number">
-				0
-			    </div>
+			    <div class="b-user__stats__item__text">Оценок:</div>
+			    <div class="b-user__stats__item__number"><?= $mUser->getUserMarksTo()->count(); ?></div>
 			    <!-- div class="b-user__stats__item__new-number">
 				2
 			    </div -->
@@ -163,211 +165,23 @@ $fieldVal = $mUser->attributeLabels();
 	<aside class="b-sidebar">
 
 	    <!-- begin b-diagramm -->
-	    <div class="b-diagramm b-block">
-		<div class="b-title">Диаграмма оценок</div>
-		<div class="b-diagramm__content">
-		    <?= MarksDiagramWidget::widget([
-			'model' => $mUser
-		    ]); ?>
-		</div>
-	    </div>
+	    <?=
+	    MarksDiagramWidget::widget([
+		'model' => $mUser
+	    ]);
+	    ?>
 	    <!-- end b-diagramm -->
 
 	    <!-- begin b-last-marks -->
-	    <div class="b-last-marks b-block">
-		<div class="b-title">Последние оценки</div>
-		<div class="b-last-marks__content">
-		    <div class="b-last-marks__item">
-			<div class="b-last-marks__item__image">
-			    <img src="/images/users/1.jpg" alt="">
-			</div>
-			<div class="b-last-marks__item__content">
-			    <div class="b-last-marks__item__name">
-				Yurii Diachenko
-			    </div>
-			    <div class="b-last-marks__item__date">
-				19.12.2016
-			    </div>
-			    <div class="b-last-marks__item__category">
-				Работа:
-			    </div>
-			    <div class="b-last-marks__item__value">
-				9.6
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-last-marks__item">
-			<div class="b-last-marks__item__image">
-			    <img src="/images/users/2.jpg" alt="">
-			</div>
-			<div class="b-last-marks__item__content">
-			    <div class="b-last-marks__item__name">
-				David dox-diamond
-			    </div>
-			    <div class="b-last-marks__item__date">
-				12.12.2016
-			    </div>
-			    <div class="b-last-marks__item__category">
-				Отношения:
-			    </div>
-			    <div class="b-last-marks__item__value">
-				9.1
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-last-marks__item">
-			<div class="b-last-marks__item__image">
-			    <img src="/images/users/3.jpg" alt="">
-			</div>
-			<div class="b-last-marks__item__content">
-			    <div class="b-last-marks__item__name">
-				Kris Martin
-			    </div>
-			    <div class="b-last-marks__item__date">
-				9.12.2016
-			    </div>
-			    <div class="b-last-marks__item__category">
-				Бизнес:
-			    </div>
-			    <div class="b-last-marks__item__value">
-				8.7
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-last-marks__item">
-			<div class="b-last-marks__item__image">
-			    <img src="/images/users/4.jpg" alt="">
-			</div>
-			<div class="b-last-marks__item__content">
-			    <div class="b-last-marks__item__name">
-				Amanda Mcwilliam
-			    </div>
-			    <div class="b-last-marks__item__date">
-				8.12.2016
-			    </div>
-			    <div class="b-last-marks__item__category">
-				Семья:
-			    </div>
-			    <div class="b-last-marks__item__value">
-				9.9
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-last-marks__item">
-			<div class="b-last-marks__item__image">
-			    <img src="/images/users/5.jpg" alt="">
-			</div>
-			<div class="b-last-marks__item__content">
-			    <div class="b-last-marks__item__name">
-				Engineer, Supervisor
-			    </div>
-			    <div class="b-last-marks__item__date">
-				5.12.2016
-			    </div>
-			    <div class="b-last-marks__item__category">
-				Здоровье:
-			    </div>
-			    <div class="b-last-marks__item__value">
-				9.4
-			    </div>
-			</div>
-		    </div>
-		    <div class="link">
-			<a href="#"><span>Посмотреть всех</span></a>
-		    </div>
-		</div>
-	    </div>
+	    <?= LatestMarksWidget::widget([
+		'model' => $mUser
+	    ]); ?>
 	    <!-- end b-last-marks -->
 
 	    <!-- begin b-trusted-users -->
-	    <div class="b-trusted-users b-block">
-		<div class="b-title">Последние оценки</div>
-		<div class="b-trusted-users__content">
-		    <div class="b-trusted-users__item">
-			<div class="b-trusted-users__item__image">
-			    <img src="/images/users/1.jpg" alt="">
-			</div>
-			<div class="b-trusted-users__item__content">
-			    <div class="b-trusted-users__item__name">
-				Yurii Diachenko
-			    </div>
-			    <div class="b-trusted-users__item__place">
-				Lviv, Ukraine
-			    </div>
-			    <div class="b-tags">
-				<span>Mobile UI design</span>
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-trusted-users__item">
-			<div class="b-trusted-users__item__image">
-			    <img src="/images/users/2.jpg" alt="">
-			</div>
-			<div class="b-trusted-users__item__content">
-			    <div class="b-trusted-users__item__name">
-				David dox-diamond
-			    </div>
-			    <div class="b-trusted-users__item__place">
-				Kyiv, Ukraine
-			    </div>
-			    <div class="b-tags">
-				<span>Web design</span>
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-trusted-users__item">
-			<div class="b-trusted-users__item__image">
-			    <img src="/images/users/3.jpg" alt="">
-			</div>
-			<div class="b-trusted-users__item__content">
-			    <div class="b-trusted-users__item__name">
-				Kris Martin
-			    </div>
-			    <div class="b-trusted-users__item__place">
-				Lviv, Ukraine
-			    </div>
-			    <div class="b-tags">
-				<span>User Experience Design</span>
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-trusted-users__item">
-			<div class="b-trusted-users__item__image">
-			    <img src="/images/users/4.jpg" alt="">
-			</div>
-			<div class="b-trusted-users__item__content">
-			    <div class="b-trusted-users__item__name">
-				Amanda Mcwilliam
-			    </div>
-			    <div class="b-trusted-users__item__place">
-				Kyiv, Ukraine
-			    </div>
-			    <div class="b-tags">
-				<span>Mobile UI design</span>
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-trusted-users__item">
-			<div class="b-trusted-users__item__image">
-			    <img src="/images/users/5.jpg" alt="">
-			</div>
-			<div class="b-trusted-users__item__content">
-			    <div class="b-trusted-users__item__name">
-				Engineer, Supervisor
-			    </div>
-			    <div class="b-trusted-users__item__place">
-				Kyiv, Ukraine
-			    </div>
-			    <div class="b-tags">
-				<span>Adobe Photoshop</span>
-			    </div>
-			</div>
-		    </div>
-		    <div class="link">
-			<a href="#"><span>Посмотреть всех</span></a>
-		    </div>
-		</div>
-	    </div>
+	    <?= UserTrusteesWidget::widget([
+		'model' => $mUser
+	    ]); ?>
 	    <!-- end b-trusted-users -->
 
 	</aside>
@@ -375,3 +189,16 @@ $fieldVal = $mUser->attributeLabels();
 
     </div>
 </div>
+<?php
+$this->registerJs("
+    $('.b-user__data__info__add-trusted').on('click', function() {
+	var that = $(this);
+	url = $(this).attr('data-url');
+	$.post(url, {'_csrf-frontend':$('[name=\"csrf-token\"]').attr('content')}, function(out) {
+	    if(out.code) {
+		that.text(out.data);
+	    }
+	}, 'json');
+    })", yii\web\View::POS_END);
+
+?>

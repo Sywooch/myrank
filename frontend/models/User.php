@@ -30,6 +30,8 @@ use yii\helpers\Json;
  * @property string $mark
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface {
+    
+    const LIMIT_VIEW = 10;
 
     const ROLE_USER_TYPE_USER = 0;
     const ROLE_USER_TYPE_MODERATOR = 1;
@@ -129,6 +131,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public function getTestimonials() {
 	return $this->hasMany(Testimonials::className(), ['user_to' => 'id']);
     }
+    
+    public function getUserTrusteesTo () {
+	return $this->hasMany(UserTrustees::className(), ['user_to' => 'id']);
+    }
+    
+    public function getUserTrusteesFrom () {
+	return $this->hasMany(UserTrustees::className(), ['user_from' => 'id']);
+    }
 
     //
 
@@ -209,9 +219,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	}
 	return $arr;
     }
+    
+    public function getUserImage () {
+	return $this->image == "" ? "/images/no_photo.png" : $this->image;
+    }
 
     public function getOwner() {
 	return (\Yii::$app->user->id === NULL) ? FALSE : (\Yii::$app->user->id == $this->id) ? TRUE : FALSE;
+    }
+    
+    public function getTrustUser () {
+	$id = \Yii::$app->user->id;
+	return $this->getUserTrusteesTo()->andWhere(['user_from' => $id])->count() > 0 ? TRUE : FALSE;
     }
 
     public function beforeSave($insert) {
