@@ -4,6 +4,7 @@ namespace frontend\widgets\user;
 
 use yii\base\Widget;
 use yii\helpers\Json;
+use frontend\models\Marks;
 
 class MarksWidget extends Widget {
     
@@ -16,8 +17,14 @@ class MarksWidget extends Widget {
 
     public function init() {
 	parent::init();
-	$this->allList = $this->model->marks;
-	$this->list = Json::decode($this->model->mark, true);
+	$marks = $this->model->marks;
+	if($this->model->owner) {
+	    $this->allList = $marks[Marks::MARKS_ACCESS_USER];
+	    $this->list = Json::decode($this->model->mark, true);
+	} else {
+	    $this->allList = $marks[Marks::MARKS_ACCESS_PARTNER];
+	    $this->list = $this->model->getUserMarksFromList();
+	}
     }
     
     public function run() {

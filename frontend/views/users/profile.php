@@ -3,6 +3,7 @@ use frontend\widgets\user\MarksWidget;
 use frontend\widgets\user\MarksDiagramWidget;
 use frontend\widgets\user\UserInfoWidget;
 use frontend\widgets\user\TestimonialsWidget;
+use yii\helpers\Url;
 
 $fieldVal = $mUser->attributeLabels();
 ?>
@@ -25,7 +26,11 @@ $fieldVal = $mUser->attributeLabels();
 			<div class="b-user__data__header">
 			    <div class="b-user__data__name">
 				<h1><?= $mUser->fullName ?></h1>
-				<span class="b-user__data__name__edit"></span>
+				<?php if($mUser->owner) { ?>
+				<span 
+				    class="b-user__data__name__edit modalView" 
+				    data-url="<?= Url::toRoute("users/editmaininfo"); ?>"></span>
+				<?php } ?>
 			    </div>
 			    <div class="b-user__data__info">
 				<a class="b-user__data__info__add-trusted" href="#">
@@ -49,12 +54,12 @@ $fieldVal = $mUser->attributeLabels();
 				</div>
 			    </div>
 			</div>
-			<div class="b-tags">
+			<!-- div class="b-tags">
 			    <span>Web design</span>
 			    <span>User Experience Design</span>
 			    <span>Mobile UI design</span>
 			    <span>Adobe Photoshop</span>
-			</div>
+			</div -->
 		    </div>
 		</div>
 		<div class="b-user__stats">
@@ -104,7 +109,6 @@ $fieldVal = $mUser->attributeLabels();
 		<div class="b-user__info">
 		    <div class="b-title">
 			Личная информация
-			<span class="b-user__data__name__edit"></span>
 		    </div>
 		    <div class="b-user__info__content">
 			<div class="b-user__info__text">
@@ -120,7 +124,6 @@ $fieldVal = $mUser->attributeLabels();
 			</div>
 		    </div>
 		</div>
-		<?php if(count($mUser->images) > 0) { ?>
 		<div class="b-user__portfolio">
 		    <div class="b-title">Портфолио</div>
 		    <div class="b-user__portfolio__content">
@@ -129,13 +132,16 @@ $fieldVal = $mUser->attributeLabels();
 			    <img src="<?= $item->name ?>" alt="">
 			</div>
 			<?php } ?>
-			<span class="b-user__portfolio__edit"></span>
+			<?php if($mUser->owner) { ?>
+			<span 
+			    class="b-user__portfolio__edit modalView"
+			    data-url="<?= Url::toRoute("users/editportfolio") ?>"></span>
+			<?php } ?>
 		    </div>
 		    <span class="b-user__portfolio__more open">
 			<span>Свернуть</span>
 		    </span>
 		</div>
-		<?php } ?>
 	    </div>
 	    <!-- end b-user -->
 

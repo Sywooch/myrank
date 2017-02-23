@@ -38,7 +38,7 @@ use yii\helpers\Url;
 		        </span>
 		    </a>
 		    <ul class="treeview-menu">
-		        <li><a href="<?= Url::toRoute(['user/index']) ?>"><i class="fa fa-circle-o"></i> Управление</a></li>
+		        <li><a href="<?= Url::toRoute(['users/index']) ?>"><i class="fa fa-circle-o"></i> Управление</a></li>
 		        <li><a href="<?= Url::toRoute(['profession/index']) ?>"><i class="fa fa-circle-o"></i> Направления</a></li>
 		        <li><a href="<?= Url::toRoute(['marks/index']) ?>"><i class="fa fa-circle-o"></i> Самооценка</a></li>
 		    </ul>

@@ -38,5 +38,10 @@ class Images extends \yii\db\ActiveRecord {
 	    'name' => Yii::t('app', 'Name'),
 	];
     }
+    
+    public function beforeSave($insert) {
+	$this->user_id = Yii::$app->user->id;
+	return parent::beforeSave($insert);
+    }
 
 }

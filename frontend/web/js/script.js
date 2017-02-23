@@ -178,6 +178,14 @@ $(document).ready(function () {
 
     $('.input-phone').inputmask('+38 ( 999 ) 999 - 99 - 99');
     $('.input-phone-company').inputmask('0 44 999 99 99');
+    
+    
+    $('body').on('click', '.modalView', function () {
+	url = $(this).attr('data-url');
+	csrf = $('[name="csrf-token"]').attr('content');
+	showModal(url, 0, csrf, 1);
+	return false;
+    });
 
 
 });

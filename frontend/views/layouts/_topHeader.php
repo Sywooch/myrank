@@ -7,7 +7,7 @@ if (Yii::$app->user->id === null) { ?>
         <div class="b-header__user">
     	<div class="b-header__user__login">
     	    <span>Добро пожаловать в MyRank!</span>
-    	    <a href="#">
+	    <a class="signin" href="#">
     		<span>Авторизация</span>
     	    </a>
     	</div>
@@ -25,7 +25,7 @@ if (Yii::$app->user->id === null) { ?>
     		<img src="images/users/1.jpg" alt="">
     	    </div>
     	    <div class="b-header__user__info__text">
-    		<a href="#">
+		<a href="<?= Url::toRoute("users/profile"); ?>">
     		    <span><?= $mUser->fullName ?></span>
     		</a>
     	    </div>
@@ -42,18 +42,26 @@ if (Yii::$app->user->id === null) { ?>
     	<div class="b-header__user__stats">
     	    <div class="b-header__user__stats__item active">
     		<div class="b-header__user__stats__item__icon b-header__user__stats__item__icon_1"></div>
-    		<span>1</span>
+    		<span></span>
     	    </div>
     	    <div class="b-header__user__stats__item active">
     		<div class="b-header__user__stats__item__icon b-header__user__stats__item__icon_2"></div>
-    		<span>2</span>
+    		<span></span>
     	    </div>
     	    <div class="b-header__user__stats__item active">
     		<div class="b-header__user__stats__item__icon b-header__user__stats__item__icon_3"></div>
-    		<span>5</span>
+    		<span></span>
     	    </div>
     	</div>
 
         </div>
     </div>
-<?php } ?>
+<?php } 
+
+$this->registerJs ("$('.signin').on('click', function () {
+	url = '" . Url::toRoute("site/login") . "';
+	var csrf = '" . Yii::$app->request->getCsrfToken() . "';
+	showModal(url, '', csrf, 1);
+	return false;
+    });", \yii\web\View::POS_END);
+?>

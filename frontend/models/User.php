@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use Yii;
 use yii\web\IdentityInterface;
+use yii\helpers\Json;
 
 /**
  * This is the model class for table "user".
@@ -29,45 +30,39 @@ use yii\web\IdentityInterface;
  * @property string $mark
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface {
-    
+
     const ROLE_USER_TYPE_USER = 0;
     const ROLE_USER_TYPE_MODERATOR = 1;
     const ROLE_USER_TYPE_ADMIN = 10;
-    
     const ROLE_ACCESS_TYPE_STANDART = 0;
     const ROLE_ACCESS_TYPE_ADVANCED = 1;
     const ROLE_ACCESS_TYPE_PREMIUM = 2;
-    
     const TYPE_USER_USER = 0;
     const TYPE_USER_COMPANY = 1;
-    
     const GENDER_DEFAULT = 0;
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 2;
-    
+
     public static $roleUser = [
 	self::ROLE_USER_TYPE_USER => "user",
 	self::ROLE_USER_TYPE_MODERATOR => "moderator",
 	self::ROLE_USER_TYPE_ADMIN => "admin"
     ];
-    
     public static $roleAccess = [
 	self::ROLE_ACCESS_TYPE_STANDART => "standart",
 	self::ROLE_ACCESS_TYPE_ADVANCED => "advanced",
 	self::ROLE_ACCESS_TYPE_PREMIUM => "premium",
     ];
-    
     public static $typeUser = [
 	self::TYPE_USER_USER => "user",
 	self::TYPE_USER_COMPANY => "company",
     ];
-    
     public $genderUser = [
 	self::GENDER_DEFAULT => "default",
 	self::GENDER_MALE => "Male",
 	self::GENDER_FEMALE => "FEMALE"
     ];
-    
+    private $_user;
     public $country_id;
     public $profession;
     public $password;
@@ -121,70 +116,108 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	    'rePassword' => \Yii::t('app', 'Повторите пароль'),
 	];
     }
-    
+
     // Связи
-    public function getCity () {
+    public function getCity() {
 	return $this->hasOne(City::className(), ['city_id' => 'city_id']);
     }
-    
-    public function getImages () {
+
+    public function getImages() {
 	return $this->hasMany(Images::className(), ['user_id' => 'id']);
     }
-    
-    public function getTestimonials () {
+
+    public function getTestimonials() {
 	return $this->hasMany(Testimonials::className(), ['user_to' => 'id']);
     }
-    
+
     //
-    
-    public function getFullName () {
-	return $this->first_name." ".$this->last_name;
+
+    public function getFullName() {
+	return $this->first_name . " " . $this->last_name;
     }
-    
-    public function getCityList () {
+
+    public function getCityList() {
 	$city = City::find()->where(['country_id' => 3159])->orderBy("name")->all();
 	foreach ($city as $item) {
 	    $arr[$item->city_id] = $item->name;
 	}
 	return $arr;
     }
-    
-    public function getCityName () {
+
+    public function getCityName() {
 	return ($this->city_id == 0) ? "Не задано" : $this->getCity()->one()->name;
     }
-    
-    public function getCountryName () {
+
+    public function getCountries() {
+	$model = Country::find()->select(['country_id', 'name'])->orderBy("name ASC")->all();
+	foreach ($model as $item) {
+	    $out[$item->country_id] = $item->name;
+	}
+	return $out;
+    }
+
+    public function getCountryName() {
 	return ($this->city_id == 0) ? "Не задано" : $this->getCity()->one()->countryName;
     }
-    
-    public function getPosition () {
-	return $this->getCityName(). ", " . $this->getCountryName();
+
+    public function getPosition() {
+	return $this->getCityName() . ", " . $this->getCountryName();
     }
-    
-    public function getMarks () {
-	$mMarks = Marks::find()->all();
-	foreach ($mMarks as $item) {
+
+    // Marks
+    public function getMarks() {
+	$out[Marks::MARKS_ACCESS_USER] = $this->getMarksList([Marks::MARKS_ACCESS_ALL, Marks::MARKS_ACCESS_USER]);
+	$out[Marks::MARKS_ACCESS_PARTNER] = $this->getMarksList([Marks::MARKS_ACCESS_ALL, Marks::MARKS_ACCESS_PARTNER]);
+	return $out;
+    }
+
+    public function getMarksList($access) {
+	$model = Marks::find()->where(['access' => $access])->all();
+	foreach ($model as $item) {
 	    $arr[$item->parent_id][$item->id] = $item->name;
 	}
 	return $arr;
     }
-    
-    public function getProfList () {
+
+    /**
+     * Список оценок оставленные пользователю
+     * @return type
+     */
+    public function getUserMarksTo() {
+	return $this->hasMany(UserMarks::className(), ['user_to' => 'id']);
+    }
+
+    /**
+     * Списое оценок оставленных пользователем
+     * @return type
+     */
+    public function getUserMarksFrom() {
+	return $this->hasMany(UserMarks::className(), ['user_from' => 'id']);
+    }
+
+    public function getUserMarksFromList() {
+	$model = $this->getUserMarksTo()->andWhere(['user_from' => \Yii::$app->user->id])->one();
+	return isset($model->description) ? Json::decode($model->description, true) : [];
+    }
+
+    // Marks End
+
+    public function getProfList() {
 	$model = Profession::find()->orderBy("title")->all();
 	foreach ($model as $item) {
 	    $arr[$item->id] = $item->title;
 	}
 	return $arr;
     }
-    
-    
-    
+
+    public function getOwner() {
+	return (\Yii::$app->user->id === NULL) ? FALSE : (\Yii::$app->user->id == $this->id) ? TRUE : FALSE;
+    }
+
     public function beforeSave($insert) {
 	return parent::beforeSave($insert);
     }
-    
-    
-    
+
     /**
      * @inheritdoc
      */
@@ -208,13 +241,12 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public static function findByUsername($username) {
 	return static::findOne(['username' => $username]);
     }
-    
-    public static function findByEmail ($email) {
+
+    public static function findByEmail($email) {
 	return static::findOne(['email' => $email]);
     }
-    
-    
-    public static function getProfile () {
+
+    public static function getProfile() {
 	return static::findOne(\Yii::$app->user->id);
     }
 

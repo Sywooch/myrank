@@ -2716,7 +2716,7 @@ body.gray-bg .b-header__user:after{
 .b-modal__content .row > div{
     padding-bottom: 15px;
 }
-.b-modal__content .row span{
+.b-modal__content .row > span{
     padding: 0 0 5px 0;
     display: block;
     font-family: 'Open Sans', Arial, sans-serif;

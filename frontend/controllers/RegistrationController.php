@@ -47,7 +47,7 @@ class RegistrationController extends Controller {
 	unset($post['User']['id']);
 	if ($model->load($post) && $model->save()) {
 	    $out['code'] = 1;
-	    $out['link'] = \yii\helpers\Url::toRoute(["user/profile", "id" => $model->id]);
+	    $out['link'] = \yii\helpers\Url::toRoute(["users/profile", "id" => $model->id]);
 	} else {
 	    $out['errors'] = $model->errors;
 	}

@@ -2,6 +2,18 @@
 
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use frontend\widgets\user\ModalWidget;
+/*
+echo ModalWidget::widget([
+    'title' => 'Регистрация - Шаг 2<span> из 2</span>',
+    'content' => [
+	'company_name' => [
+	    'label' => 'Место работы на данный момент',
+	    'type' => 'textInput',
+	    'options' => ['class' => 'input-text', 'placeholder' => 'ООО Астам'],
+	]
+    ]
+]);*/
 ?>
 
 <div class="b-modal">

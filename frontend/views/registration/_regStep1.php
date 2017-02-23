@@ -2,6 +2,84 @@
 
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use frontend\widgets\user\ModalWidget;
+
+
+echo ModalWidget::widget([
+    'title' => 'Регистрация - Шаг 1<span> из 2</span>',
+    'model' => $model,
+    'formOptions' => ['id' => 'regFormStep1', 'data-url' => Url::toRoute("registration/step1save")],
+    'content' => [
+	'first_name' => [
+	    'label' => '* Имя',
+	    'type' => 'textInput',
+	    'options' => ['class' => 'input-text', 'placeholder' => 'David']
+	],
+	'last_name' => [
+	    'label' => '* Фамилия',
+	    'type' => 'textInput',
+	    'options' => ['class' => 'input-text', 'placeholder' => 'Dox']
+	],
+	'email' => [
+	    'label' => '* Email',
+	    'type' => 'textInput',
+	    'options' => ['class' => 'input-text', 'placeholder' => 'example@domain.com']
+	],
+	[
+	    'country_id' => [
+		'label' => '* Страна:',
+		'divClass' => 'select-wrapper country-select',
+		'type' => 'dropDownList',
+		'options' => $model->countries,
+	    ],
+	    'city_id' => [
+		'label' => '* Город:',
+		'divClass' => 'select-wrapper city-select',
+		'type' => 'dropDownList',
+		'options' => $model->cityList,
+	    ],
+	],
+	'profession' => [
+	    'label' => '* Специализация:',
+	    'divClass' => 'select-wrapper specialization-select',
+	    'type' => 'dropDownList',
+	    'options' => $model->profList,
+	    'posOpt' => ['multiple' => true],
+	    'posInfo' => "Позвольте людям узнать чем вы занимаетесь",
+	],
+	[
+	    'password' => [
+		'label' => '* Пароль:',
+		'type' => 'passwordInput',
+		'options' => ['class' => 'input-text']
+	    ],
+	    'rePassword' => [
+		'label' => '* Повторите пароль:',
+		'type' => 'passwordInput',
+		'options' => ['class' => 'input-text'],
+	    ]
+	]
+    ],
+    'success' => '$("#modalView .modal-content").html(out.data);',
+    'script' => '    $(".specialization-select select").select2({
+	    placeholder: "Специализация"
+	});
+	$(".country-select select").select2({
+	    placeholder: "Страна"
+	});
+	$(".city-select select").select2({
+	    placeholder: "Город"
+	});
+	$("#user-country_id").on("change", function () {
+	    csrf = $("[name=\"csrf-token\"]").attr("content");
+	    url = "'.Url::toRoute("users/getcities").'";
+	    $.post(url, {"_csrf-frontend":csrf, "id":$(this).val()}, function(data) {
+		$("#user-city_id").html(data);
+	    });
+	});
+	',
+]);
+/*
 ?>
 <div class="b-modal">
     <?php
@@ -35,7 +113,7 @@ use yii\widgets\ActiveForm;
 	    <div class="col-xs-12 col-sm-6">
 		<span>* Страна:</span>
 		<div class="select-wrapper country-select">
-		    <?= $form->field($model, 'country_id')->dropDownList(['Россия', 'Украина'])->label(FALSE); ?>
+		    <?= $form->field($model, 'country_id')->dropDownList(['Россия'])->label(FALSE); ?>
 		</div>
 	    </div>
 	    <div class="col-xs-12 col-sm-6">
@@ -102,13 +180,13 @@ use yii\widgets\ActiveForm;
 	return false;
     });
 
-    $('.specialization-select select').select2({
+    $(".specialization-select select").select2({
 	placeholder: "Специализация"
     });
-    $('.country-select select').select2({
+    $(".country-select select").select2({
 	placeholder: "Страна"
     });
-    $('.city-select select').select2({
+    $(".city-select select").select2({
 	placeholder: "Город"
     });
-</script>
+</script> */ ?>

@@ -11,11 +11,22 @@ use yii\helpers\ArrayHelper;
  * @property integer $id
  * @property string $name
  * @property integer $parent_id
+ * @property integer $access
+ * @property integer $type
  */
 class Marks extends \yii\db\ActiveRecord {
 
     static $lists = [];
+    
+    const MARKS_ACCESS_ALL = 0;
+    const MARKS_ACCESS_USER = 1;
+    const MARKS_ACCESS_PARTNER = 2;
 
+    public static $marksAccess = [
+	self::MARKS_ACCESS_ALL => 'Всем',
+	self::MARKS_ACCESS_USER => 'Пользователю',
+	self::MARKS_ACCESS_PARTNER => 'Пользователям',
+    ];
     /**
      * @inheritdoc
      */
@@ -30,6 +41,7 @@ class Marks extends \yii\db\ActiveRecord {
 	return [
 	    [['parent_id'], 'integer'],
 	    [['name'], 'string', 'max' => 255],
+	    [['access', 'type'], 'safe'],
 	];
     }
 
@@ -41,6 +53,8 @@ class Marks extends \yii\db\ActiveRecord {
 	    'id' => Yii::t('app', 'ID'),
 	    'name' => Yii::t('app', 'Name'),
 	    'parent_id' => Yii::t('app', 'Parent ID'),
+	    'access' => Yii::t('app', 'Кому показывать'),
+	    'type' => Yii::t('app', 'Специализация'),
 	];
     }
 

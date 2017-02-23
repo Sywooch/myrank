@@ -7,6 +7,7 @@ use frontend\models\Marks;
 
 $this->title = Yii::t('app', 'Marks');
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="marks-index">
 
@@ -32,6 +33,15 @@ $this->params['breadcrumbs'][] = $this->title;
 		    return $list[$data->parent_id];
 		},
 		'filter' => Marks::getList()
+	    ],
+	    [
+		'attribute' => 'access',
+		'format' => 'text',
+		'content' => function ($data) {
+		    $list2 = Marks::$marksAccess;
+		    return $list2[$data->access];
+		},
+		'filter' => Marks::$marksAccess,
 	    ],
 		    
             ['class' => 'yii\grid\ActionColumn'],

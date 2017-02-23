@@ -1,5 +1,9 @@
 <?php 
 use yii\helpers\Html;
+use yii\helpers\Url;
+//echo "<pre>";
+//var_dump($list);
+//echo "</pre>";
 ?>
 <div class="b-marks b-block">
     <div class="b-title">Оценки</div>
@@ -44,7 +48,7 @@ use yii\helpers\Html;
 
 </div>
 <?php
-$saveMarks = \yii\helpers\Url::toRoute(["user/savemarks", 'id' => $uId]);
+$saveMarks = Url::toRoute(["users/savemarks", 'id' => $uId]);
 $this->registerJs("
     $(document).ready(function () {
 	setInterval(function() {

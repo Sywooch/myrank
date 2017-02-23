@@ -67,7 +67,7 @@ use yii\helpers\Url;
 			    <a id="regstep" class="button" href="#">Регистрация</a>
 			</div>
 			<div class="b-header__profile__button">
-			    <a id="signin" class="button" href="#">Вход</a>
+			    <a class="button signin" href="#">Вход</a>
 			</div>
 			<div class="b-social">
 			    <ul>
@@ -93,12 +93,6 @@ $this->registerJs("var csrf = '" . Yii::$app->request->getCsrfToken() . "';
 	$('.country-select select').select2({
 	    placeholder: 'Страна'
 	});
-	return false;
-    });
-
-    $('#signin').on('click', function () {
-	url = '" . Url::toRoute("site/login") . "';
-	showModal(url, '', csrf, 1);
 	return false;
     });
     
