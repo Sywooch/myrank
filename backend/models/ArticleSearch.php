@@ -1,10 +1,13 @@
 <?php
 
+//namespace app\models;
+//namespace frontend\models;
 namespace backend\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+
 use frontend\models\Article;
 
 /**
