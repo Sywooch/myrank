@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Article */
+/* @var $model frontend\models\Article */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['index']];
@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'abridgment',
             'content:ntext',
             'header_title',
+            'header_image',
             'article_category_id',
             'status',
             'views',
@@ -40,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'update_time',
             'header_image',
             'header_image_small',
+            'header_image_small_square',
         ],
     ]) ?>
 
@@ -51,4 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <br>
 <div class="b-article__header__image"><p>'header_image_small'</p>
     <img src="<?= Html::encode($model->header_image_small) ?>" alt="">
+</div>
+<br>
+<div class="b-article__header__image"><p>'header_image_small_square'</p>
+    <img src="<?= Html::encode($model->header_image_small_square) ?>" alt="">
 </div>

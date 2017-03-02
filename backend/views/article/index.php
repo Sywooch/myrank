@@ -6,14 +6,14 @@ use yii\widgets\ListView;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\ArticleSearch */
+/* @var $searchModel backend\models\ArticleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Новостные статьи';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="art-index">
+<div class="article-index"><!-- art-index-->
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -32,8 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'abridgment',
             'content:ntext',
             'header_title',
-            //'header_image',
+            'header_image',
             //'header_image_small',
+            //'header_image_small_square',
             'article_category_id' =>  'articleCategory.name',
             'status',
             'views',
@@ -43,4 +44,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    <?php /*echo ListView::widget([
+        'dataProvider' => $dataProvider,
+        'itemOptions' => ['class' => 'item'],
+        'itemView' => function ($model, $key, $index, $widget) {
+            return Html::a(Html::encode($model->title), ['view', 'id' => $model->id_article]);
+        },
+    ]) */?>
 </div>

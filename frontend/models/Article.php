@@ -15,6 +15,7 @@ use Yii;
  * @property string $header_title
  * @property string $header_image
  * @property string $header_image_small
+ * @property string $header_image_small_square
  * @property integer $article_category_id
  * @property integer $status
  * @property integer $views
@@ -49,7 +50,7 @@ class Article extends \yii\db\ActiveRecord
             [['content'], 'string'],
             [['article_category_id', 'status', 'views'], 'integer'],
             [['create_time', 'update_time'], 'safe'],
-            [['title', 'abridgment', 'header_image', 'header_image_small'], 'string', 'max' => 255],
+            [['title', 'abridgment', 'header_image', 'header_image_small', 'header_image_small_square'], 'string', 'max' => 255],
             [['header_title'], 'string', 'max' => 128],
             [['article_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => ArticleCategory::className(), 'targetAttribute' => ['article_category_id' => 'id_article_category']],
         ];
@@ -68,6 +69,7 @@ class Article extends \yii\db\ActiveRecord
             'header_title' => 'Header Title',
             'header_image' => 'Header Image',
             'header_image_small' => 'Header Image Small',
+            'header_image_small_square' => 'Header Image Small Square',
             'article_category_id' => 'Article Category ID',
             'status' => 'Status',
             'views' => 'Views',

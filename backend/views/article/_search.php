@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\ArticleSearch */
+/* @var $model backend\models\ArticleSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -28,6 +28,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'header_image') ?>
 
     <?php  echo $form->field($model, 'header_image_small') ?>
+
+    <?php  echo $form->field($model, 'header_image_small_square') ?>
 
     <?php  echo $form->field($model, 'article_category_id') ?>
 

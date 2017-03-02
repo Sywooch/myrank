@@ -40,7 +40,7 @@ use yii\helpers\Url;
 ?>
                     <div class="b-articles__item">
                         <div class="b-articles__item__image">
-                            <img src="<?= $model->header_image_small ?>" alt="">
+                            <img src="<?= $model->header_image_small_square ?>" alt="">
                         </div>
                         <div class="b-articles__item__content">
                             <div class="b-articles__item__title">
