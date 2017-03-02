@@ -183,7 +183,7 @@ $(document).ready(function () {
     $('body').on('click', '.modalView', function () {
 	url = $(this).attr('data-url');
 	csrf = $('[name="csrf-token"]').attr('content');
-	showModal(url, 0, csrf, 1);
+	showModal(url, 0, 1);
 	return false;
     });
 
@@ -211,11 +211,11 @@ $(document).ready(function () {
  * @param int n 1/0 новое_окно/старое
  * @returns Show modal
  */
-function showModal(url, param, csrf, n) {
+function showModal(url, param, n) {
     $.ajax({
 	url: url,
 	dataType: 'json',
-	data: {param: param, '_csrf-frontend': csrf},
+	data: {param: param, '_csrf-frontend': $('[name="csrf-token"]').attr('content')},
 	method: 'POST',
 	success: function (out) {
 	    if (out.code == 1) {
@@ -227,5 +227,35 @@ function showModal(url, param, csrf, n) {
 	    console.log(out);
 	}
     });
+}
+
+function sendPost (url, param) {
+    var csrf = $('[name="csrf-token"]').attr('content');
+    $.ajax({
+	url: url,
+	dataType: 'json',
+	method: 'POST',
+	data: {param:param, '_csrf-frontend': csrf},
+	success: function (data) {
+	    return data;
+	}
+    });
+    return out;
+}
+
+function alertGreen () {
+    $('.alert').removeClass('in').css('margin-bottom', '0');
+    $('.alert-success').addClass('in').css('margin-bottom', '-' + $('.alert-warning').outerHeight() + 'px');
+}
+
+function alertRed () {
+    $('.alert').removeClass('in').css('margin-bottom', '0');
+    $('.alert-warning').addClass('in').css('margin-bottom', '-' + $('.alert-warning').outerHeight() + 'px');
+}
+
+function alertInfo (text) {
+    $('.alert').removeClass('in').css('margin-bottom', '0');
+    $('.alert-info').addClass('in').css('margin-bottom', '-' + $('.alert-warning').outerHeight() + 'px');
+    $('.alert-info .alertText').html(text);
 }
 

@@ -22,7 +22,7 @@ var LegendOptions = ["Smartphone","Tablet"];
 var d = [
 		  [';
 foreach ($allList[0] as $key => $item) {
-    $script .= '{axis:"' . $item . '",value:' . (isset($allList[$key]) ? summArr($allList[$key], $list) : 0) . '},';
+    $script .= '{axis:"' . $item . '",value:' . (isset($allList[$key]) ? $list[$key] : 0) . '},';
 }
 $script .= ']
 		];

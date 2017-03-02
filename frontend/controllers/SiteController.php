@@ -16,6 +16,8 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use frontend\models\Article;
 
+use frontend\components\AuthHandler;
+
 /**
  * Site controller
  */
@@ -45,7 +47,7 @@ class SiteController extends Controller {
 	    'verbs' => [
 		'class' => VerbFilter::className(),
 		'actions' => [
-		    //'logout' => ['post'],
+		//'logout' => ['post'],
 		],
 	    ],
 	];
@@ -61,9 +63,19 @@ class SiteController extends Controller {
 	    ],
 	    'auth' => [
 		'class' => 'yii\authclient\AuthAction',
-		'successCallback' => [$this, 'successCallback'],
+		'successCallback' => [$this, 'onAuthSuccess'],
 	    ],
 	];
+    }
+    
+    
+
+    public function onAuthSuccess($client) {
+	(new AuthHandler($client))->handle();
+    }
+    
+    public function actionTest () {
+	return $this->render('test');
     }
 
     /**
@@ -72,17 +84,17 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Article::find()->where(['status'=>10])->orderBy('create_time DESC')->limit(4),
-            'totalCount' => 4,
-            'pagination' => [
-                'pageSize' => 4,
-            ]
-        ]);
-        return $this->render(
-            'index', [
-            'listDataProvider' => $dataProvider,
-        ]);
+	$dataProvider = new ActiveDataProvider([
+	    'query' => Article::find()->where(['status' => 10])->orderBy('create_time DESC')->limit(4),
+	    'totalCount' => 4,
+	    'pagination' => [
+		'pageSize' => 4,
+	    ]
+	]);
+	return $this->render(
+			'index', [
+		    'listDataProvider' => $dataProvider,
+	]);
     }
 
     public function successCallback($client) {
@@ -99,8 +111,8 @@ class SiteController extends Controller {
 	echo \yii\helpers\Json::encode(['code' => 1, 'data' => $this->renderPartial("login", ['model' => $model])]);
 	\Yii::$app->end();
     }
-    
-    public function actionLoginval () {
+
+    public function actionLoginval() {
 	$model = new LoginForm();
 	if ($model->load(Yii::$app->request->post()) && $model->login()) {
 	    echo \yii\helpers\Json::encode(['code' => 1]);

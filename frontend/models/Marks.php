@@ -20,12 +20,12 @@ class Marks extends \yii\db\ActiveRecord {
     
     const MARKS_ACCESS_ALL = 0;
     const MARKS_ACCESS_USER = 1;
-    const MARKS_ACCESS_PARTNER = 2;
+    const MARKS_ACCESS_COMPANY = 2;
 
     public static $marksAccess = [
 	self::MARKS_ACCESS_ALL => 'Всем',
 	self::MARKS_ACCESS_USER => 'Пользователю',
-	self::MARKS_ACCESS_PARTNER => 'Пользователям',
+	self::MARKS_ACCESS_COMPANY => 'Пользователям',
     ];
     /**
      * @inheritdoc

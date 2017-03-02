@@ -1,67 +1,93 @@
-<?php 
+<?php
+
 use frontend\models\Testimonials;
 use yii\helpers\Url;
 ?>
 <div class="b-comments b-block">
     <div class="b-title">
 	Отзывы
-	<a class="button-small" id="writeTestimonial" href="#">Оставить отзыв</a>
+	<?php if (!is_null(Yii::$app->user->id) && !$mUser->owner) { ?>
+    	<a class="button-small" id="writeTestimonial" href="#">Оставить отзыв</a>
+	<?php } ?>
     </div>
     <div class="b-comments__content">
-	<?php foreach ($list as $key => $item) { ?>
-	<div class="b-comments__item">
-	    <div class="b-comments__item__image">
-		<img src="/images/users/2.jpg" alt="">
-		<div class="b-comments__item__number">
-		    978
-		</div>
-	    </div>
-	    <div class="b-comments__item__info">
-		<div class="b-comments__item__date">
-		    5.12.2016
-		</div>
-		<div class="b-comments__item__smile b-comments__item__smile_positive"></div>
-		<div class="b-comments__item__actions">
-		    <a href="#">Ответить</a>
-		    <a href="#">Пожаловаться</a>
-		</div>
-	    </div>
-	    <div class="b-comments__item__content">
-		<div class="b-comments__item__title">
-		    Отличный работник!
-		</div>
-		<div class="b-comments__item__name">
-		    Ева Гарднер
-		</div>
-		<div class="b-comments__item__post">
-		    Инженер
-		</div>
-		<div class="b-comments__item__text">
-		    <p>
-			Далеко-далеко за словесными горами в
-			стране гласных и согласных живут рыбные
-			тексты. Вдали от всех живут они в буквенных
-			домах на берегу Семантика большого
-			языкового океана. Маленький ручеек журчит.
-		    </p>
-		</div>
-	    </div>
-	</div>
+<?php foreach ($list as $key => $item) { ?>
+    	<div class="b-comments__item" data-id="<?= $item->id ?>" id="testimonials<?= $item->id ?>">
+    	    <div class="b-comments__item__image">
+    		<img src="<?= $item->userFrom->userImage ?>" alt="">
+    		<div class="b-comments__item__number">
+    		    0
+    		</div>
+    	    </div>
+    	    <div class="b-comments__item__info">
+    		<div class="b-comments__item__date">
+		    <?= Yii::$app->formatter->asDate($item->created, 'dd.MM.yyyy') ?>
+    		</div>
+    		<div class="b-comments__item__smile <?= Testimonials::$smiles[$item->smile] ?>"></div>
+    		<div class="b-comments__item__actions">
+		    <?php if($item->userTo->owner) { ?>
+			<?php if(!isset($item->answer->id)) { ?><a class="answerTestimonial" href="#">Ответить</a><?php } ?>
+			<a class="claimTestimonial" href="#">Пожаловаться</a>
+		    <?php } ?>
+    		</div>
+    	    </div>
+    	    <div class="b-comments__item__content">
+    		<!-- div class="b-comments__item__title">
+    		    Отличный работник!
+    		</div -->
+    		<div class="b-comments__item__name">
+		    <?= $item->userFrom->fullName ?>
+    		</div>
+    		<!-- div class="b-comments__item__post">
+    		    Инженер
+    		</div -->
+    		<div class="b-comments__item__text">
+    		    <p><?= $item->text ?></p>
+    		</div>
+		<?php if(isset($item->answer->id)) { ?>
+    		<div class="b-comments__item__answer">
+    		    <div class="b-comments__item__answer__image">
+			<img src="<?= $item->answer->userFrom->userImage ?>" alt="">
+    		    </div>
+    		    <div class="b-comments__item__answer__text">
+    			<p><?= $item->answer->text ?></p>
+    		    </div>
+    		</div>
+		<?php } ?>
+    	    </div>
+    	</div>
 	<?php } ?>
-	
-	<?php if(count($list) > Testimonials::COUNT_LIST) { ?>
-	<div class="b-comments__button-more">
-	    <span class="b-comments__button-more__default">БОЛЬШЕ</span>
-	    <span class="b-comments__button-more__loading"></span>
-	</div>
+
+	<?php if (count($list) > Testimonials::COUNT_LIST) { ?>
+    	<div class="b-comments__button-more">
+    	    <span class="b-comments__button-more__default">БОЛЬШЕ</span>
+    	    <span class="b-comments__button-more__loading"></span>
+    	</div>
 	<?php } ?>
     </div>
 </div>
 <?php
-$this->registerJs(""
-	. "$('#writeTestimonial').on('click', function() {"
-	. "url = '".Url::toRoute("user/writetestimonials")."';"
-	. "csrf = '".Yii::$app->getRequest()->getCsrfToken()."';"
-	. "showModal(url, 1, csrf); "
-	. "return false;})", \yii\web\View::POS_END);
+$this->registerJs("
+	$('#writeTestimonial').on('click', function() {
+	    url = '" . Url::toRoute(["users/writetestimonials", "id" => $mUser->id]) . "';
+	    csrf = '" . Yii::$app->getRequest()->getCsrfToken() . "';
+	    showModal(url, 1, 1); 
+	    return false;
+	});
+	$('.claimTestimonial').on('click', function() {
+	    id = $(this).closest('.b-comments__item').attr('data-id');
+	    url = '" . Url::toRoute(["users/sendclaim"]) . "';
+	    sendPost(url, id);
+	    alertInfo('Жалоба отправлена');
+	    return false;
+	});
+	$('.answerTestimonial').on('click', function() {
+	    id = $(this).closest('.b-comments__item').attr('data-id');
+	    url = '" . Url::toRoute(["users/writetestimonials", "id" => $mUser->id]) . "';
+	    showModal(url, {'parent':id}, 1);
+		
+	    return false;
+	});
+	
+	", \yii\web\View::POS_END);
 ?>

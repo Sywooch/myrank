@@ -61,7 +61,7 @@ if (Yii::$app->user->id === null) { ?>
 $this->registerJs ("$('.signin').on('click', function () {
 	url = '" . Url::toRoute("site/login") . "';
 	var csrf = '" . Yii::$app->request->getCsrfToken() . "';
-	showModal(url, '', csrf, 1);
+	showModal(url, '', 1);
 	return false;
     });", \yii\web\View::POS_END);
 ?>

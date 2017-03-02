@@ -15,9 +15,20 @@ class MarksDiagramWidget extends MarksWidget {
 
     public function init() {
 	parent::init();
-	$marks = $this->model->marks;
-	$this->allList = $marks[Marks::MARKS_ACCESS_USER];
-	$this->list = Json::decode($this->model->mark, true);
+	
+	$markUsers = $this->model->getUserMarksTo()->select('description')->asArray()->all();
+	$markUsers[]['description'] = $this->model->mark;
+	foreach ($markUsers as $item) {
+	    $arr = Json::decode($item['description'], true);
+	    foreach ($arr[0] as $key => $el) {
+		if(isset($out[$key])) {
+		    $out[$key] += (($el != 0.0) ? $el / count($markUsers) / 10 : $el);
+		} else {
+		    $out[$key] = (($el != 0.0) ? $el / count($markUsers) / 10 : $el);
+		}
+	    }
+	}
+	$this->list = $out;
     }
     
     public function run() {

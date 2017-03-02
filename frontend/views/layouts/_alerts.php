@@ -8,5 +8,7 @@
 </div>
 <div class="alert alert-info fade">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+    <div class="alertText">
+	<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+    </div>
 </div>

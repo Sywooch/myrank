@@ -17,12 +17,10 @@ class MarksWidget extends Widget {
 
     public function init() {
 	parent::init();
-	$marks = $this->model->marks;
+	$this->allList = $this->model->marks;
 	if($this->model->owner) {
-	    $this->allList = $marks[Marks::MARKS_ACCESS_USER];
 	    $this->list = Json::decode($this->model->mark, true);
 	} else {
-	    $this->allList = $marks[Marks::MARKS_ACCESS_PARTNER];
 	    $this->list = $this->model->getUserMarksFromList();
 	}
     }

@@ -3,6 +3,7 @@ use yii\widgets\ListView;
 use frontend\widgets\user\LatestUsersAddWidget;
 
 $this->title = 'My Yii Application';
+
 ?>
 
 <!-- begin b-category -->

@@ -50,7 +50,7 @@ use yii\helpers\Url;
 </div>
 <?php
 $saveMarks = Url::toRoute(["users/savemarks", 'id' => $uId]);
-$this->registerJs("
+$script = "
     $(document).ready(function () {
 	changeField();
 	
@@ -70,22 +70,29 @@ $this->registerJs("
 		$('#summField' + id).text(out.toFixed(1));
 		$('#summInput' + id).val(out.toFixed(1));
 	    });
-	}
-	$('#saveMarks').on('click', function() {
-	    $(this).parents('.b-marks').addClass('b-marks_loading');
-	    $.ajax({
-		'url' : '".$saveMarks."',
-		'method': 'POST',
-		'data' : $('#markFields').serialize(),
-		'dataType' : 'json',
-		'success' : function(out) {
-		    if(out.code === 1) {
-			$('#saveMarks').parents('.b-marks').removeClass('b-marks_loading');
+	}";
+if(Yii::$app->user->id !== Null) {
+    $script .= "$('#saveMarks').on('click', function() {
+		$(this).parents('.b-marks').addClass('b-marks_loading');
+		$.ajax({
+		    'url' : '".$saveMarks."',
+		    'method': 'POST',
+		    'data' : $('#markFields').serialize(),
+		    'dataType' : 'json',
+		    'success' : function(out) {
+			if(out.code === 1) {
+			    $('#saveMarks').parents('.b-marks').removeClass('b-marks_loading');
+			}
 		    }
-		}
-	    });
-	    return false;
-	});
-    });
-    ", \yii\web\View::POS_END);
+		});
+		return false;
+	    });";
+} else {
+    $script .= "$('#saveMarks').on('click', function() {
+		    alertRed();
+		return false;
+	    });";
+}
+$script .= "});";
+$this->registerJs($script, \yii\web\View::POS_END);
 ?>

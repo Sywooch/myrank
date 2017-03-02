@@ -11,7 +11,7 @@ use Yii;
  * @property string $title
  * @property string $text
  * @property integer $user_from
- * @property integer $usert_to
+ * @property integer $user_to
  * @property integer $smile
  * @property integer $parent_id
  * @property string $created
@@ -42,10 +42,10 @@ class Testimonials extends \yii\db\ActiveRecord {
      */
     public function rules() {
 	return [
+	    [['user_from', 'user_to', 'smile'], 'required'],
 	    [['text'], 'string'],
-	    [['user_from', 'usert_to', 'smile', 'parent_id'], 'integer'],
-	    [['created'], 'safe'],
-	    [['title'], 'string', 'max' => 255],
+	    [['user_from', 'user_to', 'smile', 'parent_id'], 'integer'],
+	    [['user_from'], 'safe'],
 	];
     }
 
@@ -55,10 +55,9 @@ class Testimonials extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'title' => Yii::t('app', 'Title'),
 	    'text' => Yii::t('app', 'Text'),
 	    'user_from' => Yii::t('app', 'User From'),
-	    'usert_to' => Yii::t('app', 'Usert To'),
+	    'user_to' => Yii::t('app', 'Usert To'),
 	    'smile' => Yii::t('app', 'Smile'),
 	    'parent_id' => Yii::t('app', 'Parent ID'),
 	    'created' => Yii::t('app', 'Created'),
@@ -71,6 +70,10 @@ class Testimonials extends \yii\db\ActiveRecord {
     
     public function getUserTo () {
 	return $this->hasOne(User::className(), ['id' => 'user_to']);
+    }
+    
+    public function getAnswer () {
+	return static::findOne(['parent_id' => $this->id]);
     }
 
 }

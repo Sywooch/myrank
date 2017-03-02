@@ -11,10 +11,14 @@ class TestimonialsWidget extends Widget {
     
     public function init() {
 	parent::init();
+	$this->list = $this->model->getTestimonials()->andWhere(['parent_id' => 0])->all();
     }
     
     public function run() {
 	parent::run();
-	return $this->render("testimonials", ['list' => $this->list]);
+	return $this->render("testimonials", [
+	    'list' => $this->list, 
+	    'mUser' => $this->model
+	]);
     }
 }

@@ -9,14 +9,10 @@ class LatestMarksWidget extends \yii\base\Widget {
     public $model;
     private $list;
     private $marks;
-    private $keys;
-
 
     public function init() {
 	parent::init();
-	$marks = $this->model->marks;
-	$this->marks = $marks[Marks::MARKS_ACCESS_PARTNER];
-	//$this->keys = array_keys($this->marks);
+	$this->marks = $this->model->marks;
 	$this->list = $this->model->getUserMarksTo()->limit(10)->all();
     }
     

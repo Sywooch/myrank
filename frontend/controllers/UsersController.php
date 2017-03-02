@@ -6,6 +6,8 @@ use frontend\models\User;
 use yii\helpers\Json;
 use frontend\models\UserMarks;
 use frontend\models\UserTrustees;
+use frontend\models\Testimonials;
+use frontend\models\UserClaim;
 /**
  * Description of UserController
  *
@@ -46,10 +48,49 @@ class UsersController extends Controller {
 	\Yii::$app->end();
     }
     
-    public function actionWritetestimonials () {
-	$out = $this->renderPartial("_modalWriteTestimonial");
+    /**
+     * Модальное окно комментария
+     * @param int $id - айди юзверя, которому адресован коммент
+     */
+    public function actionWritetestimonials ($id) {
+	$param = \Yii::$app->request->post('param');
+	$mUser = User::getProfile();
+	$model = new Testimonials();
+	$out = $this->renderPartial("_modalWriteTestimonial", [
+	    'model' => $model,
+	    'mUser' => $mUser,
+	    'user_to' => $id,
+	    'parent' => isset($param['parent']) ? $param['parent'] : 0
+	]);
 	echo Json::encode(['code' => 1, 'data' => $out, 'title' => 'Оставить отзыв']);
 	\Yii::$app->end();
+    }
+    
+    /**
+     * Сохранение комента
+     */
+    public function actionSavetestimonials () {
+	$post = \Yii::$app->request->post();
+	$code = 0;
+	$model = new Testimonials();
+	if($model->load($post) && $model->save()) {
+	    $code = 1;
+	}
+	echo Json::encode(['code' => $code, 'errors' => $model->errors]);
+    }
+    
+    public function actionSendclaim () {
+	$post = \Yii::$app->request->post();
+	if(isset($post['param'])) {
+	    $mClaim = UserClaim::findOne($post['id']);
+	    if(!isset($mClaim->id)) {
+		$mClaim = new UserClaim();
+		$mClaim->attributes = [
+		    
+		];
+	    }
+	}
+	echo Json::encode(['code' => 1]);
     }
     
     // Edit profile

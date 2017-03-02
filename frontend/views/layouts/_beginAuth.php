@@ -71,8 +71,8 @@ use yii\helpers\Url;
 			</div>
 			<div class="b-social">
 			    <ul>
-				<li><a class="b-social__fb" href="#"></a></li>
-				<li><a class="b-social__vk" href="#"></a></li>
+				<li><a class="b-social__fb" href="<?= Url::toRoute(['site/auth', 'authclient' => 'facebook']) ?>"></a></li>
+				<li><a class="b-social__vk" href="<?= Url::toRoute(['site/auth', 'authclient' => 'vkontakte']) ?>"></a></li>
 				<li><a class="b-social__tw" href="#"></a></li>
 			    </ul>
 			</div>
@@ -89,7 +89,7 @@ use yii\helpers\Url;
 $this->registerJs("var csrf = '" . Yii::$app->request->getCsrfToken() . "';
     $('#regstep').on('click', function () {
 	url = '" . Url::toRoute("registration/step1") . "';
-	showModal(url, '', csrf, 1);
+	showModal(url, '', 1);
 	$('.country-select select').select2({
 	    placeholder: 'Страна'
 	});

@@ -69,6 +69,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public $profession;
     public $password;
     public $rePassword;
+    public $github;
+    public $username;
+    
+    public $defMarks = [];
 
     /**
      * @inheritdoc
@@ -82,7 +86,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      */
     public function rules() {
 	return [
-	    [['first_name', 'last_name', 'city_id'], 'required'],
+	    //[['first_name', 'last_name', 'city_id'], 'required'],
 	    [['account_id', 'company_id', 'profileviews', 'rating'], 'integer'],
 	    [['last_login', 'birthdate', 'city_id', 'phone', 'site', 'mark', 'email'], 'safe'],
 	    [['image'], 'string', 'max' => 255],
@@ -175,14 +179,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 
     // Marks
-    public function getMarks() {
-	$out[Marks::MARKS_ACCESS_USER] = $this->getMarksList([Marks::MARKS_ACCESS_ALL, Marks::MARKS_ACCESS_USER]);
-	$out[Marks::MARKS_ACCESS_PARTNER] = $this->getMarksList([Marks::MARKS_ACCESS_ALL, Marks::MARKS_ACCESS_PARTNER]);
-	return $out;
-    }
 
-    public function getMarksList($access) {
-	$model = Marks::find()->where(['access' => $access])->all();
+    public function getMarks() {
+	$model = Marks::find()->all();
 	foreach ($model as $item) {
 	    $arr[$item->parent_id][$item->id] = $item->name;
 	}
