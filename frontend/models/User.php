@@ -5,6 +5,7 @@ namespace frontend\models;
 use Yii;
 use yii\web\IdentityInterface;
 use yii\helpers\Json;
+use frontend\models\UserTrustees;
 
 /**
  * This is the model class for table "user".
@@ -143,6 +144,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public function getUserTrusteesFrom () {
 	return $this->hasMany(UserTrustees::className(), ['user_from' => 'id']);
     }
+    
+    public function getUserMarkRatingTo () {
+	return $this->hasMany(UserMarkRating::className(), ['user_to' => 'id']);
+    }
+    
+    public function getProfession () {
+	return $this->hasMany(UserProfession::className(), ['user_id' => 'id']);
+    }
 
     //
 
@@ -159,7 +168,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 
     public function getCityName() {
-	return ($this->city_id == 0) ? "Не задано" : $this->getCity()->one()->name;
+	return ($this->city_id == 0) ? FALSE : $this->getCity()->one()->name;
     }
 
     public function getCountries() {
@@ -171,11 +180,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 
     public function getCountryName() {
-	return ($this->city_id == 0) ? "Не задано" : $this->getCity()->one()->countryName;
+	return ($this->city_id == 0) ? FALSE : $this->getCity()->one()->countryName;
     }
 
     public function getPosition() {
-	return $this->getCityName() . ", " . $this->getCountryName();
+	return $this->getCityName() && $this->getCountryName() ? $this->getCityName() . ", " . $this->getCountryName() : FALSE;
     }
 
     // Marks

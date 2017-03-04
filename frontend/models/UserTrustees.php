@@ -10,9 +10,13 @@ use Yii;
  * @property integer $id
  * @property integer $user_to
  * @property integer $user_from
+ * @property integer $back
  * @property string $created
  */
 class UserTrustees extends \yii\db\ActiveRecord {
+    
+    const BACK_TRUSTEES_YES = 1;
+    const BACK_TRUSTEES_NO = 0;
 
     /**
      * @inheritdoc

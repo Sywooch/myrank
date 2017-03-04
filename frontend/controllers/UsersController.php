@@ -8,6 +8,7 @@ use frontend\models\UserMarks;
 use frontend\models\UserTrustees;
 use frontend\models\Testimonials;
 use frontend\models\UserClaim;
+use frontend\models\UserMarkRating;
 /**
  * Description of UserController
  *
@@ -43,6 +44,25 @@ class UsersController extends Controller {
 		'user_from' => \Yii::$app->user->id,
 		'description' => Json::encode($req),
 	    ];
+	    
+	    if(isset($req[0])) {
+		foreach ($req[0] as $key => $item) {
+		    $query = [
+			'user_from' => \Yii::$app->user->id,
+			'user_to' => $mUser->id,
+			'mark_id' => $key,
+		    ];
+		    
+		    $mUserMarkRating = UserMarkRating::find()->where($query)->one();
+		    if(!isset($mUserMarkRating->id)) {
+			$mUserMarkRating = new UserMarkRating();
+		    }
+		    $query['mark_val'] = $item;
+		    $mUserMarkRating->attributes = $query;
+		    $mUserMarkRating->save();
+		}
+		\Yii::$app->rating->process($mUser);
+	    }
 	    echo Json::encode(['code' => $mMarks->save() ? 1 : 0, 'error' => $mMarks->errors]);
 	}
 	\Yii::$app->end();
@@ -74,6 +94,7 @@ class UsersController extends Controller {
 	$code = 0;
 	$model = new Testimonials();
 	if($model->load($post) && $model->save()) {
+	    \Yii::$app->rating->process(User::findOne($model->user_to));
 	    $code = 1;
 	}
 	echo Json::encode(['code' => $code, 'errors' => $model->errors]);

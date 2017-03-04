@@ -102,6 +102,7 @@ $act = Yii::$app->controller->action->id;
                     </div>
                 </div>
 		<?= ($contr == 'site' && $act == 'index') ? $this->render("_beginAuth") : Null; ?>
+		<?= ($contr == 'site' && $act == 'search') ? $this->render("_search") : Null ?>
             </div>
         </header>
         <!-- end b-header -->

@@ -22,7 +22,9 @@ var LegendOptions = ["Smartphone","Tablet"];
 var d = [
 		  [';
 foreach ($allList[0] as $key => $item) {
-    $script .= '{axis:"' . $item . '",value:' . (isset($allList[$key]) ? $list[$key] : 0) . '},';
+    if(count($allList[$key]) > 0) {
+	$script .= '{axis:"' . $item . '",value:' . (isset($list[$key]) ? $list[$key] : 0) . '},';
+    }
 }
 $script .= ']
 		];
@@ -90,12 +92,4 @@ var legend = svg.append("g")
 	  .text(function(d) { return d; });
 	  ';
 $this->registerJs($script, \yii\web\View::POS_END);
-
-function summArr($arr, $vals) {
-    $summ = 0;
-    foreach ($arr as $key => $item) {
-	$summ += $vals[$key];
-    }
-    return $summ / count($arr) / 10;
-}
 ?>

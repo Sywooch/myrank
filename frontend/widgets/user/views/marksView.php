@@ -10,6 +10,7 @@ use yii\helpers\Url;
     <div class="b-marks__content">
 	<form id="markFields" method="POST" action="#">
 	    <?php foreach ($allList[0] as $key => $el) { ?>
+	    <?php if(count($allList[$key]) > 0) { ?>
     	    <div class="b-marks__item">
     		<div class="b-marks__item__header">
     		    <div class="b-marks__item__header__text">
@@ -21,6 +22,7 @@ use yii\helpers\Url;
 		    <input id="summInput<?= $key ?>" type="hidden" name="mark[0][<?= $key ?>]" value="0.0" />
     		</div>
     		<div class="b-marks__item__content" data-summ="<?= $key ?>">
+		    
 			<?php foreach (isset($allList[$key]) ? $allList[$key] : [] as $key2 => $el2) { ?>
 			    <div class="b-marks__item__content__row">
 				<div class="b-marks__item__content__text"><?= $el2 ?></div>
@@ -39,7 +41,7 @@ use yii\helpers\Url;
 			<?php } ?>
     		</div>
     	    </div>
-	    <?php } ?>
+	    <?php }} ?>
 	    <?= Html::hiddenInput(\Yii :: $app->getRequest()->csrfParam, \Yii :: $app->getRequest()->getCsrfToken(), []); ?>
 	</form>
     </div>

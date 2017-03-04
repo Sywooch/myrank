@@ -58,6 +58,9 @@ return [
 	    ],
 	],
 	'authClientCollection' => $authClient,
+	'rating' => [
+	    'class' => 'frontend\components\Rating',
+	],
     ],
     'modules' => [
 	'debug' => [

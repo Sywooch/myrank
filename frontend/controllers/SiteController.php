@@ -229,5 +229,22 @@ class SiteController extends Controller {
 		    'model' => $model,
 	]);
     }
+    
+    public function actionChange () {
+	$model = \frontend\models\UserMarks::find()->all();
+	foreach ($model as $item) {
+	    $params = \yii\helpers\Json::decode($item->description, true);
+		foreach ($params[0] as $key => $el) {
+		$mUMR = new \frontend\models\UserMarkRating();
+		$mUMR->attributes = [
+		    'user_from' => $item->user_from,
+		    'user_to' => $item->user_to,
+		    'mark_id' => $key,
+		    'mark_val' => $el
+		];
+		$mUMR->save();
+	    }
+	}
+    }
 
 }

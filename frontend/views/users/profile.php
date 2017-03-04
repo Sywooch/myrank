@@ -41,7 +41,7 @@ $fieldVal = $mUser->attributeLabels();
 				</a>
 				<?php } ?>
 				<div class="b-user__data__info__rating">
-				    <span>0</span>
+				    <span><?= $mUser->rating ?></span>
 				    Рейтинг
 				</div>
 			    </div>
