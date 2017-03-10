@@ -71,6 +71,7 @@ class Article extends \yii\db\ActiveRecord
             'header_image_small' => 'Header Image Small',
             'header_image_small_square' => 'Header Image Small Square',
             'article_category_id' => 'Article Category ID',
+            'articleCategoryName' => 'Article Category Name',
             'status' => 'Status',
             'views' => 'Views',
             'create_time' => 'Create Time',
@@ -84,5 +85,10 @@ class Article extends \yii\db\ActiveRecord
     public function getArticleCategory()
     {
         return $this->hasOne(ArticleCategory::className(), ['id_article_category' => 'article_category_id']);
+    }
+
+    public function getArticleCategoryName()
+    {
+        return $this->articleCategory->name;
     }
 }

@@ -10,11 +10,17 @@ class ArticleSeeAlsoWidget extends Widget {
 
     public $view = "ArticleSeeAlsoView";
     public $message;
+    public $articleCategoryId;
 
     public function init() {
         parent::init();
+
         if($this->message === null) {
             $this->message = 'empty message';
+        }
+
+        if($this->articleCategoryId === null) {
+            $this->articleCategoryId = 1;
         }
     }
 
@@ -22,7 +28,13 @@ class ArticleSeeAlsoWidget extends Widget {
         parent::run();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => Article::find()->where(['status'=>10])->/*orderBy('create_time DESC')->*/limit(2),
+            //'query' => Article::find()->where(['status'=>10])->/*orderBy('create_time DESC')->*/limit(2),
+            'query' => Article::find()
+                ->where(['status'=>10])
+                ->andWhere(['article_category_id'=>$this->articleCategoryId])
+                //->orderBy('create_time DESC')
+                ->orderBy('RAND()') // исправить на другой алгоритм
+                ->limit(2),
             'totalCount' => 2,
             'pagination' => [
                 'pageSize' => 2,

@@ -10,7 +10,7 @@ use yii\widgets\ListView;
         <div class="b-title">Последние материалы</div>
 <?php
         echo ListView::widget([
-            'dataProvider' => $listDataProvider,
+            'dataProvider' => $listDataProviderArticleLastIssues,
             'itemView' => '_listArticleLastIssues',
             'layout' => '{items}',
             'viewParams' => [],

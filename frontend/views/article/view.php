@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <?= ArticleSeeAlsoWidget::widget([
+                    'articleCategoryId'=>$model->article_category_id,
             ]); ?>
 
         </div>

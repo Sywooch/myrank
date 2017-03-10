@@ -21,7 +21,7 @@ class ArticleLastIssuesWidget extends Widget {
     public function run() {
         parent::run();
 
-        $dataProvider = new ActiveDataProvider([
+        $dataProviderArticleLastIssues = new ActiveDataProvider([
             'query' => Article::find()->where(['status'=>10])->orderBy('create_time DESC')->limit(3),
             'totalCount' => 3,
             'pagination' => [
@@ -31,7 +31,7 @@ class ArticleLastIssuesWidget extends Widget {
         return $this->render(
             "articleLastIssuesView",
             [
-                'listDataProvider' => $dataProvider,
+                'listDataProviderArticleLastIssues' => $dataProviderArticleLastIssues,
                 'message' => $this->message
             ]
         );

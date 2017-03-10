@@ -20,7 +20,7 @@ class ArticleCategory extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'article_category';
+        return '{{%article_category}}';
     }
 
     /**
@@ -41,7 +41,7 @@ class ArticleCategory extends \yii\db\ActiveRecord
     {
         return [
             'id_article_category' => 'Id Article Category',
-            'name' => 'Name',
+            'name' => 'Article Category Name',
         ];
     }
 
