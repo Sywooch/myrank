@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use Yii;
 
+
 /**
  * This is the model class for table "city".
  *
@@ -48,7 +49,16 @@ class City extends \yii\db\ActiveRecord {
     }
     
     public function getCountryName () {
-	return $this->getCountry()->one()->name;
+	//return $this->getCountry()->one()->name;
+        return $this->country->name;
+    }
+
+    public function getRegion () {
+        return $this->hasOne(Region::className(), ['region_id' => 'region_id']);
+    }
+
+    public function getRegionName () {
+        return $this->region->name;
     }
 
 }
