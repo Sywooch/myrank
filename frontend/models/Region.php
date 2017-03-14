@@ -43,7 +43,16 @@ class Region extends \yii\db\ActiveRecord
             'region_id' => Yii::t('app', 'Region ID'),
             'country_id' => Yii::t('app', 'Country ID'),
             'city_id' => Yii::t('app', 'City ID'),
-            'name' => Yii::t('app', 'Name'),
+            'name' => Yii::t('app', 'Region Name'),
+            'countryName' => Yii::t('app','Country Name')
         ];
+    }
+
+    public function getCountry() {
+        return $this->hasOne(Country::classname(),['country_id'=>'country_id']);
+    }
+
+    public function getCountryName() {
+        return $this->country->name;
     }
 }

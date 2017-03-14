@@ -4,20 +4,24 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\ArticleCategorySearch */
+/* @var $model backend\models\AccessCategoryRatingSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="article-category-search">
+<div class="access-category-rating-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id_article_category') ?>
+    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'user_id') ?>
+
+    <?= $form->field($model, 'category_id') ?>
+
+    <?= $form->field($model, 'value') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>

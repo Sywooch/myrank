@@ -1,7 +1,5 @@
 <?php
 
-//namespace app\models;
-//namespace frontend\models;
 namespace backend\models;
 
 use Yii;

@@ -35,7 +35,9 @@ class Images extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'name' => Yii::t('app', 'Name'),
+        'user_id'=> Yii::t('app', 'User ID'),
+	    'name' => Yii::t('app', 'Image Name'),
+        'userFullName' => Yii::t('app','User Full Name')
 	];
     }
     
@@ -44,4 +46,12 @@ class Images extends \yii\db\ActiveRecord {
 	return parent::beforeSave($insert);
     }
 
+    public function getUser() {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function getUserFullName() {
+
+        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : 'Нет пользователя';
+    }
 }

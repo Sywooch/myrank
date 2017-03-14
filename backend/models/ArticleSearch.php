@@ -97,28 +97,28 @@ class ArticleSearch extends Article
         /* Правила фильтрации */
 
         // Фильтр по категории
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'article.id_article' => $this->id_article,
+            //'article_category_id' => $this->article_category_id,
+            'article.status' => $this->status,
+            'article.views' => $this->views,
+            'article.create_time' => $this->create_time,
+            'article.update_time' => $this->update_time,
+        ]);
+
         $query->joinWith(['articleCategory' => function ($q) {
             $q->where('article_category.name LIKE "%' . $this->articleCategoryName . '%"');
         }]);
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id_article' => $this->id_article,
-            //'article_category_id' => $this->article_category_id,
-            'status' => $this->status,
-            'views' => $this->views,
-            'create_time' => $this->create_time,
-            'update_time' => $this->update_time,
-        ]);
-
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'abridgment', $this->abridgment])
-            ->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'header_title', $this->header_title])
-            ->andFilterWhere(['like', 'header_image', $this->header_image])
-            ->andFilterWhere(['like', 'header_image_small', $this->header_image_small])
-            ->andFilterWhere(['like', 'header_image_small_square', $this->header_image_small_square]);
-        //->andFilterWhere(['like', 'articleCategoryName', $this->articleCategoryName])
+        $query->andWhere('article.title LIKE "%'. $this->title . '%"');
+        $query->andWhere('article.abridgment LIKE "%'. $this->abridgment. '%"');
+        $query->andWhere('article.content LIKE "%'. $this->content. '%"');
+        $query->andWhere('article.header_title LIKE "%'. $this->header_title . '%"');
+        $query->andWhere('article.header_image LIKE "%'. $this->header_image . '%"');
+        $query->andWhere('article.header_image_small LIKE "%'. $this->header_image_small . '%"');
+        $query->andWhere('article.header_image_small_square LIKE "%'. $this->header_image_small_square . '%"');
 
         return $dataProvider;
     }

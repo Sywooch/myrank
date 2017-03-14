@@ -5,13 +5,14 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Images;
+use frontend\models\AccessCategoryRating;
 
 /**
- * Images1Search represents the model behind the search form about `frontend\models\Images1`.
+ * AccessCategoryRating1Search represents the model behind the search form about `frontend\models\AccessCategoryRating1`.
  */
-class ImagesSearch extends Images
+class AccessCategoryRatingSearch extends AccessCategoryRating
 {
+    //public $categoryName;
     public $userFullName;
 
     /**
@@ -20,9 +21,8 @@ class ImagesSearch extends Images
     public function rules()
     {
         return [
-            [['id', 'user_id'], 'integer'],
-            ['name', 'safe'],
-            ['userFullName','safe']
+            [['id', 'user_id', 'category_id', 'value'], 'integer'],
+            [[/*'categoryName',*/'userFullName'],'safe'],
         ];
     }
 
@@ -44,7 +44,7 @@ class ImagesSearch extends Images
      */
     public function search($params)
     {
-        $query = Images::find();
+        $query = AccessCategoryRating::find();
 
         // add conditions that should always apply here
 
@@ -57,17 +57,24 @@ class ImagesSearch extends Images
             'attributes' => [
                 'id',
                 'user_id',
+                'category_id',
+                'value',
+                /*'categoryName' => [
+                    'asc' => ['category.name' => SORT_ASC],
+                    'desc' => ['category.name' => SORT_DESC],
+                    'label' => 'Название категории'
+                ],*/
                 'userFullName' => [
                     'asc' => ['user.first_name' => SORT_ASC, 'user.last_name' => SORT_ASC],
                     'desc' => ['user.first_name' => SORT_DESC, 'user.last_name' => SORT_DESC],
                     'label' => 'User Full Name',
                     'default' => SORT_ASC
                 ],
-                'name',
             ]
         ]);
 
         if (!($this->load($params) && $this->validate())) {
+            //$query->joinWith(['category']);
             $query->joinWith(['user']);
             return $dataProvider;
         }
@@ -76,21 +83,23 @@ class ImagesSearch extends Images
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'images.id' => $this->id,
-            'images.user_id' => $this->user_id,
+            'access_category_rating.id' => $this->id,
+            'access_category_rating.user_id' => $this->user_id,
+            'access_category_rating.category_id' => $this->category_id,
         ]);
 
         // Фильтр по категории
-        //$query->andWhere('city.city_id '. $this->city_id);
-
         $query->joinWith(['user' => function ($q) {
             $q->where('user.first_name LIKE "%' . $this->userFullName . '%"'
                 .' OR user.last_name LIKE "%' . $this->userFullName . '%"'
             );
         }]);
 
-        $query->andWhere('images.name LIKE "%'. $this->name . '%"');
-        //$query->andFilterWhere(['like', 'name', $this->name]);
+        /*$query->joinWith(['category' => function ($q) {
+            $q->where('category.name LIKE "%' . $this->categoryName . '%"');
+        }]);*/
+
+        $query->andWhere('access_category_rating.value LIKE "%'. $this->value . '%"');
 
         return $dataProvider;
 

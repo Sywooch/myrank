@@ -12,6 +12,7 @@ use frontend\models\Region;
  */
 class RegionSearch extends Region
 {
+    public $countryName;
     /**
      * @inheritdoc
      */
@@ -19,7 +20,8 @@ class RegionSearch extends Region
     {
         return [
             [['region_id', 'country_id', 'city_id'], 'integer'],
-            [['name'], 'safe'],
+            ['name', 'safe'],
+            ['countryName', 'safe']
         ];
     }
 
@@ -51,20 +53,43 @@ class RegionSearch extends Region
 
         $this->load($params);
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+
+        // Настройка параметров сортировки
+        $dataProvider->setSort([
+            'attributes' => [
+                'region_id',
+                //'country_id',
+                'city_id',
+                'name',
+                'countryName' => [
+                    'asc' => ['country.name' => SORT_ASC],
+                    'desc' => ['country.name' => SORT_DESC],
+                    'label' => 'Страна'
+                ],
+            ],
+        ]);
+
+        if (!($this->load($params) && $this->validate())) {
+            $query->joinWith(['country']);
             return $dataProvider;
         }
 
+        /* Правила фильтрации */
+
         // grid filtering conditions
         $query->andFilterWhere([
-            'region_id' => $this->region_id,
-            'country_id' => $this->country_id,
-            'city_id' => $this->city_id,
+            'region.region_id' => $this->region_id,            //'country_id' => $this->country_id,            //'region_id' => $this->region_id,
+            'region.city_id' => $this->city_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        // Фильтр по категории
+        //$query->andWhere('city.city_id '. $this->city_id);
+
+        $query->joinWith(['country' => function ($q) {
+            $q->where('country.name LIKE "%' . $this->countryName . '%"');
+        }]);
+
+        $query->andWhere('region.name LIKE "%'. $this->name . '%"');
 
         return $dataProvider;
     }

@@ -12,6 +12,7 @@ use frontend\models\Country;
  */
 class CountrySearch extends Country
 {
+
     /**
      * @inheritdoc
      */
@@ -48,6 +49,7 @@ class CountrySearch extends Country
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
 
         $this->load($params);
 

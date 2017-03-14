@@ -4,10 +4,10 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\ArticleCategory */
+/* @var $model frontend\models\ArticleCategory */
 
-$this->title = 'Create Article Category';
-$this->params['breadcrumbs'][] = ['label' => 'Article Categories', 'url' => ['index']];
+$this->title = 'Добавить категорию статей';
+$this->params['breadcrumbs'][] = ['label' => 'Категории статей', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-category-create">

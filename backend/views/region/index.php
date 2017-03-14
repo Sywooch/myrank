@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel frontend\models\RegionSearch */
+/* @var $searchModel backend\models\RegionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Области';
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'region_id',
-            'country_id',
+            'countryName',//'country_id',
             'city_id',
             'name',
 

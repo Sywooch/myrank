@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'user_id',
+            'userFullName',
             'name',
 
             ['class' => 'yii\grid\ActionColumn'],

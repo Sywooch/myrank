@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\ArticleCategorySearch */
+/* @var $searchModel backend\models\AccessCategoryRatingSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Категории статей';
+$this->title = 'Доступ к категориям рейтинга';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="article-category-index">
+<div class="access-category-rating-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Создать категорию статей', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить доступ к категориям рейтинга', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -24,8 +24,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_article_category',
-            'name',
+            'id',
+            'user_id',
+            'category_id',
+            'value',
+            //'categoryName',
+            'userFullName',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

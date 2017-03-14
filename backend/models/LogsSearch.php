@@ -49,23 +49,37 @@ class LogsSearch extends Logs
             'query' => $query,
         ]);
 
-        $this->load($params);
+        // Настройка параметров сортировки
+        $dataProvider->setSort([
+            'attributes' => [
+                'id',
+                'type',
+                'text',
+                'created'=> [
+                    'asc' => ['logs.created' => SORT_ASC],
+                    'desc' => ['logs.created' => SORT_DESC],
+                    'label' => 'Создано'
+                ],
+            ]
+        ]);
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
+        /* Правила фильтрации */
+
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'created' => $this->created,
+            'logs.id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'type', $this->type])
-            ->andFilterWhere(['like', 'text', $this->text]);
+        // Фильтр по категории
+        $query->andWhere('logs.type LIKE "%'. $this->type . '%"');
+        $query->andWhere('logs.text LIKE "%'. $this->text . '%"');
+        $query->andWhere('logs.created LIKE "%'. $this->created . '%"');
 
         return $dataProvider;
+
     }
 }

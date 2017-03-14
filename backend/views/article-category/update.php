@@ -3,12 +3,12 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\ArticleCategory */
+/* @var $model frontend\models\ArticleCategory */
 
-$this->title = 'Update Article Category: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Article Categories', 'url' => ['index']];
+$this->title = 'Обновить категории статей: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Категории статей', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id_article_category]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Обновить';
 ?>
 <div class="article-category-update">
 

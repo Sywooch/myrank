@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace frontend\models;//namespace app\models;
 
 use Yii;
 
@@ -42,6 +42,24 @@ class AccessCategoryView extends \yii\db\ActiveRecord
             'user_id' => Yii::t('app', 'User ID'),
             'category_id' => Yii::t('app', 'Category ID'),
             'value' => Yii::t('app', 'Value'),
+            'userFullName' => Yii::t('app', 'User Full Name'),
+            //'categoryName' => Yii::t('app', 'Category Name'),
         ];
+    }
+
+    /*public function getCategory() {
+        return $this->hasOne(Category::className(),['category_id' => 'category_id']);
+    }
+
+    public function getCategoryName() {
+        return $this->category->name;
+    }*/
+
+    public function getUser() {
+        return $this->hasOne(User::className(),['id' => 'user_id']);
+    }
+
+    public function getUserFullName() {
+        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : 'Нет пользователя';
     }
 }
