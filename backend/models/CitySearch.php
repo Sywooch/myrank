@@ -1,7 +1,5 @@
 <?php
 
-//namespace app\models;
-//namespace frontend\models;
 namespace backend\models;
 
 use Yii;
@@ -14,6 +12,7 @@ use frontend\models\City;
  */
 class CitySearch extends City
 {
+    //public $city_id;
     public $countryName;
     public $regionName;
 
@@ -23,8 +22,9 @@ class CitySearch extends City
     public function rules()
     {
         return [
-            [['city_id', 'country_id', 'region_id'], 'integer'],
-            [['name'], 'safe'],
+            //['city_id',/* 'country_id', 'region_id',*/ 'integer'],
+            ['city_id','safe'],
+            ['name', 'safe'],
             [['countryName', 'regionName'], 'safe']
         ];
     }
@@ -56,7 +56,6 @@ class CitySearch extends City
         $dataProvider->setSort([
             'attributes' => [
                 'city_id',   //'country_id', //'region_id',
-                'name',
                 'countryName' => [
                     'asc' => ['country.name' => SORT_ASC],
                     'desc' => ['country.name' => SORT_DESC],
@@ -67,6 +66,7 @@ class CitySearch extends City
                     'desc' => ['region.name' => SORT_DESC],
                     'label' => 'Регион'
                 ],
+                'name',
             ]
         ]);
 
@@ -78,20 +78,24 @@ class CitySearch extends City
 
         /* Правила фильтрации */
 
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'city.city_id' => $this->city_id,            //'country_id' => $this->country_id,            //'region_id' => $this->region_id,
+        ]);
+
+
+
         // Фильтр по категории
+        //$query->andWhere('city.city_id '. $this->city_id);
+
         $query->joinWith(['country' => function ($q) {
             $q->where('country.name LIKE "%' . $this->countryName . '%"');
         }]);
         $query->joinWith(['region' => function ($q) {
             $q->where('region.name LIKE "%' . $this->regionName . '%"');
         }]);
-
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'city_id' => $this->city_id,            //'country_id' => $this->country_id,            //'region_id' => $this->region_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andWhere('city.name LIKE "%'. $this->name . '%"');
+        //$query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

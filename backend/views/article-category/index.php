@@ -4,10 +4,10 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\ArticleCategorySearch */
+/* @var $searchModel backend\models\ArticleCategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Категории новостей';
+$this->title = 'Категории статей';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-category-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Создать категорию статьи', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать категорию статей', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
