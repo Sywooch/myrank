@@ -61,6 +61,10 @@ return [
 	'rating' => [
 	    'class' => 'frontend\components\Rating',
 	],
+	'userinfo' => [
+	    'class' => 'frontend\components\UserInfo',
+	    'country' => 9908,
+	],
     ],
     'modules' => [
 	'debug' => [

@@ -15,7 +15,6 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use frontend\models\Article;
-
 use frontend\components\AuthHandler;
 
 /**
@@ -67,15 +66,9 @@ class SiteController extends Controller {
 	    ],
 	];
     }
-    
-    
 
     public function onAuthSuccess($client) {
 	(new AuthHandler($client))->handle();
-    }
-    
-    public function actionTest () {
-	return $this->render('test');
     }
 
     /**
@@ -229,12 +222,12 @@ class SiteController extends Controller {
 		    'model' => $model,
 	]);
     }
-    
-    public function actionChange () {
+
+    public function actionChange() {
 	$model = \frontend\models\UserMarks::find()->all();
 	foreach ($model as $item) {
 	    $params = \yii\helpers\Json::decode($item->description, true);
-		foreach ($params[0] as $key => $el) {
+	    foreach ($params[0] as $key => $el) {
 		$mUMR = new \frontend\models\UserMarkRating();
 		$mUMR->attributes = [
 		    'user_from' => $item->user_from,
@@ -245,6 +238,23 @@ class SiteController extends Controller {
 		$mUMR->save();
 	    }
 	}
+    }
+
+    public function actionSetcountry($id) {
+	$session = Yii::$app->session;
+	$session->set('country', $id);
+	Yii::$app->end();
+    }
+
+    public function actionTest() {
+	$cookies = Yii::$app->response->cookies;
+	$cookies->add(new \yii\web\Cookie([
+	    'name' => 'country',
+	    'value' => 1,
+	    'path' => "/",
+	    'domain' => 'myrankf.site4ever.com',
+	    'expire' => time() + 365 * 24 * 60 * 60,
+	]));
     }
 
 }

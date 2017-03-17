@@ -61,9 +61,15 @@ class AuthHandler {
 		Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
 	    } else { // signup
 		if ($email !== null && User::find()->where(['email' => $email])->exists()) {
-		    Yii::$app->getSession()->setFlash('error', [
-			Yii::t('app', "User with the same email as in {client} account already exists but isn't linked to it. Login using email first to link it.", ['client' => $this->client->getTitle()]),
-		    ]);
+		    $user = User::find()->where(['email' => $email])->one();
+		    $auth = new Auth([
+			    'user_id' => $user->id,
+			    'source' => $this->client->getId(),
+			    'source_id' => (string) $id,
+			]);
+		    if ($auth->save()) {
+			Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
+		    }
 		} else {
 		    $userAttr['password'] = Yii::$app->security->generateRandomString(6);
 		    $user = new User($userAttr);

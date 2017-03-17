@@ -89,7 +89,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	return [
 	    //[['first_name', 'last_name', 'city_id'], 'required'],
 	    [['account_id', 'company_id', 'profileviews', 'rating'], 'integer'],
-	    [['last_login', 'birthdate', 'city_id', 'phone', 'site', 'mark', 'email'], 'safe'],
+	    [['last_login', 'birthdate', 'city_id', 'phone', 'site', 'mark', 'email', 'profession'], 'safe'],
 	    [['image'], 'string', 'max' => 255],
 	    [['first_name', 'last_name', 'about'], 'string', 'max' => 50],
 	];
@@ -118,7 +118,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	    'phone' => \Yii::t('app', 'Номер телефона'),
 	    'site' => \Yii::t('app', 'Сайт'),
 	    'mark' => \Yii::t('app', 'Оценка'),
-	    'profession' => \Yii::t('app', 'Специализация'),
 	    'password' => \Yii::t('app', 'Пароль'),
 	    'rePassword' => \Yii::t('app', 'Повторите пароль'),
 	];
@@ -219,7 +218,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 
     // Marks End
-
     public function getProfList() {
 	$model = Profession::find()->orderBy("title")->all();
 	foreach ($model as $item) {
@@ -242,6 +240,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 
     public function beforeSave($insert) {
+	if(isset($this->profession)) {
+	    UserProfession::deleteAll(['user_id' => $this->id]);
+	    foreach ($this->profession as $item) {
+		$mProf = new UserProfession();
+		$mProf->attributes = [
+		    'user_id' => $this->id,
+		    'profession_id' => $item,
+		];
+		$mProf->save();
+	    }
+	}
+	Logs::saveLog(var_export($this->profession, true));
 	return parent::beforeSave($insert);
     }
 

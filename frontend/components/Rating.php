@@ -57,7 +57,7 @@ class Rating extends Component {
     }
 
     private function processTestimonials() {
-	$model = $this->model->getTestimonials()->andWhere(['parent_id' => self::MAIN_PARENT])->asArray()->all();
+	$model = $this->model->getTestimonials()->andWhere(['parent_id' => self::MAIN_PARENT])->groupBy("user_from")->asArray()->all();
 	foreach ($model as $item) {
 	    $summ = $this->trustBackUser($item) ? self::USER_TRUST_SUMM_BACK : self::USER_TRUST_SUMM_NO_BACK;
 	    if ($item['smile'] <= Testimonials::SMILE_CLASS_NEGATIVE) {

@@ -3397,3 +3397,29 @@ body.gray-bg .b-header__user:after{
     z-index:5;
     animation: 2s linear infinite fa-spin;
 }
+
+.ui-helper-hidden-accessible {
+    border: 0;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+.ui-widget-content.ui-autocomplete {
+    border: 1px solid #dddddd;
+    background: #ffffff;
+    color: #333333;
+    padding: 10px;
+}
+.ui-autocomplete.ui-menu .ui-menu-item {
+    margin: 0;
+    cursor: pointer;
+    list-style: none;
+}
+.ui-widget-content.ui-autocomplete .ui-state-active {
+    background: #007fff;
+    font-weight: normal;
+    color: #ffffff;
+}

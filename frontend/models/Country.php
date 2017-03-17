@@ -40,5 +40,25 @@ class Country extends \yii\db\ActiveRecord {
 	    'name' => Yii::t('app', 'Name'),
 	];
     }
+    
+    public function getCity () {
+	return $this->hasMany(City::className(), ['country_id' => 'country_id']);
+    }
+    
+    public function getCityArr () {
+	$out[""] = "Все";
+	foreach ($this->getCity()->orderBy('name ASC')->asArray()->all() as $item) {
+	    $out[$item['city_id']] = $item['name'];
+	}
+	return $out;
+    }
+    
+    static function getList () {
+	$model = static::find()->all();
+	foreach ($model as $item) {
+	    $out[$item->country_id] = $item->name;
+	}
+	return $out;
+    }
 
 }

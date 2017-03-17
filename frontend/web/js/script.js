@@ -86,8 +86,8 @@ $(document).ready(function () {
     $('.header-marks-slider').slider({
 	range: true,
 	min: 0,
-	max: 10,
-	step: 0.1,
+	max: 1000,
+	step: 1,
 	value: 7.4,
 	slide: function (event, ui) {
 	    var container = $(this).parents('.b-header__search__advanced__mark');

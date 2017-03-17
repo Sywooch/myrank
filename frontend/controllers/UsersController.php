@@ -9,6 +9,7 @@ use frontend\models\UserTrustees;
 use frontend\models\Testimonials;
 use frontend\models\UserClaim;
 use frontend\models\UserMarkRating;
+use frontend\models\UsersSearch;
 /**
  * Description of UserController
  *
@@ -61,9 +62,9 @@ class UsersController extends Controller {
 		    $mUserMarkRating->attributes = $query;
 		    $mUserMarkRating->save();
 		}
-		\Yii::$app->rating->process($mUser);
+		$rating = \Yii::$app->rating->process($mUser);
 	    }
-	    echo Json::encode(['code' => $mMarks->save() ? 1 : 0, 'error' => $mMarks->errors]);
+	    echo Json::encode(['code' => $mMarks->save() ? 1 : 0, 'error' => $mMarks->errors, 'out' => $rating]);
 	}
 	\Yii::$app->end();
     }
@@ -167,5 +168,30 @@ class UsersController extends Controller {
 	}
 	echo Json::encode($out);
 	\Yii::$app->end();
+    }
+    
+    public function actionSearch () {
+	$post = \Yii::$app->request->post();
+	$model = new UsersSearch();
+	$modelSearch = $model->search($post);
+	//echo "<pre>"; var_dump($modelSearch); echo "</pre>";*/
+	
+	if($model->load($post)) {
+	    
+	}
+	
+	return $this->render("search", ['model' => $model, 'mSearch' => $modelSearch]);
+    }
+    
+    public function actionUserslist ($startsWith) {
+	$model = User::find()
+		->where(['like', 'last_name', $startsWith])
+		->orWhere(['like', 'first_name', $startsWith])
+		->asArray()
+		->all();
+	foreach ($model as $item) {
+	    $out['users'][]['name'] = $item['last_name']." ".$item['first_name'];
+	}
+	return Json::encode($out);
     }
 }

@@ -100,7 +100,7 @@ $fieldVal = $mUser->attributeLabels();
 				Отзывов:
 			    </div>
 			    <div class="b-user__stats__item__number">
-				0
+				<?= $mUser->getTestimonials()->andWhere(['parent_id' => 0])->count() ?>
 			    </div>
 			    <!-- div class="b-user__stats__item__new-number">
 				1

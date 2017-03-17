@@ -28,7 +28,7 @@ echo ModalWidget::widget([
 		'label' => 'Страна:',
 		'divClass' => 'select-wrapper country-select',
 		'type' => 'dropDownList',
-		'options' => ['Россия', 'Украина'],
+		'options' => $model->countries,
 	    ],
 	    'city_id' => [
 		'label' => 'Город:',
@@ -64,5 +64,12 @@ echo ModalWidget::widget([
 	]
     ],
     'success' => '$("#modalView").modal("toggle");',
+    'script' => '$("#user-country_id").on("change", function () {
+	    csrf = $("[name=\"csrf-token\"]").attr("content");
+	    url = "'.Url::toRoute("users/getcities").'";
+	    $.post(url, {"_csrf-frontend":csrf, "id":$(this).val()}, function(data) {
+		$("#user-city_id").html(data);
+	    });
+	});',
 ]);
 ?>
