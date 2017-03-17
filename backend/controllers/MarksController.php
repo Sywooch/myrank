@@ -5,7 +5,7 @@ namespace backend\controllers;
 use Yii;
 use frontend\models\Marks;
 use backend\models\MarksSearch;
-use yii\web\Controller;
+use frontend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
