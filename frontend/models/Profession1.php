@@ -5,20 +5,19 @@ namespace frontend\models;
 use Yii;
 
 /**
- * This is the model class for table "profile_views".
+ * This is the model class for table "profession".
  *
  * @property integer $id
- * @property integer $lastweek
- * @property integer $lastmonth
+ * @property string $title
  */
-class ProfileViews extends \yii\db\ActiveRecord
+class Profession1 extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'profile_views';
+        return 'profession';
     }
 
     /**
@@ -27,7 +26,7 @@ class ProfileViews extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['lastweek', 'lastmonth'], 'integer'],
+            [['title'], 'string', 'max' => 255],
         ];
     }
 
@@ -38,8 +37,7 @@ class ProfileViews extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'lastweek' => Yii::t('app', 'Lastweek'),
-            'lastmonth' => Yii::t('app', 'Lastmonth'),
+            'title' => Yii::t('app', 'Title'),
         ];
     }
 }

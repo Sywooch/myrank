@@ -93,10 +93,11 @@ class Marks1Search extends Marks1
         //$query->andFilterWhere(['like', 'marks.name', $this->name]);
 
         if(!empty($this->parentName)) {
-        $query->joinWith(['parent'=> function($q) {
-            $q->where('parent.name LIKE "%' . $this->parentName . '%" ');
-            $q->where('parent.name IS NULL');
-        }]);}
+            $query->joinWith(['parent'=> function($q) {
+                $q->where('parent.name LIKE "%' . $this->parentName . '%" ');
+                //$q->where('parent.name IS NULL');
+        }]);
+        }
 
         return $dataProvider;
     }
