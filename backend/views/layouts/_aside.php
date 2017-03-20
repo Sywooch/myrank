@@ -115,15 +115,14 @@ use yii\helpers\Url;
                 <li><a href="<?= Url::toRoute(['profession1/index']) ?>"><i class="fa fa-circle-o"></i> Направления (профессии)</a></li>
                 <li><a href="<?= Url::toRoute(['testimonials1/index']) ?>"><i class="fa fa-circle-o"></i> Отзывы (testimonials)</a></li>
                 <li><a href="<?= Url::toRoute(['auth/index']) ?>"><i class="fa fa-circle-o"></i> Авторизация (auth)</a></li>
+                <li><a href="<?= Url::toRoute(['user-trustees/index']) ?>"><i class="fa fa-circle-o"></i> Доверенные (usertrustees)</a></li>
+                <li><a href="<?= Url::toRoute(['user-profession/index']) ?>"><i class="fa fa-circle-o"></i> Профессия (userprofession)</a></li>
+                <li><a href="<?= Url::toRoute(['user-marks/index']) ?>"><i class="fa fa-circle-o"></i> Самооценки (usermarks)</a></li>
+                <li><a href="<?= Url::toRoute(['user-mark-rating/index']) ?>"><i class="fa fa-circle-o"></i> Рейтинг самооценок (usermarkrating)</a></li>
+                <li><a href="<?= Url::toRoute(['user-event/index']) ?>"><i class="fa fa-circle-o"></i> События (userevent)</a></li>
+                <li><a href="<?= Url::toRoute(['user-claim/index']) ?>"><i class="fa fa-circle-o"></i> Жалобы (userclaim)</a></li>
                 <li><a href="<?= Url::toRoute(['users1/index']) ?>"><i class="fa fa-circle-o"></i> Пользователи (users)</a></li>
                 <li><a href="<?= Url::toRoute(['user3/index']) ?>"><i class="fa fa-circle-o"></i> Пользователь (user)</a></li>
-                <li><a href="<?= Url::toRoute(['usermarkrating/index']) ?>"><i class="fa fa-circle-o"></i> Рейтинг самооценок (usermarkrating)</a></li>
-                <li><a href="<?= Url::toRoute(['usermarks/index']) ?>"><i class="fa fa-circle-o"></i> Самооценки (usermarks)</a></li>
-                <li><a href="<?= Url::toRoute(['usertrustees/index']) ?>"><i class="fa fa-circle-o"></i> Доверенные (usertrustees)</a></li>
-                <li><a href="<?= Url::toRoute(['userclaim/index']) ?>"><i class="fa fa-circle-o"></i> Жалобы (userclaim)</a></li>
-                <li><a href="<?= Url::toRoute(['userevent/index']) ?>"><i class="fa fa-circle-o"></i> События (userevent)</a></li>
-                <li><a href="<?= Url::toRoute(['userprofession/index']) ?>"><i class="fa fa-circle-o"></i> Профессия (userprofession)</a></li>
-
             </ul>
         </li>
 

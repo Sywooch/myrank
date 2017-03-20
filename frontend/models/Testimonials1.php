@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use frontend\models\User;
 
 /**
  * This is the model class for table "testimonials".
@@ -52,8 +53,8 @@ class Testimonials1 extends \yii\db\ActiveRecord
             'parent_id' => Yii::t('app', 'Parent ID'),
             'created' => Yii::t('app', 'Created'),
             'parentText' => Yii::t('app', 'Parent Text'),
-            'userFromFullName'=> Yii::t('app', 'UserFrom Full Name'),
-            'userToFullName'=> Yii::t('app', 'UserTo Full Name'),
+            'fullNameFrom'=> Yii::t('app', 'UserFrom Full Name'),
+            'fullNameTo'=> Yii::t('app', 'UserTo Full Name'),
         ];
     }
 
@@ -76,20 +77,20 @@ class Testimonials1 extends \yii\db\ActiveRecord
         return $parent ? $parent->text : 'Без родителя';
     }
 
-    public function getUser() {
-        return $this->hasOne(User::className(),['id' => 'user_from']);
+    public function getUserFrom() {
+        return $this->hasOne(User::className(), ['id' => 'user_from'])->from(User::tableName() . ' AS userFrom');
     }
 
-    public function getUser1() {
-        return $this->hasOne(User::className(),['id' => 'user_to']);
+    public function getUserTo() {
+        return $this->hasOne(User::className(), ['id' => 'user_to'])->from(User::tableName() . ' AS userTo');
     }
 
-    public function getUserFromFullName() {
-        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : 'Нет пользователя';
+    public function getFullNameFrom() {
+        return $this->userFrom ? ($this->userFrom->first_name.' '.$this->userFrom->last_name) : 'Нет пользователя';
     }
 
-    public function getUserToFullName() {
-        return $this->user1 ? ($this->user1->first_name.' '.$this->user1->last_name) : 'Нет пользователя';
+    public function getFullNameTo() {
+        return $this->userTo ? ($this->userTo->first_name.' '.$this->userTo->last_name) : 'Нет пользователя';
     }
 
 }
