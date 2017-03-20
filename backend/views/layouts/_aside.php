@@ -114,9 +114,9 @@ use yii\helpers\Url;
                 <li><a href="<?= Url::toRoute(['marks1/index']) ?>"><i class="fa fa-circle-o"></i> Самооценка (marks)</a></li>
                 <li><a href="<?= Url::toRoute(['profession1/index']) ?>"><i class="fa fa-circle-o"></i> Направления (профессии)</a></li>
                 <li><a href="<?= Url::toRoute(['testimonials1/index']) ?>"><i class="fa fa-circle-o"></i> Отзывы (testimonials)</a></li>
+                <li><a href="<?= Url::toRoute(['auth/index']) ?>"><i class="fa fa-circle-o"></i> Авторизация (auth)</a></li>
                 <li><a href="<?= Url::toRoute(['users1/index']) ?>"><i class="fa fa-circle-o"></i> Пользователи (users)</a></li>
                 <li><a href="<?= Url::toRoute(['user3/index']) ?>"><i class="fa fa-circle-o"></i> Пользователь (user)</a></li>
-                <li><a href="<?= Url::toRoute(['auth/index']) ?>"><i class="fa fa-circle-o"></i> Авторизация (auth)</a></li>
                 <li><a href="<?= Url::toRoute(['usermarkrating/index']) ?>"><i class="fa fa-circle-o"></i> Рейтинг самооценок (usermarkrating)</a></li>
                 <li><a href="<?= Url::toRoute(['usermarks/index']) ?>"><i class="fa fa-circle-o"></i> Самооценки (usermarks)</a></li>
                 <li><a href="<?= Url::toRoute(['usertrustees/index']) ?>"><i class="fa fa-circle-o"></i> Доверенные (usertrustees)</a></li>
