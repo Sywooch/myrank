@@ -2,24 +2,21 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\ListView;
-use yii\helpers\Url;
-use frontend\models\Testimonials1;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\Testimonials1Search */
+/* @var $searchModel backend\models\AuthSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Отзывы';
+$this->title = 'Авторизации';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="testimonials1-index">
+<div class="auth-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Добавить отзыв', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить авторизации', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -28,15 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'text:ntext',
-            'user_from',
-            'fullNameFrom',
-            'user_to',
-            'fullNameTo',
-            'smile',
-            'parent_id',
-            'parentText',//['attribute' => 'parentName', 'value' => 'parent.name'],
-            'created',
+            'user_id',
+            'userFullName',
+            'source',
+            'source_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

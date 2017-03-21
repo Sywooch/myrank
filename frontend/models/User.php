@@ -6,6 +6,7 @@ use Yii;
 use yii\web\IdentityInterface;
 use yii\helpers\Json;
 use frontend\models\UserTrustees;
+use frontend\models\Testimonials;
 
 /**
  * This is the model class for table "user".
@@ -136,6 +137,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 
     public function getTestimonials() {
 	return $this->hasMany(Testimonials::className(), ['user_to' => 'id']);
+    }
+
+    public function getTestimonialsTo() {
+        return $this->hasMany(Testimonials1::className(), ['user_to' => 'id']);
+    }
+
+    public function getTestimonialsFrom() {
+        return $this->hasMany(Testimonials1::className(), ['user_from' => 'id']);
     }
     
     public function getUserTrusteesTo () {

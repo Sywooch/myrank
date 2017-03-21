@@ -56,4 +56,21 @@ class UserTrustees extends \yii\db\ActiveRecord {
 	return $this->hasOne(User::className(), ['id' => 'user_to']);
     }*/
 
+    public function getUserFrom() {
+        return $this->hasOne(User::className(), ['id' => 'user_from'])->from(User::tableName() . ' AS userFrom');
+    }
+
+    public function getUserTo() {
+        return $this->hasOne(User::className(), ['id' => 'user_to'])->from(User::tableName() . ' AS userTo');
+    }
+
+    public function getFullNameFrom() {
+        return $this->userFrom ? ($this->userFrom->first_name.' '.$this->userFrom->last_name) : 'Нет пользователя';
+    }
+
+    public function getFullNameTo() {
+        return $this->userTo ? ($this->userTo->first_name.' '.$this->userTo->last_name) : 'Нет пользователя';
+    }
+
+
 }

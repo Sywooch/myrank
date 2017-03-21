@@ -5,15 +5,13 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Testimonials1;
-//use frontend\models\User;
+use frontend\models\UserTrustees;
 
 /**
- * Testimonials1Search represents the model behind the search form about `frontend\models\Testimonials1`.
+ * UserTrustees1Search represents the model behind the search form about `frontend\models\UserTrustees1`.
  */
-class Testimonials1Search extends Testimonials1
+class UserTrusteesSearch extends UserTrustees
 {
-    public $parentText;
     public $fullNameFrom;
     public $fullNameTo;
 
@@ -23,9 +21,8 @@ class Testimonials1Search extends Testimonials1
     public function rules()
     {
         return [
-            [['id', 'user_from', 'user_to', 'smile'], 'integer'],
-            [['parent_id', 'parentText', 'text', 'created', 'fullNameFrom', 'fullNameTo'], 'safe'],
-
+            [['id', 'user_to', 'user_from'], 'integer'],
+            [['created','fullNameFrom', 'fullNameTo'], 'safe'],
         ];
     }
 
@@ -47,7 +44,7 @@ class Testimonials1Search extends Testimonials1
      */
     public function search($params)
     {
-        $query = Testimonials1::find();
+        $query = UserTrustees::find();
 
         // add conditions that should always apply here
 
@@ -55,16 +52,19 @@ class Testimonials1Search extends Testimonials1
             'query' => $query,
         ]);
 
+        /*
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'user_to' => $this->user_to,
+            'user_from' => $this->user_from,
+            'created' => $this->created,
+        ]);*/
         // Настройка параметров сортировки
         $dataProvider->setSort([
             'attributes' => [
                 'id',
-                'text' => [
-                    'asc' => ['testimonials.text'=>SORT_ASC],
-                    'desc' => ['testimonials.text'=> SORT_DESC],
-                    'label' => 'Testimonials Text',
-                    'default' => SORT_ASC
-                ],
                 'user_from',
                 'fullNameFrom' => [//'userFromFullName' => [
                     'asc' => ['userFrom.first_name' => SORT_ASC, 'userFrom.last_name' => SORT_ASC],
@@ -79,20 +79,11 @@ class Testimonials1Search extends Testimonials1
                     'label' => 'UserTo Full Name',
                     'default' => SORT_ASC
                 ],
-                'smile',
-                'parent_id',
-                'parentText' => [
-                    'asc' => ['parent.text' => SORT_ASC],
-                    'desc' => ['parent.text' => SORT_DESC],
-                    'label' => 'Parent Text',
-                    'default' => SORT_ASC
-                ],
                 'created'
             ]
         ]);
 
         if (!($this->load($params) && $this->validate())) {
-            $query->joinWith(['parent']);
             $query->joinWith(['userFrom']);
             $query->joinWith(['userTo']);
             return $dataProvider;
@@ -100,16 +91,13 @@ class Testimonials1Search extends Testimonials1
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'testimonials.id' => $this->id,
-            'testimonials.user_from' => $this->user_from,
-            'testimonials.user_to' => $this->user_to,
-            'testimonials.smile' => $this->smile,
+            'user_trustees.id' => $this->id,
+            'user_trustees.user_to' => $this->user_to,
+            'user_trustees.user_from' => $this->user_from,
+        //    'created' => $this->created,
         ]);
-        $query->andFilterWhere(['like', 'testimonials.parent_id',$this->parent_id]);
-        $query->andFilterWhere(['like', 'testimonials.created', $this->created]);
 
-        $query->andFilterWhere(['like', 'testimonials.text', $this->text]);
-        //$query->andWhere('testimonials.text LIKE "%'. $this->text . '%"');
+        $query->andFilterWhere(['like', 'user_trustees.created', $this->created]);
 
         $query->joinWith(['userFrom' => function ($q) {
             $q->where('userFrom.first_name LIKE "%' . $this->fullNameFrom . '%"'
@@ -122,11 +110,6 @@ class Testimonials1Search extends Testimonials1
                 .' OR userTo.last_name LIKE "%' . $this->fullNameTo . '%"'
             );
         }]);
-
-        if(!empty($this->parentText)) {
-            $query->joinWith(['parent'=> function($q) {
-                $q->where('parent.text LIKE "%' . $this->parentText . '%" ');
-            }]);}
 
         return $dataProvider;
     }
