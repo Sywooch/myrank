@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\UserTrustees;
+use frontend\models\UserMarks;
 
 /**
- * UserTrustees1Search represents the model behind the search form about `frontend\models\UserTrustees1`.
+ * UserMarks1Search represents the model behind the search form about `frontend\models\UserMarks1`.
  */
-class UserTrusteesSearch extends UserTrustees
+class UserMarksSearch extends UserMarks
 {
     public $fullNameFrom;
     public $fullNameTo;
@@ -22,7 +22,7 @@ class UserTrusteesSearch extends UserTrustees
     {
         return [
             [['id', 'user_to', 'user_from'], 'integer'],
-            [['created','fullNameFrom', 'fullNameTo'], 'safe'],
+            [['description', 'created', 'fullNameFrom', 'fullNameTo'], 'safe'],
         ];
     }
 
@@ -44,7 +44,7 @@ class UserTrusteesSearch extends UserTrustees
      */
     public function search($params)
     {
-        $query = UserTrustees::find();
+        $query = UserMarks::find();
 
         // add conditions that should always apply here
 
@@ -52,18 +52,10 @@ class UserTrusteesSearch extends UserTrustees
             'query' => $query,
         ]);
 
-
         // Настройка параметров сортировки
         $dataProvider->setSort([
             'attributes' => [
                 'id',
-                'user_from',
-                'fullNameFrom' => [//'userFromFullName' => [
-                    'asc' => ['userFrom.first_name' => SORT_ASC, 'userFrom.last_name' => SORT_ASC],
-                    'desc' => ['userFrom.first_name' => SORT_DESC, 'userFrom.last_name' => SORT_DESC],
-                    'label' => 'UserFrom Full Name',
-                    'default' => SORT_ASC
-                ],
                 'user_to',
                 'fullNameTo' => [//'userToFullName' => [
                     'asc' => ['userTo.first_name' => SORT_ASC, 'userTo.last_name' => SORT_ASC],
@@ -71,6 +63,14 @@ class UserTrusteesSearch extends UserTrustees
                     'label' => 'UserTo Full Name',
                     'default' => SORT_ASC
                 ],
+                'user_from',
+                'fullNameFrom' => [//'userFromFullName' => [
+                    'asc' => ['userFrom.first_name' => SORT_ASC, 'userFrom.last_name' => SORT_ASC],
+                    'desc' => ['userFrom.first_name' => SORT_DESC, 'userFrom.last_name' => SORT_DESC],
+                    'label' => 'UserFrom Full Name',
+                    'default' => SORT_ASC
+                ],
+                'description',
                 'created'
             ]
         ]);
@@ -83,13 +83,13 @@ class UserTrusteesSearch extends UserTrustees
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'user_trustees.id' => $this->id,
-            'user_trustees.user_to' => $this->user_to,
-            'user_trustees.user_from' => $this->user_from,
-        //    'created' => $this->created,
+            'user_marks.id' => $this->id,
+            'user_marks.user_to' => $this->user_to,
+            'user_marks.user_from' => $this->user_from,
         ]);
 
-        $query->andFilterWhere(['like', 'user_trustees.created', $this->created]);
+        $query->andFilterWhere(['like', 'user_marks.description', $this->description]);
+        $query->andFilterWhere(['like', 'user_marks.created', $this->created]);
 
         $query->joinWith(['userFrom' => function ($q) {
             $q->where('userFrom.first_name LIKE "%' . $this->fullNameFrom . '%"'

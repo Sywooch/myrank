@@ -47,4 +47,12 @@ class UserClaim extends \yii\db\ActiveRecord {
 	];
     }
 
+    public function getUser () {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function getUserFullName() {
+
+        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : 'Нет пользователя';
+    }
 }

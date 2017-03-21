@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace frontend\models; //namespace app\models;
 
 use Yii;
 
@@ -46,4 +46,14 @@ class UserEvent extends \yii\db\ActiveRecord
             'datetime' => Yii::t('app', 'Datetime'),
         ];
     }
+
+    public function getUser () {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function getUserFullName() {
+
+        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : 'Нет пользователя';
+    }
+
 }
