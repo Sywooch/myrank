@@ -16,7 +16,7 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use frontend\models\Article;
 use frontend\components\AuthHandler;
-
+use frontend\models\User;
 /**
  * Site controller
  */
@@ -60,14 +60,24 @@ class SiteController extends Controller {
 	    'error' => [
 		'class' => 'yii\web\ErrorAction',
 	    ],
-	    'auth' => [
+	    'authuser' => [
 		'class' => 'yii\authclient\AuthAction',
-		'successCallback' => [$this, 'onAuthSuccess'],
+		'successCallback' => [$this, 'onAuthSuccessUser'],
+	    ],
+	    'authcompany' => [
+		'class' => 'yii\authclient\AuthAction',
+		'successCallback' => [$this, 'onAuthSuccessCompany'],
 	    ],
 	];
     }
 
-    public function onAuthSuccess($client) {
+    public function onAuthSuccessUser($client) {
+	Yii::$app->session->set("typeUser", User::TYPE_USER_USER);
+	(new AuthHandler($client))->handle();
+    }
+    
+    public function onAuthSuccessCompany ($client) {
+	Yii::$app->session->set("typeUser", User::TYPE_USER_COMPANY);
 	(new AuthHandler($client))->handle();
     }
 
@@ -247,14 +257,7 @@ class SiteController extends Controller {
     }
 
     public function actionTest() {
-	$cookies = Yii::$app->response->cookies;
-	$cookies->add(new \yii\web\Cookie([
-	    'name' => 'country',
-	    'value' => 1,
-	    'path' => "/",
-	    'domain' => 'myrankf.site4ever.com',
-	    'expire' => time() + 365 * 24 * 60 * 60,
-	]));
+	return $this->render('test');
     }
 
 }

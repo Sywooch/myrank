@@ -51,5 +51,9 @@ class UserTrustees extends \yii\db\ActiveRecord {
     public function getUser () {
 	return $this->hasOne(User::className(), ['id' => 'user_to']);
     }
+    /*
+    public function getUserTo () {
+	return $this->hasOne(User::className(), ['id' => 'user_to']);
+    }*/
 
 }

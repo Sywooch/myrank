@@ -44,5 +44,13 @@ class UserMarkRating extends \yii\db\ActiveRecord {
 	    'mark_val' => Yii::t('app', 'Mark Val'),
 	];
     }
+    
+    public function getUserTo () {
+	return $this->hasOne(User::className(), ['id' => 'user_to']);
+    }
+    
+    public function getUserFrom () {
+	return $this->hasOne(User::className(), ['id' => 'user_from']);
+    }
 
 }

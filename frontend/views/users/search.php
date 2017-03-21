@@ -1,3 +1,7 @@
+<?php
+use frontend\widgets\user\BestRatingWidget;
+?>
+
 <div class="container">
     <div id="main">
 
@@ -43,94 +47,9 @@
 	<aside class="b-sidebar">
 
 	    <!-- begin b-trusted-users -->
-	    <div class="b-trusted-users b-block">
-		<div class="b-title">Лучший рейтинг</div>
-		<div class="b-trusted-users__content">
-		    <div class="b-trusted-users__item">
-			<div class="b-trusted-users__item__image">
-			    <img src="images/users/1.jpg" alt="">
-			</div>
-			<div class="b-trusted-users__item__content">
-			    <div class="b-trusted-users__item__name">
-				Yurii Diachenko
-			    </div>
-			    <div class="b-trusted-users__item__place">
-				Lviv, Ukraine
-			    </div>
-			    <div class="b-tags">
-				<span>Mobile UI design</span>
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-trusted-users__item">
-			<div class="b-trusted-users__item__image">
-			    <img src="images/users/2.jpg" alt="">
-			</div>
-			<div class="b-trusted-users__item__content">
-			    <div class="b-trusted-users__item__name">
-				David dox-diamond
-			    </div>
-			    <div class="b-trusted-users__item__place">
-				Kyiv, Ukraine
-			    </div>
-			    <div class="b-tags">
-				<span>Web design</span>
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-trusted-users__item">
-			<div class="b-trusted-users__item__image">
-			    <img src="images/users/3.jpg" alt="">
-			</div>
-			<div class="b-trusted-users__item__content">
-			    <div class="b-trusted-users__item__name">
-				Kris Martin
-			    </div>
-			    <div class="b-trusted-users__item__place">
-				Lviv, Ukraine
-			    </div>
-			    <div class="b-tags">
-				<span>User Experience Design</span>
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-trusted-users__item">
-			<div class="b-trusted-users__item__image">
-			    <img src="images/users/4.jpg" alt="">
-			</div>
-			<div class="b-trusted-users__item__content">
-			    <div class="b-trusted-users__item__name">
-				Amanda Mcwilliam
-			    </div>
-			    <div class="b-trusted-users__item__place">
-				Kyiv, Ukraine
-			    </div>
-			    <div class="b-tags">
-				<span>Mobile UI design</span>
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-trusted-users__item">
-			<div class="b-trusted-users__item__image">
-			    <img src="images/users/5.jpg" alt="">
-			</div>
-			<div class="b-trusted-users__item__content">
-			    <div class="b-trusted-users__item__name">
-				Engineer, Supervisor
-			    </div>
-			    <div class="b-trusted-users__item__place">
-				Kyiv, Ukraine
-			    </div>
-			    <div class="b-tags">
-				<span>Adobe Photoshop</span>
-			    </div>
-			</div>
-		    </div>
-		    <div class="link">
-			<a href="#"><span>Посмотреть всех</span></a>
-		    </div>
-		</div>
-	    </div>
+	    <?= BestRatingWidget::widget([
+		'tmpl' => 'search'
+	    ]); ?>
 	    <!-- end b-trusted-users -->
 
 	</aside>

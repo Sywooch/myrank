@@ -60,12 +60,11 @@ $fieldVal = $mUser->attributeLabels();
 			    </div>
 			    <?php } ?>
 			</div>
-			<!-- div class="b-tags">
-			    <span>Web design</span>
-			    <span>User Experience Design</span>
-			    <span>Mobile UI design</span>
-			    <span>Adobe Photoshop</span>
-			</div -->
+			<div class="b-tags">
+			    <?php foreach ($mUser->userProfession as $item) { ?>
+			    <span><?= $item->title ?></span>
+			    <?php } ?>
+			</div>
 		    </div>
 		</div>
 		<div class="b-user__stats">

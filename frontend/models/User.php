@@ -11,7 +11,6 @@ use frontend\models\UserTrustees;
  * This is the model class for table "user".
  *
  * @property integer $id
- * @property integer $account_id
  * @property integer $contact_id
  * @property integer $company_id
  * @property integer $profileviews
@@ -45,6 +44,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     const GENDER_DEFAULT = 0;
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 2;
+    const STEP_NEXT_NONE = 0;
+    const STEP_NEXT_USER = 2;
+    const STEP_NEXT_COMPANY = 3;
 
     public static $roleUser = [
 	self::ROLE_USER_TYPE_USER => "user",
@@ -67,7 +69,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     ];
     private $_user;
     public $country_id;
-    public $profession;
+    public $professionField;
     public $password;
     public $rePassword;
     public $github;
@@ -88,8 +90,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public function rules() {
 	return [
 	    //[['first_name', 'last_name', 'city_id'], 'required'],
-	    [['account_id', 'company_id', 'profileviews', 'rating'], 'integer'],
-	    [['last_login', 'birthdate', 'city_id', 'phone', 'site', 'mark', 'email', 'profession'], 'safe'],
+	    [['company_id', 'profileviews', 'rating'], 'integer'],
+	    [['last_login', 'birthdate', 'city_id', 'phone', 'site', 'mark', 'email', 'professionField', 'type', 'step'], 'safe'],
 	    [['image'], 'string', 'max' => 255],
 	    [['first_name', 'last_name', 'about'], 'string', 'max' => 50],
 	];
@@ -101,7 +103,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'account_id' => Yii::t('app', 'Account ID'),
 	    'contact_id' => Yii::t('app', 'Contact ID'),
 	    'company_id' => Yii::t('app', 'Company ID'),
 	    'profileviews' => Yii::t('app', 'Profileviews'),
@@ -120,6 +121,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	    'mark' => \Yii::t('app', 'Оценка'),
 	    'password' => \Yii::t('app', 'Пароль'),
 	    'rePassword' => \Yii::t('app', 'Повторите пароль'),
+	    'professionField' => \Yii::t('app', 'Специализация'),
 	];
     }
 
@@ -151,6 +153,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public function getProfession () {
 	return $this->hasMany(UserProfession::className(), ['user_id' => 'id']);
     }
+    
+    public function getUserProfession () {
+	return $this->hasMany(Profession::className(), ['id' => 'profession_id'])->via("profession");
+    }
 
     //
 
@@ -158,8 +164,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	return $this->first_name . " " . $this->last_name;
     }
 
-    public function getCityList() {
-	$city = City::find()->where(['country_id' => 3159])->orderBy("name")->all();
+    public function getCityList($id = 3159) {
+	$city = City::find()->where(['country_id' => $id])->orderBy("name")->all();
 	foreach ($city as $item) {
 	    $arr[$item->city_id] = $item->name;
 	}
@@ -220,6 +226,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     // Marks End
     public function getProfList() {
 	$model = Profession::find()->orderBy("title")->all();
+	$arr[""] = 'Все';
 	foreach ($model as $item) {
 	    $arr[$item->id] = $item->title;
 	}
@@ -240,9 +247,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 
     public function beforeSave($insert) {
-	if(isset($this->profession)) {
+	$sess = \Yii::$app->session;
+	if(isset($this->professionField) && (count($this->professionField) > 0)) {
 	    UserProfession::deleteAll(['user_id' => $this->id]);
-	    foreach ($this->profession as $item) {
+	    foreach ($this->professionField as $item) {
 		$mProf = new UserProfession();
 		$mProf->attributes = [
 		    'user_id' => $this->id,
@@ -251,7 +259,12 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 		$mProf->save();
 	    }
 	}
-	Logs::saveLog(var_export($this->profession, true));
+	if($sess->has('typeUser')) {
+	    $this->type = $sess->get('typeUser');
+	    $this->step = $this->type == self::TYPE_USER_USER ? self::STEP_NEXT_USER : self::STEP_NEXT_COMPANY;
+	    $sess->remove('typeUser');
+	}
+	
 	return parent::beforeSave($insert);
     }
 

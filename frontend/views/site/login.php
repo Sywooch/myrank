@@ -44,8 +44,11 @@ $this->params['breadcrumbs'][] = $this->title;
 		<a id="loginSave" class="button-small" href="#">Войти</a>
 	    </div>
 	    <div class="b-modal__content__buttons__item">
-		<span><a class="cancelLink" href="#">Отменить</a></span>
+		<span><a  id="registered" href="#">Зарегистрироваться</a></span>
 	    </div>
+	    <!-- div class="b-modal__content__buttons__item">
+		<a id="registered" class="button-small" href="#">Зарегистрироваться</a>
+	    </div -->
 	</div>
     </div>
     <?php ActiveForm::end(); ?>
@@ -67,6 +70,12 @@ $this->params['breadcrumbs'][] = $this->title;
 		}
 	    }
 	});
+	return false;
+    });
+    
+    $("#registered").on('click', function () {
+	url = '<?= Url::toRoute(['registration/step1']) ?>';
+	showModal(url, 0, 0);
 	return false;
     });
 </script>

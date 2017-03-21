@@ -92,14 +92,32 @@ $mSearch = new UsersSearch();
     			</div>
     			<div class="b-social">
     			    <ul>
-    				<li><a class="b-social__fb" href="<?= Url::toRoute(['site/auth', 'authclient' => 'facebook']) ?>"></a></li>
-    				<li><a class="b-social__vk" href="<?= Url::toRoute(['site/auth', 'authclient' => 'vkontakte']) ?>"></a></li>
+    				<li><a class="b-social__fb" href="<?= Url::toRoute(['site/authuser', 'authclient' => 'facebook']) ?>"></a></li>
+    				<li><a class="b-social__vk" href="<?= Url::toRoute(['site/authuser', 'authclient' => 'vkontakte']) ?>"></a></li>
     				<li><a class="b-social__tw" href="#"></a></li>
     			    </ul>
     			</div>
     		    </div>
     		</div>
     		<div class="tab-pane" id="tab-content_2">
+		    <div class="b-header__profile__title">
+    			Зарегистрируйтесь или войдите черех социальные сети
+    		    </div>
+    		    <div class="b-header__profile__content">
+    			<div class="b-header__profile__button">
+    			    <a id="regstep" class="button" href="#">Регистрация</a>
+    			</div>
+    			<div class="b-header__profile__button">
+    			    <a class="button signin" href="#">Вход</a>
+    			</div>
+    			<div class="b-social">
+    			    <ul>
+    				<li><a class="b-social__fb" href="<?= Url::toRoute(['site/authcompany', 'authclient' => 'facebook']) ?>"></a></li>
+    				<li><a class="b-social__vk" href="<?= Url::toRoute(['site/authcompany', 'authclient' => 'vkontakte']) ?>"></a></li>
+    				<li><a class="b-social__tw" href="#"></a></li>
+    			    </ul>
+    			</div>
+    		    </div>
     		</div>
     	    </div>
     	</div>

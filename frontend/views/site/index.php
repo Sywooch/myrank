@@ -1,9 +1,13 @@
 <?php
+
 use yii\widgets\ListView;
 use frontend\widgets\user\LatestUsersAddWidget;
+use frontend\widgets\user\BestRatingWidget;
+use frontend\models\Profession;
+use yii\helpers\Url;
 
 $this->title = 'My Yii Application';
-
+$mProf = Profession::find()->asArray()->all();
 ?>
 
 <!-- begin b-category -->
@@ -14,42 +18,21 @@ $this->title = 'My Yii Application';
 	</h2>
 	<div class="b-category__content">
 	    <div class="row">
-		<div class="col-xs-12 col-sm-6 col-md-3">
-		    <ul>
-			<li><a href="#">Разработка сайтов</a></li>
-			<li><a href="#">Тексты</a></li>
-			<li><a href="#">Дизайн и Арт</a></li>
-			<li><a href="#">Программирование</a></li>
-			<li><a href="#">Аутсорсинг и консалтинг</a></li>
-		    </ul>
-		</div>
-		<div class="col-xs-12 col-sm-6 col-md-3">
-		    <ul>
-			<li><a href="#">Переводы</a></li>
-			<li><a href="#">Разработка игр</a></li>
-			<li><a href="#">Аудио/Видео</a></li>
-			<li><a href="#">Реклама и Маркетинг</a></li>
-			<li><a href="#">Фотография</a></li>
-		    </ul>
-		</div>
-		<div class="col-xs-12 col-sm-6 col-md-3">
-		    <ul>
-			<li><a href="#">3D Графика</a></li>
-			<li><a href="#">Инжиниринг</a></li>
-			<li><a href="#">Анимация и флеш</a></li>
-			<li><a href="#">Архитектура/Интерьер</a></li>
-			<li><a href="#">Обучение и консультации</a></li>
-		    </ul>
-		</div>
-		<div class="col-xs-12 col-sm-6 col-md-3">
-		    <ul>
-			<li><a href="#">Полиграфия</a></li>
-			<li><a href="#">Оптимизация (SEO)</a></li>
-			<li><a href="#">Менеджмент</a></li>
-			<li><a href="#">Мобильные приложения</a></li>
-			<li><a href="#">Сети и инфосистемы</a></li>
-		    </ul>
-		</div>
+		<?php foreach ($mProf as $key => $item) { ?>
+		    <?php if (($key == 0) || ($key % 5) == 0) { ?>
+			<div class="col-xs-12 col-sm-6 col-md-3">
+			    <ul>
+			    <?php } ?>
+				<li>
+				    <a href="<?= Url::toRoute(['users/search', 'professionField' => $item['id']]) ?>">
+					<?= $item['title'] ?>
+				    </a>
+				</li>
+			    <?php if ((($key + 1) % 5 == 0) || (count($mProf) == $key+1)) { ?>
+			    </ul>
+			</div>
+		    <?php } ?>
+		<?php } ?>
 	    </div>
 	</div>
     </div>
@@ -57,362 +40,7 @@ $this->title = 'My Yii Application';
 <!-- end b-category -->
 
 <!-- begin b-rating -->
-<div class="b-rating">
-    <div class="container">
-	<h2>Лучший рейтинг</h2>
-	<div class="b-rating__header">
-	    <div class="b-rating__header__text">
-		ТОП пользователей с максимальным рейтингом. ТОП пользователей с максимальным
-		рейтингом. ТОП пользователей с максимальным рейтингом.
-	    </div>
-	    <div class="b-rating__header__link">
-		<a href="#">Все категории</a>
-	    </div>
-	</div>
-	<div class="b-rating__content">
-	    <div class="b-rating__col">
-		<div class="b-rating__item">
-		    <div class="b-rating__item__header">
-			<div class="b-rating__item__image">
-			    <img src="images/users/1.jpg" alt="">
-			    <div class="b-rating__item__info">
-				<ul>
-				    <li>Project Manager</li>
-				    <li>Web  Design Expert</li>
-				    <li>Mobile Designer</li>
-				    <li>Web designer</li>
-				</ul>
-				<div class="b-rating__item__likes">
-				    10
-				</div>
-				<div class="b-rating__item__messages">
-				    12
-				</div>
-			    </div>
-			    <div class="b-rating__item__number">
-				920
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-rating__item__content">
-			<div class="b-rating__item__title">
-			    Amanda Mcwilliam
-			</div>
-			<div class="b-rating__item__text">
-			    Project Manager
-			</div>
-		    </div>
-		</div>
-	    </div>
-	    <div class="b-rating__col">
-		<div class="b-rating__item">
-		    <div class="b-rating__item__header">
-			<div class="b-rating__item__image">
-			    <img src="images/users/2.jpg" alt="">
-			    <div class="b-rating__item__info">
-				<ul>
-				    <li>Project Manager</li>
-				    <li>Web  Design Expert</li>
-				    <li>Mobile Designer</li>
-				    <li>Web designer</li>
-				</ul>
-				<div class="b-rating__item__likes">
-				    10
-				</div>
-				<div class="b-rating__item__messages">
-				    12
-				</div>
-			    </div>
-			    <div class="b-rating__item__number">
-				978
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-rating__item__content">
-			<div class="b-rating__item__title">
-			    Kris Martin
-			</div>
-			<div class="b-rating__item__text">
-			    Capital Coordinator
-			</div>
-		    </div>
-		</div>
-	    </div>
-	    <div class="b-rating__col">
-		<div class="b-rating__item">
-		    <div class="b-rating__item__header">
-			<div class="b-rating__item__image">
-			    <img src="images/users/3.jpg" alt="">
-			    <div class="b-rating__item__info">
-				<ul>
-				    <li>Project Manager</li>
-				    <li>Web  Design Expert</li>
-				    <li>Mobile Designer</li>
-				    <li>Web designer</li>
-				</ul>
-				<div class="b-rating__item__likes">
-				    10
-				</div>
-				<div class="b-rating__item__messages">
-				    12
-				</div>
-			    </div>
-			    <div class="b-rating__item__number">
-				996
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-rating__item__content">
-			<div class="b-rating__item__title">
-			    David dox
-			</div>
-			<div class="b-rating__item__text">
-			    Owner at Legacy House
-			</div>
-		    </div>
-		</div>
-	    </div>
-	    <div class="b-rating__col">
-		<div class="b-rating__item">
-		    <div class="b-rating__item__header">
-			<div class="b-rating__item__image">
-			    <img src="images/users/4.jpg" alt="">
-			    <div class="b-rating__item__info">
-				<ul>
-				    <li>Project Manager</li>
-				    <li>Web  Design Expert</li>
-				    <li>Mobile Designer</li>
-				    <li>Web designer</li>
-				</ul>
-				<div class="b-rating__item__likes">
-				    10
-				</div>
-				<div class="b-rating__item__messages">
-				    12
-				</div>
-			    </div>
-			    <div class="b-rating__item__number">
-				920
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-rating__item__content">
-			<div class="b-rating__item__title">
-			    Engineer, Supervisor
-			</div>
-			<div class="b-rating__item__text">
-			    Construction Professional
-			</div>
-		    </div>
-		</div>
-	    </div>
-	    <div class="b-rating__col">
-		<div class="b-rating__item">
-		    <div class="b-rating__item__header">
-			<div class="b-rating__item__image">
-			    <img src="images/users/5.jpg" alt="">
-			    <div class="b-rating__item__info">
-				<ul>
-				    <li>Project Manager</li>
-				    <li>Web  Design Expert</li>
-				    <li>Mobile Designer</li>
-				    <li>Web designer</li>
-				</ul>
-				<div class="b-rating__item__likes">
-				    10
-				</div>
-				<div class="b-rating__item__messages">
-				    12
-				</div>
-			    </div>
-			    <div class="b-rating__item__number">
-				920
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-rating__item__content">
-			<div class="b-rating__item__title">
-			    Amanda Mcwilliam
-			</div>
-			<div class="b-rating__item__text">
-			    Project Manager
-			</div>
-		    </div>
-		</div>
-	    </div>
-	    <div class="b-rating__col">
-		<div class="b-rating__item">
-		    <div class="b-rating__item__header">
-			<div class="b-rating__item__image">
-			    <img src="images/users/6.jpg" alt="">
-			    <div class="b-rating__item__info">
-				<ul>
-				    <li>Project Manager</li>
-				    <li>Web  Design Expert</li>
-				    <li>Mobile Designer</li>
-				    <li>Web designer</li>
-				</ul>
-				<div class="b-rating__item__likes">
-				    10
-				</div>
-				<div class="b-rating__item__messages">
-				    12
-				</div>
-			    </div>
-			    <div class="b-rating__item__number">
-				920
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-rating__item__content">
-			<div class="b-rating__item__title">
-			    Amanda Mcwilliam
-			</div>
-			<div class="b-rating__item__text">
-			    Project Manager
-			</div>
-		    </div>
-		</div>
-	    </div>
-	    <div class="b-rating__col">
-		<div class="b-rating__item">
-		    <div class="b-rating__item__header">
-			<div class="b-rating__item__image">
-			    <img src="images/users/7.jpg" alt="">
-			    <div class="b-rating__item__info">
-				<ul>
-				    <li>Project Manager</li>
-				    <li>Web  Design Expert</li>
-				    <li>Mobile Designer</li>
-				    <li>Web designer</li>
-				</ul>
-				<div class="b-rating__item__likes">
-				    10
-				</div>
-				<div class="b-rating__item__messages">
-				    12
-				</div>
-			    </div>
-			    <div class="b-rating__item__number">
-				978
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-rating__item__content">
-			<div class="b-rating__item__title">
-			    Kris Martin
-			</div>
-			<div class="b-rating__item__text">
-			    Capital Coordinator
-			</div>
-		    </div>
-		</div>
-	    </div>
-	    <div class="b-rating__col">
-		<div class="b-rating__item">
-		    <div class="b-rating__item__header">
-			<div class="b-rating__item__image">
-			    <img src="images/users/8.jpg" alt="">
-			    <div class="b-rating__item__info">
-				<ul>
-				    <li>Project Manager</li>
-				    <li>Web  Design Expert</li>
-				    <li>Mobile Designer</li>
-				    <li>Web designer</li>
-				</ul>
-				<div class="b-rating__item__likes">
-				    10
-				</div>
-				<div class="b-rating__item__messages">
-				    12
-				</div>
-			    </div>
-			    <div class="b-rating__item__number">
-				996
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-rating__item__content">
-			<div class="b-rating__item__title">
-			    David dox
-			</div>
-			<div class="b-rating__item__text">
-			    Owner at Legacy House
-			</div>
-		    </div>
-		</div>
-	    </div>
-	    <div class="b-rating__col">
-		<div class="b-rating__item">
-		    <div class="b-rating__item__header">
-			<div class="b-rating__item__image">
-			    <img src="images/users/9.jpg" alt="">
-			    <div class="b-rating__item__info">
-				<ul>
-				    <li>Project Manager</li>
-				    <li>Web  Design Expert</li>
-				    <li>Mobile Designer</li>
-				    <li>Web designer</li>
-				</ul>
-				<div class="b-rating__item__likes">
-				    10
-				</div>
-				<div class="b-rating__item__messages">
-				    12
-				</div>
-			    </div>
-			    <div class="b-rating__item__number">
-				920
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-rating__item__content">
-			<div class="b-rating__item__title">
-			    Engineer, Supervisor
-			</div>
-			<div class="b-rating__item__text">
-			    Construction Professional
-			</div>
-		    </div>
-		</div>
-	    </div>
-	    <div class="b-rating__col">
-		<div class="b-rating__item">
-		    <div class="b-rating__item__header">
-			<div class="b-rating__item__image">
-			    <img src="images/users/10.jpg" alt="">
-			    <div class="b-rating__item__info">
-				<ul>
-				    <li>Project Manager</li>
-				    <li>Web  Design Expert</li>
-				    <li>Mobile Designer</li>
-				    <li>Web designer</li>
-				</ul>
-				<div class="b-rating__item__likes">
-				    10
-				</div>
-				<div class="b-rating__item__messages">
-				    12
-				</div>
-			    </div>
-			    <div class="b-rating__item__number">
-				920
-			    </div>
-			</div>
-		    </div>
-		    <div class="b-rating__item__content">
-			<div class="b-rating__item__title">
-			    Amanda Mcwilliam
-			</div>
-			<div class="b-rating__item__text">
-			    Project Manager
-			</div>
-		    </div>
-		</div>
-	    </div>
-	</div>
-    </div>
-</div>
+<?= BestRatingWidget::widget(); ?>
 <!-- end b-rating -->
 
 
@@ -480,15 +108,15 @@ $this->title = 'My Yii Application';
 
 <!-- begin b-articles -->
 <?php
-    echo ListView::widget([
-        'dataProvider' => $listDataProvider,
-        'itemView' => '_listArticles',
-        'layout' => '{items}',
-        'emptyText' => 'Нет статей',
-        'emptyTextOptions' => [
-           'tag' => 'p'
-       ],
-    ]);
+echo ListView::widget([
+    'dataProvider' => $listDataProvider,
+    'itemView' => '_listArticles',
+    'layout' => '{items}',
+    'emptyText' => 'Нет статей',
+    'emptyTextOptions' => [
+	'tag' => 'p'
+    ],
+]);
 ?>
 <!-- end b-articles -->
 

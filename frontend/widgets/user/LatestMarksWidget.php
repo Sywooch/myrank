@@ -19,7 +19,8 @@ class LatestMarksWidget extends \yii\base\Widget {
     public function run() {
 	parent::run();
 	return $this->render("latestMarks", [
-	    'model' => $this->list,
+	    'model' => $this->model,
+	    'list' => $this->list,
 	    'marks' => $this->marks[0],
 	]);
     }

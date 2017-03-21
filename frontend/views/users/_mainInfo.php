@@ -34,13 +34,14 @@ echo ModalWidget::widget([
 		'label' => 'Город:',
 		'divClass' => 'select-wrapper city-select',
 		'type' => 'dropDownList',
-		'options' => $model->cityList,
+		'options' => isset($model->country_id) ? $model->getCityList($model->country_id) : [],
 	    ],
 	],
-	'profession' => [
+	'professionField' => [
 	    'label' => 'Специализация:',
 	    'divClass' => 'select-wrapper specialization-select',
-	    'type' => 'dropDownList',
+	    //'type' => 'dropDownList',
+	    'type' => 'listBox',
 	    'options' => $model->profList,
 	    'posOpt' => ['multiple' => true],
 	    'posInfo' => "Позвольте людям узнать чем вы занимаетесь",
@@ -65,11 +66,17 @@ echo ModalWidget::widget([
     ],
     'success' => '$("#modalView").modal("toggle");',
     'script' => '$("#user-country_id").on("change", function () {
+	    id = $(this).val();
+	    setCityList(id);
+	});
+	function setCityList (id) {
 	    csrf = $("[name=\"csrf-token\"]").attr("content");
 	    url = "'.Url::toRoute("users/getcities").'";
-	    $.post(url, {"_csrf-frontend":csrf, "id":$(this).val()}, function(data) {
+	    $.post(url, {"_csrf-frontend":csrf, "id":id}, function(data) {
 		$("#user-city_id").html(data);
 	    });
-	});',
+	}
+	//setCityList($("#user-country_id").val());
+	',
 ]);
 ?>

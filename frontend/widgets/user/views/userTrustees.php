@@ -1,12 +1,12 @@
 <?php
 use yii\helpers\Url;
 
-if(count($model) > 0) {
+if(count($list) > 0) {
 ?>
 <div class="b-trusted-users b-block">
     <div class="b-title">Доверенные лица</div>
     <div class="b-trusted-users__content">
-	<?php foreach ($model as $item) { ?>
+	<?php foreach ($list as $item) { ?>
 	<div class="b-trusted-users__item">
 	    <div class="b-trusted-users__item__image">
 		<img src="<?= $item->user->userImage ?>" alt="">
@@ -25,7 +25,9 @@ if(count($model) > 0) {
 	</div>
 	<?php } ?>
 	<div class="link">
-	    <a href="#"><span>Посмотреть всех</span></a>
+	    <a href="#" class="showModal" data-url="<?= Url::toRoute(['users/alltrustuser', 'id' => $model->id]) ?>">
+		<span>Посмотреть всех</span>
+	    </a>
 	</div>
     </div>
 </div>

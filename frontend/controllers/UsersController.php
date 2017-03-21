@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use frontend\components\Controller;
+use yii\filters\AccessControl;
 use frontend\models\User;
 use yii\helpers\Json;
 use frontend\models\UserMarks;
@@ -10,12 +11,32 @@ use frontend\models\Testimonials;
 use frontend\models\UserClaim;
 use frontend\models\UserMarkRating;
 use frontend\models\UsersSearch;
+use frontend\models\City;
 /**
  * Description of UserController
  *
  * @author dmitrywp
  */
 class UsersController extends Controller {
+    /*
+    public function behaviors() {
+	return [
+	    'access' => [
+		'class' => AccessControl::className(),
+		'rules' => [/*
+		    [
+			'actions' => ['login', 'error'],
+			'allow' => true,
+		    ],*
+		    [
+			'actions' => ['profile'],
+			'allow' => true,
+			'roles' => ['@'],
+		    ],
+		],
+	    ],
+	];
+    }*/
     
     public function actionProfile () {
 	$req = \Yii::$app->request->get();
@@ -23,6 +44,7 @@ class UsersController extends Controller {
 	    $req['id'] = \Yii::$app->user->id;
 	}
 	$mUser = User::findOne($req['id']);
+	
 	return $this->render("profile", [
 	    'mUser' => $mUser,
 	]);
@@ -118,6 +140,13 @@ class UsersController extends Controller {
     // Edit profile
     public function actionEditmaininfo () {
 	$model = User::getProfile();
+	$profArr = [];
+	foreach ($model->userProfession as $item) {
+	    $profArr[] = $item->id;
+	}
+	$model->professionField = $profArr;
+	$model->country_id = City::findOne($model->city_id)->country_id;
+	
 	$out = $this->renderPartial("_mainInfo", ['model' => $model]);
 	echo Json::encode(['code' => 1, 'data' => $out]);
 	\Yii::$app->end();
@@ -172,14 +201,13 @@ class UsersController extends Controller {
     
     public function actionSearch () {
 	$post = \Yii::$app->request->post();
+	$get['UsersSearch'] = \Yii::$app->request->get();
+	$req = array_merge($get, $post);
+	//var_dump($req);
+	
 	$model = new UsersSearch();
-	$modelSearch = $model->search($post);
-	//echo "<pre>"; var_dump($modelSearch); echo "</pre>";*/
-	
-	if($model->load($post)) {
-	    
-	}
-	
+	$modelSearch = $model->search($req);
+	$model->load($req);
 	return $this->render("search", ['model' => $model, 'mSearch' => $modelSearch]);
     }
     
@@ -194,4 +222,22 @@ class UsersController extends Controller {
 	}
 	return Json::encode($out);
     }
+    
+    public function actionLastmarksuser ($id) {
+	$model = UserMarks::find()->where(['user_to' => $id])->all();
+	echo Json::encode([
+	    'code' => 1, 
+	    'data' => $this->renderPartial('listUser', ['model' => $model, 'title' => 'Последние оценки'])
+	]);
+	\Yii::$app->end();
+    }
+    
+    public function actionAlltrustuser ($id) {
+	$model = UserTrustees::find()->where(['user_from' => $id])->all();
+	echo Json::encode([
+	    'code' => 1, 
+	    'data' => $this->renderPartial('listUser', ['model' => $model, 'title' => 'Доверенные лица'])
+	]);
+	\Yii::$app->end();
+    } 
 }

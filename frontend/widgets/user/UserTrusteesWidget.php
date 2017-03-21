@@ -17,6 +17,6 @@ class UserTrusteesWidget extends \yii\base\Widget {
     
     public function run() {
 	parent::run();
-	return $this->render("userTrustees", ['model' => $this->list]);
+	return $this->render("userTrustees", ['list' => $this->list, 'model' => $this->model]);
     }
 }

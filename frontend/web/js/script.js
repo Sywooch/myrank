@@ -224,7 +224,7 @@ function showModal(url, param, n) {
 		}
 		$("#modalView .modal-content").html(out.data);
 	    }
-	    console.log(out);
+	    //console.log(out);
 	}
     });
 }

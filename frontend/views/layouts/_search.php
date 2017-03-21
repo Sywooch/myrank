@@ -7,10 +7,10 @@ use yii\helpers\Html;
 
 $mSearch = new UsersSearch();
 $post = Yii::$app->request->post();
-$mSearch->load($post);
-//var_dump($mSearch);
-//$mSearch->searchName = $post['searchName'];
-//$mSearch->city_id = $post['city_id'];
+$get['UsersSearch'] = \Yii::$app->request->get();
+$req = array_merge($get, $post);
+
+$mSearch->load($req);
 
 
 $city = Yii::$app->userinfo->getCityArr();
@@ -38,7 +38,7 @@ $city = Yii::$app->userinfo->getCityArr();
 	    ?>
 	    <div class="row">
 		<div class="col-xs-12 col-sm-6">
-		    <div class="b-header__search__col">
+		    <div class="b-header__search__col ui-widget">
 			<span>Найти</span>
 			<?=
 				$form->field($mSearch, 'searchName')
@@ -73,12 +73,7 @@ $city = Yii::$app->userinfo->getCityArr();
 			<div class="b-header__search__advanced__col">
 			    <span>Категория</span>
 			    <div class="b-header__search__select">
-				<?= $form->field($mSearch, "profession")->dropDownList($mSearch->profList)->label(FALSE) ?>
-				<!-- select>
-				    <option value="">Все категории</option>
-				    <option value="">Все категории</option>
-				    <option value="">Все категории</option>
-				</select -->
+				<?= $form->field($mSearch, "professionField")->dropDownList($mSearch->profList)->label(FALSE) ?>
 			    </div>
 			</div>
 		    </div>

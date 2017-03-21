@@ -1,3 +1,6 @@
+<?php
+use yii\helpers\Url;
+?>
 <div class="b-search__content">
     <?php foreach ($model as $item) { ?>
         <!-- begin b-user -->
@@ -5,28 +8,27 @@
     	<div class="b-user__data">
     	    <div class="b-user__data__left">
     		<div class="b-user__data__image">
-    		    <img src="images/users/1.jpg" alt="">
+		    <img src="<?= $item->userImage ?>" alt="">
     		    <div class="b-user__data__image__info">
     			<ul>
-    			    <li>Project Manager</li>
-    			    <li>Web  Design Expert</li>
-    			    <li>Mobile Designer</li>
-    			    <li>Web designer</li>
+			    <?php foreach ($item->userProfession as $item2) { ?>
+    			    <li><?= $item2->title ?></li>
+			    <?php } ?>
     			</ul>
-    			<div class="b-user__data__image__info__likes">
+    			<!-- div class="b-user__data__image__info__likes">
     			    10
-    			</div>
-    			<div class="b-user__data__image__info__messages">
+    			</div -->
+    			<!-- div class="b-user__data__image__info__messages">
     			    12
-    			</div>
+    			</div -->
     		    </div>
     		</div>
     	    </div>
     	    <div class="b-user__data__right">
     		<div class="b-user__data__header">
     		    <div class="b-user__data__name">
-    			<div><?= $item->fullName ?></div>
-    			<span class="b-user__data__name__edit"></span>
+			<div><a href="<?= Url::toRoute(['users/profile', 'id' => $item->id]) ?>"><?= $item->fullName ?></a></div>
+    			<!-- span class="b-user__data__name__edit"></span -->
     		    </div>
     		    <div class="b-user__data__info">
     			<a class="b-user__data__info__add-trusted" href="#">

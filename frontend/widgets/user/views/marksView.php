@@ -1,12 +1,9 @@
 <?php 
 use yii\helpers\Html;
 use yii\helpers\Url;
-//echo "<pre>";
-//var_dump($list);
-//echo "</pre>";
 ?>
 <div class="b-marks b-block">
-    <div class="b-title">Оценки</div>
+    <div class="b-title"><?= $title ?></div>
     <div class="b-marks__content">
 	<form id="markFields" method="POST" action="#">
 	    <?php foreach ($allList[0] as $key => $el) { ?>

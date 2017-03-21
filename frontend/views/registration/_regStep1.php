@@ -36,7 +36,7 @@ echo ModalWidget::widget([
 		'label' => '* Город:',
 		'divClass' => 'select-wrapper city-select',
 		'type' => 'dropDownList',
-		'options' => $model->cityList,
+		'options' =>  []//$model->cityList,
 	    ],
 	],
 	'profession' => [
@@ -61,22 +61,28 @@ echo ModalWidget::widget([
 	]
     ],
     'success' => '$("#modalView .modal-content").html(out.data);',
-    'script' => '    $(".specialization-select select").select2({
-	    placeholder: "Специализация"
-	});
+    'script' => '    
 	$(".country-select select").select2({
 	    placeholder: "Страна"
 	});
 	$(".city-select select").select2({
 	    placeholder: "Город"
 	});
-	$("#user-country_id").on("change", function () {
+	$(".specialization-select select").select2({
+	    placeholder: "Специализация"
+	});
+	$("#registration-country_id").on("change", function () {
+	    setCityList($(this).val());
+	});
+	
+	function setCityList (id) {
 	    csrf = $("[name=\"csrf-token\"]").attr("content");
 	    url = "'.Url::toRoute("users/getcities").'";
-	    $.post(url, {"_csrf-frontend":csrf, "id":$(this).val()}, function(data) {
-		$("#user-city_id").html(data);
+	    $.post(url, {"_csrf-frontend":csrf, "id":id}, function(data) {
+		$("#registration-city_id").html(data);
 	    });
-	});
+	}
+	setCityList($("#registration-country_id").val());
 	',
 ]);
 /*

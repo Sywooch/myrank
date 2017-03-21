@@ -14,13 +14,16 @@ class MarksWidget extends Widget {
     public $list;
 
     public $view = "marksView";
+    private $title;
 
     public function init() {
 	parent::init();
 	$this->allList = $this->model->marks;
 	if($this->model->owner) {
+	    $this->title = "Моя оценка";
 	    $this->list = Json::decode($this->model->mark, true);
 	} else {
+	    $this->title = "Оценка";
 	    $this->list = $this->model->getUserMarksFromList();
 	}
     }
@@ -30,6 +33,7 @@ class MarksWidget extends Widget {
 	    'allList' => $this->allList, 
 	    'list' => $this->list,
 	    'uId' => $this->model->id,
+	    'title' => $this->title,
 	]);
     }
 }

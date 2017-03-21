@@ -16,7 +16,7 @@ use yii\helpers\Url;
     	    <div class="b-comments__item__image">
     		<img src="<?= $item->userFrom->userImage ?>" alt="">
     		<div class="b-comments__item__number">
-    		    0
+    		    <?= $item->userFrom->rating ?>
     		</div>
     	    </div>
     	    <div class="b-comments__item__info">

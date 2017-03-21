@@ -4,12 +4,14 @@ namespace frontend\controllers;
 
 use frontend\components\Controller;
 use frontend\models\User;
+use frontend\models\Registration;
+use yii\helpers\Json;
 
 class RegistrationController extends Controller {
 
     public function actionStep1() {
-	$model = new User();
-	echo \yii\helpers\Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep1", ['model' => $model])]);
+	$model = new Registration();
+	echo Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep1", ['model' => $model])]);
 	\Yii::$app->end();
     }
 
@@ -21,7 +23,7 @@ class RegistrationController extends Controller {
 		'password' => 'Пароль и повтор пароля не совпадают'
 	    ];
 	} else {
-	    $model = new User();
+	    $model = new Registration();
 	    if ($model->load($post)) {
 		$model->setPassword($post['password']);
 		$model->generateAuthKey();
@@ -30,19 +32,32 @@ class RegistrationController extends Controller {
 		    $out['id'] = $model->id;
 		    $out['data'] = $this->renderPartial("_regStep2user", ['model' => $model]);
 		} else {
-		    $out['errors'] = ['one' => ['Ошибка']];
+		    $out['errors'] = $model->errors;
 		}
 	    } else {
 		$out['errors'] = $model->errors;
 	    }
 	}
-	echo \yii\helpers\Json::encode($out);
+	echo Json::encode($out);
+	\Yii::$app->end();
+    }
+    
+    public function actionStep2() {
+	$model = new Registration();
+	echo Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep2user", ['model' => $model])]);
 	\Yii::$app->end();
     }
 
     public function actionStep2save() {
 	$out = ['code' => 0, 'link' => '#'];
+	
 	$post = \Yii::$app->request->post();
+	$post['User']['step'] = 0;
+	
+	if(\Yii::$app->user->id !== NULL) {
+	    $post['User']['id'] = \Yii::$app->user->id;
+	}
+	
 	$model = User::findOne($post['User']['id']);
 	unset($post['User']['id']);
 	if ($model->load($post) && $model->save()) {
@@ -51,8 +66,19 @@ class RegistrationController extends Controller {
 	} else {
 	    $out['errors'] = $model->errors;
 	}
-	return \yii\helpers\Json::encode($out);
+	return Json::encode($out);
 	\Yii::$app->end();
+    }
+    
+    public function actionStep3 () {
+	$model = "";
+	echo Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep3", ['model' => $model])]);
+	\Yii::$app->end();
+    }
+    
+    public function actionStep3save () {
+	$post = \Yii::$app->request->post();
+	
     }
 
     public function actionTest() {

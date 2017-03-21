@@ -5,20 +5,43 @@ use common\widgets\Alert;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\models\Country;
-
-AppAsset::register($this);
+use frontend\models\User;
 
 $contr = Yii::$app->controller->id;
 $act = Yii::$app->controller->action->id;
 
-$this->registerJs('$("#countrySelect").on("change", function() {
+if(Yii::$app->user->id !== NULL) {
+    $mUser = User::getProfile();
+    if($mUser->step != 0) {
+	$urlPath = "registration/step".$mUser->step;
+	$this->registerJs("showModal('".Url::toRoute([$urlPath])."', 1, 1)");
+    }
+}
+
+$this->registerJs('
+	$("#countrySelect").on("change", function() {
 	    $("[name=\"csrf-token\"]").attr("content");
 	    $.get("' . Url::toRoute(['site/setcountry']) . '", {id:$(this).val()}, function() {
 		location.reload(true);
 	    });
-	});');
+	});
+	$(".showModal").on("click", function() {
+	    showModal($(this).attr("data-url"), 0, 1);
+	    return false;
+	});
+	function setCityList (id) {
+	    csrf = $("[name=\"csrf-token\"]").attr("content");
+	    url = "' . Url::toRoute("users/getcities") . '";
+	    $.post(url, {"_csrf-frontend":csrf, "id":id}, function(data) {
+		$("#user-city_id").html(data);
+	    });
+	}
+', yii\web\View::POS_END);
+$this->registerJsFile("/js/jquery2.2.4.js", ['position' => \yii\web\View::POS_HEAD]);
 $session = Yii::$app->session;
 $country = $session->get("country", 9908);
+
+AppAsset::register($this);
 ?>
 
 <?php $this->beginPage() ?>
@@ -92,15 +115,19 @@ $country = $session->get("country", 9908);
 					    <i class="b-menu__line b-menu__line_3"></i>
 					</span>
 					<div class="b-menu__content">
-					    <ul>
-						<li class="active"><a href="#">главная</a></li>
-						<li><a href="<?= Url::to(['/aboutus']); ?>">о нас</a></li>
-						<li><a href="<?= Url::to(['article/index']); ?>">новости</a></li>
-						<li><a href="#">баланс</a></li>
-						<li><a href="<?= Url::to(['/help']); ?>">помощь</a></li>
-						<li><a href="<?= Url::to(['/contacts']); ?>">контакты</a></li>
-						<li><a href="<?= Url::to(['/legalinfo']); ?>">условия & защита</a></li>
-					    </ul>
+					    <?=
+					    \yii\widgets\Menu::widget([
+						'items' => [
+						    ['label' => 'главная', 'url' => ['site/index']],
+						    ['label' => 'о нас', 'url' => ['/aboutus']],
+						    ['label' => 'новости', 'url' => ['article/index']],
+						    ['label' => 'баланс', 'url' => "#"],
+						    ['label' => 'помощь', 'url' => ['/help']],
+						    ['label' => 'контакты', 'url' => ['/contacts']],
+						    ['label' => 'условия & защита', 'url' => ['/legalinfo']],
+						],
+					    ]);
+					    ?>
 					</div>
 				    </nav>
 				    <!-- end b-menu -->
@@ -114,7 +141,7 @@ $country = $session->get("country", 9908);
 		</div>
 	    </header>
 	    <!-- end b-header -->
-	    <?= $content ?>
+	    <?= $content ?>	
 
 	</div>
 

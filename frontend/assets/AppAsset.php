@@ -21,7 +21,7 @@ class AppAsset extends AssetBundle {
 	'/js/jquery-ui/jquery-ui-custom.css'
     ];
     public $js = [
-	'/js/jquery2.2.4.js',
+	//'/js/jquery2.2.4.js',
 	'/bootstrap/js/bootstrap.min.js',
 	'/js/owlcarousel/owl.carousel.min.js',
 	//'/js/jquery-ui/jquery-ui.min.js',
@@ -37,5 +37,6 @@ class AppAsset extends AssetBundle {
     public $depends = [
 	//'yii\web\YiiAsset',
     ];
+    public $jsOptions = [ 'position' => \yii\web\View::POS_END ];
 
 }

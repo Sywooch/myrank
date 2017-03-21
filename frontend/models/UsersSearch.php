@@ -25,7 +25,7 @@ class UsersSearch extends User {
 	    [['id', 'account_id', 'company_id', 'profileviews', 'type', 'rating', 'gender', 'city_id'], 'integer'],
 	    [['company_name', 'company_post', 'image', 'first_name', 'last_name', 'email', 'auth_key', 
 		'password_hash', 'password_reset_token', 'about', 'last_login', 'birthdate', 'phone', 
-		'site', 'mark', 'marks_config', 'searchName', 'ratingStart', 'ratingEnd'], 'safe'],
+		'site', 'mark', 'marks_config', 'searchName', 'ratingStart', 'ratingEnd', 'professionField'], 'safe'],
 	];
     }
 
@@ -45,7 +45,7 @@ class UsersSearch extends User {
      * @return ActiveDataProvider
      */
     public function search($params) {
-	$query = User::find();
+	$query = User::find()->joinWith("userProfession");
 	
 	if(isset($params['UsersSearch']['searchName']) && ($params['UsersSearch']['searchName'] != "")) {
 	    if(strpos($params['UsersSearch']['searchName'], " ") != FALSE) {
@@ -69,7 +69,8 @@ class UsersSearch extends User {
 	    'gender' => $this->gender,
 	    'city_id' => $this->city_id,
 	    'last_name' => $this->last_name,
-	    'first_name' => $this->first_name
+	    'first_name' => $this->first_name,
+	    'profession_id' => $this->professionField
 	]);
 
 	$query->andFilterWhere(['between', 'rating', $this->ratingStart, $this->ratingEnd])

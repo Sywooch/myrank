@@ -2,12 +2,12 @@
 
 use yii\helpers\Url;
 
-if (count($model) > 0) {
+if (count($list) > 0) {
     ?>
     <div class="b-last-marks b-block">
         <div class="b-title">Последние оценки</div>
         <div class="b-last-marks__content">
-	    <?php foreach ($model as $item) { ?>
+	    <?php foreach ($list as $item) { ?>
 		<div class="b-last-marks__item">
 		    <div class="b-last-marks__item__image">
 			<img src="<?= $item->user->userImage ?>" alt="">
@@ -19,12 +19,11 @@ if (count($model) > 0) {
 			    </a>
 			</div>
 			<div class="b-last-marks__item__date">
-			<?= Yii::$app->formatter->asDate($item->created, 'dd.MM.yyyy') ?>
+			    <?= Yii::$app->formatter->asDate($item->created, 'dd.MM.yyyy') ?>
 			</div>
 			<?php
 			$marksKey = array_keys($marks);
 			$markIndex = $marksKey[rand(0, count($marks) - 1)];
-			//var_dump($marksKey, $markIndex, $marks[$markIndex], $item->descrArr[$markIndex]);
 			?>
 			<div class="b-last-marks__item__category">
 			    <?= $marks[$markIndex] ?>:
@@ -34,9 +33,11 @@ if (count($model) > 0) {
 			</div>
 		    </div>
 		</div>
-	<?php } ?>
+	    <?php } ?>
     	<div class="link">
-    	    <a href="#"><span>Посмотреть всех</span></a>
+	    <a href="#" class="showModal" data-url="<?= Url::toRoute(['users/lastmarksuser', 'id' => $model->id]) ?>">
+		<span>Посмотреть всех</span>
+	    </a>
     	</div>
         </div>
     </div>
