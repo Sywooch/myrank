@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\UserMarkRatingSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Пользовательские рейтинги самооценок';
+$this->title = 'Общий рейтинг оценок пользователей';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-mark-rating-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Добавить пользовательские рейтинги самооценок', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить общий рейтинг оценок пользователей', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

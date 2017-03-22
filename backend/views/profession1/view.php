@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model frontend\models\Profession1 */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Профессии', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Направления профессий', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="profession1-view">

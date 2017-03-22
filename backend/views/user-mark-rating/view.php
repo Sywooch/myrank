@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model frontend\models\UserMarkRating */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Пользовательские рейтинги самооценок', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Общий рейтинг оценок пользователей', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-mark-rating1-view">

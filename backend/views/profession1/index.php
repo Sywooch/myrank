@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\Profession1Search */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Профессии';
+$this->title = 'Направления профессий';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="profession1-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Добавить профессию', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить направление профессии', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

@@ -10,7 +10,7 @@ use frontend\models\Marks1;
 /* @var $searchModel backend\models\Marks1Search */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Самооценки';
+$this->title = 'Наименования оценок';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="marks1-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Создать самооценку', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить оценку', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

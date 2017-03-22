@@ -38,9 +38,23 @@ use yii\helpers\Url;
 		        </span>
 		    </a>
 		    <ul class="treeview-menu">
-		        <li><a href="<?= Url::toRoute(['users/index']) ?>"><i class="fa fa-circle-o"></i> Управление</a></li>
-		        <li><a href="<?= Url::toRoute(['profession/index']) ?>"><i class="fa fa-circle-o"></i> Направления</a></li>
-		        <li><a href="<?= Url::toRoute(['marks/index']) ?>"><i class="fa fa-circle-o"></i> Самооценка</a></li>
+		        <li><a href="<?= Url::toRoute(['users/index']) ?>"><i class="fa fa-circle-o"></i> Управление (users)</a></li>
+                <li><a href="<?= Url::toRoute(['users1/index']) ?>"><i class="fa fa-circle-o"></i> Пользователи (users1)</a></li>
+                <li><a href="<?= Url::toRoute(['user-trustees/index']) ?>"><i class="fa fa-circle-o"></i> Доверенные (user-trustees)</a></li>
+                <li><a href="<?= Url::toRoute(['auth/index']) ?>"><i class="fa fa-circle-o"></i> Авторизация (auth)</a></li>
+                <li><a href="<?= Url::toRoute(['profession/index']) ?>"><i class="fa fa-circle-o"></i> Направления (profession)</a></li>
+                <li><a href="<?= Url::toRoute(['profession1/index']) ?>"><i class="fa fa-circle-o"></i> Направления профессий (profession1)</a></li>
+                <li><a href="<?= Url::toRoute(['user-profession1/index']) ?>"><i class="fa fa-circle-o"></i> Профессии (user-profession1)</a></li>
+		        <li><a href="<?= Url::toRoute(['marks/index']) ?>"><i class="fa fa-circle-o"></i> Наим. оценок (marks)</a></li>
+                <li><a href="<?= Url::toRoute(['marks1/index']) ?>"><i class="fa fa-circle-o"></i> Наим. оценок (marks1)</a></li>
+                <li><a href="<?= Url::toRoute(['user-marks/index']) ?>"><i class="fa fa-circle-o"></i> Оценки (user-marks)</a></li>
+                <li><a href="<?= Url::toRoute(['user-mark-rating/index']) ?>"><i class="fa fa-circle-o"></i> Общ. рейтинг оценок (user-mark-rating)</a></li>
+                <li><a href="<?= Url::toRoute(['testimonials1/index']) ?>"><i class="fa fa-circle-o"></i> Отзывы (testimonials1)</a></li>
+                <li><a href="<?= Url::toRoute(['user-claim/index']) ?>"><i class="fa fa-circle-o"></i> Жалобы (user-claim)</a></li>
+                <li><a href="<?= Url::toRoute(['user-event/index']) ?>"><i class="fa fa-circle-o"></i> События (user-event)</a></li>
+                <li><a href="<?= Url::toRoute(['profile-views/index']) ?>"><i class="fa fa-circle-o"></i> Просмотры профилей</a></li>
+                <li><a href="<?= Url::toRoute(['access-category-rating/index']) ?>"><i class="fa fa-circle-o"></i> Доступ к кат. рейтинга (acr)</a></li>
+                <li><a href="<?= Url::toRoute(['access-category-view/index']) ?>"><i class="fa fa-circle-o"></i> Доступ к кат. просмотра (acv)</a></li>
 		    </ul>
 	    </li>
         <li class="treeview">
@@ -85,7 +99,7 @@ use yii\helpers\Url;
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-building"></i>
-                <span>Остальные модели</span>
+                <span>Географические данные</span>
                 <span class="pull-right-container">
 			<i class="fa fa-angle-left pull-right"></i>
 		    </span>
@@ -94,33 +108,30 @@ use yii\helpers\Url;
                 <li><a href="<?= Url::toRoute(['city/index']) ?>"><i class="fa fa-circle-o"></i> Города</a></li>
                 <li><a href="<?= Url::toRoute(['country/index']) ?>"><i class="fa fa-circle-o"></i> Страны</a></li>
                 <li><a href="<?= Url::toRoute(['region/index']) ?>"><i class="fa fa-circle-o"></i> Области</a></li>
-                <li><a href="<?= Url::toRoute(['images/index']) ?>"><i class="fa fa-circle-o"></i> Изображения</a></li>
-                <li><a href="<?= Url::toRoute(['logs/index']) ?>"><i class="fa fa-circle-o"></i> Журналы</a></li>
             </ul>
         </li>
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-building"></i>
-                <span>Модели пользователя</span>
+                <span>Изображения</span>
                 <span class="pull-right-container">
 			<i class="fa fa-angle-left pull-right"></i>
 		    </span>
             </a>
             <ul class="treeview-menu">
-                <li><a href="<?= Url::toRoute(['access-category-rating/index']) ?>"><i class="fa fa-circle-o"></i> Доступ к категориям рейтинга</a></li>
-                <li><a href="<?= Url::toRoute(['access-category-view/index']) ?>"><i class="fa fa-circle-o"></i> Доступ к категориям просмотра</a></li>
-                <li><a href="<?= Url::toRoute(['profile-views/index']) ?>"><i class="fa fa-circle-o"></i> Просмотры профилей</a></li>
-                <li><a href="<?= Url::toRoute(['marks1/index']) ?>"><i class="fa fa-circle-o"></i> Самооценка (marks)</a></li>
-                <li><a href="<?= Url::toRoute(['profession1/index']) ?>"><i class="fa fa-circle-o"></i> Направления (профессии)</a></li>
-                <li><a href="<?= Url::toRoute(['testimonials1/index']) ?>"><i class="fa fa-circle-o"></i> Отзывы (testimonials)</a></li>
-                <li><a href="<?= Url::toRoute(['auth/index']) ?>"><i class="fa fa-circle-o"></i> Авторизация (auth)</a></li>
-                <li><a href="<?= Url::toRoute(['user-trustees/index']) ?>"><i class="fa fa-circle-o"></i> Доверенные (usertrustees)</a></li>
-                <li><a href="<?= Url::toRoute(['user-profession1/index']) ?>"><i class="fa fa-circle-o"></i> Профессия (userprofession)</a></li>
-                <li><a href="<?= Url::toRoute(['user-marks/index']) ?>"><i class="fa fa-circle-o"></i> Самооценки (usermarks)</a></li>
-                <li><a href="<?= Url::toRoute(['user-claim/index']) ?>"><i class="fa fa-circle-o"></i> Жалобы (userclaim)</a></li>
-                <li><a href="<?= Url::toRoute(['user-event/index']) ?>"><i class="fa fa-circle-o"></i> События (userevent)</a></li>
-                <li><a href="<?= Url::toRoute(['user-mark-rating/index']) ?>"><i class="fa fa-circle-o"></i> Рейтинг самооценок (usermarkrating)</a></li>
-                <li><a href="<?= Url::toRoute(['users1/index']) ?>"><i class="fa fa-circle-o"></i> Пользователи (users)</a></li>
+                <li><a href="<?= Url::toRoute(['images/index']) ?>"><i class="fa fa-circle-o"></i> Изображения</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-building"></i>
+                <span>Журналы</span>
+                <span class="pull-right-container">
+			<i class="fa fa-angle-left pull-right"></i>
+		    </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="<?= Url::toRoute(['logs/index']) ?>"><i class="fa fa-circle-o"></i> Журналы</a></li>
             </ul>
         </li>
 

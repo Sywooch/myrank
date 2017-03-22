@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Profession1 */
 
-$this->title = 'ОБновить профессии: ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Профессии', 'url' => ['index']];
+$this->title = 'Обновить направление профессии: ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Направления профессий', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Обновить';
 ?>

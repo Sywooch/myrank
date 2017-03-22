@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\UserMarkRating */
 
-$this->title = 'Обновить пользовательские рейтинги самооценок: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Пользовательские рейтинги самооценок', 'url' => ['index']];
+$this->title = 'Обновить общий рейтинг оценок пользователей: ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Общий рейтинг оценок пользователей', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Обновить';
 ?>

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model frontend\models\Marks1 */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Самооценки', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Наименования оценок', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="marks1-view">
