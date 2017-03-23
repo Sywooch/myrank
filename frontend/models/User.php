@@ -117,6 +117,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	    'birthdate' => Yii::t('app', 'День рождения'),
 	    'gender' => Yii::t('app', 'Пол'),
 	    'city_id' => \Yii::t('app', 'Город'),
+        'cityName' => \Yii::t('app', 'Город'),
 	    'phone' => \Yii::t('app', 'Номер телефона'),
 	    'site' => \Yii::t('app', 'Сайт'),
 	    'mark' => \Yii::t('app', 'Оценка'),
