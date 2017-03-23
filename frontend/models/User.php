@@ -138,6 +138,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public function getTestimonials() {
 	return $this->hasMany(Testimonials::className(), ['user_to' => 'id']);
     }
+    
+    public function getTestimonialsActive () {
+	return $this->getTestimonials()->andWhere(['status' => Testimonials::STATUS_ACTIVE]);
+    }
 
     public function getTestimonialsTo() {
         return $this->hasMany(Testimonials1::className(), ['user_to' => 'id']);

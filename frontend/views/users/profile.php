@@ -99,7 +99,7 @@ $fieldVal = $mUser->attributeLabels();
 				Отзывов:
 			    </div>
 			    <div class="b-user__stats__item__number">
-				<?= $mUser->getTestimonials()->andWhere(['parent_id' => 0])->count() ?>
+				<?= $mUser->getTestimonialsActive()->andWhere(['parent_id' => 0])->count() ?>
 			    </div>
 			    <!-- div class="b-user__stats__item__new-number">
 				1
@@ -196,6 +196,7 @@ $this->registerJs("
 	$.post(url, {'_csrf-frontend':$('[name=\"csrf-token\"]').attr('content')}, function(out) {
 	    if(out.code) {
 		that.text(out.data);
+		alertInfo('Ваш запрос отправлен и ждет подтверждения пользователем');
 	    }
 	}, 'json');
     })", yii\web\View::POS_END);

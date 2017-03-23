@@ -65,6 +65,9 @@ return [
 	    'class' => 'frontend\components\UserInfo',
 	    'country' => 9908,
 	],
+	'notification' => [
+	    'class' => 'frontend\components\Notification'
+	]
     ],
     'modules' => [
 	'debug' => [

@@ -5,6 +5,7 @@ use frontend\widgets\user\LatestUsersAddWidget;
 use frontend\widgets\user\BestRatingWidget;
 use frontend\models\Profession;
 use yii\helpers\Url;
+use frontend\models\User;
 
 $this->title = 'My Yii Application';
 $mProf = Profession::find()->asArray()->all();
@@ -129,8 +130,12 @@ echo ListView::widget([
 		Зарегистрируйтесь и получите <span>полный доступ ко всем возможностям</span>
 	    </div>
 	    <div class="b-reg-now__buttons">
-		<a href="#" class="button">Я пользователь</a>
-		<a href="#" class="button">Я компания</a>
+		<a href="#"
+		   class="button regstep" 
+		   data-url="<?= Url::toRoute(['registration/step1', 'type' => User::TYPE_USER_USER]) ?>">Я пользователь</a>
+		<a href="#" 
+		   class="button regstep"
+		   data-url="<?= Url::toRoute(['registration/step1', 'type' => User::TYPE_USER_COMPANY]) ?>">Я компания</a>
 	    </div>
 	</div>
     </div>

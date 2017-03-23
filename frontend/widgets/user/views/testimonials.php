@@ -36,7 +36,7 @@ use yii\helpers\Url;
     		    Отличный работник!
     		</div -->
     		<div class="b-comments__item__name">
-		    <?= $item->userFrom->fullName ?>
+		    <a href="<?= Url::toRoute(['users/profile', 'id' => $item->user_from]) ?>"><?= $item->userFrom->fullName ?></a>
     		</div>
     		<!-- div class="b-comments__item__post">
     		    Инженер

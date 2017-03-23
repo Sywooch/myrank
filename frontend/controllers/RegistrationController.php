@@ -9,8 +9,9 @@ use yii\helpers\Json;
 
 class RegistrationController extends Controller {
 
-    public function actionStep1() {
+    public function actionStep1($type) {
 	$model = new Registration();
+	$model->type = $type;
 	echo Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep1", ['model' => $model])]);
 	\Yii::$app->end();
     }
@@ -18,19 +19,20 @@ class RegistrationController extends Controller {
     public function actionStep1save() {
 	$out['code'] = 0;
 	$post = \Yii::$app->request->post();
-	if ($post['password'] != $post['rePassword']) {
+	if ($post['Registration']['password'] != $post['Registration']['rePassword']) {
 	    $out['errors'] = [
 		'password' => 'Пароль и повтор пароля не совпадают'
 	    ];
 	} else {
 	    $model = new Registration();
+	    $model->step = $post['Registration']['type'] == User::TYPE_USER_USER ? User::STEP_NEXT_USER : User::STEP_NEXT_COMPANY;
 	    if ($model->load($post)) {
 		$model->setPassword($post['password']);
 		$model->generateAuthKey();
 		if ($model->save()) {
 		    $out['code'] = 1;
 		    $out['id'] = $model->id;
-		    $out['data'] = $this->renderPartial("_regStep2user", ['model' => $model]);
+		    $out['data'] = $this->renderPartial("_regStep".$model->step, ['model' => $model]);
 		} else {
 		    $out['errors'] = $model->errors;
 		}
@@ -63,6 +65,7 @@ class RegistrationController extends Controller {
 	if ($model->load($post) && $model->save()) {
 	    $out['code'] = 1;
 	    $out['link'] = \yii\helpers\Url::toRoute(["users/profile", "id" => $model->id]);
+	    \Yii::$app->notification->set('global', 'Для того чтоб пользоваться всеми сервисами сайта, надо <a href="#" class="signin">Авторизоваться</a>');
 	} else {
 	    $out['errors'] = $model->errors;
 	}

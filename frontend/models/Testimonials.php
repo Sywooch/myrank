@@ -10,6 +10,7 @@ use Yii;
  * @property integer $id
  * @property string $title
  * @property string $text
+ * @property integer $status
  * @property integer $user_from
  * @property integer $user_to
  * @property integer $smile
@@ -21,6 +22,10 @@ class Testimonials extends \yii\db\ActiveRecord {
     const SMILE_CLASS_POSITIVE = 2;
     const SMILE_CLASS_NEGATIVE = 1;
     const SMILE_CLASS_NEUTRAL = 0;
+    
+    const STATUS_NOACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_MODERATION = 2;
     
     public static $smiles = [
 	self::SMILE_CLASS_POSITIVE => 'b-comments__item__smile_positive',

@@ -22,7 +22,7 @@ class UsersSearch extends User {
      */
     public function rules() {
 	return [
-	    [['id', 'account_id', 'company_id', 'profileviews', 'type', 'rating', 'gender', 'city_id'], 'integer'],
+	    [['id', 'company_id', 'profileviews', 'type', 'rating', 'gender', 'city_id'], 'integer'],
 	    [['company_name', 'company_post', 'image', 'first_name', 'last_name', 'email', 'auth_key', 
 		'password_hash', 'password_reset_token', 'about', 'last_login', 'birthdate', 'phone', 
 		'site', 'mark', 'marks_config', 'searchName', 'ratingStart', 'ratingEnd', 'professionField'], 'safe'],
@@ -62,7 +62,6 @@ class UsersSearch extends User {
 	// grid filtering conditions
 	$query->andFilterWhere([
 	    'id' => $this->id,
-	    'account_id' => $this->account_id,
 	    'company_id' => $this->company_id,
 	    'type' => $this->type,
 	    'birthdate' => $this->birthdate,

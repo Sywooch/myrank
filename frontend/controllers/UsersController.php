@@ -116,6 +116,7 @@ class UsersController extends Controller {
 	$post = \Yii::$app->request->post();
 	$code = 0;
 	$model = new Testimonials();
+	$post['Testimonials']['status'] = Testimonials::STATUS_MODERATION;
 	if($model->load($post) && $model->save()) {
 	    \Yii::$app->rating->process(User::findOne($model->user_to));
 	    $code = 1;

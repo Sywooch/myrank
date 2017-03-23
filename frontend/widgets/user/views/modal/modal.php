@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="b-modal__content">
 	<?php foreach ($content as $key => $item) { ?>
-	<div class="row">
+	<div class="row" <?= $item['type'] == 'hiddenInput' ? "style='display:none'" : "" ?>>
 	    <?php if(!isset($content[$key]['label'])) {
 		foreach ($item as $keyEl => $el) { ?>
 		    <div class="col-xs-12 col-sm-<?= 12/count($item) ?>">
@@ -29,13 +29,13 @@ use yii\widgets\ActiveForm;
 	    } else { 
 		$posOpt = isset($item['posOpt']) ? $item['posOpt'] : [];
 		?>
-	    <div class="col-xs-12">
-		<span><?= $item['label'] ?></span>
-		<div <?= isset($el['divClass']) ? 'class="'.$el['divClass'].'"' : "" ?>>
-		<?= $form->field($model, $key)->$item['type']($item['options'], $posOpt)->label(FALSE); ?>
+		<div class="col-xs-12">
+		    <span><?= $item['label'] ?></span>
+		    <div <?= isset($el['divClass']) ? 'class="'.$el['divClass'].'"' : "" ?>>
+		    <?= $form->field($model, $key)->$item['type']($item['options'], $posOpt)->label(FALSE); ?>
+		    </div>
+		    <?= isset($item['posInfo']) ? "<i>".$item['posInfo']."</i>" : "" ?>
 		</div>
-		<?= isset($item['posInfo']) ? "<i>".$item['posInfo']."</i>" : "" ?>
-	    </div>
 	    <?php } ?>
 	</div>
 	<?php } ?>

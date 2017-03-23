@@ -58,6 +58,11 @@ echo ModalWidget::widget([
 		'type' => 'passwordInput',
 		'options' => ['class' => 'input-text'],
 	    ]
+	],
+	'type' => [
+	    'label' => 'Type',
+	    'type' => 'hiddenInput',
+	    'options' => []
 	]
     ],
     'success' => '$("#modalView .modal-content").html(out.data);',
