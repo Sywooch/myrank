@@ -100,7 +100,8 @@ use frontend\models\Testimonials;
 	    success: function(out) {
 		if(out.code == 1) {
 		    $("#modalView").modal('toggle');
-		    location.reload(true);
+		    alertInfo("Ваш отзыв отправлен на модерацию");
+		    //location.reload(true);
 		}
 	    }
 	});

@@ -37,6 +37,12 @@ $this->registerJs('
 	    });
 	}
 ', yii\web\View::POS_END);
+
+$msg = Yii::$app->notification->get('global');
+if($msg != FALSE) {
+    $this->registerJs("alertInfo('".$msg."');", yii\web\View::POS_END);
+}
+
 $this->registerJsFile("/js/jquery2.2.4.js", ['position' => \yii\web\View::POS_HEAD]);
 $session = Yii::$app->session;
 $country = $session->get("country", 9908);

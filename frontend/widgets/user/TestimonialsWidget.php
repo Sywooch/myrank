@@ -3,15 +3,21 @@
 namespace frontend\widgets\user;
 
 use yii\base\Widget;
+use frontend\models\Testimonials;
 
 class TestimonialsWidget extends Widget {
+    
+    const MAIN_PARENT = 0;
     
     public $model;
     public $list = [];
     
     public function init() {
 	parent::init();
-	$this->list = $this->model->getTestimonials()->andWhere(['parent_id' => 0])->all();
+	$this->list = $this->model->getTestimonialsActive()
+		->andWhere([
+		    'parent_id' => self::MAIN_PARENT
+		])->all();
     }
     
     public function run() {

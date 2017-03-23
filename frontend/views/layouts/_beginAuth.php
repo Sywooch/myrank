@@ -5,6 +5,7 @@ use frontend\models\Country;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\models\UsersSearch;
+use frontend\models\User;
 
 $city = Yii::$app->userinfo->getCityArr();
 
@@ -85,7 +86,9 @@ $mSearch = new UsersSearch();
     		    </div>
     		    <div class="b-header__profile__content">
     			<div class="b-header__profile__button">
-    			    <a id="regstep" class="button" href="#">Регистрация</a>
+			    <a class="button regstep" 
+			       data-url="<?= Url::toRoute(["registration/step1", 'type' => User::TYPE_USER_USER]) ?>" 
+			       href="#">Регистрация</a>
     			</div>
     			<div class="b-header__profile__button">
     			    <a class="button signin" href="#">Вход</a>
@@ -105,7 +108,9 @@ $mSearch = new UsersSearch();
     		    </div>
     		    <div class="b-header__profile__content">
     			<div class="b-header__profile__button">
-    			    <a id="regstep" class="button" href="#">Регистрация</a>
+    			    <a class="button regstep" 
+			       data-url="<?= Url::toRoute(["registration/step1", 'type' => User::TYPE_USER_COMPANY]) ?>"
+			       href="#">Регистрация</a>
     			</div>
     			<div class="b-header__profile__button">
     			    <a class="button signin" href="#">Вход</a>
@@ -126,8 +131,8 @@ $mSearch = new UsersSearch();
 </div>
 <?php
 $this->registerJs("var csrf = '" . Yii::$app->request->getCsrfToken() . "';
-    $('#regstep').on('click', function () {
-	url = '" . Url::toRoute("registration/step1") . "';
+    $('.regstep').on('click', function () {
+	url = $(this).attr('data-url');
 	showModal(url, '', 1);
 	$('.country-select select').select2({
 	    placeholder: 'Страна'

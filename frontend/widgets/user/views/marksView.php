@@ -81,6 +81,8 @@ if(Yii::$app->user->id !== Null) {
 		    'success' : function(out) {
 			if(out.code === 1) {
 			    $('#saveMarks').parents('.b-marks').removeClass('b-marks_loading');
+			    //location.reload(true);
+			    alertInfo('Ваша оценка сохранена');
 			}
 		    }
 		});
