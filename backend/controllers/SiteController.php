@@ -7,6 +7,10 @@ use frontend\components\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+//
+use frontend\models\User;
+use yii\web\NotFoundHttpException;
+
 
 /**
  * Site controller
@@ -58,9 +62,26 @@ class SiteController extends Controller {
      * @return string
      */
     public function actionIndex() {
-	return $this->render('index');
+    return $this->render('index');
     }
+//
+    public function actionProfile($id) {
+        return $this->render('profile',
+            [
+                'model' => $this->findModel($id),
+            ]
+        );
 
+    }
+    protected function findModel($id)
+    {
+        if (($model = User::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('Запрошенная страница не существует.');
+        }
+    }
+//
     /**
      * Login action.
      *

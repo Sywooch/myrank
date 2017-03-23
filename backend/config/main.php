@@ -41,6 +41,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'GET profile/<id:\d+>' => 'site/profile',
             ],
         ],
     ],

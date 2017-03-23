@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\Users1Search */
@@ -24,7 +25,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            [
+                'label' => 'id',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return Html::a(
+                            $data->id,
+                            Url::to(['site/profile', 'id' => $data->id]),
+                            [
+                                    'title' => 'Смелей вперед!',
+                                    'target' =>'_blank'
+                            ]
+                    );
+                },
+            ],
             'account_id',
             'company_id',
             'company_name',
@@ -47,8 +61,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'city_id',
             'phone',
             'site',
-            'mark:ntext',
-            'marks_config:ntext',
+            //'mark:ntext',
+            //'marks_config:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
