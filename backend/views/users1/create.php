@@ -4,10 +4,10 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\User1 */
+/* @var $model frontend\models\User */
 
-$this->title = 'Create User1';
-$this->params['breadcrumbs'][] = ['label' => 'User1s', 'url' => ['index']];
+$this->title = 'Добавить пользователей';
+$this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user1-create">

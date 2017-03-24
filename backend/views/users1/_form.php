@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\User1 */
+/* @var $model frontend\models\User */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'account_id')->textInput() ?>
+    <?php /*$form->field($model, 'account_id')->textInput() */?>
 
     <?= $form->field($model, 'company_id')->textInput() ?>
 
@@ -61,7 +61,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'marks_config')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Добавить' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

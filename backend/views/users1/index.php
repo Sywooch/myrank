@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     );
                 },
             ],
-            'account_id',
+            //'account_id',
             'company_id',
             'company_name',
             'company_post',

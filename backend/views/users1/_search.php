@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\User1Search */
+/* @var $model backend\models\Users1Search */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'account_id') ?>
+    <?php /*echo $form->field($model, 'account_id') */?>
 
     <?= $form->field($model, 'company_id') ?>
 
@@ -25,49 +25,49 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'company_post') ?>
 
-    <?php // echo $form->field($model, 'profileviews') ?>
+    <?= $form->field($model, 'profileviews') ?>
 
-    <?php // echo $form->field($model, 'type') ?>
+    <?= $form->field($model, 'type') ?>
 
-    <?php // echo $form->field($model, 'image') ?>
+    <?= $form->field($model, 'image') ?>
 
-    <?php // echo $form->field($model, 'first_name') ?>
+    <?= $form->field($model, 'first_name') ?>
 
-    <?php // echo $form->field($model, 'last_name') ?>
+    <?= $form->field($model, 'last_name') ?>
 
-    <?php // echo $form->field($model, 'email') ?>
+    <?= $form->field($model, 'email') ?>
 
-    <?php // echo $form->field($model, 'username') ?>
+    <?= $form->field($model, 'username') ?>
 
-    <?php // echo $form->field($model, 'auth_key') ?>
+    <?= $form->field($model, 'auth_key') ?>
 
-    <?php // echo $form->field($model, 'password_hash') ?>
+    <?= $form->field($model, 'password_hash') ?>
 
-    <?php // echo $form->field($model, 'password_reset_token') ?>
+    <?= $form->field($model, 'password_reset_token') ?>
 
-    <?php // echo $form->field($model, 'about') ?>
+    <?= $form->field($model, 'about') ?>
 
-    <?php // echo $form->field($model, 'last_login') ?>
+    <?= $form->field($model, 'last_login') ?>
 
-    <?php // echo $form->field($model, 'rating') ?>
+    <?= $form->field($model, 'rating') ?>
 
-    <?php // echo $form->field($model, 'birthdate') ?>
+    <?= $form->field($model, 'birthdate') ?>
 
-    <?php // echo $form->field($model, 'gender') ?>
+    <?= $form->field($model, 'gender') ?>
 
-    <?php // echo $form->field($model, 'city_id') ?>
+    <?= $form->field($model, 'city_id') ?>
 
-    <?php // echo $form->field($model, 'phone') ?>
+    <?= $form->field($model, 'phone') ?>
 
-    <?php // echo $form->field($model, 'site') ?>
+    <?= $form->field($model, 'site') ?>
 
     <?php // echo $form->field($model, 'mark') ?>
 
     <?php // echo $form->field($model, 'marks_config') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('Сбросить', ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

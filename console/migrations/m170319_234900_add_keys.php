@@ -23,7 +23,7 @@ class m170319_234900_add_keys extends Migration {
             'CASCADE'
         );
      
-	$this->addForeignKey(
+	/*$this->addForeignKey(
             'fk-user_trustees-user_to',
             'user_trustees',
             'user_to',
@@ -39,7 +39,7 @@ class m170319_234900_add_keys extends Migration {
             'user',
             'id',
             'CASCADE'
-        );
+        );*/
 	
 	$this->addForeignKey(
             'fk-images-user_id',
@@ -73,8 +73,8 @@ class m170319_234900_add_keys extends Migration {
     public function down() {
 	$this->dropForeignKey('fk-testimonials-user_from', 'testimonials');
 	$this->dropForeignKey('fk-testimonials-user_to', 'testimonials');
-	$this->dropForeignKey('fk-user_trustees-user_to', 'user_trustees');
-	$this->dropForeignKey('fk-user_trustees-user_from', 'user_trustees');
+	//$this->dropForeignKey('fk-user_trustees-user_to', 'user_trustees');
+	//$this->dropForeignKey('fk-user_trustees-user_from', 'user_trustees');
 	$this->dropForeignKey('fk-images-user_id', 'images');
 	$this->dropForeignKey('fk-user_mark_rating-mark_id', 'user_mark_rating');
 	$this->dropForeignKey('fk-user_event-user_id', 'user_event');
