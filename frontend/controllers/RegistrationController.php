@@ -46,7 +46,7 @@ class RegistrationController extends Controller {
     
     public function actionStep2() {
 	$model = new Registration();
-	echo Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep2user", ['model' => $model])]);
+	echo Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep2", ['model' => $model])]);
 	\Yii::$app->end();
     }
 

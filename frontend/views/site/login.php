@@ -6,6 +6,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
+use frontend\models\User;
 
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
@@ -55,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <script type="text/javascript">
     var csrf = "<?= Yii::$app->request->getCsrfToken(); ?>";
-    $("#loginSave").on('click', function() {
+    $("#loginSave").on('click', function () {
 	url = "<?= Url::toRoute("site/loginval") ?>";
 	$.ajax({
 	    url: url,
@@ -63,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    dataType: 'json',
 	    data: $("#LoginForm").serialize(),
 	    success: function (out) {
-		if(out.code == 1) {
+		if (out.code == 1) {
 		    document.location.href = "<?= Url::toRoute(["users/profile"]); ?>";
 		} else {
 		    alert('Не правильный логин или пароль');
@@ -72,9 +73,9 @@ $this->params['breadcrumbs'][] = $this->title;
 	});
 	return false;
     });
-    
+
     $("#registered").on('click', function () {
-	url = '<?= Url::toRoute(['registration/step1']) ?>';
+	url = '<?= Url::toRoute(['registration/step1', 'type' => User::TYPE_USER_USER]) ?>';
 	showModal(url, 0, 0);
 	return false;
     });

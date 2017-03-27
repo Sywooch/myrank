@@ -6,6 +6,7 @@ use frontend\widgets\user\TestimonialsWidget;
 use yii\helpers\Url;
 use frontend\widgets\user\LatestMarksWidget;
 use frontend\widgets\user\UserTrusteesWidget;
+use frontend\widgets\image\FileUploadWidget;
 
 $fieldVal = $mUser->attributeLabels();
 ?>
@@ -200,5 +201,13 @@ $this->registerJs("
 	    }
 	}, 'json');
     })", yii\web\View::POS_END);
+
+
+    echo FileUploadWidget::widget([
+	'model' => new frontend\models\Images(),
+	'attribute' => 'name' . $i,
+	'url' => ['media/imageupload', 'id' => $i],
+    ]);
+
 
 ?>

@@ -167,8 +167,32 @@ class UsersController extends Controller {
     }
     
     public function actionEditportfolio () {
+	\Yii::$app->session->remove("userImages");
 	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('_editProfile')]);
 	\Yii::$app->end();
+    }
+    
+    public function actionSaveportfolio () {
+	$req = \Yii::$app->request->post("Images");
+	$sess = \Yii::$app->session;
+	
+	if($sess->has("userImages")) {
+	    $userImages = $sess->get("userImages");
+	}
+	
+	foreach ($req['title'] as $key => $item) {
+	    if(($item != "") && isset($userImages[$key])) {
+		$model = new \frontend\models\Images();
+		$model->attributes = [
+		    'user_id' => \Yii::$app->user->id,
+		    'name' => $userImages[$key],
+		    'title' => $item,
+		    'description' => $req['description'][$key],
+		];
+		$model->save();
+	    }
+	}
+	echo Json::encode(['code' => 1]);
     }
     
     public function actionGetcities () {
