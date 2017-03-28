@@ -12,26 +12,24 @@ class m170127_092750_add_article extends Migration
         }
 
         $this->createTable('{{%article_category}}',[
-            'id_article_category'   => $this->bigPrimaryKey(20),                                                        // bigint(20) NOT NULL AUTO_INCREMENT,
-            'name'                  => $this->string(128)->notNull()->comment("Наименование категории")                 // varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+            'id_article_category'   => $this->bigPrimaryKey(20),
+            'name'                  => $this->string(128)->notNull()->comment("Наименование категории")
             ], $tableOptions
         );
 
         $this->createTable('{{%article}}', [
-            'id_article'            => $this->bigPrimaryKey(20),                                                        // bigint(20) NOT NULL AUTO_INCREMENT,
-            'title'                 => $this->string(255)->notNull()->comment("Наименование статьи"),                   // varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+            'id_article'            => $this->bigPrimaryKey(20),
+            'title'                 => $this->string(255)->notNull()->comment("Наименование статьи"),
             'abridgment'            => $this->string(255)->notNull()->comment("Сокращенная часть статьи (для списка статей)"),
-            'content'               => $this->text()->comment("Текст статьи"),                                          // text COLLATE utf8_unicode_ci,
-            'header_title'          => $this->string(128)->notNull()->comment("Заголовок статьи / Дата"),               // varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-            'header_image'          => $this->string(255)->comment("Изображение статьи"),                               // varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-            'header_image_small'    => $this->string(255)->comment("Уменьшенная фото для списка статей"),               // varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-            'article_category_id'   => $this->bigInteger(20)->defaultValue(1)->comment("Наименование категории/Новости(по умолч 1)"), // bigint(20) NOT NULL DEFAULT 1, //'header_info_item_tags'
-            'status'                => $this->smallInteger()->notNull()->defaultValue(10)->comment("Статус статьи"),    // smallint(6) NOT NULL DEFAULT '10',
-            'views'                 => $this->bigInteger(20)->defaultValue(0)->comment("Количество просмотров"),        // bigint(20) DEFAULT '0',
+            'content'               => $this->text()->comment("Текст статьи"),
+            'header_title'          => $this->string(128)->notNull()->comment("Заголовок статьи / Дата"),
+            'header_image'          => $this->string(255)->comment("Изображение статьи"),
+            'header_image_small'    => $this->string(255)->comment("Уменьшенная фото для списка статей"),
+            'article_category_id'   => $this->bigInteger(20)->defaultValue(1)->comment("Наименование категории/Новости(по умолч 1)"),
+            'status'                => $this->smallInteger()->notNull()->defaultValue(10)->comment("Статус статьи"),
+            'views'                 => $this->bigInteger(20)->defaultValue(0)->comment("Количество просмотров"),
             'create_time'           => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP')->comment("Отметка времени создания"),
             'update_time'           => $this->timestamp()->null()->defaultValue(null)->append('ON UPDATE CURRENT_TIMESTAMP')->comment("Отметка времени обновления"),
-            //'create_time' => $this->dateTime()->notNull(), // datetime NOT NULL, //'create_time' => $this->integer(11),
-            //'update_time' => $this->dateTime()->notNull(), // datetime NOT NULL,//'update_time' => $this->integer(11),
             // 'header_info_item_social'=> $this->string(200),  // like 1, tweet 18
         ], $tableOptions);
 
@@ -64,12 +62,8 @@ class m170127_092750_add_article extends Migration
             'header_title'=>'27.01.2017',
             'header_image'=> 'http://project-1.topsu.ru/images/b-article__header__image/1.jpg',
             'header_image_small'=> 'http://project-1.topsu.ru/images/b-articles/b-articles_large/1.jpg',
-            //'article_category_id'=> 0,
-            //'status' = 10,
-            //'views' = 0,
-            //'create_time' = '2016-08-08 14:55:12',
-            //'update_time' = '2016-08-08 14:55:12'
         ]);
+
         $this->insert('article', [
             'title' => 'Формула успешного собеседования',
             'abridgment'=> 'Близко-близко в стране глупых согласных живут рыбные тексты.',
@@ -79,12 +73,10 @@ class m170127_092750_add_article extends Migration
             'header_image_small'=> 'https://thumbs.dreamstime.com/t/set-children-colorful-dialog-speech-bubbles-vector-illustration-thinking-concept-53578743.jpg',
             'article_category_id'=> 2,
         ]);
-
     }
 
     public function down()
     {
-        //echo "m170127_092750_add_article cannot be reverted.\n"; //return false;
         $this->dropForeignKey('article_articlecategory','article');
         $this->dropIndex(
             'idx-article-article_category_id',
@@ -93,15 +85,4 @@ class m170127_092750_add_article extends Migration
         $this->dropTable('{{%article}}');
         $this->dropTable('{{%article_category}}');
     }
-
-    /*
-    // Use safeUp/safeDown to run migration code within a transaction
-    public function safeUp()
-    {
-    }
-
-    public function safeDown()
-    {
-    }
-    */
 }

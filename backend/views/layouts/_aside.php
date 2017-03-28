@@ -77,11 +77,7 @@ use yii\helpers\Url;
 		        </span>
             </a>
             <ul class="treeview-menu">
-                <li><a href="<?= Url::toRoute(['/help']) ?>"><i class="fa fa-circle-o"></i> Помощь</a></li>
-                <li><a href="<?= Url::toRoute(['/feedback']) ?>"><i class="fa fa-circle-o"></i> Обратная связь</a></li>
-                <li><a href="<?= Url::toRoute(['/legalinfo']) ?>"><i class="fa fa-circle-o"></i> Условия и защита</a></li>
-                <li><a href="<?= Url::toRoute(['/aboutus']) ?>"><i class="fa fa-circle-o"></i> О нас</a></li>
-                <li><a href="<?= Url::toRoute(['/contacts']) ?>"><i class="fa fa-circle-o"></i> Контакты</a></li>
+                <li><a href="<?= Url::toRoute(['/static-pages']) ?>"><i class="fa fa-circle-o"></i> Статические страницы</a></li>
             </ul>
         </li>
 	    <li class="treeview">
