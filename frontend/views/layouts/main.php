@@ -125,12 +125,12 @@ AppAsset::register($this);
 					    \yii\widgets\Menu::widget([
 						'items' => [
 						    ['label' => 'главная', 'url' => ['site/index']],
-						    ['label' => 'о нас', 'url' => ['/aboutus']],
+						    ['label' => 'о нас', 'url' => ['/page/aboutus']],
 						    ['label' => 'новости', 'url' => ['article/index']],
 						    ['label' => 'баланс', 'url' => "#"],
-						    ['label' => 'помощь', 'url' => ['/help']],
-						    ['label' => 'контакты', 'url' => ['/contacts']],
-						    ['label' => 'условия & защита', 'url' => ['/legalinfo']],
+						    ['label' => 'помощь', 'url' => ['/page/help']],
+						    ['label' => 'контакты', 'url' => ['/page/contacts']],
+						    ['label' => 'условия & защита', 'url' => ['/page/legalinfo']],
 						],
 					    ]);
 					    ?>
