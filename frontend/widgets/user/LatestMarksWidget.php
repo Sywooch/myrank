@@ -2,8 +2,6 @@
 
 namespace frontend\widgets\user;
 
-use frontend\models\Marks;
-
 class LatestMarksWidget extends \yii\base\Widget {
     
     public $model;

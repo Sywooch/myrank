@@ -1,18 +1,20 @@
 <?php
 
 use yii\helpers\Url;
+use yii\helpers\Json;
+
+$markNames = \frontend\models\User::getMarks();
 ?>
 <div class="b-modal__header">
     <?= $title ?>
 </div>
 <div class="b-modal__content">
-    <?php // var_dump($model)  ?>
 	<?php foreach ($model as $item) { ?>
         <div class="b-last-marks">
             <div class="b-last-marks__content">
                 <div class="b-last-marks__item">
                     <div class="b-last-marks__item__image">
-                        <img src="/images/no_photo.png" alt="">
+                        <img src="<?= $item->user->userImage ?>" alt="">
                     </div>
                     <div class="b-last-marks__item__content">
                         <div class="b-last-marks__item__name">
@@ -21,41 +23,19 @@ use yii\helpers\Url;
                             </a>
                         </div>
                         <div class="b-last-marks__item__date">
-                            17.03.2017
+                            <?= Yii::$app->formatter->asDate($item->created, 'dd.MM.yyyy') ?>
                         </div>
                         <div class="row">
+			    <?php foreach ($item->descrArr as $key => $item) { ?>
                             <div class="col-md-3 col-sm-4 col-xs-6">
                                 <div class="b-last-marks__item__category">
-                                    Работа:
+                                    <?= $markNames[0][$key]; ?>:
                                 </div>
                                 <div class="b-last-marks__item__value">
-                                    7.5
+                                    <?= $item ?>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-4 col-xs-6">
-                                <div class="b-last-marks__item__category">
-                                    Учеба:
-                                </div>
-                                <div class="b-last-marks__item__value">
-                                    7.5
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-4 col-xs-6">
-                                <div class="b-last-marks__item__category">
-                                    Качество:
-                                </div>
-                                <div class="b-last-marks__item__value">
-                                    7.5
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-4 col-xs-6">
-                                <div class="b-last-marks__item__category">
-                                    Успех:
-                                </div>
-                                <div class="b-last-marks__item__value">
-                                    7.5
-                                </div>
-                            </div>
+			    <?php } ?>
                         </div>
                     </div>
                 </div>

@@ -208,7 +208,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 
     // Marks
 
-    public function getMarks() {
+    public static function getMarks() {
 	$model = Marks::find()->all();
 	foreach ($model as $item) {
 	    $arr[$item->parent_id][$item->id] = $item->name;
