@@ -80,4 +80,13 @@ class StaticPages extends \yii\db\ActiveRecord
             'update_time' => Yii::t('app', 'Update Time'),
         ];
     }
+
+    static public function publishedDropDownList()
+    {
+        $formatter = Yii::$app->formatter;
+        return [
+            self::PUBLISHED_NO => $formatter->asBoolean(self::PUBLISHED_NO),
+            self::PUBLISHED_YES => $formatter->asBoolean(self::PUBLISHED_YES),
+        ];
+    }
 }

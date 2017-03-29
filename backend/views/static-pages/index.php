@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use frontend\models\StaticPages;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\StaticPagesSearch */
@@ -27,7 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'alias',
-            'published',
+            [
+                'attribute' => 'published',
+                'filter' => StaticPages::publishedDropDownList(),
+                'value' => function($model) {
+                    return Yii::$app->formatter->asBoolean($model->published);
+                },
+            ],
             'content:ntext',
             'title_browser',
             'meta_keywords',
