@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use vova07\imperavi\Widget;
+use yii\helpers\Url;
+
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\StaticPages */
@@ -16,9 +19,23 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'published')->textInput() ?>
+    <?= $form->field($model, 'published')->checkbox(); ?>
 
-    <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+    <?php /*echo $form->field($model, 'content')->textarea(['rows' => 6])*/
+        echo $form->field($model, 'content')->widget(Widget::className(), [
+            'settings' => [
+                //'selector' => 'staticpages-content',
+                //'imageUpload' => Url::to(['/images/images-upload']),
+                'lang' => 'ru',
+                'minHeight' => 200,
+                'plugins' => [
+                    'clips',
+                    'fullscreen',
+                    'imagemanager',
+                ]
+            ]
+        ]);
+    ?>
 
     <?= $form->field($model, 'title_browser')->textInput(['maxlength' => true]) ?>
 

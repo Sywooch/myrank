@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use frontend\models\StaticPages;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\StaticPages */
@@ -31,7 +32,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'alias',
-            'published',
+            [
+                'attribute' => 'published',
+                'filter' => StaticPages::publishedDropDownList(),
+                'value' => function($model) {
+                    return Yii::$app->formatter->asBoolean($model->published);
+                },
+            ],
+
             'content:ntext',
             'title_browser',
             'meta_keywords',
