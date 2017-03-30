@@ -14,7 +14,6 @@ use yii\filters\VerbFilter;
  */
 class AccessCategoryViewController extends Controller
 {
-    public $modelClass = 'frontend\models\AccessCategoryView';
     /**
      * @inheritdoc
      */

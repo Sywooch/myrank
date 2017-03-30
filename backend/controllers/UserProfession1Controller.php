@@ -14,7 +14,6 @@ use yii\filters\VerbFilter;
  */
 class UserProfession1Controller extends Controller
 {
-    public $modelClass = 'frontend\models\UserProfession1';
     /**
      * @inheritdoc
      */

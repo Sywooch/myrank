@@ -14,7 +14,7 @@ use yii\filters\VerbFilter;
  */
 class UserTrusteesController extends Controller
 {
-    public $modelClass = 'frontend\models\UserTrustees';
+
     /**
      * @inheritdoc
      */

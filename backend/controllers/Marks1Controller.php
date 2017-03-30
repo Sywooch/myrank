@@ -14,10 +14,6 @@ use yii\filters\VerbFilter;
  */
 class Marks1Controller extends Controller
 {
-    public $modelClass = 'frontend\models\Marks1';
-    /**
-     * @inheritdoc
-     */
     /*public function behaviors()
     {
         return [

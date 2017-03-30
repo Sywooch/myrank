@@ -68,16 +68,16 @@ class StaticPages extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'title' => Yii::t('app', 'Title'),
-            'alias' => Yii::t('app', 'Alias'),
-            'published' => Yii::t('app', 'Published'),
-            'content' => Yii::t('app', 'Content'),
-            'title_browser' => Yii::t('app', 'Title Browser'),
-            'meta_keywords' => Yii::t('app', 'Meta Keywords'),
-            'meta_description' => Yii::t('app', 'Meta Description'),
-            'create_time' => Yii::t('app', 'Create Time'),
-            'update_time' => Yii::t('app', 'Update Time'),
+            'id' => Yii::t('app', 'ИД'),
+            'title' => Yii::t('app', 'Заглавие'),
+            'alias' => Yii::t('app', 'Псевдоним'),
+            'published' => Yii::t('app', 'Опубликовано'),
+            'content' => Yii::t('app', 'Содержание'),
+            'title_browser' => Yii::t('app', 'Заглавие браузера'),
+            'meta_keywords' => Yii::t('app', 'Мета-ключевые слова'),
+            'meta_description' => Yii::t('app', 'Метаописание'),
+            'create_time' => Yii::t('app', 'Дата создания'),
+            'update_time' => Yii::t('app', 'Дата обновления'),
         ];
     }
 

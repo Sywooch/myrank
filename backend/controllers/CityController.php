@@ -15,10 +15,7 @@ use yii\filters\VerbFilter;
  */
 class CityController extends Controller
 {
-    public $modelClass = 'frontend\models\City';
-    /**
-     * @inheritdoc
-     */
+
     /*public function behaviors()
     {
         return [

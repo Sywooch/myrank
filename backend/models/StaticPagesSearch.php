@@ -12,9 +12,7 @@ use frontend\models\StaticPages;
  */
 class StaticPagesSearch extends StaticPages
 {
-    /**
-     * @inheritdoc
-     */
+
     public function rules()
     {
         return [
@@ -25,15 +23,12 @@ class StaticPagesSearch extends StaticPages
 
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
     public function search($params)
     {
         $query = StaticPages::find();
-
-        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -47,7 +42,6 @@ class StaticPagesSearch extends StaticPages
             return $dataProvider;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'published' => $this->published,

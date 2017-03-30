@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\controllers; // namespace app\controllers;
+namespace backend\controllers;
 
 use Yii;
 use frontend\models\ArticleCategory;
@@ -9,15 +9,8 @@ use frontend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
- * ArticleCategoryController implements the CRUD actions for ArticleCategory model.
- */
 class ArticleCategoryController extends Controller
 {
-    public $modelClass = 'frontend\models\ArticleCategory';
-    /**
-     * @inheritdoc
-     */
     /*public function behaviors()
     {
         return [
@@ -30,10 +23,6 @@ class ArticleCategoryController extends Controller
         ];
     }*/
 
-    /**
-     * Lists all ArticleCategory models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $searchModel = new ArticleCategorySearch();
@@ -45,11 +34,6 @@ class ArticleCategoryController extends Controller
 
     }
 
-    /**
-     * Displays a single ArticleCategory model.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -57,17 +41,12 @@ class ArticleCategoryController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new ArticleCategory model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $model = new ArticleCategory();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_article]);
+            return $this->redirect(['view', 'id' => $model->id_article_category]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,18 +54,12 @@ class ArticleCategoryController extends Controller
         }
     }
 
-    /**
-     * Updates an existing ArticleCategory model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_article]);
+            return $this->redirect(['view', 'id' => $model->id_article_category]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -94,12 +67,6 @@ class ArticleCategoryController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing ArticleCategory model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -107,13 +74,6 @@ class ArticleCategoryController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the ArticleCategory model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return ArticleCategory the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = ArticleCategory::findOne($id)) !== null) {

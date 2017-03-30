@@ -14,7 +14,6 @@ use yii\filters\VerbFilter;
  */
 class UserClaimController extends Controller
 {
-    public $modelClass = 'frontend\models\UserClaim';
     /**
      * @inheritdoc
      */

@@ -28,16 +28,18 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'article_category_id')->textInput() ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?php /*echo $form->field($model, 'status')->checkbox(); */
+        echo $form->field($model, 'status')->dropDownList($model->getItemAlias('status', null, null));
+    ?>
 
     <?= $form->field($model, 'views')->textInput() ?>
 
-    <?= $form->field($model, 'create_time')->textInput() ?>
+    <?php /* echo $form->field($model, 'create_time')->textInput() */?>
 
-    <?= $form->field($model, 'update_time')->textInput() ?>
+    <?php /* echo $form->field($model, 'update_time')->textInput() */?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app','Создать') : Yii::t('app','Обновить'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
