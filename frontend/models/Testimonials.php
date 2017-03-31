@@ -8,7 +8,6 @@ use Yii;
  * This is the model class for table "testimonials".
  *
  * @property integer $id
- * @property string $title
  * @property string $text
  * @property integer $status
  * @property integer $user_from
