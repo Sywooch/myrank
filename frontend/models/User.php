@@ -372,7 +372,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      * @return bool if password provided is valid for current user
      */
     public function validatePassword($password) {
-	//return $this->
+	Logs::saveLog(var_export([$this->password_hash, $password], true));
+	//return $this->password_hash === sha1($password);
 	return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 
@@ -382,6 +383,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      * @param string $password
      */
     public function setPassword($password) {
+	Logs::saveLog(var_export([sha1($password), $password], true));
 	$this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
 

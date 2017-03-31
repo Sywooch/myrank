@@ -6,6 +6,7 @@ use frontend\components\Controller;
 use frontend\models\User;
 use frontend\models\Registration;
 use yii\helpers\Json;
+use frontend\models\Company;
 
 class RegistrationController extends Controller {
 
@@ -27,7 +28,7 @@ class RegistrationController extends Controller {
 	    $model = new Registration();
 	    $model->step = $post['Registration']['type'] == User::TYPE_USER_USER ? User::STEP_NEXT_USER : User::STEP_NEXT_COMPANY;
 	    if ($model->load($post)) {
-		$model->setPassword($post['password']);
+		$model->setPassword($post['Registration']['password']);
 		$model->generateAuthKey();
 		if ($model->save()) {
 		    $out['code'] = 1;
@@ -65,7 +66,7 @@ class RegistrationController extends Controller {
 	if ($model->load($post) && $model->save()) {
 	    $out['code'] = 1;
 	    $out['link'] = \yii\helpers\Url::toRoute(["users/profile", "id" => $model->id]);
-	    \Yii::$app->notification->set('global', 'Для того чтоб пользоваться всеми сервисами сайта, надо <a href="#" class="signin">Авторизоваться</a>');
+	    \Yii::$app->user->id === NULL ? \Yii::$app->notification->set('global', 'Для того чтоб пользоваться всеми сервисами сайта, надо <a href="#" class="signin">Авторизоваться</a>') : NULL;
 	} else {
 	    $out['errors'] = $model->errors;
 	}
@@ -74,14 +75,30 @@ class RegistrationController extends Controller {
     }
     
     public function actionStep3 () {
-	$model = "";
+	$model = new Company();
 	echo Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep3", ['model' => $model])]);
 	\Yii::$app->end();
     }
     
     public function actionStep3save () {
 	$post = \Yii::$app->request->post();
+	$out['code'] = 0;
 	
+	$model = new Company();
+	if($model->load($post) && $model->save()) {
+	    $mUser = User::getProfile();
+	    $mUser->company_id = $model->id;
+	    $mUser->company_name = $model->name;
+	    $mUser->step = 0;
+	    $mUser->save();
+	    $out['code'] = 1;
+	} else {
+	    
+	}
+	$out['errors'] = $model->errors;
+	echo Json::encode($out);
+	
+	//var_dump($post);
     }
 
     public function actionTest() {

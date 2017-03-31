@@ -37,8 +37,10 @@ class LoginForm extends Model {
      * @param array $params the additional name-value pairs given in the rule
      */
     public function validatePassword($attribute, $params) {
+	
 	if (!$this->hasErrors()) {
 	    $user = $this->getUser();
+	    Logs::saveLog(var_export($this->password, true));
 	    if (!$user || !$user->validatePassword($this->password)) {
 		$this->addError($attribute, 'Incorrect username or password.');
 	    }
@@ -51,12 +53,12 @@ class LoginForm extends Model {
      * @return bool whether the user is logged in successfully
      */
     public function login() {
-	//if ($this->validate()) {
+	if ($this->validate()) {
 	//var_dump($this->username);
 	    return Yii::$app->user->login($this->getUser(), 3600 * 24 * 30);
-	//} else {
-	//    return false;
-	//}
+	} else {
+	    return false;
+	}
     }
 
     /**

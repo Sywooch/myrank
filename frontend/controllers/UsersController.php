@@ -12,6 +12,7 @@ use frontend\models\UserClaim;
 use frontend\models\UserMarkRating;
 use frontend\models\UsersSearch;
 use frontend\models\City;
+use frontend\models\Images;
 /**
  * Description of UserController
  *
@@ -116,7 +117,7 @@ class UsersController extends Controller {
 	$post = \Yii::$app->request->post();
 	$code = 0;
 	$model = new Testimonials();
-	$post['Testimonials']['status'] = Testimonials::STATUS_MODERATION;
+	//$post['Testimonials']['status'] = Testimonials::STATUS_MODERATION;
 	if($model->load($post) && $model->save()) {
 	    \Yii::$app->rating->process(User::findOne($model->user_to));
 	    $code = 1;
@@ -169,6 +170,12 @@ class UsersController extends Controller {
     public function actionEditportfolio () {
 	\Yii::$app->session->remove("userImages");
 	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('_editProfile')]);
+	\Yii::$app->end();
+    }
+    
+    public function actionViewportfolio ($id) {
+	$model = Images::findOne($id);
+	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('_viewPortfolio', ['model' => $model])]);
 	\Yii::$app->end();
     }
     

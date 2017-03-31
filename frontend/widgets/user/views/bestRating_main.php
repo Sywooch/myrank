@@ -38,9 +38,9 @@ use yii\helpers\Url;
 		    </div>
 		    <div class="b-rating__item__content">
 			<div class="b-rating__item__title">
-			    <!-- a href="<?= Url::toRoute(['users/profile', 'id' => $item->id]) ?>" -->
+			    <a href="<?= Url::toRoute(['users/profile', 'id' => $item->id]) ?>">
 					    <?= $item->fullName ?>
-			    <!-- /a -->
+			    </a>
 			</div>
 			<div class="b-rating__item__text"><?= $item->company_post ?></div>
 		    </div>
@@ -50,3 +50,7 @@ use yii\helpers\Url;
 	</div>
     </div>
 </div>
+<style type="text/css">
+    .b-rating__item:hover .b-rating__item__content a,
+    .b-rating__item__title a:hover {color: #ffffff;}
+</style>

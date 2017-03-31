@@ -28,7 +28,8 @@ use yii\helpers\Url;
 					<input type="text" 
 					       name="mark[<?= $key2 ?>]" 
 					       class="marks-slider-amount summField" 
-					       value="<?= isset($list[$key2]) ? $list[$key2] : '0.0' ?>">
+					       value="<?= isset($list[$key2]) ? $list[$key2] : '0.0' ?>"
+					       data-def="<?= isset($list[$key2]) ? $list[$key2] : '0.0' ?>">
 				    </div>
 				    <div class="b-marks__item__content__slider__content">
 					<div class="marks-slider"></div>
@@ -51,6 +52,13 @@ use yii\helpers\Url;
 $saveMarks = Url::toRoute(["users/savemarks", 'id' => $uId]);
 $script = "
     $(document).ready(function () {
+	$('.summField').on('keypress, change, keyup', function () {
+	    val = $(this).val();
+	    if((val > 10) || (val < 0)) {
+		$(this).val(0);
+		changeField();
+	    }
+	});
 	changeField();
 	
 	$('.marks-slider').slider({

@@ -108,6 +108,7 @@ $fieldVal = $mUser->attributeLabels();
 			</div>
 		    </div>
 		</div>
+		<?php if(($mUser->about != "") || ($mUser->phone != "")) { ?>
 		<div class="b-user__info">
 		    <div class="b-title">
 			Личная информация
@@ -126,12 +127,16 @@ $fieldVal = $mUser->attributeLabels();
 			</div>
 		    </div>
 		</div>
+		<?php } ?>
+		<?php if(count($mUser->images) > 0) { ?>
 		<div class="b-user__portfolio">
 		    <div class="b-title">Портфолио</div>
 		    <div class="b-user__portfolio__content">
 			<?php foreach ($mUser->images as $item) { ?>
 			<div class="b-user__portfolio__item">
-			    <img src="<?= $item->name ?>" alt="">
+			    <a href="#" class="showModal" data-url="<?= Url::toRoute(['users/viewportfolio', 'id' => $item->id]) ?>">
+				<img src="<?= $item->name ?>" alt="">
+			    </a>
 			</div>
 			<?php } ?>
 			<?php if($mUser->owner) { ?>
@@ -144,6 +149,7 @@ $fieldVal = $mUser->attributeLabels();
 			<span>Свернуть</span>
 		    </span>
 		</div>
+		<?php } ?>
 	    </div>
 	    <!-- end b-user -->
 

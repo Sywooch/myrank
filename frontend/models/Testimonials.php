@@ -50,7 +50,7 @@ class Testimonials extends \yii\db\ActiveRecord {
 	    [['user_from', 'user_to', 'smile'], 'required'],
 	    [['text'], 'string'],
 	    [['user_from', 'user_to', 'smile', 'parent_id'], 'integer'],
-	    [['user_from'], 'safe'],
+	    [['user_from', 'status'], 'safe'],
 	];
     }
 
@@ -79,6 +79,14 @@ class Testimonials extends \yii\db\ActiveRecord {
     
     public function getAnswer () {
 	return static::findOne(['parent_id' => $this->id]);
+    }
+    
+    
+    public function beforeSave($insert) {
+	if(!isset($this->status)) {
+	    $this->status = self::STATUS_ACTIVE;
+	}
+	return parent::beforeSave($insert);
     }
 
 }

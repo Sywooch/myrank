@@ -6,7 +6,7 @@ use frontend\widgets\user\ModalWidget;
 
 
 echo ModalWidget::widget([
-    'title' => 'Регистрация - Шаг 1<span> из 2</span>',
+    'title' => 'Регистрация пользователя - Шаг 1<span> из 2</span>',
     'model' => $model,
     'formOptions' => ['id' => 'regFormStep1', 'data-url' => Url::toRoute("registration/step1save")],
     'content' => [
