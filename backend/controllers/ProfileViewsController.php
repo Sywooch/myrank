@@ -14,10 +14,7 @@ use yii\filters\VerbFilter;
  */
 class ProfileViewsController extends Controller
 {
-    public $modelClass = 'frontend\models\ProfileViews';
-    /**
-     * @inheritdoc
-     */
+
     /*public function behaviors()
     {
         return [

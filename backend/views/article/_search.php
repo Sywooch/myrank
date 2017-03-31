@@ -25,11 +25,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'header_title') ?>
 
-    <?= $form->field($model, 'header_image') ?>
+    <?php /*echo $form->field($model, 'header_image') */ ?>
 
-    <?php  echo $form->field($model, 'header_image_small') ?>
+    <?php /*echo $form->field($model, 'header_image_small') */ ?>
 
-    <?php  echo $form->field($model, 'header_image_small_square') ?>
+    <?php /*echo $form->field($model, 'header_image_small_square') */ ?>
 
     <?php  echo $form->field($model, 'article_category_id') ?>
 
@@ -42,8 +42,8 @@ use yii\widgets\ActiveForm;
     <?php  echo $form->field($model, 'update_time') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Искать', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Сбросить', ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(Yii::t('app','Найти'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(Yii::t('app','Сбросить'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

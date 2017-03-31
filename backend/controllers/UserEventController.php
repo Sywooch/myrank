@@ -14,7 +14,6 @@ use yii\filters\VerbFilter;
  */
 class UserEventController extends Controller
 {
-    public $modelClass = 'frontend\models\UserEvent';
     /**
      * @inheritdoc
      */

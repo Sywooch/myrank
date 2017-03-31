@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\MigrationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Migrations');
+$this->title = Yii::t('app', 'Миграции');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="migration-index">

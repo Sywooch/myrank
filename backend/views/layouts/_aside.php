@@ -77,21 +77,9 @@ use yii\helpers\Url;
 		        </span>
             </a>
             <ul class="treeview-menu">
-                <li><a href="<?= Url::toRoute(['/static-pages']) ?>"><i class="fa fa-circle-o"></i> Статические страницы</a></li>
+                <li><a href="<?= Url::toRoute(['/static-pages']) ?>"><i class="fa fa-circle-o"></i> Управление</a></li>
             </ul>
         </li>
-	    <li class="treeview">
-		<a href="#">
-		    <i class="fa fa-laptop"></i>
-		    <span>Для ТЫЖпрограмиста</span>
-		    <span class="pull-right-container">
-			<i class="fa fa-angle-left pull-right"></i>
-		    </span>
-		</a>
-		<ul class="treeview-menu">
-		    <li><a href="<?= Url::toRoute(['migration/index']) ?>"><i class="fa fa-circle-o"></i> Миграции</a></li>
-		</ul>
-	    </li>
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-building"></i>
@@ -128,6 +116,7 @@ use yii\helpers\Url;
             </a>
             <ul class="treeview-menu">
                 <li><a href="<?= Url::toRoute(['logs/index']) ?>"><i class="fa fa-circle-o"></i> Журналы</a></li>
+                <li><a href="<?= Url::toRoute(['migration/index']) ?>"><i class="fa fa-circle-o"></i> Миграции</a></li>
             </ul>
         </li>
 

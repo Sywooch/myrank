@@ -39,7 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Yii::$app->formatter->asBoolean($model->published);
                 },
             ],
-
             'content:ntext',
             'title_browser',
             'meta_keywords',

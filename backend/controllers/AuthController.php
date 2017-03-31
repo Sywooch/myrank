@@ -14,10 +14,6 @@ use yii\filters\VerbFilter;
  */
 class AuthController extends Controller
 {
-    public $modelClass = 'frontend\models\Auth';
-    /**
-     * @inheritdoc
-     */
     /*public function behaviors()
     {
         return [

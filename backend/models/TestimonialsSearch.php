@@ -18,8 +18,8 @@ class TestimonialsSearch extends Testimonials
     public function rules()
     {
         return [
-            [['id', 'user_from', 'usert_to', 'smile', 'parent_id'], 'integer'],
-            [['title', 'text', 'created'], 'safe'],
+            [['id', 'user_from', 'user_to', 'smile', 'parent_id'], 'integer'],
+            [['text', 'created'], 'safe'],
         ];
     }
 
@@ -61,14 +61,13 @@ class TestimonialsSearch extends Testimonials
         $query->andFilterWhere([
             'id' => $this->id,
             'user_from' => $this->user_from,
-            'usert_to' => $this->usert_to,
+            'user_to' => $this->user_to,
             'smile' => $this->smile,
             'parent_id' => $this->parent_id,
             'created' => $this->created,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'text', $this->text]);
+        $query->andFilterWhere(['like', 'text', $this->text]);
 
         return $dataProvider;
     }
