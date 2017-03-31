@@ -14,10 +14,7 @@ use yii\filters\VerbFilter;
  */
 class StaticPagesController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
+    /*public function behaviors()
     {
         return [
             'verbs' => [
@@ -27,7 +24,7 @@ class StaticPagesController extends Controller
                 ],
             ],
         ];
-    }
+    }*/
 
     public function actionIndex()
     {

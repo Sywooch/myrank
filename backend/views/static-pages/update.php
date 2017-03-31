@@ -5,9 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\StaticPages */
 
-$this->title = Yii::t('app', 'Обновить статические страницы: ', [
-    'modelClass' => 'Static Pages',
-]) . $model->title;
+$this->title = Yii::t('app', 'Обновить статические страницы: ') . $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Статические страницы'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Обновить');

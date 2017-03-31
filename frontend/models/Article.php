@@ -1,48 +1,19 @@
 <?php
 
 namespace frontend\models;
-//namespace app\models;
 
 use Yii;
 
-/**
- * This is the model class for table "article".
- *
- * @property integer $id_article
- * @property string $title
- * @property string $abridgment
- * @property string $content
- * @property string $header_title
- * @property string $header_image
- * @property string $header_image_small
- * @property string $header_image_small_square
- * @property integer $article_category_id
- * @property integer $status
- * @property integer $views
- * @property string $create_time
- * @property string $update_time
- *
- * @property ArticleCategory $articleCategory
- */
 class Article extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
+    const STATUS_DISABLE = 0;
+    const STATUS_ACTIVE = 10;
+
     public static function tableName()
     {
         return '{{%article}}';
     }
 
-    /*public function fields() {
-        return [
-
-        ];
-    }*/
-
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
@@ -56,32 +27,26 @@ class Article extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
-            'id_article' => 'Id Article',
-            'title' => 'Title',
-            'abridgment' => 'Abridgment',
-            'content' => 'Content',
-            'header_title' => 'Header Title',
-            'header_image' => 'Header Image',
-            'header_image_small' => 'Header Image Small',
-            'header_image_small_square' => 'Header Image Small Square',
-            'article_category_id' => 'Article Category ID',
-            'articleCategoryName' => 'Article Category Name',
-            'status' => 'Status',
-            'views' => 'Views',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
+            'id_article' => Yii::t('app','ИД'),
+            'title' => Yii::t('app','Заглавие'),
+            'abridgment' => Yii::t('app','Сокращенный текст'),
+            'content' => Yii::t('app','Содержание'),
+            'header_title' => Yii::t('app','Заголовок заглавия'),
+            'header_image' => Yii::t('app','Заголовок изображение'),
+            'header_image_small' => Yii::t('app','Заголовок среднее изображение'),
+            'header_image_small_square' => Yii::t('app','Заголовок уменьшенное изображение'),
+            'article_category_id' => Yii::t('app','ИД категории статьи'),
+            'articleCategoryName' => Yii::t('app','Наименование категории статьи'),
+            'status' => Yii::t('app','Статус'),
+            'views' => Yii::t('app','Просмотры'),
+            'create_time' => Yii::t('app','Дата создания'),
+            'update_time' => Yii::t('app','Дата обновления'),
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getArticleCategory()
     {
         return $this->hasOne(ArticleCategory::className(), ['id_article_category' => 'article_category_id']);
@@ -90,5 +55,36 @@ class Article extends \yii\db\ActiveRecord
     public function getArticleCategoryName()
     {
         return $this->articleCategory->name;
+    }
+
+    static public function statusDropDownList()
+    {
+        $formatter = Yii::$app->formatter;
+        return [
+            self::STATUS_DISABLE => $formatter->asBoolean(self::STATUS_DISABLE),
+            self::STATUS_ACTIVE => $formatter->asBoolean(self::STATUS_ACTIVE)
+        ];
+    }
+
+    public static function getItemAlias($type, $key = null, $exclude = null)
+    {
+        $items = [];
+
+        $items['status'] = [
+            self::STATUS_DISABLE => 'Нет',
+            self::STATUS_ACTIVE => 'Да',
+        ];
+
+        if ($exclude !== null) {
+            if (is_array($exclude)) {
+                foreach ($exclude as $excluded) {
+                    unset($items[$type][$excluded]);
+                }
+            } else {
+                unset($items[$type][$exclude]);
+            }
+        }
+
+        return $key === null ? $items[$type] : $items[$type][$key];
     }
 }

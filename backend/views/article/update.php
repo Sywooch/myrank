@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Article */
 
-$this->title = 'Обновить статью: ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Статьи', 'url' => ['index']];
+$this->title = Yii::t('app','Обновить статью: ') . $model->title;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app','Статьи'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id_article]];
-$this->params['breadcrumbs'][] = 'Обновить';
+$this->params['breadcrumbs'][] = Yii::t('app','Обновить');
 ?>
 <div class="article-update">
 

@@ -15,10 +15,6 @@ use yii\filters\VerbFilter;
  */
 class ImagesController extends Controller
 {
-    public $modelClass = 'frontend\models\Images';
-    /**
-     * @inheritdoc
-     */
     /*public function behaviors()
     {
         return [

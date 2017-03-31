@@ -2,12 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use frontend\models\Article;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Article */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Статьи', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app','Статьи'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="art-view">
@@ -15,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Обновить', ['update', 'id' => $model->id_article], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id_article], [
+        <?= Html::a(Yii::t('app','Обновить'), ['update', 'id' => $model->id_article], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app','Удалить'), ['delete', 'id' => $model->id_article], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены, что хотите удалить данную запись?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -34,8 +35,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'content:ntext',
             'header_title',
             'header_image',
-            'article_category_id',
-            'status',
+            'articleCategoryName',//'article_category_id',
+            //'status',
+            [
+                'attribute' => 'status',
+                'filter' => Article::statusDropDownList(),
+                'value' => function($model) {
+                    return Yii::$app->formatter->asBoolean($model->status);
+                },
+            ],
             'views',
             'create_time',
             'update_time',
@@ -47,14 +55,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-<div class="b-article__header__image"><p>'header_image'</p>
+<div class="b-article__header__image"><p><?php echo $model->getAttributeLabel('header_image'); ?></p>
     <img src="<?= Html::encode($model->header_image) ?>" alt="">
 </div>
 <br>
-<div class="b-article__header__image"><p>'header_image_small'</p>
+<div class="b-article__header__image"><p><?php echo $model->getAttributeLabel('header_image_small'); ?></p>
     <img src="<?= Html::encode($model->header_image_small) ?>" alt="">
 </div>
 <br>
-<div class="b-article__header__image"><p>'header_image_small_square'</p>
+<div class="b-article__header__image"><p><?php echo $model->getAttributeLabel('header_image_small_square'); ?></p>
     <img src="<?= Html::encode($model->header_image_small_square) ?>" alt="">
 </div>

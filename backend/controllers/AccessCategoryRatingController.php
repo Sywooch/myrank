@@ -15,7 +15,6 @@ use yii\filters\VerbFilter;
  */
 class AccessCategoryRatingController extends Controller
 {
-    public $modelClass = 'frontend\models\AccessCategoryRating';
     /**
      * @inheritdoc
      */

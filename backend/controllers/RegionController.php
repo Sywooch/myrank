@@ -15,10 +15,6 @@ use yii\filters\VerbFilter;
  */
 class RegionController extends Controller
 {
-    public $modelClass = 'frontend\models\Region';
-    /**
-     * @inheritdoc
-     */
     /*public function behaviors()
     {
         return [

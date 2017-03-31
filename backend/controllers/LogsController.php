@@ -14,10 +14,6 @@ use yii\filters\VerbFilter;
  */
 class LogsController extends Controller
 {
-    public $modelClass = 'frontend\models\Logs';
-    /**
-     * @inheritdoc
-     */
     /*public function behaviors()
     {
         return [

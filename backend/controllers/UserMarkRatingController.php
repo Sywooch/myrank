@@ -14,7 +14,6 @@ use yii\filters\VerbFilter;
  */
 class UserMarkRatingController extends Controller
 {
-    public $modelClass = 'frontend\models\UserMarkRating';
     /**
      * @inheritdoc
      */
