@@ -21,7 +21,7 @@ var LegendOptions = ["Smartphone","Tablet"];
 //Data
 var d = [
 		  [';
-foreach ($allList[0] as $key => $item) {
+foreach (isset($allList[0]) ? $allList[0] : [] as $key => $item) {
     if(count($allList[$key]) > 0) {
 	$script .= '{axis:"' . $item . '",value:' . (isset($list[$key]) ? $list[$key] : 0) . '},';
     }

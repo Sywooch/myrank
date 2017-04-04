@@ -22,14 +22,16 @@ if (count($list) > 0) {
 			    <?= Yii::$app->formatter->asDate($item->created, 'dd.MM.yyyy') ?>
 			</div>
 			<?php
-			$marksKey = array_keys($marks);
-			$markIndex = $marksKey[rand(0, count($marks) - 1)];
+			$summMarks = 0;
+			foreach ($item->descrArr as $item2) {
+			    $summMarks += $item2;
+			}
 			?>
 			<div class="b-last-marks__item__category">
-			    <?= $marks[$markIndex] ?>:
+			    Средняя оценка:
 			</div>
 			<div class="b-last-marks__item__value">
-			    <?= $item->descrArr[$markIndex] ?>
+			    <?= round($summMarks / count($item->descrArr), 1) ?>
 			</div>
 		    </div>
 		</div>

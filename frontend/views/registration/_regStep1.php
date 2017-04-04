@@ -39,7 +39,7 @@ echo ModalWidget::widget([
 		'options' =>  []//$model->cityList,
 	    ],
 	],
-	'profession' => [
+	'professionField' => [
 	    'label' => '* Специализация:',
 	    'divClass' => 'select-wrapper specialization-select',
 	    'type' => 'dropDownList',

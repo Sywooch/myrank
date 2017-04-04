@@ -54,12 +54,11 @@ use yii\helpers\Url;
 			    </div>
 			<?php } ?>
     		</div>
-    		<!-- div class="b-tags">
-    		    <span>Web design</span>
-    		    <span>User Experience Design</span>
-    		    <span>Mobile UI design</span>
-    		    <span>Adobe Photoshop</span>
-    		</div -->
+    		<div class="b-tags">
+		    <?php foreach ($item->userProfession as $item2) { ?>
+    		    <span><?= $item2->title ?></span>
+		    <?php } ?>
+    		</div>
     	    </div>
     	</div>
         </div>
