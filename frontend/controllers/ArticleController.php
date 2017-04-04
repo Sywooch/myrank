@@ -71,7 +71,6 @@ class ArticleController extends Controller
                 //'paginationPageSize' => $paginationPageSize,
                 'paginationTotalPages' => $paginationTotalPages,
                 'paginationLastPageCount' => $paginationLastPageCount,
-                'test'=>var_dump($category),
             ]);
     }
 
