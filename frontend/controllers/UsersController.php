@@ -268,7 +268,7 @@ class UsersController extends Controller {
 	$model = UserTrustees::find()->where(['user_from' => $id])->all();
 	echo Json::encode([
 	    'code' => 1, 
-	    'data' => $this->renderPartial('listUser', ['model' => $model, 'title' => 'Доверенные лица'])
+	    'data' => $this->renderPartial('_allTrustUser', ['model' => $model])
 	]);
 	\Yii::$app->end();
     } 

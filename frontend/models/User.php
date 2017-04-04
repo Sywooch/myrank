@@ -259,9 +259,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	$id = \Yii::$app->user->id;
 	return $this->getUserTrusteesTo()->andWhere(['user_from' => $id])->count() > 0 ? TRUE : FALSE;
     }
-
-    public function beforeSave($insert) {
-	$sess = \Yii::$app->session;
+    
+    public function saveProfession () {
 	if(isset($this->professionField) && (count($this->professionField) > 0)) {
 	    UserProfession::deleteAll(['user_id' => $this->id]);
 	    foreach ($this->professionField as $item) {
@@ -273,12 +272,27 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 		$mProf->save();
 	    }
 	}
+    }
+    
+    public function getQueryRangeDate ($query) {
+	return $query->andWhere([
+	    'between', 
+	    'created',
+	    new \yii\db\Expression('(NOW() - INTERVAL 1 DAY)'),
+	    new \yii\db\Expression('NOW()')
+	])->count();
+    }
+
+    public function beforeSave($insert) {
+	$sess = \Yii::$app->session;
+	
+	isset($this->id) ? $this->saveProfession() : NULL;
+	
 	if($sess->has('typeUser')) {
 	    $this->type = $sess->get('typeUser');
 	    $this->step = $this->type == self::TYPE_USER_USER ? self::STEP_NEXT_USER : self::STEP_NEXT_COMPANY;
 	    $sess->remove('typeUser');
 	}
-	
 	return parent::beforeSave($insert);
     }
 

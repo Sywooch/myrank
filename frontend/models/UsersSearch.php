@@ -56,7 +56,7 @@ class UsersSearch extends User {
 		$params['UsersSearch']['last_name'] = str_replace(" ", "", $params['UsersSearch']['searchName']);
 	    }
 	}
-	//unset($params['UsersSearch']['searchName']);
+	//($params['UsersSearch']['city_id'] == "") ? unset($params['UsersSearch']['city_id']) : NULL;
 	$this->load($params);
 
 	// grid filtering conditions

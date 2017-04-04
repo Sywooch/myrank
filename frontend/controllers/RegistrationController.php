@@ -25,12 +25,14 @@ class RegistrationController extends Controller {
 		'password' => 'Пароль и повтор пароля не совпадают'
 	    ];
 	} else {
+	    //if(Registration::find()->where(['email' => $post['Registration']['email']]))
 	    $model = new Registration();
 	    $model->step = $post['Registration']['type'] == User::TYPE_USER_USER ? User::STEP_NEXT_USER : User::STEP_NEXT_COMPANY;
 	    if ($model->load($post)) {
 		$model->setPassword($post['Registration']['password']);
 		$model->generateAuthKey();
 		if ($model->save()) {
+		    $model->saveProfession();
 		    $out['code'] = 1;
 		    $out['id'] = $model->id;
 		    $out['data'] = $this->renderPartial("_regStep".$model->step, ['model' => $model]);

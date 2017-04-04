@@ -3376,7 +3376,7 @@ body.gray-bg .b-header__user:after{
     visibility: visible;
 }
 
-.b-marks.b-marks_loading:after{
+.b-marks_loading:after{
     position: absolute;
     content: '';
     bottom: 0;
@@ -3386,7 +3386,7 @@ body.gray-bg .b-header__user:after{
     background: rgba(255,255,255,0.7);
     z-index:4;
 }
-.b-marks.b-marks_loading:before{
+.b-marks_loading:before{
     content: "\e031";
     position: absolute;
     left: 50%;

@@ -68,7 +68,7 @@ return [
     'modules' => [
 	'debug' => [
 	    'class' => 'yii\debug\Module',
-            'allowedIPs' => ['127.0.0.1', '::1', '178.93.39.69']
+            'allowedIPs' => ['127.0.0.1', '::1', '178.93.36.150']
 	]
     ],
     'params' => $params,

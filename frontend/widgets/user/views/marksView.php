@@ -6,7 +6,7 @@ use yii\helpers\Url;
     <div class="b-title"><?= $title ?></div>
     <div class="b-marks__content">
 	<form id="markFields" method="POST" action="#">
-	    <?php foreach ($allList[0] as $key => $el) { ?>
+	    <?php foreach (isset($allList[0]) ? $allList[0] : [] as $key => $el) { ?>
 	    <?php if(count($allList[$key]) > 0) { ?>
     	    <div class="b-marks__item">
     		<div class="b-marks__item__header">

@@ -78,9 +78,12 @@ $fieldVal = $mUser->attributeLabels();
 			    <div class="b-user__stats__item__number">
 				<?= $mUser->getUserTrusteesFrom()->count() ?>
 			    </div>
-			    <!-- div class="b-user__stats__item__new-number">
-				1
-			    </div -->
+			    <?php $count = $mUser->getQueryRangeDate($mUser->getUserTrusteesFrom()); ?>
+			    <?php if($count > 0) { ?>
+			    <div class="b-user__stats__item__new-number">
+				<?= $count ?>
+			    </div>
+			    <?php } ?>
 			</div>
 		    </div>
 		    <div class="b-user__stats__item">
@@ -88,9 +91,12 @@ $fieldVal = $mUser->attributeLabels();
 			    <div class="b-user__stats__item__icon b-user__stats__item__icon_2"></div>
 			    <div class="b-user__stats__item__text">Оценок:</div>
 			    <div class="b-user__stats__item__number"><?= $mUser->getUserMarksTo()->count(); ?></div>
-			    <!-- div class="b-user__stats__item__new-number">
-				2
-			    </div -->
+			    <?php $count = $mUser->getQueryRangeDate($mUser->getUserMarksTo()) ?>
+			    <?php if($count > 0) { ?>
+			    <div class="b-user__stats__item__new-number">
+				<?= $count ?>
+			    </div>
+			    <?php } ?>
 			</div>
 		    </div>
 		    <div class="b-user__stats__item">
@@ -102,9 +108,12 @@ $fieldVal = $mUser->attributeLabels();
 			    <div class="b-user__stats__item__number">
 				<?= $mUser->getTestimonialsActive()->andWhere(['parent_id' => 0])->count() ?>
 			    </div>
-			    <!-- div class="b-user__stats__item__new-number">
-				1
-			    </div -->
+			    <?php $count = $mUser->getQueryRangeDate($mUser->getTestimonialsActive()->andWhere(['parent_id' => 0])) ?>
+			    <?php if($count > 0) { ?>
+			    <div class="b-user__stats__item__new-number">
+				<?= $count ?>
+			    </div>
+			    <?php } ?>
 			</div>
 		    </div>
 		</div>
