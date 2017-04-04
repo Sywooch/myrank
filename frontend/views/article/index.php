@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'summary' => 'Показано {begin}-{end} из {totalCount}', // string Информация о списке
             //'summaryOptions' => [ ],// array Настройка контейнера для summary (HTML атрибуты для контейнера)
-            'emptyText' => 'Список пуст', // string Текст при отсутствии элементов списка
+            'emptyText' => 'Список пуст или запрошенная категория статей отсутствует', // string Текст при отсутствии элементов списка
             'emptyTextOptions' => [ // array Настройка контейнера для emptyText (HTML атрибуты для контейнера)
                 'tag' => 'p'
             ],

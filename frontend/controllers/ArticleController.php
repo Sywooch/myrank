@@ -40,11 +40,21 @@ class ArticleController extends Controller
      * Lists all Article models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($category = null)
     {
         $paginationPageSize = 10;
+
+        if( !empty($category) && ((int)$category) )
+            $query = Article::find()->
+                where([
+                    'status'=>10,
+                    'article_category_id'=>$category
+                ])->orderBy('create_time DESC');
+        else
+            $query = Article::find()->where(['status'=>10])->orderBy('create_time DESC');
+
         $dataProvider = new ActiveDataProvider([
-            'query' => Article::find()->where(['status'=>10])->orderBy('create_time DESC'),
+            'query' => $query,
             'pagination' => [
                 'pageSize' => $paginationPageSize,
             ],
@@ -60,8 +70,8 @@ class ArticleController extends Controller
                 //'articlesCount' => $query_result_counter,
                 //'paginationPageSize' => $paginationPageSize,
                 'paginationTotalPages' => $paginationTotalPages,
-                'paginationLastPageCount' => $paginationLastPageCount
-
+                'paginationLastPageCount' => $paginationLastPageCount,
+                'test'=>var_dump($category),
             ]);
     }
 

@@ -2,7 +2,7 @@
 
 namespace frontend\widgets\article;
 
-use yii\base\Widget;
+use yii\base\Widget; // \yii\bootstrap\Widget
 use frontend\models\Article;
 use yii\data\ActiveDataProvider;
 

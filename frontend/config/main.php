@@ -42,6 +42,7 @@ return [
 	    //'enableStrictParsing' => true,
 	    'rules' => [
 		'GET article' => 'article/index',
+		'GET article/category/<category:\d+>' => 'article/index',
 		'GET article/<id:\d+>' => 'article/view',
         'page/<page:[\w-]+>' => 'static-pages/index',
 	    ],
