@@ -39,7 +39,7 @@ if (Yii::$app->user->id === null) { ?>
     	    </div>
     	</div>
 
-    	<div class="b-header__user__stats">
+    	<!-- div class="b-header__user__stats">
     	    <div class="b-header__user__stats__item active">
     		<div class="b-header__user__stats__item__icon b-header__user__stats__item__icon_1"></div>
     		<span></span>
@@ -52,7 +52,7 @@ if (Yii::$app->user->id === null) { ?>
     		<div class="b-header__user__stats__item__icon b-header__user__stats__item__icon_3"></div>
     		<span></span>
     	    </div>
-    	</div>
+    	</div -->
 
         </div>
     </div>

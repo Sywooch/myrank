@@ -203,7 +203,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 
     public function getPosition() {
-	return $this->getCityName() && $this->getCountryName() ? $this->getCityName() . ", " . $this->getCountryName() : FALSE;
+	return $this->getCityName() && $this->getCountryName() ? $this->getCityName() . ", " . $this->getCountryName() : "Не указано";
     }
 
     // Marks

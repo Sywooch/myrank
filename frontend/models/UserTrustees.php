@@ -18,7 +18,7 @@ class UserTrustees extends \yii\db\ActiveRecord {
     const BACK_TRUSTEES_YES = 1;
     const BACK_TRUSTEES_NO = 0;
     
-    const COUNT_LIST_USER_PROFILE = 10;
+    const COUNT_LIST_USER_PROFILE = 5;
 
     /**
      * @inheritdoc

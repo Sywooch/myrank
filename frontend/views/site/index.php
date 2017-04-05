@@ -7,7 +7,7 @@ use frontend\models\Profession;
 use yii\helpers\Url;
 use frontend\models\User;
 
-$this->title = 'My Yii Application';
+$this->title = 'MyRank.com';
 $mProf = Profession::find()->asArray()->all();
 ?>
 

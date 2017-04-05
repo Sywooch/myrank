@@ -31,11 +31,11 @@ if (count($list) > 0) {
 	    <?php } ?>
 	    <?php if ($count > frontend\models\UserTrustees::COUNT_LIST_USER_PROFILE) { ?>
 		<div class="link">
-		    <a href="#" id="showAllTrustees" data-url="<?= Url::toRoute(['users/alltrustuser', 'id' => $model->id]) ?>">
+		    <a href="#" class="showModal" data-url="<?= Url::toRoute(['users/alltrustuser', 'id' => $model->id]) ?>">
 			<span>Посмотреть всех</span>
 		    </a>
 		</div>
-		<script type="text/javascript">
+		<!-- script type="text/javascript">
 		    $("#showAllTrustees").on('click', function() {
 			var url = $(this).attr("data-url");
 			$(this).parents('.b-trusted-users__content').addClass('b-marks_loading');
@@ -46,7 +46,7 @@ if (count($list) > 0) {
 			    }
 			}, 'json');
 		    });
-		</script>
+		</script -->
 	    <?php } ?>
         </div>
     </div>

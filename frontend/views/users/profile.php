@@ -9,6 +9,8 @@ use frontend\widgets\user\UserTrusteesWidget;
 use frontend\widgets\image\FileUploadWidget;
 
 $fieldVal = $mUser->attributeLabels();
+
+$this->title = 'Профайл пользователя';
 ?>
 
 <div class="container">

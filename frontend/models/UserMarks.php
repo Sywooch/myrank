@@ -15,6 +15,8 @@ use yii\helpers\Json;
  * @property string $created
  */
 class UserMarks extends \yii\db\ActiveRecord {
+    
+    const COUNT_LIST_USER_PROFILE = 5;
 
     /**
      * @inheritdoc

@@ -100,7 +100,7 @@ class UsersController extends Controller {
 	$param = \Yii::$app->request->post('param');
 	$mUser = User::getProfile();
 	$model = new Testimonials();
-	$out = $this->renderPartial("_modalWriteTestimonial", [
+	$out = $this->renderPartial("modal/modalWriteTestimonial", [
 	    'model' => $model,
 	    'mUser' => $mUser,
 	    'user_to' => $id,
@@ -149,7 +149,7 @@ class UsersController extends Controller {
 	$model->professionField = $profArr;
 	$model->country_id = City::findOne($model->city_id)->country_id;
 	
-	$out = $this->renderPartial("_mainInfo", ['model' => $model]);
+	$out = $this->renderPartial("modal/mainInfo", ['model' => $model]);
 	echo Json::encode(['code' => 1, 'data' => $out]);
 	\Yii::$app->end();
     }
@@ -169,13 +169,13 @@ class UsersController extends Controller {
     
     public function actionEditportfolio () {
 	\Yii::$app->session->remove("userImages");
-	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('_editProfile')]);
+	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/editProfile')]);
 	\Yii::$app->end();
     }
     
     public function actionViewportfolio ($id) {
 	$model = Images::findOne($id);
-	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('_viewPortfolio', ['model' => $model])]);
+	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/viewPortfolio', ['model' => $model])]);
 	\Yii::$app->end();
     }
     
@@ -259,16 +259,24 @@ class UsersController extends Controller {
 	$model = UserMarks::find()->where(['user_to' => $id])->all();
 	echo Json::encode([
 	    'code' => 1, 
-	    'data' => $this->renderPartial('listUser', ['model' => $model, 'title' => 'Последние оценки'])
+	    'data' => $this->renderPartial('modal/listUser', ['model' => $model, 'title' => 'Последние оценки'])
 	]);
 	\Yii::$app->end();
+    }
+    
+    public function actionMarkview ($id) {
+	$model[] = UserMarks::findOne($id);
+	echo Json::encode([
+	    'code' => 1,
+	    'data' => $this->renderPartial('modal/markListUsers', ['model' => $model, 'title' => 'Оценка пользователя']),
+	]);
     }
     
     public function actionAlltrustuser ($id) {
 	$model = UserTrustees::find()->where(['user_from' => $id])->all();
 	echo Json::encode([
 	    'code' => 1, 
-	    'data' => $this->renderPartial('_allTrustUser', ['model' => $model])
+	    'data' => $this->renderPartial('modal/allTrustUser', ['model' => $model, 'title' => 'Доверенные лица'])
 	]);
 	\Yii::$app->end();
     } 

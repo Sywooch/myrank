@@ -23,19 +23,7 @@ $markNames = \frontend\models\User::getMarks();
                             </a>
                         </div>
                         <div class="b-last-marks__item__date">
-                            <?= Yii::$app->formatter->asDate($item->created, 'dd.MM.yyyy') ?>
-                        </div>
-                        <div class="row">
-			    <?php foreach ($item->descrArr as $key => $item) { ?>
-                            <div class="col-md-3 col-sm-4 col-xs-6">
-                                <div class="b-last-marks__item__category">
-                                    <?= $markNames[0][$key]; ?>:
-                                </div>
-                                <div class="b-last-marks__item__value">
-                                    <?= $item ?>
-                                </div>
-                            </div>
-			    <?php } ?>
+                            <?= $item->user->position ?>
                         </div>
                     </div>
                 </div>

@@ -2,16 +2,22 @@
 
 namespace frontend\widgets\user;
 
+use frontend\models\UserMarks;
+
 class LatestMarksWidget extends \yii\base\Widget {
     
     public $model;
     private $list;
     private $marks;
+    private $count;
 
     public function init() {
 	parent::init();
+	$query = $this->model->getUserMarksTo();
+	$model = clone $query;
 	$this->marks = $this->model->marks;
-	$this->list = $this->model->getUserMarksTo()->limit(10)->all();
+	$this->list = $query->limit(UserMarks::COUNT_LIST_USER_PROFILE)->all();
+	$this->count = $model->count();
     }
     
     public function run() {
@@ -20,6 +26,7 @@ class LatestMarksWidget extends \yii\base\Widget {
 	    'model' => $this->model,
 	    'list' => $this->list,
 	    'marks' => $this->marks[0],
+	    'count' => $this->count
 	]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use frontend\models\UserMarks;
 
 if (count($list) > 0) {
     ?>
@@ -30,17 +31,19 @@ if (count($list) > 0) {
 			<div class="b-last-marks__item__category">
 			    Средняя оценка:
 			</div>
-			<div class="b-last-marks__item__value">
+			<div class="b-last-marks__item__value showModal" data-url="<?= Url::toRoute(['users/markview', 'id' => $item->id]) ?>" style="cursor: pointer">
 			    <?= round($summMarks / count($item->descrArr), 1) ?>
 			</div>
 		    </div>
 		</div>
 	    <?php } ?>
-    	<div class="link">
-	    <a href="#" class="showModal" data-url="<?= Url::toRoute(['users/lastmarksuser', 'id' => $model->id]) ?>">
-		<span>Посмотреть всех</span>
-	    </a>
-    	</div>
+	    <?php if ($count > UserMarks::COUNT_LIST_USER_PROFILE) { ?>
+		<div class="link">
+		    <a href="#" class="showModal" data-url="<?= Url::toRoute(['users/lastmarksuser', 'id' => $model->id]) ?>">
+			<span>Посмотреть всех</span>
+		    </a>
+		</div>
+	    <?php } ?>
         </div>
     </div>
 <?php } ?>
