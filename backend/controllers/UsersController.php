@@ -5,27 +5,13 @@ namespace backend\controllers;
 use Yii;
 use frontend\models\User;
 use yii\data\ActiveDataProvider;
-use frontend\components\Controller;
+use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 
 /**
  * UserController implements the CRUD actions for User model.
  */
 class UsersController extends Controller {
-
-    /**
-     * @inheritdoc
-     *
-    public function behaviors() {
-	return [
-	    'verbs' => [
-		'class' => VerbFilter::className(),
-		'actions' => [
-		    'delete' => ['POST'],
-		],
-	    ],
-	];
-    }
 
     /**
      * Lists all User models.

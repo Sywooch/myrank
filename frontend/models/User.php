@@ -133,7 +133,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 
     public function getImages() {
-	return $this->hasMany(Images::className(), ['user_id' => 'id']);
+	$value = $this->type ? 'company_id' : 'id';
+	return $this->hasMany(Images::className(), ['type_id' => $value])->andWhere(['type' => $this->type]);
     }
 
     public function getTestimonials() {
@@ -171,11 +172,15 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public function getUserProfession () {
 	return $this->hasMany(Profession::className(), ['id' => 'profession_id'])->via("profession");
     }
+    
+    public function getCompany () {
+	return $this->hasOne(Company::className(), ['id' => 'company_id']);
+    }
 
     //
 
     public function getFullName() {
-	return $this->first_name . " " . $this->last_name;
+	return $this->type ? $this->company->name : $this->first_name . " " . $this->last_name;
     }
 
     public function getCityList($id = 3159) {
@@ -273,7 +278,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	    }
 	}
     }
-    
+/*    
     public function getQueryRangeDate ($query) {
 	return $query->andWhere([
 	    'between', 
@@ -282,7 +287,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	    new \yii\db\Expression('NOW()')
 	])->count();
     }
-
+*/
     public function beforeSave($insert) {
 	$sess = \Yii::$app->session;
 	

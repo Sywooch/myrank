@@ -13,6 +13,8 @@ use frontend\models\UserMarkRating;
 use frontend\models\UsersSearch;
 use frontend\models\City;
 use frontend\models\Images;
+use frontend\models\UserNotification;
+
 /**
  * Description of UserController
  *
@@ -51,8 +53,15 @@ class UsersController extends Controller {
 	]);
     }
     
+    public function actionPhotouserupload () {
+	$uId = \Yii::$app->user->id;
+	//var_dump($uId);
+	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/uploadPhotoUser')]);
+    }
+    
     public function actionSavemarks ($id) {
 	$req = \Yii::$app->request->post('mark');
+	$code = 0;
 	
 	$mUser = User::findOne($id);
 	if($mUser->owner) {
@@ -87,6 +96,10 @@ class UsersController extends Controller {
 		}
 		$rating = \Yii::$app->rating->process($mUser);
 	    }
+	    if($mMarks->save()) {
+		$code = 1;
+		isset($mMarks->id) ? : \Yii::$app->notification->saveNotif(UserNotification::NOTIF_TYPE_MARKS, $mMarks->user_to);
+	    }
 	    echo Json::encode(['code' => $mMarks->save() ? 1 : 0, 'error' => $mMarks->errors, 'out' => $rating]);
 	}
 	\Yii::$app->end();
@@ -120,6 +133,7 @@ class UsersController extends Controller {
 	//$post['Testimonials']['status'] = Testimonials::STATUS_MODERATION;
 	if($model->load($post) && $model->save()) {
 	    \Yii::$app->rating->process(User::findOne($model->user_to));
+	    \Yii::$app->notification->saveNotif(UserNotification::NOTIF_TYPE_TESTIMONIALS, $model->user_to);
 	    $code = 1;
 	}
 	echo Json::encode(['code' => $code, 'errors' => $model->errors]);
@@ -187,11 +201,17 @@ class UsersController extends Controller {
 	    $userImages = $sess->get("userImages");
 	}
 	
+	$uId = \Yii::$app->user->id;
+	$mUser = User::findOne($uId);
+	
 	foreach ($req['title'] as $key => $item) {
 	    if(($item != "") && isset($userImages[$key])) {
 		$model = new \frontend\models\Images();
+		//$userId = $this->
 		$model->attributes = [
-		    'user_id' => \Yii::$app->user->id,
+		    'type' => $mUser->type,
+		    'type_id' => $mUser->type ? $mUser->company_id : $uId,
+		    'user_id' => $uId,
 		    'name' => $userImages[$key],
 		    'title' => $item,
 		    'description' => $req['description'][$key],
@@ -265,10 +285,10 @@ class UsersController extends Controller {
     }
     
     public function actionMarkview ($id) {
-	$model[] = UserMarks::findOne($id);
+	$model = UserMarks::findOne($id);
 	echo Json::encode([
 	    'code' => 1,
-	    'data' => $this->renderPartial('modal/markListUsers', ['model' => $model, 'title' => 'Оценка пользователя']),
+	    'data' => $this->renderPartial('modal/viewMark', ['item' => $model, 'title' => 'Оценка пользователя']),
 	]);
     }
     

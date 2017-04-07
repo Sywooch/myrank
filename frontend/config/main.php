@@ -1,7 +1,10 @@
 <?php
 
 $params = array_merge(
-	require(__DIR__ . '/../../common/config/params.php'), require(__DIR__ . '/../../common/config/params-local.php'), require(__DIR__ . '/params.php'), require(__DIR__ . '/params-local.php')
+	require(__DIR__ . '/../../common/config/params.php'), 
+	require(__DIR__ . '/../../common/config/params-local.php'), 
+	require(__DIR__ . '/params.php'), 
+	require(__DIR__ . '/params-local.php')
 );
 
 $authClient = require(__DIR__ . '/authClient.php');
@@ -69,7 +72,7 @@ return [
     'modules' => [
 	'debug' => [
 	    'class' => 'yii\debug\Module',
-            'allowedIPs' => ['127.0.0.1', '::1', '178.93.36.150']
+            'allowedIPs' => ['127.0.0.1', '::1', '178.93.55.88']
 	]
     ],
     'params' => $params,

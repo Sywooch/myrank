@@ -3,9 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use frontend\components\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
+use backend\components\Controller;
 use common\models\LoginForm;
 //
 use frontend\models\User;
@@ -16,34 +14,6 @@ use yii\web\NotFoundHttpException;
  * Site controller
  */
 class SiteController extends Controller {
-
-    /**
-     * @inheritdoc
-     *
-    public function behaviors() {
-	return [
-	    'access' => [
-		'class' => AccessControl::className(),
-		'rules' => [
-		    [
-			'actions' => ['login', 'error'],
-			'allow' => true,
-		    ],
-		    [
-			'actions' => ['logout', 'index'],
-			'allow' => true,
-			'roles' => ['@'],
-		    ],
-		],
-	    ],
-	    'verbs' => [
-		'class' => VerbFilter::className(),
-		'actions' => [
-		    'logout' => ['post'],
-		],
-	    ],
-	];
-    }
 
     /**
      * @inheritdoc

@@ -3,6 +3,7 @@
 namespace frontend\components;
 
 use yii\base\Component;
+use frontend\models\UserNotification;
 
 class Notification extends Component {
     
@@ -26,4 +27,30 @@ class Notification extends Component {
 	return false;
     }
 
+    public function saveNotif ($type, $userId) {
+	$model = UserNotification::find()->where(['user_id' => $userId, 'type' => $type])->one();
+	if(!isset($model->id)) {
+	    $model = new UserNotification();
+	    $model->type = $type;
+	    $model->user_id = $userId;
+	    $model->value = 1;
+	} else {
+	    $model->updateCounters(['value' => 1]);
+	}
+	return $model->save();
+    }
+    
+    public function getNotif ($type) {
+	if(\Yii::$app->user->id !== NULL) {
+	    $uId = \Yii::$app->user->id;
+	    $model = UserNotification::find()->where(['user_id' => $uId, 'type' => $type])->one();
+	    if(isset($model->id)) {
+		$out = $model->value;
+		$model->delete();
+	    } else {
+		$out = 0;
+	    }
+	}
+	return $out;
+    }
 }

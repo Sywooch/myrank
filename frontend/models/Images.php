@@ -8,6 +8,9 @@ use Yii;
  * This is the model class for table "images".
  *
  * @property integer $id
+ * @property integer $type
+ * @property integer $type_id
+ * @property integer $user_id
  * @property string $name
  */
 class Images extends \yii\db\ActiveRecord {
@@ -30,7 +33,7 @@ class Images extends \yii\db\ActiveRecord {
      */
     public function rules() {
 	return [
-	    [['user_id'], 'required'],
+	    [['type', 'type_id', 'user_id'], 'required'],
 	    [['name'], 'string', 'max' => 255],
 	    [['name1', 'name2', 'name3', 'name4', 'name5', 'title', 'description'], 'safe']
 	];
@@ -42,7 +45,8 @@ class Images extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'user_id' => Yii::t('app', 'User ID'),
+	    'type' => Yii::t('app', 'Тип компания или юзер'),
+	    'type_id' => Yii::t('app', 'айди компании или юзера'),
 	    'name' => Yii::t('app', 'Image Name'),
 	    'userFullName' => Yii::t('app', 'User Full Name')
 	];
@@ -58,7 +62,8 @@ class Images extends \yii\db\ActiveRecord {
     }
 
     public function getUser() {
-	return $this->hasOne(User::className(), ['id' => 'user_id']);
+	$model = $this->type_id ? Company::className() : User::className();
+	return $this->hasOne($model, ['id' => 'type_id']);
     }
 
     public function getUserFullName() {

@@ -1,11 +1,12 @@
 <?php
 
 use frontend\widgets\user\ModalWidget;
+use frontend\models\Company;
 use yii\helpers\Url;
 
 echo ModalWidget::widget([
     'title' => 'Регистрация - Шаг 2<span> из 2</span>',
-    'model' => $model,
+    'model' => $mCompany,
     'formOptions' => ['id' => 'regFormStep3', 'data-url' => Url::toRoute("registration/step3save")],
     'content' => [
 	'name' => [
@@ -23,7 +24,7 @@ echo ModalWidget::widget([
 		'label' => 'Количество сотрудников:',
 		'divClass' => 'select-wrapper',
 		'type' => 'dropDownList',
-		'options' => $model->countPersonsList,
+		'options' => $mCompany->countPersonsList,
 	    ]
 	],
 	[
@@ -36,7 +37,7 @@ echo ModalWidget::widget([
 		'label' => 'Годовой оборот:',
 		'divClass' => 'select-wrapper',
 		'type' => 'dropDownList',
-		'options' => $model->cashList,
+		'options' => $mCompany->cashList,
 	    ]
 	],
 	'director' => [
@@ -55,6 +56,11 @@ echo ModalWidget::widget([
 	    'options' => ['placeholder' => "Расскажите немного о компании"],
 	    'posInfo' => 'Расскажите о компании. Не больше 500 символов.'
 	],
+	'user_id' => [
+	    'label' => "",
+	    'type' => "hiddenInput",
+	    'options' => []
+	]
     ],
-    'success' => '$("#modalView").modal("hide");',
+    'success' => 'location.reload(true)',
 ]);

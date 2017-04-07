@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use frontend\widgets\user\LatestMarksWidget;
 use frontend\widgets\user\UserTrusteesWidget;
 use frontend\widgets\image\FileUploadWidget;
+use frontend\models\UserNotification;
 
 $fieldVal = $mUser->attributeLabels();
 
@@ -24,7 +25,12 @@ $this->title = 'Профайл пользователя';
 		<div class="b-user__data">
 		    <div class="b-user__data__left">
 			<div class="b-user__data__image">
-			    <img src="<?= $mUser->userImage ?>" alt="">
+			    <img
+				<?php if($mUser->owner) { ?>
+				class="showModal" 
+				data-url="<?= Url::toRoute(['users/photouserupload']) ?>" 
+				<?php } ?>
+				src="<?= $mUser->userImage ?>" alt="" style="cursor: pointer">
 			</div>
 		    </div>
 		    <div class="b-user__data__right">
@@ -80,7 +86,7 @@ $this->title = 'Профайл пользователя';
 			    <div class="b-user__stats__item__number">
 				<?= $mUser->getUserTrusteesFrom()->count() ?>
 			    </div>
-			    <?php $count = $mUser->getQueryRangeDate($mUser->getUserTrusteesFrom()); ?>
+			    <?php $count = !$mUser->owner ? 0 : Yii::$app->notification->getNotif(UserNotification::NOTIF_TYPE_TRUSTEES); ?>
 			    <?php if($count > 0) { ?>
 			    <div class="b-user__stats__item__new-number">
 				<?= $count ?>
@@ -93,7 +99,7 @@ $this->title = 'Профайл пользователя';
 			    <div class="b-user__stats__item__icon b-user__stats__item__icon_2"></div>
 			    <div class="b-user__stats__item__text">Оценок:</div>
 			    <div class="b-user__stats__item__number"><?= $mUser->getUserMarksTo()->count(); ?></div>
-			    <?php $count = $mUser->getQueryRangeDate($mUser->getUserMarksTo()) ?>
+			    <?php $count = !$mUser->owner ? 0 : Yii::$app->notification->getNotif(UserNotification::NOTIF_TYPE_MARKS) ?>
 			    <?php if($count > 0) { ?>
 			    <div class="b-user__stats__item__new-number">
 				<?= $count ?>
@@ -110,7 +116,7 @@ $this->title = 'Профайл пользователя';
 			    <div class="b-user__stats__item__number">
 				<?= $mUser->getTestimonialsActive()->andWhere(['parent_id' => 0])->count() ?>
 			    </div>
-			    <?php $count = $mUser->getQueryRangeDate($mUser->getTestimonialsActive()->andWhere(['parent_id' => 0])) ?>
+			    <?php $count = !$mUser->owner ? 0 : Yii::$app->notification->getNotif(UserNotification::NOTIF_TYPE_TESTIMONIALS) ?>
 			    <?php if($count > 0) { ?>
 			    <div class="b-user__stats__item__new-number">
 				<?= $count ?>
@@ -139,7 +145,7 @@ $this->title = 'Профайл пользователя';
 		    </div>
 		</div>
 		<?php } ?>
-		<?php if(count($mUser->images) > 0) { ?>
+		<?php if($mUser->type) { ?>
 		<div class="b-user__portfolio">
 		    <div class="b-title">Портфолио</div>
 		    <div class="b-user__portfolio__content">

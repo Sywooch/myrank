@@ -38,6 +38,8 @@ class Company extends \yii\db\ActiveRecord {
 	self::CASH_MEDIUM => "1 000 000 руб - 10 000 000 руб",
 	self::CASH_BIG => "1 000 000 руб - 15 000 000 руб",
     ];
+    
+    public $user_id;
 
     /**
      * @inheritdoc
@@ -53,7 +55,7 @@ class Company extends \yii\db\ActiveRecord {
 	return [
 	    [['name', 'reg_date'], 'required'],
 	    [['count_persons', 'cash'], 'integer'],
-	    [['reg_date'], 'safe'],
+	    [['reg_date', 'user_id'], 'safe'],
 	    [['about'], 'string'],
 	    [['phone', 'director', 'contact_face'], 'string', 'max' => 255],
 	];
@@ -74,6 +76,10 @@ class Company extends \yii\db\ActiveRecord {
 	    'contact_face' => Yii::t('app', 'Контактное лицо'),
 	    'about' => Yii::t('app', 'Информация о компании'),
 	];
+    }
+    
+    public function getFullName () {
+	return $this->name;
     }
 
 }

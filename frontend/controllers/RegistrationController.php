@@ -28,14 +28,17 @@ class RegistrationController extends Controller {
 	    //if(Registration::find()->where(['email' => $post['Registration']['email']]))
 	    $model = new Registration();
 	    $model->step = $post['Registration']['type'] == User::TYPE_USER_USER ? User::STEP_NEXT_USER : User::STEP_NEXT_COMPANY;
-	    if ($model->load($post)) {
+	    if ($model->load($post) && $model->validate()) {
 		$model->setPassword($post['Registration']['password']);
 		$model->generateAuthKey();
 		if ($model->save()) {
 		    $model->saveProfession();
 		    $out['code'] = 1;
-		    $out['id'] = $model->id;
-		    $out['data'] = $this->renderPartial("_regStep".$model->step, ['model' => $model]);
+		    //$out['id'] = $model->id;
+		    
+		    $mCompany = new Company();
+		    $mCompany->user_id = $model->id;
+		    $out['data'] = $this->renderPartial("_regStep".$model->step, ['model' => $model, 'mCompany' => $mCompany]);
 		} else {
 		    $out['errors'] = $model->errors;
 		}
@@ -68,6 +71,7 @@ class RegistrationController extends Controller {
 	if ($model->load($post) && $model->save()) {
 	    $out['code'] = 1;
 	    $out['link'] = \yii\helpers\Url::toRoute(["users/profile", "id" => $model->id]);
+	    //\Yii::$app->user->login($model, 3600 * 24 * 30);
 	    \Yii::$app->user->id === NULL ? \Yii::$app->notification->set('global', 'Для того чтоб пользоваться всеми сервисами сайта, надо <a href="#" class="signin">Авторизоваться</a>') : NULL;
 	} else {
 	    $out['errors'] = $model->errors;
@@ -88,11 +92,14 @@ class RegistrationController extends Controller {
 	
 	$model = new Company();
 	if($model->load($post) && $model->save()) {
-	    $mUser = User::getProfile();
+	    $mUser = User::findOne($model->user_id);
 	    $mUser->company_id = $model->id;
 	    $mUser->company_name = $model->name;
 	    $mUser->step = 0;
-	    $mUser->save();
+	    if($mUser->save()) {
+		\Yii::$app->user->login($mUser, 3600 * 24 * 30);
+	    }
+	    
 	    $out['code'] = 1;
 	} else {
 	    
