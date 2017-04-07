@@ -8,8 +8,10 @@
 			<div class="b-footer__title">Контакты</div>
 			<div class="b-footer__contact__item b-footer__contact__item_adress">
 			    <span>Address</span>
-			    6A Tanjong Rhu Road 12-01,
-			    Singapore, 436884
+                MYRANK LIMITED
+                OFFICE 5 NEEPSEND TRIANGLE,
+                1 BURTON HOUSE, SHEFFIELD, S3 8BW,
+                UNITED KINGDOM
 			</div>
 			<div class="b-footer__contact__item b-footer__contact__item_phone">
 			    <span>Phone Number</span>
@@ -31,7 +33,7 @@
 			<div class="b-footer__title">Меню</div>
 			<ul>
 			    <li><a href="#">Главная</a></li>
-			    <li><a href="#">О нас</a></li>
+			    <li><a href="#">О сервисе</a></li>
 			    <li><a href="#">Новости</a></li>
 			    <li><a href="#">Баланс</a></li>
 			    <li><a href="#">Помощь</a></li>

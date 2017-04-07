@@ -125,7 +125,7 @@ AppAsset::register($this);
 					    \yii\widgets\Menu::widget([
 						'items' => [
 						    ['label' => 'главная', 'url' => ['site/index']],
-						    ['label' => 'о нас', 'url' => ['/page/aboutus']],
+						    ['label' => 'о сервисе', 'url' => ['/page/aboutus']],
 						    ['label' => 'новости', 'url' => ['article/index']],
 						    ['label' => 'баланс', 'url' => "#"],
 						    ['label' => 'помощь', 'url' => ['/page/help']],
