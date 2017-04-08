@@ -16,8 +16,10 @@ if (!empty($model->meta_keywords)) {
     $this->registerMetaTag(['content' => Html::encode($model->meta_keywords), 'name' => 'keywords']);
 }
 ?>
-<div class="page-header">
-    <h1><?= Html::encode($model->title); ?></h1>
-</div>
-<div class="clearfix"></div>
+<div class="container">
+<!-- <div class="page-header">-->
+    <h2><?= Html::encode($model->title); ?></h2>
+<!--</div>-->
+<!--<div class="clearfix"></div>-->
 <?= $model->content; ?>
+</div>
