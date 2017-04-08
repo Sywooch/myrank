@@ -17,8 +17,8 @@
     	    </div>
     	</div>
 	<?php } ?>
-	<div class="link">
+	<!-- div class="link">
 	    <a href="#"><span>Посмотреть всех</span></a>
-	</div>
+	</div -->
     </div>
 </div>

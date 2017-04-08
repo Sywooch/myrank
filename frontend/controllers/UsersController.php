@@ -55,7 +55,6 @@ class UsersController extends Controller {
     
     public function actionPhotouserupload () {
 	$uId = \Yii::$app->user->id;
-	//var_dump($uId);
 	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/uploadPhotoUser')]);
     }
     
@@ -99,8 +98,9 @@ class UsersController extends Controller {
 	    if($mMarks->save()) {
 		$code = 1;
 		isset($mMarks->id) ? : \Yii::$app->notification->saveNotif(UserNotification::NOTIF_TYPE_MARKS, $mMarks->user_to);
+		\Yii::$app->notification->set('global', 'Ваша оценка сохранена');
 	    }
-	    echo Json::encode(['code' => $mMarks->save() ? 1 : 0, 'error' => $mMarks->errors, 'out' => $rating]);
+	    echo Json::encode(['code' => $code, 'error' => $mMarks->errors, 'out' => $rating]);
 	}
 	\Yii::$app->end();
     }

@@ -59,6 +59,14 @@ $script = "
 		changeField();
 	    }
 	});
+	$('.summField').on('focus', function() {
+	    $(this).val('');
+	});
+	
+	$('.summField').on('blur', function () {
+	    $(this).val($(this).attr('data-def'));
+	});
+
 	changeField();
 	
 	$('.marks-slider').slider({
@@ -71,6 +79,7 @@ $script = "
 	    $('.b-marks__item__content').each(function(i, elem) {
 		out = 0;
 		$(elem).find('.summField').each(function(j, elem2) {
+		    $(elem2).attr('data-def', $(elem2).val());
 		    out = (out + parseFloat($(elem2).val()) / $(elem).find('.summField').length);
 		});
 		id = $(elem).attr('data-summ');
@@ -89,8 +98,8 @@ if(Yii::$app->user->id !== Null) {
 		    'success' : function(out) {
 			if(out.code === 1) {
 			    $('#saveMarks').parents('.b-marks').removeClass('b-marks_loading');
-			    //location.reload(true);
-			    alertInfo('Ваша оценка сохранена');
+			    location.reload(true);
+			    //alertInfo('Ваша оценка сохранена');
 			}
 		    }
 		});
@@ -98,7 +107,7 @@ if(Yii::$app->user->id !== Null) {
 	    });";
 } else {
     $script .= "$('#saveMarks').on('click', function() {
-		    alertRed();
+		    alertRed('Ввойдите, чтоб оставлять оценки пользователям');
 		return false;
 	    });";
 }

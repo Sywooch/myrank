@@ -248,9 +248,10 @@ function alertGreen () {
     $('.alert-success').addClass('in').css('margin-bottom', '-' + $('.alert-warning').outerHeight() + 'px');
 }
 
-function alertRed () {
+function alertRed (text) {
     $('.alert').removeClass('in').css('margin-bottom', '0');
     $('.alert-warning').addClass('in').css('margin-bottom', '-' + $('.alert-warning').outerHeight() + 'px');
+    $('.alert-warning .alertText').html(text);
 }
 
 function alertInfo (text) {

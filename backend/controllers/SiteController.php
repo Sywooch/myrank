@@ -8,12 +8,35 @@ use common\models\LoginForm;
 //
 use frontend\models\User;
 use yii\web\NotFoundHttpException;
-
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * Site controller
  */
 class SiteController extends Controller {
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors() {
+	return [
+	    'access' => [
+		'class' => AccessControl::className(),
+		'rules' => [
+		    [
+			'actions' => ['login', 'error'],
+			'allow' => true,
+		    ],
+		    [
+			'actions' => ['logout', 'index'],
+			'allow' => true,
+			'roles' => ['@'],
+		    ],
+		],
+	    ],
+	];
+    }
 
     /**
      * @inheritdoc
@@ -32,25 +55,25 @@ class SiteController extends Controller {
      * @return string
      */
     public function actionIndex() {
-    return $this->render('index');
+	return $this->render('index');
     }
+
 //
     public function actionProfile($id) {
-        return $this->render('profile',
-            [
-                'model' => $this->findModel($id),
-            ]
-        );
+	return $this->render('profile', [
+		    'model' => $this->findModel($id),
+			]
+	);
+    }
 
+    protected function findModel($id) {
+	if (($model = User::findOne($id)) !== null) {
+	    return $model;
+	} else {
+	    throw new NotFoundHttpException('Запрошенная страница не существует.');
+	}
     }
-    protected function findModel($id)
-    {
-        if (($model = User::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('Запрошенная страница не существует.');
-        }
-    }
+
 //
     /**
      * Login action.
@@ -64,7 +87,7 @@ class SiteController extends Controller {
 
 	$model = new LoginForm();
 	if ($model->load(Yii::$app->request->post()) && $model->login()) {
-	    return $this->goBack();
+	    return $this->redirect('/site/index');
 	} else {
 	    return $this->render('login', [
 			'model' => $model,

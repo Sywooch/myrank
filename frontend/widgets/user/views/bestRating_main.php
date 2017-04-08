@@ -22,7 +22,7 @@ use yii\helpers\Url;
 			    <img src="<?= $item->userImage ?>" alt="">
 			    <div class="b-rating__item__info">
 				<ul>
-				    <?php foreach ($item->userProfession as $item2) { ?>
+				    <?php foreach ($item->getUserProfession()->limit(3)->all() as $item2) { ?>
 				    <li><?= $item2->title ?></li>
 				    <?php } ?>
 				</ul>

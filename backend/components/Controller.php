@@ -9,7 +9,7 @@ class Controller extends \yii\web\Controller {
 
     /**
      * @inheritdoc
-     */
+     *
     public function behaviors() {
 	return [
 	    'access' => [
@@ -20,7 +20,6 @@ class Controller extends \yii\web\Controller {
 			'allow' => true,
 		    ],
 		    [
-			'actions' => ['*'],
 			'allow' => true,
 			'roles' => ['@'],
 		    ],
@@ -34,6 +33,8 @@ class Controller extends \yii\web\Controller {
 	    ],
 	];
     }
+     * 
+     */
 
 }
 

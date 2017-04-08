@@ -20,8 +20,10 @@ $mUser = Yii::$app->user->getIdentity();
     <body class="hold-transition skin-blue sidebar-mini">
 	<?php $this->beginBody() ?>
 	<div class="wrapper">
-	    <?= $this->render("_header"); ?>
-	    <?= $this->render("_aside", ['mUser' => $mUser]); ?>
+	    <?php if(Yii::$app->user->id !== NULL) { ?>
+		<?= $this->render("_header"); ?>
+		<?= $this->render("_aside", ['mUser' => $mUser]); ?>
+	    <?php } ?>
 	    <div class="content-wrapper">
 		<section class="content">
 		    <?= $content ?>
