@@ -1,10 +1,7 @@
 <?php
 
 $params = array_merge(
-	require(__DIR__ . '/../../common/config/params.php'), 
-	require(__DIR__ . '/../../common/config/params-local.php'), 
-	require(__DIR__ . '/params.php'), 
-	require(__DIR__ . '/params-local.php')
+	require(__DIR__ . '/../../common/config/params.php'), require(__DIR__ . '/../../common/config/params-local.php'), require(__DIR__ . '/params.php'), require(__DIR__ . '/params-local.php')
 );
 
 $authClient = require(__DIR__ . '/authClient.php');
@@ -13,6 +10,7 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'ru-RU',
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
 	'request' => [
@@ -47,7 +45,7 @@ return [
 		'GET article' => 'article/index',
 		'GET article/category/<category:\d+>' => 'article/index',
 		'GET article/<id:\d+>' => 'article/view',
-        'page/<page:[\w-]+>' => 'static-pages/index',
+		'page/<page:[\w-]+>' => 'static-pages/index',
 	    ],
 	],
 	'assetManager' => [
@@ -67,12 +65,25 @@ return [
 	],
 	'notification' => [
 	    'class' => 'frontend\components\Notification'
-	]
+	],
+	'i18n' => [
+	    'translations' => [
+		'*' => [
+		    'class' => 'yii\i18n\PhpMessageSource',
+		    'basePath' => '@frontend/messages',
+		    //'sourceLanguage' => 'ru-RU',
+		    /*'fileMap' => [
+			'app' => 'app.php',
+			'app/error' => 'error.php',
+		    ],*/
+		],
+	    ],
+	],
     ],
     'modules' => [
 	'debug' => [
 	    'class' => 'yii\debug\Module',
-            'allowedIPs' => ['127.0.0.1', '::1', '178.93.55.88']
+	    'allowedIPs' => ['127.0.0.1', '::1', '178.93.55.88']
 	]
     ],
     'params' => $params,

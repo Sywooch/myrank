@@ -51,7 +51,7 @@ $this->title = 'Профайл пользователя';
 				<?php } ?>
 				<div class="b-user__data__info__rating">
 				    <span><?= $mUser->rating ?></span>
-				    Рейтинг
+				    <?= Yii::t("profile", "Рейтинг"); ?>
 				</div>
 			    </div>
 			</div>
