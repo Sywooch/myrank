@@ -2,45 +2,17 @@
 
 namespace backend\components;
 
+use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 class Controller extends \yii\web\Controller {
 
-    /**
-     * @inheritdoc
-     *
-    public function behaviors() {
-	return [
-	    'access' => [
-		'class' => AccessControl::className(),
-		'rules' => [
-		    [
-			'actions' => ['login', 'error'],
-			'allow' => true,
-		    ],
-		    [
-			'allow' => true,
-			'roles' => ['@'],
-		    ],
-		],
-	    ],
-	    'verbs' => [
-		'class' => VerbFilter::className(),
-		'actions' => [
-		    'logout' => ['post'],
-		],
-	    ],
-	];
+    public function init()
+    {
+        parent::init();
+        Yii::$app->language = 'ua-UA'; // 'ru-RU' | 'en-US' | 'ua-UA'
     }
-     * 
-     */
-
 }
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 

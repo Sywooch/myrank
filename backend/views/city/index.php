@@ -9,7 +9,7 @@ use yii\helpers\Url;
 /* @var $searchModel backend\models\CitySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Города';
+$this->title = Yii::t('app','CITIES');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Добавить город', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(\Yii::t('app','CREATE_CITY'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

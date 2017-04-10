@@ -11,6 +11,7 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
+    //'language'=>'ua-UA',
     'modules' => [],
     'components' => [
         'request' => [
@@ -42,6 +43,20 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'GET profile/<id:\d+>' => 'site/profile',
+            ],
+        ],
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@backend/messages',
+                    'forceTranslation' => true,
+                    //'sourceLanguage' => 'ru-RU',
+                    /*'fileMap' => [
+                    'app' => 'app.php',
+                    'app/error' => 'error.php',
+                    ],*/
+                ],
             ],
         ],
     ],

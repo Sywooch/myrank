@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model frontend\models\City */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Города', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app','CITIES'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="city-view">
@@ -15,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Обновить', ['update', 'id' => $model->city_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->city_id], [
+        <?= Html::a(Yii::t('app','UPDATE'), ['update', 'id' => $model->city_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app','DELETE'), ['delete', 'id' => $model->city_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => Yii::t('app','ARE_YOU_SURE_DELETE_ITEM'),
                 'method' => 'post',
             ],
         ]) ?>
