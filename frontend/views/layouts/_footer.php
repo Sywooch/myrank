@@ -8,9 +8,9 @@
 			<div class="b-footer__title">Контакты</div>
 			<div class="b-footer__contact__item b-footer__contact__item_adress">
 			    <span>Address</span>
-                MYRANK LIMITED
-                OFFICE 5 NEEPSEND TRIANGLE,
-                1 BURTON HOUSE, SHEFFIELD, S3 8BW,
+                MYRANK LIMITED,
+                OFFICE 5, NEEPSEND TRIANGLE, 1 BURTON ROAD
+                SHEFFIELD, SOUTH YORKSHIRE, S3 8BW,
                 UNITED KINGDOM
 			</div>
 			<div class="b-footer__contact__item b-footer__contact__item_phone">
