@@ -23,3 +23,21 @@ if (!empty($model->meta_keywords)) {
 <!--<div class="clearfix"></div>-->
 <?= $model->content; ?>
 </div>
+
+<?php
+    if ( $model->alias=="contacts" )
+    {
+        echo yii2mod\google\maps\markers\GoogleMaps::widget([
+            'userLocations' => [
+                [
+                    'location' => [
+                        'address' => 'Office 5, Neepsend Triangle Business Centre, 1 Burton Rd, Sheffield S3 8BW, United Kingdom',
+                        'city' => 'Sheffield',
+                        'country' => 'United Kingdom'
+                    ],
+                    'htmlContent' => '<h4>Office 5, Neepsend Triangle Business Centre, 1 Burton Rd, Sheffield S3 8BW, United Kingdom</h4>',
+                ],
+            ],
+        ]);
+    }
+?>

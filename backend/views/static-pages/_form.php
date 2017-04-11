@@ -24,15 +24,29 @@ use yii\helpers\Url;
     <?php /*echo $form->field($model, 'content')->textarea(['rows' => 6])*/
         echo $form->field($model, 'content')->widget(Widget::className(), [
             'settings' => [
-                //'selector' => 'staticpages-content',
-                //'imageUpload' => Url::to(['/images/images-upload']),
-                'lang' => 'ru',
-                'minHeight' => 200,
+                'lang' => strtolower(substr(Yii::$app->language,0,2)),// 'ru'
+                'removeWithoutAttr' => [],
+                'minHeight' => 300,
+                'pastePlainText' => true,
+                'buttonSource' => true,
+                'replaceDivs' => false,
                 'plugins' => [
                     'clips',
                     'fullscreen',
+                    'fontfamily',
+                    'fontsize',
+                    'fontcolor',
+                    'video',
+                    'table',
                     'imagemanager',
-                ]
+                ],
+                'uploadOnlyImage' => false,
+                'validatorOptions' => ['maxSize'=>40000],
+                'imageUpload' => Yii::getAlias('@urlToImages'),
+                'imageManagerJson' => Yii::getAlias('@urlToImages'),
+                'fileManagerJson' => Yii::getAlias('@urlToImages'),
+                'fileUpload' => Yii::getAlias('@urlToImages'),
+                //'selector' => 'staticpages-content',
             ]
         ]);
     ?>
