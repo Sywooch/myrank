@@ -295,7 +295,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	
 	if($sess->has('typeUser')) {
 	    $this->type = $sess->get('typeUser');
-	    $this->step = $this->type == self::TYPE_USER_USER ? self::STEP_NEXT_USER : self::STEP_NEXT_COMPANY;
+	    if(!isset($this->step)) {
+		$this->step = $this->type == self::TYPE_USER_USER ? self::STEP_NEXT_USER : self::STEP_NEXT_COMPANY;
+	    }
 	    $sess->remove('typeUser');
 	}
 	return parent::beforeSave($insert);

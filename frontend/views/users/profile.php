@@ -9,7 +9,9 @@ use frontend\widgets\user\UserTrusteesWidget;
 use frontend\widgets\image\FileUploadWidget;
 use frontend\models\UserNotification;
 
-$fieldVal = $mUser->attributeLabels();
+if(Yii::$app->user->id !== null) {
+    $fieldVal = $mUser->attributeLabels();
+}
 
 $this->title = 'Профайл пользователя';
 ?>

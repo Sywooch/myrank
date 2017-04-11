@@ -46,6 +46,7 @@ class AuthHandler {
 		$userAttr['email'] = $email = ArrayHelper::getValue($attributes, 'user_id');
 		break;
 	}
+	$userAttr['step'] = 1;
 
 	/* @var Auth $auth */
 	$auth = Auth::find()->where([

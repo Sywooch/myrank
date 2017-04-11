@@ -1,7 +1,7 @@
 <?php
 
 use frontend\widgets\user\ModalWidget;
-use frontend\models\Company;
+//use frontend\models\Company;
 use yii\helpers\Url;
 
 echo ModalWidget::widget([

@@ -14,6 +14,7 @@ use frontend\models\UsersSearch;
 use frontend\models\City;
 use frontend\models\Images;
 use frontend\models\UserNotification;
+use yii\web\NotFoundHttpException;
 
 /**
  * Description of UserController
@@ -26,11 +27,11 @@ class UsersController extends Controller {
 	return [
 	    'access' => [
 		'class' => AccessControl::className(),
-		'rules' => [/*
+		'rules' => [
 		    [
-			'actions' => ['login', 'error'],
+			'actions' => ['search', 'error'],
 			'allow' => true,
-		    ],*
+		    ],
 		    [
 			'actions' => ['profile'],
 			'allow' => true,
@@ -47,10 +48,13 @@ class UsersController extends Controller {
 	    $req['id'] = \Yii::$app->user->id;
 	}
 	$mUser = User::findOne($req['id']);
-	
-	return $this->render("profile", [
-	    'mUser' => $mUser,
-	]);
+	if(isset($mUser->id)) {
+	    return $this->render("profile", [
+		'mUser' => $mUser,
+	    ]);
+	} else {
+	    throw new NotFoundHttpException('The requested page does not exist.');
+	}
     }
     
     public function actionPhotouserupload () {
@@ -247,6 +251,7 @@ class UsersController extends Controller {
 	    $out['code'] = $mTrus->save() ? 1 : 0;
 	    $out['data'] = 'ДОВЕРЕННЫЙ';
 	}
+	\Yii::$app->rating->process(User::findOne($id));
 	echo Json::encode($out);
 	\Yii::$app->end();
     }
