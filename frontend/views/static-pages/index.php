@@ -18,6 +18,7 @@ if (!empty($model->meta_keywords)) {
 ?>
 <div class="container">
 <!-- <div class="page-header">-->
+    <p></p>
     <h2><?= Html::encode($model->title); ?></h2>
 <!--</div>-->
 <!--<div class="clearfix"></div>-->
