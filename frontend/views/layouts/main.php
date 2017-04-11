@@ -13,7 +13,7 @@ $act = Yii::$app->controller->action->id;
 if(Yii::$app->user->id !== NULL) {
     $mUser = User::getProfile();
     if($mUser->step != 0) {
-	$urlPath = "registration/step".$mUser->step;
+	$urlPath = "registration/step".$mUser->step."?type=".$mUser->type;
 	$this->registerJs("showModal('".Url::toRoute([$urlPath])."', 1, 1)");
     }
 }

@@ -11,8 +11,12 @@ use frontend\models\Company;
 class RegistrationController extends Controller {
 
     public function actionStep1($type) {
-	$model = new Registration();
-	$model->type = $type;
+	if(\Yii::$app->user->id !== NULL) {
+	    $model = Registration::findOne(\Yii::$app->user->id);
+	} else {
+	    $model = new Registration();
+	    $model->type = $type;
+	}
 	echo Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep1", ['model' => $model])]);
 	\Yii::$app->end();
     }
@@ -82,7 +86,7 @@ class RegistrationController extends Controller {
     
     public function actionStep3 () {
 	$model = new Company();
-	echo Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep3", ['model' => $model])]);
+	echo Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep3", ['mCompany' => $model])]);
 	\Yii::$app->end();
     }
     
