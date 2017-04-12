@@ -32,6 +32,8 @@ use yii\widgets\ActiveForm;
         echo $form->field($model, 'status')->dropDownList($model->getItemAlias('status', null, null));
     ?>
 
+    <?= $form->field($model, 'locale')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'views')->textInput() ?>
 
     <?php /* echo $form->field($model, 'create_time')->textInput() */?>

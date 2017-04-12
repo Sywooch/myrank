@@ -16,7 +16,7 @@ class ArticleSearch extends Article
     {
         return [
             [['id_article', 'status', 'views'], 'integer'],
-            [['title', 'abridgment', 'content', 'header_title', 'header_image', 'header_image_small', 'header_image_small_square', 'create_time', 'update_time'], 'safe'],
+            [['title', 'abridgment', 'content', 'header_title', 'header_image', 'header_image_small', 'header_image_small_square', 'locale', 'create_time', 'update_time'], 'safe'],
             ['articleCategoryName', 'safe']
         ];
     }
@@ -42,6 +42,7 @@ class ArticleSearch extends Article
                 'title',
                 'abridgment',
                 'content',
+                'locale',
                 'header_title',
                 //'header_image',
                 //'header_image_small',
@@ -81,6 +82,7 @@ class ArticleSearch extends Article
         $query->andWhere('article.title LIKE "%'. $this->title . '%"');
         $query->andWhere('article.abridgment LIKE "%'. $this->abridgment. '%"');
         $query->andWhere('article.content LIKE "%'. $this->content. '%"');
+        $query->andWhere('article.locale LIKE "%'. $this->locale. '%"');
         $query->andWhere('article.header_title LIKE "%'. $this->header_title . '%"');
         //$query->andWhere('article.header_image LIKE "%'. $this->header_image . '%"');
         //$query->andWhere('article.header_image_small LIKE "%'. $this->header_image_small . '%"');

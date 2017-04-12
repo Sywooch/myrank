@@ -24,6 +24,7 @@ class StaticPagesController extends Controller
             ->where([
                 'alias' => $alias,
                 'published' => StaticPages::PUBLISHED_YES,
+                'locale' => Yii::$app->language
             ])
             ->one();
         if ($model !== null) {

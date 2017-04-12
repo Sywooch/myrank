@@ -14,7 +14,7 @@ class ArticleCategorySearch extends ArticleCategory
     {
         return [
             [['id_article_category'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'locale'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class ArticleCategorySearch extends ArticleCategory
             'id_article_category' => $this->id_article_category,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'locale', $this->locale]);
 
         return $dataProvider;
     }

@@ -23,6 +23,7 @@ class Article extends \yii\db\ActiveRecord
             [['create_time', 'update_time'], 'safe'],
             [['title', 'abridgment', 'header_image', 'header_image_small', 'header_image_small_square'], 'string', 'max' => 255],
             [['header_title'], 'string', 'max' => 128],
+            [['locale'], 'string', 'max' => 5],
             [['article_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => ArticleCategory::className(), 'targetAttribute' => ['article_category_id' => 'id_article_category']],
         ];
     }
@@ -41,6 +42,7 @@ class Article extends \yii\db\ActiveRecord
             'article_category_id' => Yii::t('app','ИД категории статьи'),
             'articleCategoryName' => Yii::t('app','Наименование категории статьи'),
             'status' => Yii::t('app','Статус'),
+            'locale' => Yii::t('app', 'Locale'),
             'views' => Yii::t('app','Просмотры'),
             'create_time' => Yii::t('app','Дата создания'),
             'update_time' => Yii::t('app','Дата обновления'),

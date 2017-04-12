@@ -48,10 +48,11 @@ class ArticleController extends Controller
             $query = Article::find()->
                 where([
                     'status'=>10,
-                    'article_category_id'=>$category
+                    'article_category_id'=>$category,
+                    'locale' => Yii::$app->language
                 ])->orderBy('create_time DESC');
         else
-            $query = Article::find()->where(['status'=>10])->orderBy('create_time DESC');
+            $query = Article::find()->where(['status'=>10, 'locale' => Yii::$app->language])->orderBy('create_time DESC');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

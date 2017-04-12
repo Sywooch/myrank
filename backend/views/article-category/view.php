@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id_article_category',
             'name',
+            'locale',
         ],
     ]) ?>
 

@@ -11,7 +11,7 @@ class Controller extends \yii\web\Controller {
     public function init()
     {
         parent::init();
-        Yii::$app->language = 'ua-UA'; // 'ru-RU' | 'en-US' | 'ua-UA'
+        Yii::$app->language = 'ru_RU'; // 'ru_RU' | 'en_US' | 'ua_UA'
     }
 }
 

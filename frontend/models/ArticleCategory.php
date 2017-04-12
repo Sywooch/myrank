@@ -25,6 +25,7 @@ class ArticleCategory extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 128],
+            [['locale'], 'string', 'max' => 5],
         ];
     }
 
@@ -33,6 +34,7 @@ class ArticleCategory extends \yii\db\ActiveRecord
         return [
             'id_article_category' => Yii::t('app','ИД категории статьи'),
             'name' => Yii::t('app','Наименование категории статьи'),
+            'locale' => Yii::t('app', 'Locale'),
         ];
     }
 

@@ -124,13 +124,13 @@ AppAsset::register($this);
 					    <?=
 					    \yii\widgets\Menu::widget([
 						'items' => [
-						    ['label' => 'главная', 'url' => ['site/index']],
-						    ['label' => 'о сервисе', 'url' => ['/page/aboutus']],
-						    ['label' => 'новости', 'url' => ['article/index']],
-						    ['label' => 'баланс', 'url' => "#"],
-						    ['label' => 'помощь', 'url' => ['/page/help']],
-						    ['label' => 'контакты', 'url' => ['/page/contacts']],
-						    ['label' => 'условия & защита', 'url' => ['/page/legalinfo']],
+						    ['label' => Yii::t('app','HOME'), 'url' => ['site/index']],
+						    ['label' => Yii::t('app','ABOUT'), 'url' => ['/page/aboutus']],
+						    ['label' => Yii::t('app','ARTICLES'), 'url' => ['article/index']],
+						    ['label' => Yii::t('app','BALANCE'), 'url' => "#"],
+						    ['label' => Yii::t('app','HELP'), 'url' => ['/page/help']],
+						    ['label' => Yii::t('app','CONTACTS'), 'url' => ['/page/contacts']],
+						    ['label' => Yii::t('app','LEGALINFO'), 'url' => ['/page/legalinfo']],
 						],
 					    ]);
 					    ?>

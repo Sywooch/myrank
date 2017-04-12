@@ -11,7 +11,7 @@ class Controller extends \yii\web\Controller {
     
     public function init() {
 	parent::init();
-	Yii::$app->language = 'ru-RU';
+	Yii::$app->language = 'ru_RU';
 	
 	$session = Yii::$app->session;
 	$cookies = Yii::$app->request->cookies;

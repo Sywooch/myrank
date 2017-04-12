@@ -72,6 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Yii::$app->formatter->asBoolean($model->status);
                 },
             ],
+            'locale',
             //'views',
             'create_time',
             'update_time',

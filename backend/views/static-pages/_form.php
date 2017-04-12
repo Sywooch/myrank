@@ -51,6 +51,8 @@ use yii\helpers\Url;
         ]);
     ?>
 
+    <?= $form->field($model, 'locale')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'title_browser')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'meta_keywords')->textInput(['maxlength' => true]) ?>

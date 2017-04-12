@@ -32,13 +32,13 @@
 		    <div class="b-footer__menu">
 			<div class="b-footer__title">Меню</div>
 			<ul>
-			    <li><a href="#">Главная</a></li>
-			    <li><a href="#">О сервисе</a></li>
-			    <li><a href="#">Новости</a></li>
-			    <li><a href="#">Баланс</a></li>
-			    <li><a href="#">Помощь</a></li>
-			    <li><a href="#">Контакты</a></li>
-			    <li><a href="#">Условия & Защита</a></li>
+			    <li><a href="#"><?= Yii::t('app','HOME')?></a></li>
+			    <li><a href="#"><?= Yii::t('app','ABOUT')?></a></li>
+			    <li><a href="#"><?= Yii::t('app','ARTICLES')?></a></li>
+			    <li><a href="#"><?= Yii::t('app','BALANCE')?></a></li>
+			    <li><a href="#"><?= Yii::t('app','HELP')?></a></li>
+			    <li><a href="#"><?= Yii::t('app','CONTACTS')?></a></li>
+			    <li><a href="#"><?= Yii::t('app','LEGALINFO')?></a></li>
 			</ul>
 		    </div>
 		</div>

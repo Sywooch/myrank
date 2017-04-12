@@ -40,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'content:ntext',
+            'locale',
             'title_browser',
             'meta_keywords',
             'meta_description',

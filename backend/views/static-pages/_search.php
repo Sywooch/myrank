@@ -25,6 +25,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content') ?>
 
+    <?php echo $form->field($model, 'locale') ?>
+
     <?php echo $form->field($model, 'title_browser') ?>
 
     <?php echo $form->field($model, 'meta_keywords') ?>

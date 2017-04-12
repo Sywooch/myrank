@@ -59,9 +59,10 @@ class StaticPages extends \yii\db\ActiveRecord
             [['content'], 'string'],
             [['create_time', 'update_time'], 'safe'],
             [['title', 'alias', 'title_browser'], 'string', 'max' => 128],
+            [['locale'], 'string', 'max' => 5],
             [['meta_keywords'], 'string', 'max' => 200],
             [['meta_description'], 'string', 'max' => 160],
-            [['alias'], 'unique'],
+            //[['alias'], 'unique'],
         ];
     }
 
@@ -73,6 +74,7 @@ class StaticPages extends \yii\db\ActiveRecord
             'alias' => Yii::t('app', 'Псевдоним'),
             'published' => Yii::t('app', 'Опубликовано'),
             'content' => Yii::t('app', 'Содержание'),
+            'locale' => Yii::t('app', 'Locale'),
             'title_browser' => Yii::t('app', 'Заглавие браузера'),
             'meta_keywords' => Yii::t('app', 'Мета-ключевые слова'),
             'meta_description' => Yii::t('app', 'Метаописание'),

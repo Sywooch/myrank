@@ -19,6 +19,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name') ?>
 
+    <?= $form->field($model, 'locale') ?>
+
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app','Найти'), ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton(Yii::t('app','Сбросить'), ['class' => 'btn btn-default']) ?>
