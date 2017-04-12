@@ -11,7 +11,7 @@ use frontend\models\Company;
 class RegistrationController extends Controller {
 
     public function actionStep1($type) {
-	if(\Yii::$app->user->id !== NULL) {
+	if (\Yii::$app->user->id !== NULL) {
 	    $model = Registration::findOne(\Yii::$app->user->id);
 	} else {
 	    $model = new Registration();
@@ -39,10 +39,14 @@ class RegistrationController extends Controller {
 		    $model->saveProfession();
 		    $out['code'] = 1;
 		    //$out['id'] = $model->id;
-		    
+
 		    $mCompany = new Company();
 		    $mCompany->user_id = $model->id;
-		    $out['data'] = $this->renderPartial("_regStep".$model->step, ['model' => $model, 'mCompany' => $mCompany]);
+		    $out['data'] = $this->renderPartial("_regStep" . $model->step, [
+			'model' => $model,
+			'mCompany' => $mCompany,
+			'title' => $model->regStep[$model->step]
+		    ]);
 		} else {
 		    $out['errors'] = $model->errors;
 		}
@@ -53,7 +57,7 @@ class RegistrationController extends Controller {
 	echo Json::encode($out);
 	\Yii::$app->end();
     }
-    
+
     public function actionStep2() {
 	$model = new Registration();
 	echo Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep2", ['model' => $model])]);
@@ -62,14 +66,14 @@ class RegistrationController extends Controller {
 
     public function actionStep2save() {
 	$out = ['code' => 0, 'link' => '#'];
-	
+
 	$post = \Yii::$app->request->post();
 	$post['User']['step'] = 0;
-	
-	if(\Yii::$app->user->id !== NULL) {
+
+	if (\Yii::$app->user->id !== NULL) {
 	    $post['User']['id'] = \Yii::$app->user->id;
 	}
-	
+
 	$model = User::findOne($post['User']['id']);
 	unset($post['User']['id']);
 	if ($model->load($post) && $model->save()) {
@@ -83,34 +87,51 @@ class RegistrationController extends Controller {
 	return Json::encode($out);
 	\Yii::$app->end();
     }
-    
-    public function actionStep3 () {
-	$model = new Company();
-	echo Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep3", ['mCompany' => $model])]);
+
+    public function actionStep3() {
+	if (\Yii::$app->user->id === null) {
+	    $model = new Company();
+	} else {
+	    $mUser = User::getProfile();
+	    $model = Company::findOne($mUser->company_id);
+	}
+	echo Json::encode([
+	    'code' => 1,
+	    'data' => $this->renderPartial("_regStep3", ['mCompany' => $model, 'title' => 'Регистрация - Шаг 2<span> из 2</span>'])
+	]);
 	\Yii::$app->end();
     }
-    
-    public function actionStep3save () {
+
+    public function actionStep3save() {
 	$post = \Yii::$app->request->post();
 	$out['code'] = 0;
-	
-	$model = new Company();
-	if($model->load($post) && $model->save()) {
+
+	if (\Yii::$app->user->id === null) {
+	    $model = new Company();
+	} else {
+	    $mUser = User::getProfile();
+	    $model = Company::findOne($mUser->company_id);
+	}
+
+	if ($model->load($post) && $model->save()) {
+	    if (\Yii::$app->user->id !== NULL) {
+		$model->user_id = \Yii::$app->user->id;
+	    }
 	    $mUser = User::findOne($model->user_id);
 	    $mUser->company_id = $model->id;
 	    $mUser->company_name = $model->name;
 	    $mUser->step = 0;
-	    if($mUser->save()) {
+	    if ($mUser->save()) {
 		\Yii::$app->user->login($mUser, 3600 * 24 * 30);
 	    }
-	    
+
 	    $out['code'] = 1;
 	} else {
 	    
 	}
 	$out['errors'] = $model->errors;
 	echo Json::encode($out);
-	
+
 	//var_dump($post);
     }
 

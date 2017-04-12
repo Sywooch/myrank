@@ -29,6 +29,12 @@ $this->registerJs('
 	    showModal($(this).attr("data-url"), 0, 1);
 	    return false;
 	});
+	$("#changeLang").on("change", function() {
+	    csrf = $("[name=\"csrf-token\"]").attr("content");
+	    $.post("' . Url::toRoute(['site/changelang']) . '", {id:$(this).val(), "_csrf-frontend":csrf}, function() {
+		location.reload(true);
+	    });
+	});
 	function setCityList (id) {
 	    csrf = $("[name=\"csrf-token\"]").attr("content");
 	    url = "' . Url::toRoute("users/getcities") . '";
@@ -83,10 +89,10 @@ AppAsset::register($this);
 				<div class="b-header__region">
 				    <div class="b-header__region__language">
 					<div class="b-header__region__language__select">
-					    <select>
-						<option value="ru">Ru</option>
-						<option value="en">En</option>
-					    </select>
+					    <?= Html::dropDownList("lang", Yii::$app->request->cookies->get('lang'), [
+						'ru_RU' => 'Ru',
+						'en_US' => 'En'
+					    ], ['id' => 'changeLang']) ?>
 					</div>
 				    </div>
 				    <div class="b-header__region__country">

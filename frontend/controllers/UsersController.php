@@ -15,6 +15,7 @@ use frontend\models\City;
 use frontend\models\Images;
 use frontend\models\UserNotification;
 use yii\web\NotFoundHttpException;
+use frontend\models\Registration;
 
 /**
  * Description of UserController
@@ -160,14 +161,21 @@ class UsersController extends Controller {
     // Edit profile
     public function actionEditmaininfo () {
 	$model = User::getProfile();
-	$profArr = [];
-	foreach ($model->userProfession as $item) {
-	    $profArr[] = $item->id;
+	if($model->type) {
+	    $out = $this->renderPartial("/registration/_regStep3", [
+		'mCompany' => $model->company,
+		'title' => 'Редактирование компании',
+	    ]);
+	} else {
+	    $profArr = [];
+	    foreach ($model->userProfession as $item) {
+		$profArr[] = $item->id;
+	    }
+	    $model->professionField = $profArr;
+	    $model->country_id = City::findOne($model->city_id)->country_id;
+
+	    $out = $this->renderPartial("modal/mainInfo", ['model' => $model]);
 	}
-	$model->professionField = $profArr;
-	$model->country_id = City::findOne($model->city_id)->country_id;
-	
-	$out = $this->renderPartial("modal/mainInfo", ['model' => $model]);
 	echo Json::encode(['code' => 1, 'data' => $out]);
 	\Yii::$app->end();
     }
@@ -211,7 +219,7 @@ class UsersController extends Controller {
 	foreach ($req['title'] as $key => $item) {
 	    if(($item != "") && isset($userImages[$key])) {
 		$model = new \frontend\models\Images();
-		//$userId = $this->
+		
 		$model->attributes = [
 		    'type' => $mUser->type,
 		    'type_id' => $mUser->type ? $mUser->company_id : $uId,

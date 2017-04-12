@@ -127,14 +127,14 @@ $this->title = 'Профайл пользователя';
 			</div>
 		    </div>
 		</div>
-		<?php if(($mUser->about != "") || ($mUser->phone != "")) { ?>
+		<?php if(($mUser->aboutProfile != "") || ($mUser->phone != "")) { ?>
 		<div class="b-user__info">
 		    <div class="b-title">
 			Личная информация
 		    </div>
 		    <div class="b-user__info__content">
 			<div class="b-user__info__text">
-			    <p><?= $mUser->about ?></p>
+			    <p><?= $mUser->aboutProfile ?></p>
 			</div>
 			<div class="b-user__info__list">
 			    <?= UserInfoWidget::widget([

@@ -255,6 +255,17 @@ class SiteController extends Controller {
 	$session->set('country', $id);
 	Yii::$app->end();
     }
+    
+    public function actionChangelang () {
+	$post = \Yii::$app->request->post();
+	\Yii::$app->response->cookies->add(new \yii\web\Cookie([
+		'name' => 'lang',
+		'value' => $post['id'],
+		//'path' => "/",
+		//'domain' => 'myrankf.site4ever.com',
+		'expire' => time() + 365 * 24 * 60 * 60,
+	    ]));
+    }
 
     public function actionTest() {
 	return $this->render('test');

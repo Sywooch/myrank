@@ -24,7 +24,6 @@ class AppAsset extends AssetBundle {
 	//'/js/jquery2.2.4.js',
 	'/bootstrap/js/bootstrap.min.js',
 	'/js/owlcarousel/owl.carousel.min.js',
-	//'/js/jquery-ui/jquery-ui.min.js',
 	'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
 	'/js/jquery.ui.touch-punch.min.js',
 	'/js/inputmask/inputmask.min.js',

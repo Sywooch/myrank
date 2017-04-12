@@ -29,6 +29,12 @@ class Controller extends \yii\web\Controller {
 	} else if(!$session->has("country") && $cookies->has("country")) {
 	    $session->set("country", $cookies->getValue('country'));
 	}
+	
+	if($cookies->has('lang')) {
+	    \Yii::$app->language = $cookies->get('lang');
+	} else {
+	    \Yii::$app->language = 'ru_RU';
+	}
     }
 
 }

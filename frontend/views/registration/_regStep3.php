@@ -1,11 +1,10 @@
 <?php
 
 use frontend\widgets\user\ModalWidget;
-//use frontend\models\Company;
 use yii\helpers\Url;
 
 echo ModalWidget::widget([
-    'title' => 'Регистрация - Шаг 2<span> из 2</span>',
+    'title' => $title,
     'model' => $mCompany,
     'formOptions' => ['id' => 'regFormStep3', 'data-url' => Url::toRoute("registration/step3save")],
     'content' => [
@@ -31,7 +30,7 @@ echo ModalWidget::widget([
 	    'reg_date' => [
 		'label' => 'Дата регистрации компании *:',
 		'type' => 'textInput',
-		'options' => ['class' => 'input-text', 'placeholder' => '20.12.1986'],
+		'options' => ['class' => 'input-text', 'id' => 'regDate', 'placeholder' => '20.12.1986'],
 	    ],
 	    'cash' => [
 		'label' => 'Годовой оборот:',
@@ -63,4 +62,14 @@ echo ModalWidget::widget([
 	]
     ],
     'success' => 'location.reload(true)',
+    'script' => '$( function() {
+		   $("#regDate").after("<input type=\"hidden\" id=\"regDateAlter\" name=\"Company[reg_date]\" />");
+		   $("#regDateAlter").val($("#regDate").val());
+		   $("#regDate").attr("name", "");
+		   $("#regDate").datepicker({
+			altField: "#regDateAlter",
+			altFormat: "yy-mm-dd",
+			dateFormat: "dd-mm-yy"
+		   });
+		 } );'
 ]);

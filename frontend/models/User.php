@@ -180,7 +180,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     //
 
     public function getFullName() {
-	return $this->type ? $this->company->name : $this->first_name . " " . $this->last_name;
+	if($this->type && $this->company->name != "") {
+	    return $this->company->name;
+	}
+	return $this->first_name . " " . $this->last_name;
     }
 
     public function getCityList($id = 3159) {
@@ -209,6 +212,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 
     public function getPosition() {
 	return $this->getCityName() && $this->getCountryName() ? $this->getCityName() . ", " . $this->getCountryName() : "Не указано";
+    }
+    
+    public function getAboutProfile () {
+	return $this->type ? $this->company->about : $this->about;
     }
 
     // Marks
