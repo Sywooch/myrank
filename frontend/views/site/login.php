@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		'options' => ['id' => 'LoginForm']
     ]);
     ?>
-    <div class="b-modal__header">Авторизация</div>
+    <div class="b-modal__header"><?= \Yii::t('app','AUTHORIZATION'); ?></div>
     <div class="b-modal__content">
 	<div class="row">
 	    <div class="col-xs-12">
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	</div>
 	<div class="row">
 	    <div class="col-xs-12">
-		<span>* Пароль:</span>
+		<span>* <?= \Yii::t('app','PASSWORD'); ?>:</span>
 		<?= $form->field($model, 'password')->passwordInput(['class' => 'input-text', 'placeholder' => ''])->label(FALSE); ?>
 	    </div>
 	</div>
@@ -42,10 +42,10 @@ $this->params['breadcrumbs'][] = $this->title;
 	</div>
 	<div class="b-modal__content__buttons">
 	    <div class="b-modal__content__buttons__item">
-		<a id="loginSave" class="button-small" href="#">Войти</a>
+		<a id="loginSave" class="button-small" href="#"><?= \Yii::t('app','ENTER'); ?></a>
 	    </div>
 	    <div class="b-modal__content__buttons__item">
-		<span><a  id="registered" href="#">Зарегистрироваться</a></span>
+		<span><a  id="registered" href="#"><?= \Yii::t('app','REGISTER'); ?></a></span>
 	    </div>
 	    <!-- div class="b-modal__content__buttons__item">
 		<a id="registered" class="button-small" href="#">Зарегистрироваться</a>
@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		if (out.code == 1) {
 		    document.location.href = "<?= Url::toRoute(["users/profile"]); ?>";
 		} else {
-		    alert('Не правильный логин или пароль');
+		    alert(<?= \Yii::t('app','INCORRECT_LOGIN_OR_PASSWORD'); ?>);
 		}
 	    }
 	});

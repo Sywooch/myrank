@@ -3,14 +3,11 @@ use yii\helpers\Url;
 ?>
 <div class="b-rating">
     <div class="container">
-	<h2>Лучший рейтинг</h2>
+	<h2><?= \Yii::t('app','BEST_RATING'); ?></h2>
 	<div class="b-rating__header">
-	    <div class="b-rating__header__text">
-		ТОП пользователей с максимальным рейтингом. ТОП пользователей с максимальным
-		рейтингом. ТОП пользователей с максимальным рейтингом.
-	    </div>
+	    <div class="b-rating__header__text"><?= \Yii::t('app','BEST_RATING_TEXT'); ?></div>
 	    <div class="b-rating__header__link">
-		<a href="#">Все категории</a>
+		<a href="#"><?= \Yii::t('app','ALL_CATEGORIES'); ?></a>
 	    </div>
 	</div>
 	<div class="b-rating__content">

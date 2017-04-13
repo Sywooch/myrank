@@ -8,7 +8,7 @@ use yii\helpers\Url;
 ?>
 <div class="b-articles">
     <div class="container">
-        <h2>Статьи</h2>
+        <h2><?= \Yii::t('app','NEWS'); ?></h2>
         <div class="row">
             <!-- Begin First Page -->
             <div class="col-xs-12 col-sm-6">

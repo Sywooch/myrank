@@ -1,5 +1,5 @@
 <div class="b-trusted-users b-block">
-    <div class="b-title">Лучший рейтинг</div>
+    <div class="b-title"><?= \Yii::t('app','BEST_RATING'); ?></div>
     <div class="b-trusted-users__content">
 	<?php foreach ($model as $item) { ?>
 	<div class="b-trusted-users__item" <?= count($item->userProfession) == 0 ? 'style="height: 110px"' : ""?>>
