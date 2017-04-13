@@ -91,7 +91,8 @@ AppAsset::register($this);
 					<div class="b-header__region__language__select">
 					    <?= Html::dropDownList("lang", Yii::$app->request->cookies->get('lang'), [
 						'ru_RU' => 'Ru',
-						'en_US' => 'En'
+						'en_US' => 'En',
+                        'ua_UA' => 'Ua'
 					    ], ['id' => 'changeLang']) ?>
 					</div>
 				    </div>
