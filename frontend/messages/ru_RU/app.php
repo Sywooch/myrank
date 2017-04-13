@@ -1,5 +1,8 @@
 <?php
-
+/*
+ <?= \Yii::t('app',''); ?>
+''=>'',
+*/
 return [
     'HOME'=>'Главная',
     'ABOUT'=>'О сервисе',
@@ -8,4 +11,41 @@ return [
     'HELP'=>'Помощь',
     'CONTACTS'=>'Контакты',
     'LEGALINFO'=>'Условия & зашита',
+    'MYRANK_SLOGAN'=>'Оцените надежность, честность и профессионализм	потенциального партнера или контрагента.',
+    'FIND'=>'Найти',
+    'REGION'=>'Регион',
+    'SEARCH'=>'Поиск',
+    'SELECT_YOUR_PROFILE'=>'Выберите ваш профиль',
+    'ENTER_NAME_OR_SPECIALIST'=>'Введите имя или специалиста',
+    'CATEGORY'=>'Категория',
+    'RATING' => 'Рейтинг',
+    'POSITION'=>'Должность',
+    'CHOOSE_WHO_YOU_ARE'=>'Выберите кто вы',
+    'COMPANY'=>'Компания',
+    'PERSON'=>'Особа',
+    'IAM_USER'=>'Я пользователь',
+    'WEARE_COMPANY'=>'Мы компания',
+    'REGISTER_OR_SIGN_THROUGH_SOCIAL'=>'Зарегистрируйтесь или войдите через социальные сети',
+    'REGISTRATION'=>'Регистрация',
+    'LOGIN'=>'Вход',
+    'YOUR_COUNTRY'=>'Ваша страна',
+    'WELCOME_TO_MYRANK'=>'Добро пожаловать в MyRank!',
+    'AUTHORIZATION'=>'Авторизация',
+    'EXIT'=>'Выход',
+    'ADDRESS'=>'Адрес',
+    'PHONE_NUMBER'=>'Телефон',
+    'MENU'=>'Меню',
+    'PROFILE_AND_SERVICES'=>'Профиль и сервисы',
+    'ENTER'=>'Войти',
+    'REGISTER'=>'Зарегистрироваться',
+    'RESTORE_ACCESS'=>'Восстановить доступ',
+    'RECOMMENDATIONS_EXECUTOR'=>'Рекомендации Исполнителям',
+    'RECOMMENDATIONS_CUSTOMER'=>'Рекомендации Заказчикам',
+    'SITE_SEARCH'=>'Поиск по сайту',
+    'PAID_OPTIONS_IN_PROJECTS'=>'Платные опции в проектах',
+    'SITE_ADS'=>'Реклама на сайте',
+    'WE_ARE_IN_SOCIAL_NETWORKS'=>'мы в соцсетях',
+    'ADD_TO_GROUPS_AND_WATCH_ALL_THE_LATEST_NEWS_AND_ANNOUNCEMENTS'=>'Добавляйтесь в группы и следите за всеми свежими новостями и объявлениями!',
+    'MYRANK_LTD_ALL_RIGHTS_RESERVED'=>'ООО "Майранк". Все права защищены.',
+
 ];

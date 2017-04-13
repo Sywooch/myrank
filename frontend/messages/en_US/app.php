@@ -1,5 +1,7 @@
 <?php
-
+/*
+<?= \Yii::t('app',''); ?>
+ * */
 return [
     'HOME'=>'Home',
     'ABOUT'=>'About',
@@ -8,4 +10,41 @@ return [
     'HELP'=>'Help',
     'CONTACTS'=>'Contacts',
     'LEGALINFO'=>'Legal info',
+    'MYRANK_SLOGAN'=>'Assess the reliability, honesty and professionalism of a potential partner or counterparty.',
+    'FIND'=>'Find',
+    'REGION'=>'Region',
+    'SEARCH'=>'Search',
+    'SELECT_YOUR_PROFILE'=>'Select your profile',
+    'ENTER_NAME_OR_SPECIALIST'=>'Enter a name or specialist',
+    'CATEGORY'=>'Category',
+    'RATING' => 'Rating',
+    'POSITION'=>'Position',
+    'CHOOSE_WHO_YOU_ARE'=>'Choose who you are',
+    'COMPANY'=>'Company',
+    'PERSON'=>'Person',
+    'IAM_USER'=>'I\'m User',
+    'WEARE_COMPANY'=>'We\'re a Company',
+    'REGISTER_OR_SIGN_THROUGH_SOCIAL'=>'Register or sign in through social networks',
+    'REGISTRATION'=>'Registration',
+    'LOGIN'=>'Login',
+    'YOUR_COUNTRY'=>'Your country',
+    'WELCOME_TO_MYRANK'=>'Welcome to MyRank!',
+    'AUTHORIZATION'=>'Authorization',
+    'EXIT'=>'Exit',
+    'ADDRESS'=>'Address',
+    'PHONE_NUMBER'=>'Phone Number',
+    'MENU'=>'Menu',
+    'PROFILE_AND_SERVICES'=>'Profile and services',
+    'ENTER'=>'Enter',
+    'REGISTER'=>'Register',
+    'RESTORE_ACCESS'=>'Restore access',
+    'RECOMMENDATIONS_EXECUTOR'=>'Recommendations executor',
+    'RECOMMENDATIONS_CUSTOMER'=>'Recommendations customer',
+    'SITE_SEARCH'=>'Site search',
+    'PAID_OPTIONS_IN_PROJECTS'=>'Paid options in projects',
+    'SITE_ADS'=>'Site ads',
+    'WE_ARE_IN_SOCIAL_NETWORKS'=>'We are in social networks',
+    'ADD_TO_GROUPS_AND_WATCH_ALL_THE_LATEST_NEWS_AND_ANNOUNCEMENTS'=>'Add to groups and watch all the latest news and announcements!',
+    'MYRANK_LTD_ALL_RIGHTS_RESERVED'=>'MyRank Ltd. All Rights Reserved.',
+
 ];

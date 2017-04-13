@@ -6,9 +6,9 @@ if (Yii::$app->user->id === null) { ?>
     <div class="col-xs-12 col-sm-6">
         <div class="b-header__user">
     	<div class="b-header__user__login">
-    	    <span>Добро пожаловать в MyRank!</span>
+    	    <span><?= \Yii::t('app','WELCOME_TO_MYRANK'); ?></span>
 	    <a class="signin" href="#">
-    		<span>Авторизация</span>
+    		<span><?= \Yii::t('app','AUTHORIZATION'); ?></span>
     	    </a>
     	</div>
 
@@ -34,7 +34,7 @@ if (Yii::$app->user->id === null) { ?>
     		    <li><a href="#">Опция один</a></li>
     		    <li><a href="#">Активный пункт меню</a></li>
     		    <li><a href="#">Опция два</a></li>
-		    <li><a href="<?= Url::toRoute(['site/logout']); ?>">Выход <span></span></a></li>
+		    <li><a href="<?= Url::toRoute(['site/logout']); ?>"><?= \Yii::t('app','EXIT'); ?> <span></span></a></li>
     		</ul>
     	    </div>
     	</div>
