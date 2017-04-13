@@ -15,7 +15,7 @@ $mProf = Profession::find()->asArray()->all();
 <div class="b-category">
     <div class="container">
 	<h2>
-	    Топ категорий
+        <?= \Yii::t('app','TOP_CATEGORIES'); ?>
 	</h2>
 	<div class="b-category__content">
 	    <div class="row">
@@ -51,22 +51,8 @@ $mProf = Profession::find()->asArray()->all();
 	<div class="row">
 	    <div class="col-xs-12 col-sm-6">
 		<div class="b-info__about">
-		    <h2>Немного о проекте</h2>
-		    <div class="b-info__about__content">
-			<p>Сервис MyRank позволяет оценивать разнообразные
-			    качества пользователей по 10-балльной шкале и выводить
-			    общую среднюю оценку их рейтинга.</p>
-			<p>При оценивании пользователя по какому либо критерию,
-			    оценивающий имеет возможность ввести свой отзыв,
-			    пояснив текстом, почему он поставил ту или иную оценку.</p>
-			<p>По общей и средним оценкам строятся полярные
-			    диаграммы по категориям и критериям оценки. В
-			    идеальном случае, диаграмма должна представлять собой
-			    круг – колесо, которое свободно и ровно катится по жизни.</p>
-			<p>Отсюда вытекает миссия сервиса MyRank: помогать людям
-			    контролировать свои приоритеты и «выравнивать колесо»
-			    своей жизни.</p>
-		    </div>
+		    <h2><?= \Yii::t('app','LITTLE_ABOUT_THE_PROJECT'); ?></h2>
+		    <div class="b-info__about__content"><?= \Yii::t('app','LITTLE_ABOUT_THE_PROJECT_TEXT'); ?></div>
 		</div>
 	    </div>
 	    <div class="col-xs-12 col-sm-6">

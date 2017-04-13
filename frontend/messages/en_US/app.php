@@ -46,5 +46,7 @@ return [
     'WE_ARE_IN_SOCIAL_NETWORKS'=>'We are in social networks',
     'ADD_TO_GROUPS_AND_WATCH_ALL_THE_LATEST_NEWS_AND_ANNOUNCEMENTS'=>'Add to groups and watch all the latest news and announcements!',
     'MYRANK_LTD_ALL_RIGHTS_RESERVED'=>'MyRank Ltd. All Rights Reserved.',
-
+    'TOP_CATEGORIES'=>'Top categories',
+    'LITTLE_ABOUT_THE_PROJECT'=>'A little about the project',
+    'LITTLE_ABOUT_THE_PROJECT_TEXT'=>'<p>MyRank\'s service allows to evaluate various qualities of users on a 10-point scale and to derive a general average rating of their rating.</p><p>When evaluating a user on any criterion, the evaluator has the opportunity to enter his feedback, explaining why he Has put this or that estimation.</p><p>According to general and average estimates, polar diagrams are constructed by categories and evaluation criteria. Ideally, the diagram should be a circle - a wheel that travels freely and smoothly throughout life.</p><p>This is the result of MyRank\'s mission: to help people control their priorities and to "level the wheel" of their lives.</p>',
 ];
