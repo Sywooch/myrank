@@ -5,7 +5,7 @@ use yii\helpers\Url;
 use frontend\widgets\user\ModalWidget;
 
 echo ModalWidget::widget([
-    'title' => 'Регистрация - Шаг 2<span> из 2</span>',
+    'title' => \Yii::t('app','REGISTRATION_STEP_2_OF_2'),
     'model' => $model,
     'formOptions' => ['id' => 'regFormStep2'],
     'content' => [
@@ -15,25 +15,25 @@ echo ModalWidget::widget([
 	    'options' => ['value' => $model->id]
 	],
 	'company_name' => [
-	    'label' => 'Место работы на данный момент',
+	    'label' => \Yii::t('app','PLACE_OF_WORK_AT_THE_MOMENT'),
 	    'type' => 'textInput',
-	    'options' => ['class' => 'input-text', 'placeholder' => 'ООО Астам'],
+	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_COMPANY_NAME')],
 	],
 	'company_post' => [
-	    'label' => 'Должность',
+	    'label' => \Yii::t('app','POSITION'),
 	    'type' => 'textInput',
-	    'options' => ['class' => 'input-text', 'placeholder' => 'SEO'],
+	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_COMPANY_POST')],
 	],
 	'phone' => [
-	    'label' => 'Номер телефона',
+	    'label' => \Yii::t('app','PHONE_NUMBER'),
 	    'type' => 'textInput',
 	    'options' => ['class' => 'input-text input-phone'],
 	],
 	'about' => [
-	    'label' => 'Информация о себе',
+	    'label' => \Yii::t('app','PERSONAL_INFORMATION'),
 	    'type' => 'textarea',
-	    'options' => ['placeholder' => 'Расскажите немного о себе'],
-	    'posInfo' => 'Расскажите о себе. Не больше 500 символов.'
+	    'options' => ['placeholder' => \Yii::t('app','TELL_A_LITTLE_ABOUT_YOURSELF')],
+	    'posInfo' => \Yii::t('app','TELL_US_ABOUT_YOURSELF_NO_MORE_THAN_500_CHARACTERS')
 	]
     ],
     'success' => "document.location.href = out.link;",

@@ -1,7 +1,5 @@
 <?php
-/*
-<?= \Yii::t('app',''); ?>
- * */
+
 return [
     'REQUESTED_PAGE_WAS_NOT_FOUND'=>'The requested page was not found',
     'HOME'=>'Home',
@@ -19,7 +17,6 @@ return [
     'ENTER_NAME_OR_SPECIALIST'=>'Enter a name or specialist',
     'CATEGORY'=>'Category',
     'RATING' => 'Rating',
-    'POSITION'=>'Position',
     'CHOOSE_WHO_YOU_ARE'=>'Choose who you are',
     'COMPANY'=>'Company',
     'PERSON'=>'Person',
@@ -34,7 +31,6 @@ return [
     'AUTHORIZATION'=>'Authorization',
     'EXIT'=>'Exit',
     'ADDRESS'=>'Address',
-    'PHONE_NUMBER'=>'Phone Number',
     'MENU'=>'Menu',
     'PROFILE_AND_SERVICES'=>'Profile and services',
     'ENTER'=>'Enter',
@@ -60,7 +56,6 @@ return [
     'HOW_SERVICE_WORK_TEXT_5'=>'High rating - career growth.',
     'HOW_SERVICE_WORK_TEXT_6'=>'Look for partners for your business.',
     'REGISTER_AND_GET_FULL_ACCESS_TO_ALL_FEATURES'=>'Register and get <span>full access to all the features</span>',
-    'PASSWORD'=>'Password',
     'INCORRECT_LOGIN_OR_PASSWORD'=>'Incorrect login or password',
     'BEST_RATING'=>'Best rating',
     'BEST_RATING_TEXT'=>'TOP users with the highest rating.',
@@ -83,6 +78,7 @@ return [
     'NEW_PASSWORD_WAS_SAVED'=>'New password was saved.',
     'PASSWORD_AND_REPEAT_DO_NOT_MATCH'=>'Password and password repeat do not match',
     'IN_ORDER_TO_USE_ALL_SERVICES_YOU_MUST'=>'In order to use all the services of the site, you must',
+    'REGISTRATION_STEP_1_OF_2'=>'Registration user - Step 1<span> of 2</span>',
     'REGISTRATION_STEP_2_OF_2'=>'Registration - Step 2 <span> of 2 </span>',
     'YOUR_SCORE_HAS_BEEN_SAVED'=>'Your score has been saved',
     'GIVE_FEEDBACK'=>'Give feedback',
@@ -97,6 +93,41 @@ return [
     'LINKED_client_ACCOUNT'=>'Linked {client} account.',
     'UNABLE_TO_LINK_client_ACCOUNT_errors'=>'Unable to link {client} account: {errors}',
     'UNABLE_TO_LINK_client_ACCOUNT_THERE_IS_ANOTHER_USER_USING_IT'=>'Unable to link {client} account. There is another user using it.',
+    'COUNTRY'=>'Country',
+    'NAME'=>'Name',
+    'SURNAME'=>'Surname',
+    'CITY'=>'City',
+    'SPECIALIZATION'=>'Specialization',
+    'LET_PEOPLE_KNOW_WHAT_YOU_ARE_DOING'=>'Let people know what you are doing',
+    'PASSWORD'=>'Password',
+    'CONFIRM_PASSWORD'=>'Confirm password',
+    'PLACE_OF_WORK_AT_THE_MOMENT'=>'Place of work at the moment',
+    'POSITION'=>'Position',
+    'PHONE_NUMBER'=>'Phone number',
+    'PERSONAL_INFORMATION'=>'Personal information',
+    'TELL_A_LITTLE_ABOUT_YOURSELF'=>'Tell a little about yourself',
+    'TELL_US_ABOUT_YOURSELF_NO_MORE_THAN_500_CHARACTERS'=>'Tell us about yourself. No more than 500 characters.',
+    'EXAMPLE_FIRSTNAME'=>'David',
+    'EXAMPLE_SURNAME'=>'Dox',
+    'EXAMPLE_EMAIL'=>'example@domain.com',
+    'EXAMPLE_COMPANY_NAME'=>'ASTAM LLC',
+    'EXAMPLE_COMPANY_POST'=>'SEO',
+    'EXAMPLE_PHONE'=>'0 44 XXX XX XX',
+    'EXAMPLE_DATE'=>'20.12.1986',
+    'EXAMPLE_DIRECTOR'=>'Full name',
+    'EXAMPLE_CONTACT_PERSON'=>'Full name, post',
+    'COMPANY_NAME'=>'Company name',
+    'THE_NUMBER_OF_EMPLOYEES'=>'The number of employees',
+    'DATE_OF_REGISTRATION_OF_THE_COMPANY'=>'Date of registration of the company',
+    'ANNUAL_TURNOVER'=>'Annual turnover',
+    'DIRECTOR'=>'Director',
+    'CONTACT_PERSON'=>'The contact person',
+    'INFORMATION_ABOUT_THE_COMPANY'=>'Information about the company',
+    'TELL_A_LITTLE_ABOUT_COMPANY'=>'Tell a little about company',
+    'TELL_US_ABOUT_COMPANY_NO_MORE_THAN_500_CHARACTERS'=>'Tell us about company. No more than 500 characters.',
 ];
 
- // \Yii::t('app','')
+
+/*
+<?= \Yii::t('app',''); ?>
+*/

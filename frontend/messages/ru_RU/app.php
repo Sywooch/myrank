@@ -1,9 +1,5 @@
 <?php
-/*
- <?= \Yii::t('app',''); ?>
-Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND')
-''=>'',
-*/
+
 return [
     'REQUESTED_PAGE_WAS_NOT_FOUND'=>'Запрошенная страница не найдена',
     'HOME'=>'Главная',
@@ -21,7 +17,6 @@ return [
     'ENTER_NAME_OR_SPECIALIST'=>'Введите имя или специалиста',
     'CATEGORY'=>'Категория',
     'RATING' => 'Рейтинг',
-    'POSITION'=>'Должность',
     'CHOOSE_WHO_YOU_ARE'=>'Выберите кто вы',
     'COMPANY'=>'Компания',
     'PERSON'=>'Особа',
@@ -36,7 +31,6 @@ return [
     'AUTHORIZATION'=>'Авторизация',
     'EXIT'=>'Выход',
     'ADDRESS'=>'Адрес',
-    'PHONE_NUMBER'=>'Телефон',
     'MENU'=>'Меню',
     'PROFILE_AND_SERVICES'=>'Профиль и сервисы',
     'ENTER'=>'Войти',
@@ -62,7 +56,6 @@ return [
     'HOW_SERVICE_WORK_TEXT_5'=>'Высокий рейтинг - карьерный рост.',
     'HOW_SERVICE_WORK_TEXT_6'=>'Ищите партнеров для своего бизнеса.',
     'REGISTER_AND_GET_FULL_ACCESS_TO_ALL_FEATURES'=>'Зарегистрируйтесь и получите <span>полный доступ ко всем возможностям</span>',
-    'PASSWORD'=>'Пароль',
     'INCORRECT_LOGIN_OR_PASSWORD'=>'Неверный логин или пароль',
     'BEST_RATING'=>'Лучший рейтинг',
     'BEST_RATING_TEXT'=>'ТОП пользователей с максимальным рейтингом.',
@@ -85,6 +78,7 @@ return [
     'NEW_PASSWORD_WAS_SAVED'=>'Новый пароль сохранен.',
     'PASSWORD_AND_REPEAT_DO_NOT_MATCH'=>'Пароль и повтор пароля не совпадают',
     'IN_ORDER_TO_USE_ALL_SERVICES_YOU_MUST_AUTHORIZE'=>'Для того чтоб пользоваться всеми сервисами сайта, надо',
+    'REGISTRATION_STEP_1_OF_2'=>'Регистрация пользователя - Шаг 1<span> из 2</span>',
     'REGISTRATION_STEP_2_OF_2'=>'Регистрация - Шаг 2 <span> из 2 </span>',
     'YOUR_SCORE_HAS_BEEN_SAVED'=>'Ваша оценка сохранена',
     'GIVE_FEEDBACK'=>'Оставить отзыв',
@@ -99,5 +93,38 @@ return [
     'LINKED_client_ACCOUNT'=>'Учетная запись {client} подключена.',
     'UNABLE_TO_LINK_client_ACCOUNT_errors'=>'Невозможно подключить учетную запись {client}: {errors}',
     'UNABLE_TO_LINK_client_ACCOUNT_THERE_IS_ANOTHER_USER_USING_IT'=>'Невозможно подключить учетную запись {client}. Есть другой пользователь использующий её.',
+    'COUNTRY'=>'Страна',
+    'NAME'=>'Имя',
+    'SURNAME'=>'Фамилия',
+    'CITY'=>'Город',
+    'SPECIALIZATION'=>'Специализация',
+    'LET_PEOPLE_KNOW_WHAT_YOU_ARE_DOING'=>'Позвольте людям узнать чем вы занимаетесь',
+    'PASSWORD'=>'Пароль',
+    'CONFIRM_PASSWORD'=>'Повторите пароль',
+    'PLACE_OF_WORK_AT_THE_MOMENT'=>'Место работы на данный момент',
+    'POSITION'=>'Должность',
+    'PHONE_NUMBER'=>'Номер телефона',
+    'PERSONAL_INFORMATION'=>'Информация о себе',
+    'TELL_A_LITTLE_ABOUT_YOURSELF'=>'Расскажите немного о себе',
+    'TELL_US_ABOUT_YOURSELF_NO_MORE_THAN_500_CHARACTERS'=>'Расскажите о себе. Не больше 500 символов.',
+    'EXAMPLE_FIRSTNAME'=>'Михаил',
+    'EXAMPLE_SURNAME'=>'Иванов',
+    'EXAMPLE_EMAIL'=>'example@domain.com',
+    'EXAMPLE_COMPANY_NAME'=>'ООО АстаМ',
+    'EXAMPLE_COMPANY_POST'=>'СЕО',
+    'EXAMPLE_PHONE'=>'0 44 XXX XX XX',
+    'EXAMPLE_DATE'=>'20.12.1986',
+    'EXAMPLE_DIRECTOR'=>'ФИО',
+    'EXAMPLE_CONTACT_PERSON'=>'ФИО, должность',
+    'COMPANY_NAME'=>'Название компании',
+    'THE_NUMBER_OF_EMPLOYEES'=>'Количество сотрудников',
+    'DATE_OF_REGISTRATION_OF_THE_COMPANY'=>'Дата регистрации компании',
+    'ANNUAL_TURNOVER'=>'Годовой оборот',
+    'DIRECTOR'=>'Директор',
+    'CONTACT_PERSON'=>'Контактное лицо',
+    'INFORMATION_ABOUT_THE_COMPANY'=>'Информация о компании',
+    'TELL_A_LITTLE_ABOUT_COMPANY'=>'Расскажите немного о компании',
+    'TELL_US_ABOUT_COMPANY_NO_MORE_THAN_500_CHARACTERS'=>'Расскажите о компании. Не больше 500 символов',
+
 
 ];

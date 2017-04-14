@@ -8,10 +8,7 @@
 			<div class="b-footer__title"><?= \Yii::t('app','CONTACTS'); ?></div>
 			<div class="b-footer__contact__item b-footer__contact__item_adress">
 			    <span><?= \Yii::t('app','ADDRESS'); ?></span>
-                MYRANK LIMITED,
-                OFFICE 5, NEEPSEND TRIANGLE, 1 BURTON ROAD
-                SHEFFIELD, SOUTH YORKSHIRE, S3 8BW,
-                UNITED KINGDOM
+                <?= \Yii::t('app','ADDRESS_INFO'); ?>
 			</div>
 			<div class="b-footer__contact__item b-footer__contact__item_phone">
 			    <span><?= \Yii::t('app','PHONE_NUMBER'); ?></span>
