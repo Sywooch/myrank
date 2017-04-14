@@ -1,6 +1,6 @@
 <?php
 /*
- <?= \Yii::t('app','READ_ALSO'); ?>
+ <?= \Yii::t('app',''); ?>
 ''=>'',
 */
 return [
@@ -72,4 +72,5 @@ return [
     'TOP_USERS_WITH_HIGHEST_RATING'=>'ТОП пользователей с максимальным рейтингом.',
     'READ_ALSO'=>'Читайте также',
     'RECENT_MATERIALS'=>'Последние материалы',
+    'NO_ARTICLES'=>'Новости отсутствуют',
 ];

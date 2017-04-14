@@ -99,9 +99,11 @@ echo ListView::widget([
     'dataProvider' => $listDataProvider,
     'itemView' => '_listArticles',
     'layout' => '{items}',
-    'emptyText' => 'Нет статей',
+    'emptyText' =>
+        '<p></p><h2>'.\Yii::t('app','NEWS').'</h2>'.
+             '<p>'.\Yii::t('app','NO_ARTICLES').'</p>',
     'emptyTextOptions' => [
-	'tag' => 'p'
+	//'tag' => 'p'
     ],
 ]);
 ?>

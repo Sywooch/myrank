@@ -88,7 +88,10 @@ class SiteController extends Controller {
      */
     public function actionIndex() {
 	$dataProvider = new ActiveDataProvider([
-	    'query' => Article::find()->where(['status' => 10])->orderBy('create_time DESC')->limit(4),
+	    'query' => Article::find()
+            ->where(['status' => 10,'locale'=>\Yii::$app->language])
+            ->orderBy('create_time DESC')
+            ->limit(4),
 	    'totalCount' => 4,
 	    'pagination' => [
 		'pageSize' => 4,

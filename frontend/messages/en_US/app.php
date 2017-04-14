@@ -71,4 +71,5 @@ return [
     'TOP_USERS_WITH_HIGHEST_RATING'=>'Top users with the highest rating.',
     'READ_ALSO'=>'Read also',
     'RECENT_MATERIALS'=>'Recent Materials',
+    'NO_ARTICLES'=>'News absent',
 ];

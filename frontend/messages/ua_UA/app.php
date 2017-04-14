@@ -69,4 +69,5 @@ return [
     'TOP_USERS_WITH_HIGHEST_RATING'=>'ТОП користувачів з максимальним рейтингом.',
     'READ_ALSO'=>'Читайте також',
     'RECENT_MATERIALS'=>'Останні матеріали',
+    'NO_ARTICLES'=>'Новини відсутні',
 ];
