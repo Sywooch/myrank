@@ -36,7 +36,7 @@ if (!empty($model->meta_keywords)) {
                         'city' => 'Sheffield',
                         'country' => 'United Kingdom'
                     ],
-                    'htmlContent' => '<h4>Office 5, Neepsend Triangle Business Centre, 1 Burton Rd, Sheffield S3 8BW, United Kingdom</h4>',
+                    'htmlContent' => '<h4>'.\Yii::t('app','ADDRESS_INFO').'</h4>',
                 ],
             ],
         ]);

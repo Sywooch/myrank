@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use vova07\imperavi\Widget;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Article */
@@ -16,7 +17,33 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'abridgment')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'content')->widget(Widget::className(), [
+        'settings' => [
+            'lang' => strtolower(substr(Yii::$app->language,0,2)),// 'ru'
+            'removeWithoutAttr' => [],
+            'minHeight' => 300,
+            'pastePlainText' => true,
+            'buttonSource' => true,
+            'replaceDivs' => false,
+            'plugins' => [
+                'clips',
+                'fullscreen',
+                'fontfamily',
+                'fontsize',
+                'fontcolor',
+                'video',
+                'table',
+                'imagemanager',
+            ],
+            'uploadOnlyImage' => false,
+            'validatorOptions' => ['maxSize'=>40000],
+            'imageUpload' => Yii::getAlias('@urlToImages'),
+            'imageManagerJson' => Yii::getAlias('@urlToImages'),
+            'fileManagerJson' => Yii::getAlias('@urlToImages'),
+            'fileUpload' => Yii::getAlias('@urlToImages'),
+        ]
+    ]);
+    ?>
 
     <?= $form->field($model, 'header_title')->textInput(['maxlength' => true]) ?>
 

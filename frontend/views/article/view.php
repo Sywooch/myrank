@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
                 <div class="b-article__content">
-                    <?= Html::encode($model->content) ?>
+                    <?= $model->content ?>
                 </div>
             </div>
 

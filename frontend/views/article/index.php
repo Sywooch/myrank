@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <!-- <div class="b-block articles-list"> -->
                     <div class="b-block articles-list">
-                        <div class="b-title">Блог статей</div>
+                        <div class="b-title"><?= \Yii::t('app','ARTICLES')?></div>
                         <!-- div class= b-articles__content -->
                         <div class="b-articles__content"><?php
     echo PHP_EOL;
@@ -93,9 +93,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'firstPageCssClass' => 'b-pagination__first',//'myfirst',
                 'lastPageCssClass' => 'b-pagination__last'// 'mylast',
             ],
-            'summary' => 'Показано {begin}-{end} из {totalCount}', // string Информация о списке
+            'summary' => \Yii::t('app','ARTICLES_SHOWING').
+                ' {begin}-{end} '.\Yii::t('app','ARTICLES_SHOWING_2').' {totalCount}', // string Информация о списке
             //'summaryOptions' => [ ],// array Настройка контейнера для summary (HTML атрибуты для контейнера)
-            'emptyText' => 'Список пуст или запрошенная категория статей отсутствует', // string Текст при отсутствии элементов списка
+            'emptyText' => \Yii::t('app','ARTICLES_EMPTY_LIST') , // string Текст при отсутствии элементов списка
             'emptyTextOptions' => [ // array Настройка контейнера для emptyText (HTML атрибуты для контейнера)
                 'tag' => 'p'
             ],
