@@ -20,7 +20,7 @@ $mProf = Profession::find()->asArray()->all();
 	<div class="b-category__content">
 	    <div class="row">
 		<?php foreach ($mProf as $key => $item) { ?>
-		    <?php if (($key == 0) || ($key % 5) == 0) { ?>
+		    <?php if (($key == 0) || ($key % 13) == 0) { ?>
 			<div class="col-xs-12 col-sm-6 col-md-3">
 			    <ul>
 			    <?php } ?>
@@ -29,7 +29,7 @@ $mProf = Profession::find()->asArray()->all();
 					<?= $item['title'] ?>
 				    </a>
 				</li>
-			    <?php if ((($key + 1) % 5 == 0) || (count($mProf) == $key+1)) { ?>
+			    <?php if ((($key + 1) % 13 == 0) || (count($mProf) == $key+1)) { ?>
 			    </ul>
 			</div>
 		    <?php } ?>

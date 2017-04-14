@@ -12,5 +12,10 @@ return [
         'tilt' => 45,
         'zoom' => 16,
     ],
+    'lang' => [
+	'ru_RU' => 'Ru',
+	'en_EN' => 'En',
+	'ua_UA' => 'Ua',
+    ]
 
 ];

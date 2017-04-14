@@ -6,42 +6,43 @@
     "type": "project",
     "license": "BSD-3-Clause",
     "support": {
-        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/yii2"
+	"issues": "https://github.com/yiisoft/yii2/issues?state=open",
+	"forum": "http://www.yiiframework.com/forum/",
+	"wiki": "http://www.yiiframework.com/wiki/",
+	"irc": "irc://irc.freenode.net/yii",
+	"source": "https://github.com/yiisoft/yii2"
     },
     "minimum-stability": "stable",
     "require": {
-        "php": ">=5.4.0",
-        "yiisoft/yii2": "~2.0.6",
-        "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0",
-        "yiisoft/yii2-authclient": "*",
-	    "kartik-v/yii2-widget-fileinput": "@dev",
-	    "2amigos/yii2-file-upload-widget": "~1.0",
-        "vova07/yii2-imperavi-widget": "*",
-        "yii2mod/yii2-google-maps-markers": "*"
+	"php": ">=5.4.0",
+	"yiisoft/yii2": "~2.0.6",
+	"yiisoft/yii2-bootstrap": "~2.0.0",
+	"yiisoft/yii2-swiftmailer": "~2.0.0",
+	"yiisoft/yii2-authclient": "*",
+	"kartik-v/yii2-widget-fileinput": "@dev",
+	"2amigos/yii2-file-upload-widget": "~1.0",
+	"vova07/yii2-imperavi-widget": "*",
+	"yii2mod/yii2-google-maps-markers": "*",
+	"lysenkobv/yii2-geoip": "~1.0"
     },
     "require-dev": {
-        "yiisoft/yii2-debug": "~2.0.0",
-        "yiisoft/yii2-gii": "~2.0.0",
-        "yiisoft/yii2-faker": "~2.0.0",
+	"yiisoft/yii2-debug": "~2.0.0",
+	"yiisoft/yii2-gii": "~2.0.0",
+	"yiisoft/yii2-faker": "~2.0.0",
 
-        "codeception/base": "^2.2.3",
-        "codeception/verify": "~0.3.1"
+	"codeception/base": "^2.2.3",
+	"codeception/verify": "~0.3.1"
     },
     "config": {
-        "process-timeout": 1800
+	"process-timeout": 1800
     },
     "extra": {
-        "asset-installer-paths": {
-            "npm-asset-library": "vendor/npm",
-            "bower-asset-library": "vendor/bower"
-        }
+	"asset-installer-paths": {
+	    "npm-asset-library": "vendor/npm",
+	    "bower-asset-library": "vendor/bower"
+	}
     },
     "scripts": {
-        "post-install-cmd": "php init --env=Development --overwrite=n"
+	"post-install-cmd": "php init --env=Development --overwrite=n"
     }
 }

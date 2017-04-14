@@ -10,6 +10,8 @@ use frontend\models\Images;
 use yii\helpers\Json;
 
 class MediaController extends Controller {
+    
+    public $path;
 
     public function actionImageupload($id) {
 	$sess = \Yii::$app->session;
@@ -20,7 +22,7 @@ class MediaController extends Controller {
 
 	$imageFile = UploadedFile::getInstance($model, 'name' . $id);
 
-	$directory = Yii::getAlias('@frontend/web' . $this->files) . 'users' . DIRECTORY_SEPARATOR . Yii::$app->user->id . DIRECTORY_SEPARATOR;
+	$directory = $this->userImagePath . Yii::$app->user->id . DIRECTORY_SEPARATOR;
 	if (!is_dir($directory)) {
 	    FileHelper::createDirectory($directory);
 	}
@@ -30,7 +32,7 @@ class MediaController extends Controller {
 	    $fileName = $uid . '.' . $imageFile->extension;
 	    $filePath = $directory . $fileName;
 	    if ($imageFile->saveAs($filePath)) {
-		$path = $this->files . "users" . DIRECTORY_SEPARATOR . Yii::$app->user->id . DIRECTORY_SEPARATOR . $fileName;
+		$path = $this->files . Yii::$app->user->id . DIRECTORY_SEPARATOR . $fileName;
 		$sessImages[] = $path;
 		$sess->set('userImages', $sessImages);
 		echo Json::encode([
@@ -79,6 +81,12 @@ class MediaController extends Controller {
 	    ];
 	}
 	return Json::encode($output);
+    }
+    
+    public function actionViewimage ($id, $name) {
+	$src = $_GET['img'];
+	header('Content-type: image/png');
+	readfile("img/{$src}");
     }
 
     public function beforeAction($action) {

@@ -16,10 +16,10 @@ class Registration extends User {
 
     public function rules() {
 	return [
-	    [['first_name', 'last_name', 'email', 'city_id'], 'required'],
+	    [['first_name', 'last_name', 'email', 'city_id', 'professionField'], 'required'],
 	    [['company_id', 'profileviews', 'rating'], 'integer'],
-	    [['email'], 'unique'],
-	    [['last_login', 'birthdate', 'city_id', 'phone', 'site', 'mark', 'email', 'professionField', 'type', 'step'], 'safe'],
+	    [['email'], 'unique', 'on' => 'step1'],
+	    [['last_login', 'birthdate', 'city_id', 'phone', 'site', 'mark', 'type', 'step'], 'safe'],
 	    [['image'], 'string', 'max' => 255],
 	    [['first_name', 'last_name', 'about'], 'string', 'max' => 50],
 	];

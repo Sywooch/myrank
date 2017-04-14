@@ -8,9 +8,14 @@ use frontend\models\User;
 class Controller extends \yii\web\Controller {
     
     public $files = DIRECTORY_SEPARATOR . "files" . DIRECTORY_SEPARATOR;
+    public $userImageUrl;
+    public $userImagePath;
     
     public function init() {
 	parent::init();
+	
+	$this->userImagePath = Yii::getAlias('@frontend/web') . $this->files;
+	
 	Yii::$app->language = 'ru_RU';
 	
 	$session = Yii::$app->session;

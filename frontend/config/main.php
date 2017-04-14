@@ -66,6 +66,7 @@ return [
 	'notification' => [
 	    'class' => 'frontend\components\Notification'
 	],
+	'geoip' => ['class' => 'lysenkobv\GeoIP\GeoIP'],
 	'i18n' => [
 	    'translations' => [
 		'*' => [

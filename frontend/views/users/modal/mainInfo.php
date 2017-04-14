@@ -9,17 +9,17 @@ echo ModalWidget::widget([
     'model' => $model,
     'content' => [
 	'first_name' => [
-	    'label' => 'Имя',
+	    'label' => 'Имя *:',
 	    'type' => 'textInput',
 	    'options' => ['class' => 'input-text', 'placeholder' => 'David']
 	],
 	'last_name' => [
-	    'label' => 'Фамилия',
+	    'label' => 'Фамилия *:',
 	    'type' => 'textInput',
 	    'options' => ['class' => 'input-text', 'placeholder' => 'Dox']
 	],
 	'email' => [
-	    'label' => 'Email',
+	    'label' => 'Email *:',
 	    'type' => 'textInput',
 	    'options' => ['class' => 'input-text', 'placeholder' => 'example@domain.com']
 	],
@@ -38,7 +38,7 @@ echo ModalWidget::widget([
 	    ],
 	],
 	'professionField' => [
-	    'label' => 'Специализация:',
+	    'label' => 'Специализация *:',
 	    'divClass' => 'select-wrapper specialization-select',
 	    //'type' => 'dropDownList',
 	    'type' => 'listBox',
@@ -64,8 +64,8 @@ echo ModalWidget::widget([
 	    ]
 	]
     ],
-    'success' => '$("#modalView").modal("toggle");',
-    'script' => '$("#user-country_id").on("change", function () {
+    'success' => 'location.reload(true);',
+    'script' => '$("#registration-country_id").on("change", function () {
 	    id = $(this).val();
 	    setCityList(id);
 	});
@@ -73,7 +73,7 @@ echo ModalWidget::widget([
 	    csrf = $("[name=\"csrf-token\"]").attr("content");
 	    url = "'.Url::toRoute("users/getcities").'";
 	    $.post(url, {"_csrf-frontend":csrf, "id":id}, function(data) {
-		$("#user-city_id").html(data);
+		$("#registration-city_id").html(data);
 	    });
 	}
 	//setCityList($("#user-country_id").val());

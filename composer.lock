@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3839ce0167a858b268fa758d86410265",
-    "content-hash": "78096cc72984f8bfc03f10c4e8f625cf",
+    "hash": "e43bf262895fe3dc88f6bd526f0fea09",
+    "content-hash": "e2242648758d71df8759d2e4534eb259",
     "packages": [
         {
             "name": "2amigos/yii2-file-upload-widget",
@@ -729,6 +729,130 @@
                 "yii2"
             ],
             "time": "2016-10-18 06:35:15"
+        },
+        {
+            "name": "lysenkobv/maxmind-geolite2-database",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lysenkobv/maxmind-geolite2-database.git",
+                "reference": "e3b32973e55ff5ec09f768356d813370343fa442"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lysenkobv/maxmind-geolite2-database/zipball/e3b32973e55ff5ec09f768356d813370343fa442",
+                "reference": "e3b32973e55ff5ec09f768356d813370343fa442",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "keywords": [
+                "maxmind"
+            ],
+            "time": "2015-11-30 16:08:52"
+        },
+        {
+            "name": "lysenkobv/yii2-geoip",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lysenkobv/yii2-geoip.git",
+                "reference": "df5d2bf6a823990bf935f5d5bf4b4870b934c59a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lysenkobv/yii2-geoip/zipball/df5d2bf6a823990bf935f5d5bf4b4870b934c59a",
+                "reference": "df5d2bf6a823990bf935f5d5bf4b4870b934c59a",
+                "shasum": ""
+            },
+            "require": {
+                "lysenkobv/maxmind-geolite2-database": "*",
+                "maxmind-db/reader": "~1.0",
+                "php": ">=5.4.0",
+                "yiisoft/yii2": ">=2.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.4"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "lysenkobv\\GeoIP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bohdan Lysenko",
+                    "email": "lysenkobv@gmail.com"
+                }
+            ],
+            "description": "Yii 2 GeoIP extension. Returns country, city, lat, lng of current or specified IP (uses MaxMind's GeoIP2 databases)",
+            "keywords": [
+                "geoip",
+                "geolocation",
+                "maxmind",
+                "yii2"
+            ],
+            "time": "2016-12-14 17:25:11"
+        },
+        {
+            "name": "maxmind-db/reader",
+            "version": "v1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maxmind/MaxMind-DB-Reader-php.git",
+                "reference": "7eeccf61b078bb23bb07b1a151a7e5db52871e65"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maxmind/MaxMind-DB-Reader-php/zipball/7eeccf61b078bb23bb07b1a151a7e5db52871e65",
+                "reference": "7eeccf61b078bb23bb07b1a151a7e5db52871e65",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.2.*",
+                "satooshi/php-coveralls": "1.0.*",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "suggest": {
+                "ext-bcmath": "bcmath or gmp is requred for decoding larger integers with the pure PHP decoder",
+                "ext-gmp": "bcmath or gmp is requred for decoding larger integers with the pure PHP decoder",
+                "ext-maxminddb": "A C-based database decoder that provides significantly faster lookups"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MaxMind\\Db\\": "src/MaxMind/Db"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Gregory J. Oschwald",
+                    "email": "goschwald@maxmind.com",
+                    "homepage": "http://www.maxmind.com/"
+                }
+            ],
+            "description": "MaxMind DB Reader API",
+            "homepage": "https://github.com/maxmind/MaxMind-DB-Reader-php",
+            "keywords": [
+                "database",
+                "geoip",
+                "geoip2",
+                "geolocation",
+                "maxmind"
+            ],
+            "time": "2017-01-19 23:49:38"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1629,16 +1753,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "5a5a9fc8025a08d8919be87d6884d5a92520cefe"
+                "reference": "8e6e04167378abf1ddb4d3522d8755c5fd90d102"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/5a5a9fc8025a08d8919be87d6884d5a92520cefe",
-                "reference": "5a5a9fc8025a08d8919be87d6884d5a92520cefe",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/8e6e04167378abf1ddb4d3522d8755c5fd90d102",
+                "reference": "8e6e04167378abf1ddb4d3522d8755c5fd90d102",
                 "shasum": ""
             },
             "require": {
@@ -1667,7 +1791,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2017-01-26 22:05:40"
+            "time": "2017-04-12 18:52:22"
         },
         {
             "name": "phpdocumentor/reflection-common",

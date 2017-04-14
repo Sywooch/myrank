@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use frontend\components\Controller;
@@ -24,56 +25,56 @@ use frontend\models\Registration;
  */
 class UsersController extends Controller {
     /*
-    public function behaviors() {
-	return [
-	    'access' => [
-		'class' => AccessControl::className(),
-		'rules' => [
-		    [
-			'actions' => ['search', 'error'],
-			'allow' => true,
-		    ],
-		    [
-			'actions' => ['profile'],
-			'allow' => true,
-			'roles' => ['@'],
-		    ],
-		],
-	    ],
-	];
-    }*/
-    
-    public function actionProfile () {
+      public function behaviors() {
+      return [
+      'access' => [
+      'class' => AccessControl::className(),
+      'rules' => [
+      [
+      'actions' => ['search', 'error'],
+      'allow' => true,
+      ],
+      [
+      'actions' => ['profile'],
+      'allow' => true,
+      'roles' => ['@'],
+      ],
+      ],
+      ],
+      ];
+      } */
+
+    public function actionProfile() {
 	$req = \Yii::$app->request->get();
-	if(!isset($req['id'])) {
+	if (!isset($req['id'])) {
 	    $req['id'] = \Yii::$app->user->id;
 	}
 	$mUser = User::findOne($req['id']);
-	if(isset($mUser->id)) {
+	if (isset($mUser->id)) {
 	    return $this->render("profile", [
-		'mUser' => $mUser,
+			'mUser' => $mUser,
 	    ]);
 	} else {
 	    throw new NotFoundHttpException('The requested page does not exist.');
 	}
     }
-    
-    public function actionPhotouserupload () {
+
+    public function actionPhotouserupload() {
 	$uId = \Yii::$app->user->id;
 	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/uploadPhotoUser')]);
     }
-    
-    public function actionSavemarks ($id) {
+
+    public function actionSavemarks($id) {
 	$req = \Yii::$app->request->post('mark');
 	$code = 0;
-	
+
 	$mUser = User::findOne($id);
-	if($mUser->owner) {
+	if ($mUser->owner) {
 	    $mUser->mark = \yii\helpers\Json::encode($req);
 	    echo Json::encode(['code' => $mUser->save() ? 1 : 0, 'error' => $mUser->errors]);
 	} else {
 	    $mMarks = UserMarks::find()->where(['user_to' => $mUser->id, 'user_from' => \Yii::$app->user->id])->one();
-	    if(!isset($mMarks->description)) {
+	    if (!isset($mMarks->description)) {
 		$mMarks = new UserMarks();
 	    }
 	    $mMarks->attributes = [
@@ -81,17 +82,17 @@ class UsersController extends Controller {
 		'user_from' => \Yii::$app->user->id,
 		'description' => Json::encode($req),
 	    ];
-	    
-	    if(isset($req[0])) {
+
+	    if (isset($req[0])) {
 		foreach ($req[0] as $key => $item) {
 		    $query = [
 			'user_from' => \Yii::$app->user->id,
 			'user_to' => $mUser->id,
 			'mark_id' => $key,
 		    ];
-		    
+
 		    $mUserMarkRating = UserMarkRating::find()->where($query)->one();
-		    if(!isset($mUserMarkRating->id)) {
+		    if (!isset($mUserMarkRating->id)) {
 			$mUserMarkRating = new UserMarkRating();
 		    }
 		    $query['mark_val'] = $item;
@@ -100,21 +101,21 @@ class UsersController extends Controller {
 		}
 		$rating = \Yii::$app->rating->process($mUser);
 	    }
-	    if($mMarks->save()) {
+	    if ($mMarks->save()) {
 		$code = 1;
-		isset($mMarks->id) ? : \Yii::$app->notification->saveNotif(UserNotification::NOTIF_TYPE_MARKS, $mMarks->user_to);
+		isset($mMarks->id) ?: \Yii::$app->notification->saveNotif(UserNotification::NOTIF_TYPE_MARKS, $mMarks->user_to);
 		\Yii::$app->notification->set('global', 'Ваша оценка сохранена');
 	    }
 	    echo Json::encode(['code' => $code, 'error' => $mMarks->errors, 'out' => $rating]);
 	}
 	\Yii::$app->end();
     }
-    
+
     /**
      * Модальное окно комментария
      * @param int $id - айди юзверя, которому адресован коммент
      */
-    public function actionWritetestimonials ($id) {
+    public function actionWritetestimonials($id) {
 	$param = \Yii::$app->request->post('param');
 	$mUser = User::getProfile();
 	$model = new Testimonials();
@@ -127,41 +128,41 @@ class UsersController extends Controller {
 	echo Json::encode(['code' => 1, 'data' => $out, 'title' => 'Оставить отзыв']);
 	\Yii::$app->end();
     }
-    
+
     /**
      * Сохранение комента
      */
-    public function actionSavetestimonials () {
+    public function actionSavetestimonials() {
 	$post = \Yii::$app->request->post();
 	$code = 0;
 	$model = new Testimonials();
 	//$post['Testimonials']['status'] = Testimonials::STATUS_MODERATION;
-	if($model->load($post) && $model->save()) {
+	if ($model->load($post) && $model->save()) {
 	    \Yii::$app->rating->process(User::findOne($model->user_to));
 	    \Yii::$app->notification->saveNotif(UserNotification::NOTIF_TYPE_TESTIMONIALS, $model->user_to);
 	    $code = 1;
 	}
 	echo Json::encode(['code' => $code, 'errors' => $model->errors]);
     }
-    
-    public function actionSendclaim () {
+
+    public function actionSendclaim() {
 	$post = \Yii::$app->request->post();
-	if(isset($post['param'])) {
+	if (isset($post['param'])) {
 	    $mClaim = UserClaim::findOne($post['id']);
-	    if(!isset($mClaim->id)) {
+	    if (!isset($mClaim->id)) {
 		$mClaim = new UserClaim();
 		$mClaim->attributes = [
-		    
 		];
 	    }
 	}
 	echo Json::encode(['code' => 1]);
     }
-    
+
     // Edit profile
-    public function actionEditmaininfo () {
-	$model = User::getProfile();
-	if($model->type) {
+    public function actionEditmaininfo() {
+	$uId = \Yii::$app->user->id;
+	$model = Registration::findOne($uId);
+	if ($model->type) {
 	    $out = $this->renderPartial("/registration/_regStep3", [
 		'mCompany' => $model->company,
 		'title' => 'Редактирование компании',
@@ -179,47 +180,53 @@ class UsersController extends Controller {
 	echo Json::encode(['code' => 1, 'data' => $out]);
 	\Yii::$app->end();
     }
-    
-    public function actionSavemaininfo () {
+
+    public function actionSavemaininfo() {
 	$post = \Yii::$app->request->post();
-	$mUser = User::getProfile();
+	//$mUser = User::getProfile();
+	$uId = \Yii::$app->user->id;
+	$mUser = Registration::findOne($uId);
 	$out['code'] = 0;
-	if($mUser->load($post) && ($post['User']['password'] == $post['User']['rePassword'])) {
-	    $out['code'] = $mUser->save();
+	if ($mUser->load($post) && $mUser->validate()) {
+	    if (($post['Registration']['password'] == $post['Registration']['rePassword']) && $mUser->validate()) {
+		$out['code'] = $mUser->save();
+	    } else {
+		$out['errors'] = ['password' => ['Пароль и повтор пароля не совпадают']];
+	    }
 	} else {
-	    $out['errors'] = ['password' => ['Пароль и повтор пароля не совпадают']];
+	    $out['errors'] = $mUser->errors;
 	}
 	echo Json::encode($out);
 	\Yii::$app->end();
     }
-    
-    public function actionEditportfolio () {
+
+    public function actionEditportfolio() {
 	\Yii::$app->session->remove("userImages");
 	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/editProfile')]);
 	\Yii::$app->end();
     }
-    
-    public function actionViewportfolio ($id) {
+
+    public function actionViewportfolio($id) {
 	$model = Images::findOne($id);
 	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/viewPortfolio', ['model' => $model])]);
 	\Yii::$app->end();
     }
-    
-    public function actionSaveportfolio () {
+
+    public function actionSaveportfolio() {
 	$req = \Yii::$app->request->post("Images");
 	$sess = \Yii::$app->session;
-	
-	if($sess->has("userImages")) {
+
+	if ($sess->has("userImages")) {
 	    $userImages = $sess->get("userImages");
 	}
-	
+
 	$uId = \Yii::$app->user->id;
 	$mUser = User::findOne($uId);
-	
+
 	foreach ($req['title'] as $key => $item) {
-	    if(($item != "") && isset($userImages[$key])) {
+	    if (($item != "") && isset($userImages[$key])) {
 		$model = new \frontend\models\Images();
-		
+
 		$model->attributes = [
 		    'type' => $mUser->type,
 		    'type_id' => $mUser->type ? $mUser->company_id : $uId,
@@ -233,24 +240,24 @@ class UsersController extends Controller {
 	}
 	echo Json::encode(['code' => 1]);
     }
-    
-    public function actionGetcities () {
+
+    public function actionGetcities() {
 	$post = \Yii::$app->request->post('id');
 	$model = \frontend\models\City::find()->where(['country_id' => $post])->all();
 	$out = "";
 	foreach ($model as $item) {
-	    $out .= "<option value='".$item->city_id."'>".$item->name."</option>\n";
+	    $out .= "<option value='" . $item->city_id . "'>" . $item->name . "</option>\n";
 	}
 	echo $out;
 	\Yii::$app->end();
     }
-    
-    public function actionTrustees ($id) {
+
+    public function actionTrustees($id) {
 	$post = \Yii::$app->request->post();
 	$user_from = \Yii::$app->user->id;
 	$params = ['user_to' => $id, 'user_from' => $user_from];
 	$mTrus = UserTrustees::find()->where($params)->one();
-	if(isset($mTrus->id)) {
+	if (isset($mTrus->id)) {
 	    $out['code'] = $mTrus->delete() ? 1 : 0;
 	    $out['data'] = 'В ДОВЕРЕННЫЕ';
 	} else {
@@ -263,54 +270,55 @@ class UsersController extends Controller {
 	echo Json::encode($out);
 	\Yii::$app->end();
     }
-    
-    public function actionSearch () {
+
+    public function actionSearch() {
 	$post = \Yii::$app->request->post();
 	$get['UsersSearch'] = \Yii::$app->request->get();
 	$req = array_merge($get, $post);
 	//var_dump($req);
-	
+
 	$model = new UsersSearch();
 	$modelSearch = $model->search($req);
 	$model->load($req);
 	return $this->render("search", ['model' => $model, 'mSearch' => $modelSearch]);
     }
-    
-    public function actionUserslist ($startsWith) {
+
+    public function actionUserslist($startsWith) {
 	$model = User::find()
 		->where(['like', 'last_name', $startsWith])
 		->orWhere(['like', 'first_name', $startsWith])
 		->asArray()
 		->all();
 	foreach ($model as $item) {
-	    $out['users'][]['name'] = $item['last_name']." ".$item['first_name'];
+	    $out['users'][]['name'] = $item['last_name'] . " " . $item['first_name'];
 	}
 	return Json::encode($out);
     }
-    
-    public function actionLastmarksuser ($id) {
+
+    public function actionLastmarksuser($id) {
 	$model = UserMarks::find()->where(['user_to' => $id])->all();
 	echo Json::encode([
-	    'code' => 1, 
+	    'code' => 1,
 	    'data' => $this->renderPartial('modal/listUser', ['model' => $model, 'title' => 'Последние оценки'])
 	]);
 	\Yii::$app->end();
     }
-    
-    public function actionMarkview ($id) {
+
+    public function actionMarkview($id) {
 	$model = UserMarks::findOne($id);
 	echo Json::encode([
 	    'code' => 1,
 	    'data' => $this->renderPartial('modal/viewMark', ['item' => $model, 'title' => 'Оценка пользователя']),
 	]);
     }
-    
-    public function actionAlltrustuser ($id) {
+
+    public function actionAlltrustuser($id) {
 	$model = UserTrustees::find()->where(['user_from' => $id])->all();
 	echo Json::encode([
-	    'code' => 1, 
+	    'code' => 1,
 	    'data' => $this->renderPartial('modal/allTrustUser', ['model' => $model, 'title' => 'Доверенные лица'])
 	]);
 	\Yii::$app->end();
-    } 
+    }
+
 }

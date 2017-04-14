@@ -53,6 +53,8 @@ $this->registerJsFile("/js/jquery2.2.4.js", ['position' => \yii\web\View::POS_HE
 $session = Yii::$app->session;
 $country = $session->get("country", 9908);
 
+$lang = Yii::$app->params['lang'];
+
 AppAsset::register($this);
 ?>
 
@@ -89,10 +91,7 @@ AppAsset::register($this);
 				<div class="b-header__region">
 				    <div class="b-header__region__language">
 					<div class="b-header__region__language__select">
-					    <?= Html::dropDownList("lang", Yii::$app->request->cookies->get('lang'), [
-						'ru_RU' => 'Ru',
-						'en_US' => 'En'
-					    ], ['id' => 'changeLang']) ?>
+					    <?= Html::dropDownList("lang", Yii::$app->request->cookies->get('lang'), $lang, ['id' => 'changeLang']) ?>
 					</div>
 				    </div>
 				    <div class="b-header__region__country">
