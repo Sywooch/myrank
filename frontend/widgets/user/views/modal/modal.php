@@ -71,7 +71,7 @@ use yii\widgets\ActiveForm;
 	    method: 'POST',
 	    success: function (out) {
 		if (out.code == 1) {
-<?= $success ?>
+		    <?= $success ?>
 		} else {
 		    view = "";
 		    $.each(out.errors, function (i, val) {
