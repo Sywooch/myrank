@@ -90,7 +90,7 @@ class AuthHandler {
 			    Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
 			} else {
 			    Yii::$app->getSession()->setFlash('error', [
-				Yii::t('app', 'Unable to save {client} account: {errors}', [
+				Yii::t('app', 'UNABLE_TO_SAVE_client_ACCOUNT_errors', [
 				    'client' => $this->client->getTitle(),
 				    'errors' => json_encode($auth->getErrors()),
 				]),
@@ -98,7 +98,7 @@ class AuthHandler {
 			}
 		    } else {
 			Yii::$app->getSession()->setFlash('error', [
-			    Yii::t('app', 'Unable to save user: {errors}', [
+			    Yii::t('app', 'UNABLE_TO_SAVE_USER_errors', [
 				'client' => $this->client->getTitle(),
 				'errors' => json_encode($user->getErrors()),
 			    ]),
@@ -118,13 +118,13 @@ class AuthHandler {
 		    $user = $auth->user;
 		    $this->updateUserInfo($user);
 		    Yii::$app->getSession()->setFlash('success', [
-			Yii::t('app', 'Linked {client} account.', [
+			Yii::t('app', 'LINKED_client_ACCOUNT', [
 			    'client' => $this->client->getTitle()
 			]),
 		    ]);
 		} else {
 		    Yii::$app->getSession()->setFlash('error', [
-			Yii::t('app', 'Unable to link {client} account: {errors}', [
+			Yii::t('app', 'UNABLE_TO_LINK_client_ACCOUNT_errors', [
 			    'client' => $this->client->getTitle(),
 			    'errors' => json_encode($auth->getErrors()),
 			]),
@@ -132,7 +132,7 @@ class AuthHandler {
 		}
 	    } else { // there's existing auth
 		Yii::$app->getSession()->setFlash('error', [
-		    Yii::t('app', 'Unable to link {client} account. There is another user using it.', ['client' => $this->client->getTitle()]),
+		    Yii::t('app', 'UNABLE_TO_LINK_client_ACCOUNT_THERE_IS_ANOTHER_USER_USING_IT', ['client' => $this->client->getTitle()]),
 		]);
 	    }
 	}

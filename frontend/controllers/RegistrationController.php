@@ -26,7 +26,7 @@ class RegistrationController extends Controller {
 	$post = \Yii::$app->request->post();
 	if ($post['Registration']['password'] != $post['Registration']['rePassword']) {
 	    $out['errors'] = [
-		'password' => 'Пароль и повтор пароля не совпадают'
+		'password' => \Yii::t('app','PASSWORD_AND_REPEAT_DO_NOT_MATCH')
 	    ];
 	} else {
 	    //if(Registration::find()->where(['email' => $post['Registration']['email']]))
