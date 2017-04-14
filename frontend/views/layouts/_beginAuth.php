@@ -14,8 +14,7 @@ $mSearch = new UsersSearch();
 <div class="container">
 
     <div class="b-header__title">
-	Оцените надежность, честность и профессионализм
-	потенциального партнера или контрагента.
+        <?= \Yii::t('app','MYRANK_SLOGAN'); ?>
     </div>
 
     <div class="b-header__bottom">
@@ -35,10 +34,10 @@ $mSearch = new UsersSearch();
 	    <div class="row">
 		<div class="col-xs-12 col-sm-6">
 		    <div class="b-header__search__col ui-widget">
-    			<span>Найти</span>
+    			<span><?= \Yii::t('app','FIND'); ?></span>
     			<?= $form->field($mSearch, 'searchName')
     			    ->input('text', [
-    				'placeholder' => 'Введите имя или специалиста',
+    				'placeholder' => \Yii::t('app','ENTER_NAME_OR_SPECIALIST') ,
     				'class' => 'input-text',
     				'id' => 'userChoose'
     			    ])->label(FALSE) ?>
@@ -46,7 +45,7 @@ $mSearch = new UsersSearch();
 		</div>
 		<div class="col-xs-12 col-sm-3">
 		    <div class="b-header__search__col">
-			<span>Регион</span>
+			<span><?= \Yii::t('app','REGION'); ?></span>
 			<div class="b-header__search__select">
 			    <?= $form->field($mSearch, 'city_id')->dropDownList($city)->label(FALSE); ?>
 			</div>
@@ -55,7 +54,7 @@ $mSearch = new UsersSearch();
 		<div class="col-xs-12 col-sm-3">
 		    <div class="b-header__search__col">
 			<div class="b-header__search__button">
-			    <?= Html::submitButton('поиск', ['class' => 'button-submit']) ?>
+			    <?= Html::submitButton(\Yii::t('app','SEARCH'), ['class' => 'button-submit']) ?>
 			    <!-- span><a href="#">Расширенный поиск</a></span -->
 			</div>
 		    </div>
@@ -66,32 +65,32 @@ $mSearch = new UsersSearch();
 	</div>
 	<?php if (Yii::$app->user->id === NULL) { ?>
     	<div class="b-header__profile">
-    	    <span>Выберите ваш профиль</span>
+    	    <span><?= \Yii::t('app','SELECT_YOUR_PROFILE'); ?></span>
     	    <ul class="nav-tabs">
     		<li class="active">
     		    <a href="#tab-content_1" data-toggle="tab">
-    			Я пользователь
+                    <?= \Yii::t('app','IAM_USER'); ?>
     		    </a>
     		</li>
     		<li>
     		    <a href="#tab-content_2" data-toggle="tab">
-    			Я компания
+                    <?= \Yii::t('app','WEARE_COMPANY'); ?>
     		    </a>
     		</li>
     	    </ul>
     	    <div class="tab-content">
     		<div class="tab-pane active" id="tab-content_1">
     		    <div class="b-header__profile__title">
-    			Зарегистрируйтесь или войдите черех социальные сети
+                    <?= \Yii::t('app','REGISTER_OR_SIGN_THROUGH_SOCIAL'); ?>
     		    </div>
     		    <div class="b-header__profile__content">
     			<div class="b-header__profile__button">
 			    <a class="button regstep" 
 			       data-url="<?= Url::toRoute(["registration/step1", 'type' => User::TYPE_USER_USER]) ?>" 
-			       href="#">Регистрация</a>
+			       href="#"><?= \Yii::t('app','REGISTRATION'); ?></a>
     			</div>
     			<div class="b-header__profile__button">
-    			    <a class="button signin" href="#">Вход</a>
+    			    <a class="button signin" href="#"><?= \Yii::t('app','LOGIN'); ?></a>
     			</div>
     			<div class="b-social">
     			    <ul>
@@ -104,16 +103,16 @@ $mSearch = new UsersSearch();
     		</div>
     		<div class="tab-pane" id="tab-content_2">
 		    <div class="b-header__profile__title">
-    			Зарегистрируйтесь или войдите черех социальные сети
+                <?= \Yii::t('app','REGISTER_OR_SIGN_THROUGH_SOCIAL'); ?>
     		    </div>
     		    <div class="b-header__profile__content">
     			<div class="b-header__profile__button">
     			    <a class="button regstep" 
 			       data-url="<?= Url::toRoute(["registration/step1", 'type' => User::TYPE_USER_COMPANY]) ?>"
-			       href="#">Регистрация</a>
+			       href="#"><?= \Yii::t('app','REGISTRATION'); ?></a>
     			</div>
     			<div class="b-header__profile__button">
-    			    <a class="button signin" href="#">Вход</a>
+    			    <a class="button signin" href="#"><?= \Yii::t('app','LOGIN'); ?></a>
     			</div>
     			<div class="b-social">
     			    <ul>

@@ -22,7 +22,9 @@ class ArticleLastIssuesWidget extends Widget {
         parent::run();
 
         $dataProviderArticleLastIssues = new ActiveDataProvider([
-            'query' => Article::find()->where(['status'=>10])->orderBy('create_time DESC')->limit(3),
+            'query' => Article::find()
+                ->where(['status'=>10,'locale'=>\Yii::$app->language])
+                ->orderBy('create_time DESC')->limit(3),
             'totalCount' => 3,
             'pagination' => [
                 'pageSize' => 3,

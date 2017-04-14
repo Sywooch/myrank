@@ -5,7 +5,7 @@ use yii\widgets\ListView;
 ?>
 
 <div class="b-block articles-list">
-    <div class="b-title">Читайте также</div>
+    <div class="b-title"><?= \Yii::t('app','READ_ALSO'); ?></div>
     <div class="b-articles__content">
         <div class="articles-list__item">
             <div class="row">

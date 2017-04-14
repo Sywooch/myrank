@@ -95,7 +95,7 @@ AppAsset::register($this);
 					</div>
 				    </div>
 				    <div class="b-header__region__country">
-					<span>Ваша страна</span>
+					<span><?= \Yii::t('app','YOUR_COUNTRY'); ?></span>
 					<div class="b-header__region__country__select">
 					    <?= Html::dropDownList("country", $country, Country::getList(), ['id' => 'countrySelect']) ?>
 					</div>

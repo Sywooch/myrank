@@ -7,7 +7,7 @@ use yii\widgets\ListView;
 <!-- <aside class="b-sidebar"> -->
 <aside class="b-sidebar">
     <div class="b-block">
-        <div class="b-title">Последние материалы</div>
+        <div class="b-title"><?= \Yii::t('app','RECENT_MATERIALS'); ?></div>
 <?php
         echo ListView::widget([
             'dataProvider' => $listDataProviderArticleLastIssues,

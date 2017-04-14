@@ -15,7 +15,7 @@ $mProf = Profession::find()->asArray()->all();
 <div class="b-category">
     <div class="container">
 	<h2>
-	    Топ категорий
+        <?= \Yii::t('app','TOP_CATEGORIES'); ?>
 	</h2>
 	<div class="b-category__content">
 	    <div class="row">
@@ -51,51 +51,37 @@ $mProf = Profession::find()->asArray()->all();
 	<div class="row">
 	    <div class="col-xs-12 col-sm-6">
 		<div class="b-info__about">
-		    <h2>Немного о проекте</h2>
-		    <div class="b-info__about__content">
-			<p>Сервис MyRank позволяет оценивать разнообразные
-			    качества пользователей по 10-балльной шкале и выводить
-			    общую среднюю оценку их рейтинга.</p>
-			<p>При оценивании пользователя по какому либо критерию,
-			    оценивающий имеет возможность ввести свой отзыв,
-			    пояснив текстом, почему он поставил ту или иную оценку.</p>
-			<p>По общей и средним оценкам строятся полярные
-			    диаграммы по категориям и критериям оценки. В
-			    идеальном случае, диаграмма должна представлять собой
-			    круг – колесо, которое свободно и ровно катится по жизни.</p>
-			<p>Отсюда вытекает миссия сервиса MyRank: помогать людям
-			    контролировать свои приоритеты и «выравнивать колесо»
-			    своей жизни.</p>
-		    </div>
+		    <h2><?= \Yii::t('app','LITTLE_ABOUT_THE_PROJECT'); ?></h2>
+		    <div class="b-info__about__content"><?= \Yii::t('app','LITTLE_ABOUT_THE_PROJECT_TEXT'); ?></div>
 		</div>
 	    </div>
 	    <div class="col-xs-12 col-sm-6">
 		<div class="b-info__how-work">
-		    <h2>Как работает сервис</h2>
+		    <h2><?= \Yii::t('app','HOW_SERVICE_WORK'); ?></h2>
 		    <div class="b-info__how-work__content">
 			<ul>
 			    <li><span class="b-info__how-work__icon b-info__how-work__icon_1"></span>
-				<span class="b-info__how-work__text">Регистрация Пользователя/Компании</span>
+				<span class="b-info__how-work__text"><?= \Yii::t('app','HOW_SERVICE_WORK_TEXT_1'); ?></span>
 			    </li>
 			    <li>
 				<span class="b-info__how-work__icon b-info__how-work__icon_2"></span>
-				<span class="b-info__how-work__text">Заполните информацию о профиле, чтобы получить максимально высокий бал.</span>
+				<span class="b-info__how-work__text"><?= \Yii::t('app','HOW_SERVICE_WORK_TEXT_2'); ?></span>
 			    </li>
 			    <li>
 				<span class="b-info__how-work__icon b-info__how-work__icon_3"></span>
-				<span class="b-info__how-work__text">Оценивайте партнеров, коллег и знакомых, оставляйте о них отзывы.</span>
+				<span class="b-info__how-work__text"><?= \Yii::t('app','HOW_SERVICE_WORK_TEXT_3'); ?></span>
 			    </li>
 			    <li>
 				<span class="b-info__how-work__icon b-info__how-work__icon_4"></span>
-				<span class="b-info__how-work__text">Повышайте рейтинг профиля, получайте отзывы.</span>
+				<span class="b-info__how-work__text"><?= \Yii::t('app','HOW_SERVICE_WORK_TEXT_4'); ?></span>
 			    </li>
 			    <li>
 				<span class="b-info__how-work__icon b-info__how-work__icon_5"></span>
-				<span class="b-info__how-work__text">Высокий рейтинг - карьерный рост.</span>
+				<span class="b-info__how-work__text"><?= \Yii::t('app','HOW_SERVICE_WORK_TEXT_5'); ?></span>
 			    </li>
 			    <li>
 				<span class="b-info__how-work__icon b-info__how-work__icon_6"></span>
-				<span class="b-info__how-work__text">Ищите партнеров для своего бизнеса.</span>
+				<span class="b-info__how-work__text"><?= \Yii::t('app','HOW_SERVICE_WORK_TEXT_6'); ?></span>
 			    </li>
 			</ul>
 		    </div>
@@ -113,9 +99,11 @@ echo ListView::widget([
     'dataProvider' => $listDataProvider,
     'itemView' => '_listArticles',
     'layout' => '{items}',
-    'emptyText' => 'Нет статей',
+    'emptyText' =>
+        '<p></p><h2>'.\Yii::t('app','NEWS').'</h2>'.
+             '<p>'.\Yii::t('app','NO_ARTICLES').'</p>',
     'emptyTextOptions' => [
-	'tag' => 'p'
+	//'tag' => 'p'
     ],
 ]);
 ?>
@@ -127,15 +115,15 @@ echo ListView::widget([
     <div class="container">
 	<div class="b-reg-now__content">
 	    <div class="b-reg-now__text">
-		Зарегистрируйтесь и получите <span>полный доступ ко всем возможностям</span>
+            <?= \Yii::t('app','REGISTER_AND_GET_FULL_ACCESS_TO_ALL_FEATURES'); ?>
 	    </div>
 	    <div class="b-reg-now__buttons">
 		<a href="#"
 		   class="button regstep" 
-		   data-url="<?= Url::toRoute(['registration/step1', 'type' => User::TYPE_USER_USER]) ?>">Я пользователь</a>
+		   data-url="<?= Url::toRoute(['registration/step1', 'type' => User::TYPE_USER_USER]) ?>"><?= \Yii::t('app','IAM_USER'); ?></a>
 		<a href="#" 
 		   class="button regstep"
-		   data-url="<?= Url::toRoute(['registration/step1', 'type' => User::TYPE_USER_COMPANY]) ?>">Я компания</a>
+		   data-url="<?= Url::toRoute(['registration/step1', 'type' => User::TYPE_USER_COMPANY]) ?>"><?= \Yii::t('app','WEARE_COMPANY'); ?></a>
 	    </div>
 	</div>
     </div>

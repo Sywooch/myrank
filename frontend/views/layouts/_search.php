@@ -17,10 +17,7 @@ $city = Yii::$app->userinfo->getCityArr();
 ?>
 <div class="container">
 
-    <div class="b-header__title">
-	Оцените надежность, честность и профессионализм
-	потенциального партнера или контрагента.
-    </div>
+    <div class="b-header__title"><?= \Yii::t('app','MYRANK_SLOGAN'); ?></div>
 
     <div class="b-header__bottom">
 	<div class="b-header__search">
@@ -39,11 +36,11 @@ $city = Yii::$app->userinfo->getCityArr();
 	    <div class="row">
 		<div class="col-xs-12 col-sm-6">
 		    <div class="b-header__search__col ui-widget">
-			<span>Найти</span>
+			<span><?= \Yii::t('app','FIND'); ?></span>
 			<?=
 				$form->field($mSearch, 'searchName')
 				->input('text', [
-				    'placeholder' => 'Введите имя или специалиста',
+				    'placeholder' => \Yii::t('app','ENTER_NAME_OR_SPECIALIST'),
 				    'class' => 'input-text',
 				    'id' => 'userChoose'
 				])->label(FALSE)
@@ -52,7 +49,7 @@ $city = Yii::$app->userinfo->getCityArr();
 		</div>
 		<div class="col-xs-12 col-sm-3">
 		    <div class="b-header__search__col">
-			<span>Регион</span>
+			<span><?= \Yii::t('app','REGION'); ?></span>
 			<div class="b-header__search__select">
 			    <?= $form->field($mSearch, 'city_id')->dropDownList($city)->label(false) ?>
 			</div>
@@ -61,7 +58,7 @@ $city = Yii::$app->userinfo->getCityArr();
 		<div class="col-xs-12 col-sm-3">
 		    <div class="b-header__search__col">
 			<div class="b-header__search__button">
-			    <?= Html::submitButton("поиск", ['class' => 'button-submit']) ?>
+			    <?= Html::submitButton(\Yii::t('app','SEARCH'), ['class' => 'button-submit']) ?>
 			    <!-- span><a href="#">Расширенный поиск</a></span -->
 			</div>
 		    </div>
@@ -71,7 +68,7 @@ $city = Yii::$app->userinfo->getCityArr();
 		<div class="row">
 		    <div class="col-xs-12 col-sm-6">
 			<div class="b-header__search__advanced__col">
-			    <span>Категория</span>
+			    <span><?= \Yii::t('app','CATEGORY'); ?></span>
 			    <div class="b-header__search__select">
 				<?= $form->field($mSearch, "professionField")->dropDownList($mSearch->profList)->label(FALSE) ?>
 			    </div>
@@ -79,7 +76,7 @@ $city = Yii::$app->userinfo->getCityArr();
 		    </div>
 		    <div class="col-xs-12 col-sm-6">
 			<div class="b-header__search__advanced__col">
-			    <span>Рейтинг</span>
+			    <span><?= \Yii::t('app','RATING'); ?></span>
 			    <div class="b-header__search__advanced__mark">
 				<div class="b-header__search__advanced__mark__input">
 				    <?= $form->field($mSearch, 'ratingStart')->input('text', ['class' => 'header-marks-slider-amount-min'])->label(FALSE) ?>
