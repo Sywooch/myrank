@@ -69,5 +69,6 @@ return [
     'ADDRESS_INFO'=>'MYRANK LIMITED, OFFICE 5, NEEPSEND TRIANGLE, 1, BURTON ROAD, SHEFFIELD, SOUTH YORKSHIRE, S3 8BW, UNITED KINGDOM',
     'LAST_ADDED_USERS'=>'Last added users',
     'TOP_USERS_WITH_HIGHEST_RATING'=>'Top users with the highest rating.',
-
+    'READ_ALSO'=>'Read also',
+    'RECENT_MATERIALS'=>'Recent Materials',
 ];

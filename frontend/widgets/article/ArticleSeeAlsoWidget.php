@@ -28,9 +28,8 @@ class ArticleSeeAlsoWidget extends Widget {
         parent::run();
 
         $dataProvider = new ActiveDataProvider([
-            //'query' => Article::find()->where(['status'=>10])->/*orderBy('create_time DESC')->*/limit(2),
             'query' => Article::find()
-                ->where(['status'=>10])
+                ->where(['status'=>10,'locale'=>\Yii::$app->language])
                 ->andWhere(['article_category_id'=>$this->articleCategoryId])
                 //->orderBy('create_time DESC')
                 ->orderBy('RAND()') // исправить на другой алгоритм
