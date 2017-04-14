@@ -1,9 +1,11 @@
 <?php
 /*
  <?= \Yii::t('app',''); ?>
+Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND')
 ''=>'',
 */
 return [
+    'REQUESTED_PAGE_WAS_NOT_FOUND'=>'Запрошенная страница не найдена',
     'HOME'=>'Главная',
     'ABOUT'=>'О сервисе',
     'ARTICLES'=>'Новости',
@@ -30,6 +32,7 @@ return [
     'LOGIN'=>'Вход',
     'YOUR_COUNTRY'=>'Ваша страна',
     'WELCOME_TO_MYRANK'=>'Добро пожаловать в MyRank!',
+    'AUTHORIZE'=>'Авторизоваться',
     'AUTHORIZATION'=>'Авторизация',
     'EXIT'=>'Выход',
     'ADDRESS'=>'Адрес',
@@ -73,4 +76,23 @@ return [
     'READ_ALSO'=>'Читайте также',
     'RECENT_MATERIALS'=>'Последние материалы',
     'NO_ARTICLES'=>'Новости отсутствуют',
+    'FILE_NOT_SAVED'=>'Файл не сохранен',
+    'FILE_NOT_UPLOADED' => 'Файл не загружен',
+    'THANK_YOU_FOR_CONTACTING_US'=>'Благодарим Вас за обращение к нам. Мы ответим вам как можно скорее.',
+    'THERE_WAS_ERROR_SENDING_EMAIL'=>'При отправке электронной почты произошла ошибка.',
+    'CHECK_YOUR_EMAIL_FOR_FURTHER_INSTRUCTIONS'=>'Проверьте свою электронную почту для получения дальнейших инструкций.',
+    'SORRY_WE_ARE_UNABLE_TO_RESET_PASSWORD_FOR_EMAIL_PROVIDED'=>'Извините, мы не можем сбросить пароль для электронной почты.',
+    'NEW_PASSWORD_WAS_SAVED'=>'Новый пароль сохранен.',
+    'PASSWORD_AND_REPEAT_DO_NOT_MATCH'=>'Пароль и повтор пароля не совпадают',
+    'IN_ORDER_TO_USE_ALL_SERVICES_YOU_MUST_AUTHORIZE'=>'Для того чтоб пользоваться всеми сервисами сайта, надо',
+    'REGISTRATION_STEP_2_OF_2'=>'Регистрация - Шаг 2 <span> из 2 </span>',
+    'YOUR_SCORE_HAS_BEEN_SAVED'=>'Ваша оценка сохранена',
+    'GIVE_FEEDBACK'=>'Оставить отзыв',
+    'EDITING_COMPANY'=>'Редактирование компании',
+    'IN_TRUSTED'=>'В ДОВЕРЕННЫЕ',
+    'TRUSTED'=>'ДОВЕРЕННЫЙ',
+    'LATEST_RATINGS'=>'Последние оценки',
+    'USER_RATING'=>'Оценка пользователя',
+    'TRUSTED_PERSONS'=>'Доверенные лица',
+
 ];

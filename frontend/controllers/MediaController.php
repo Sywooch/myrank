@@ -51,10 +51,10 @@ class MediaController extends Controller {
 		]);
 		\Yii::$app->end();
 	    } else {
-		$out['errors'] = "Не сохранило файл";
+		$out['errors'] = \Yii::t('app','FILE_NOT_SAVED');
 	    }
 	} else {
-	    $out['errors'] = "Не загрузило файл";
+	    $out['errors'] = \Yii::t('app','FILE_NOT_UPLOADED');
 	}
 
 	echo Json::encode($out);

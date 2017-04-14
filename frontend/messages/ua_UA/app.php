@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'REQUESTED_PAGE_WAS_NOT_FOUND'=>'Запитувана сторінка не знайдена',
     'HOME'=>'Головна',
     'ABOUT'=>'Про сервіс',
     'ARTICLES'=>'Новини',
@@ -27,6 +28,7 @@ return [
     'LOGIN'=>'Вхід',
     'YOUR_COUNTRY'=>'Ваша країна',
     'WELCOME_TO_MYRANK'=>'Ласкаво просимо в MyRank!',
+    'AUTHORIZE'=>'Авторизуватись',
     'AUTHORIZATION'=>'Авторизація',
     'EXIT'=>'Вихід',
     'ADDRESS'=>'Адреса',
@@ -70,4 +72,23 @@ return [
     'READ_ALSO'=>'Читайте також',
     'RECENT_MATERIALS'=>'Останні матеріали',
     'NO_ARTICLES'=>'Новини відсутні',
+    'FILE_NOT_SAVED'=>'Файл не збережено',
+    'FILE_NOT_UPLOADED' => 'Файл не завантажений',
+    'THANK_YOU_FOR_CONTACTING_US'=>'Дякуємо Вам за звернення до нас. Ми відповімо Вам як можна швидше.',
+    'THERE_WAS_ERROR_SENDING_EMAIL'=>'Була помилка відправки електронної пошти.',
+    'CHECK_YOUR_EMAIL_FOR_FURTHER_INSTRUCTIONS'=>'Перевірте вашу електронну пошту для отримання подальших інструкцій.',
+    'SORRY_WE_ARE_UNABLE_TO_RESET_PASSWORD_FOR_EMAIL_PROVIDED'=>'На жаль, ми не можемо скинути пароль для вказаної електронної пошти.',
+    'NEW_PASSWORD_WAS_SAVED'=>'Новий пароль був збережений.',
+    'PASSWORD_AND_REPEAT_DO_NOT_MATCH'=>'Пароль і повтор пароля не збігаються',
+    'IN_ORDER_TO_USE_ALL_SERVICES_YOU_MUST_AUTHORIZE'=>'Для того щоб скористатися всіма сервісами сайту, треба',
+    'REGISTRATION_STEP_2_OF_2'=>'Реєстрація - Крок 2 <span> з 2 </ span>',
+    'YOUR_SCORE_HAS_BEEN_SAVED'=>'Ваша оцінка збережена',
+    'GIVE_FEEDBACK'=>'Залишити відгук',
+    'EDITING_COMPANY'=>'Редагування компанії',
+    'IN_TRUSTED'=> 'У ДОВІРЕНІ',
+    'TRUSTED'=>'ДОВІРЕНИЙ',
+    'LATEST_RATINGS'=>'Останні оцінки',
+    'USER_RATING'=>'Оцінка користувача',
+    'TRUSTED_PERSONS'=>'Довірені особи',
+
 ];

@@ -80,7 +80,7 @@ class RegistrationController extends Controller {
 	    $out['code'] = 1;
 	    $out['link'] = \yii\helpers\Url::toRoute(["users/profile", "id" => $model->id]);
 	    //\Yii::$app->user->login($model, 3600 * 24 * 30);
-	    \Yii::$app->user->id === NULL ? \Yii::$app->notification->set('global', 'Для того чтоб пользоваться всеми сервисами сайта, надо <a href="#" class="signin">Авторизоваться</a>') : NULL;
+	    \Yii::$app->user->id === NULL ? \Yii::$app->notification->set('global', \Yii::t('app','IN_ORDER_TO_USE_ALL_SERVICES_YOU_MUST').' <a href="#" class="signin">'.\Yii::t('app','AUTHORIZE').'</a>') : NULL;
 	} else {
 	    $out['errors'] = $model->errors;
 	}
@@ -97,7 +97,7 @@ class RegistrationController extends Controller {
 	}
 	echo Json::encode([
 	    'code' => 1,
-	    'data' => $this->renderPartial("_regStep3", ['mCompany' => $model, 'title' => 'Регистрация - Шаг 2<span> из 2</span>'])
+	    'data' => $this->renderPartial("_regStep3", ['mCompany' => $model, 'title' => \Yii::t('app','REGISTRATION_STEP_2_OF_2')])
 	]);
 	\Yii::$app->end();
     }

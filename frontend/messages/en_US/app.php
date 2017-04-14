@@ -3,6 +3,7 @@
 <?= \Yii::t('app',''); ?>
  * */
 return [
+    'REQUESTED_PAGE_WAS_NOT_FOUND'=>'The requested page was not found',
     'HOME'=>'Home',
     'ABOUT'=>'About',
     'ARTICLES'=>'News',
@@ -29,6 +30,7 @@ return [
     'LOGIN'=>'Login',
     'YOUR_COUNTRY'=>'Your country',
     'WELCOME_TO_MYRANK'=>'Welcome to MyRank!',
+    'AUTHORIZE'=>'Authorize',
     'AUTHORIZATION'=>'Authorization',
     'EXIT'=>'Exit',
     'ADDRESS'=>'Address',
@@ -72,4 +74,22 @@ return [
     'READ_ALSO'=>'Read also',
     'RECENT_MATERIALS'=>'Recent Materials',
     'NO_ARTICLES'=>'News absent',
+    'FILE_NOT_SAVED' => 'File not saved',
+    'FILE_NOT_UPLOADED' => 'File not uploaded',
+    'THANK_YOU_FOR_CONTACTING_US'=>'Thank you for contacting us. We will respond to you as soon as possible.',
+    'THERE_WAS_ERROR_SENDING_EMAIL'=>'There was an error sending email.',
+    'CHECK_YOUR_EMAIL_FOR_FURTHER_INSTRUCTIONS'=>'Check your email for further instructions.',
+    'SORRY_WE_ARE_UNABLE_TO_RESET_PASSWORD_FOR_EMAIL_PROVIDED'=>'Sorry, we are unable to reset password for email provided.',
+    'NEW_PASSWORD_WAS_SAVED'=>'New password was saved.',
+    'PASSWORD_AND_REPEAT_DO_NOT_MATCH'=>'Password and password repeat do not match',
+    'IN_ORDER_TO_USE_ALL_SERVICES_YOU_MUST'=>'In order to use all the services of the site, you must',
+    'REGISTRATION_STEP_2_OF_2'=>'Registration - Step 2 <span> of 2 </span>',
+    'YOUR_SCORE_HAS_BEEN_SAVED'=>'Your score has been saved',
+    'GIVE_FEEDBACK'=>'Give feedback',
+    'EDITING_COMPANY'=>'Editing a company',
+    'IN_TRUSTED'=>'IN TRUSTED',
+    'TRUSTED'=>'TRUSTED',
+    'LATEST_RATINGS'=>'Latest ratings',
+    'USER_RATING'=>'User rating',
+    'TRUSTED_PERSONS'=>'Trusted persons',
 ];

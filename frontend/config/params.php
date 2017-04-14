@@ -14,7 +14,7 @@ return [
     ],
     'lang' => [
 	'ru_RU' => 'Ru',
-	'en_EN' => 'En',
+	'en_US' => 'En',
 	'ua_UA' => 'Ua',
     ]
 

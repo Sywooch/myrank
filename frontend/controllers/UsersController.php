@@ -55,7 +55,7 @@ class UsersController extends Controller {
 			'mUser' => $mUser,
 	    ]);
 	} else {
-	    throw new NotFoundHttpException('The requested page does not exist.');
+	    throw new NotFoundHttpException(\Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND'));
 	}
     }
 
@@ -104,7 +104,7 @@ class UsersController extends Controller {
 	    if ($mMarks->save()) {
 		$code = 1;
 		isset($mMarks->id) ?: \Yii::$app->notification->saveNotif(UserNotification::NOTIF_TYPE_MARKS, $mMarks->user_to);
-		\Yii::$app->notification->set('global', 'Ваша оценка сохранена');
+		\Yii::$app->notification->set('global', \Yii::t('app','YOUR_SCORE_HAS_BEEN_SAVED'));
 	    }
 	    echo Json::encode(['code' => $code, 'error' => $mMarks->errors, 'out' => $rating]);
 	}
@@ -125,7 +125,7 @@ class UsersController extends Controller {
 	    'user_to' => $id,
 	    'parent' => isset($param['parent']) ? $param['parent'] : 0
 	]);
-	echo Json::encode(['code' => 1, 'data' => $out, 'title' => 'Оставить отзыв']);
+	echo Json::encode(['code' => 1, 'data' => $out, 'title' => \Yii::t('app','GIVE_FEEDBACK')]);
 	\Yii::$app->end();
     }
 
@@ -165,7 +165,7 @@ class UsersController extends Controller {
 	if ($model->type) {
 	    $out = $this->renderPartial("/registration/_regStep3", [
 		'mCompany' => $model->company,
-		'title' => 'Редактирование компании',
+		'title' => \Yii::t('app','EDITING_COMPANY'),
 	    ]);
 	} else {
 	    $profArr = [];
@@ -191,7 +191,7 @@ class UsersController extends Controller {
 	    if (($post['Registration']['password'] == $post['Registration']['rePassword']) && $mUser->validate()) {
 		$out['code'] = $mUser->save();
 	    } else {
-		$out['errors'] = ['password' => ['Пароль и повтор пароля не совпадают']];
+		$out['errors'] = ['password' => [\Yii::t('app','PASSWORD_AND_REPEAT_DO_NOT_MATCH')]];
 	    }
 	} else {
 	    $out['errors'] = $mUser->errors;
@@ -259,12 +259,12 @@ class UsersController extends Controller {
 	$mTrus = UserTrustees::find()->where($params)->one();
 	if (isset($mTrus->id)) {
 	    $out['code'] = $mTrus->delete() ? 1 : 0;
-	    $out['data'] = 'В ДОВЕРЕННЫЕ';
+	    $out['data'] = \Yii::t('app','IN_TRUSTED');
 	} else {
 	    $mTrus = new UserTrustees();
 	    $mTrus->attributes = $params;
 	    $out['code'] = $mTrus->save() ? 1 : 0;
-	    $out['data'] = 'ДОВЕРЕННЫЙ';
+	    $out['data'] = \Yii::t('app','TRUSTED');
 	}
 	\Yii::$app->rating->process(User::findOne($id));
 	echo Json::encode($out);
@@ -299,7 +299,7 @@ class UsersController extends Controller {
 	$model = UserMarks::find()->where(['user_to' => $id])->all();
 	echo Json::encode([
 	    'code' => 1,
-	    'data' => $this->renderPartial('modal/listUser', ['model' => $model, 'title' => 'Последние оценки'])
+	    'data' => $this->renderPartial('modal/listUser', ['model' => $model, 'title' => \Yii::t('app','LATEST_RATINGS')])
 	]);
 	\Yii::$app->end();
     }
@@ -308,7 +308,7 @@ class UsersController extends Controller {
 	$model = UserMarks::findOne($id);
 	echo Json::encode([
 	    'code' => 1,
-	    'data' => $this->renderPartial('modal/viewMark', ['item' => $model, 'title' => 'Оценка пользователя']),
+	    'data' => $this->renderPartial('modal/viewMark', ['item' => $model, 'title' => \Yii::t('app','USER_RATING')]),
 	]);
     }
 
@@ -316,7 +316,7 @@ class UsersController extends Controller {
 	$model = UserTrustees::find()->where(['user_from' => $id])->all();
 	echo Json::encode([
 	    'code' => 1,
-	    'data' => $this->renderPartial('modal/allTrustUser', ['model' => $model, 'title' => 'Доверенные лица'])
+	    'data' => $this->renderPartial('modal/allTrustUser', ['model' => $model, 'title' => \Yii::t('app','TRUSTED_PERSONS')])
 	]);
 	\Yii::$app->end();
     }
