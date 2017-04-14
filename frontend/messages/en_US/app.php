@@ -92,4 +92,11 @@ return [
     'LATEST_RATINGS'=>'Latest ratings',
     'USER_RATING'=>'User rating',
     'TRUSTED_PERSONS'=>'Trusted persons',
+    'UNABLE_TO_SAVE_client_ACCOUNT_errors' => 'Unable to save {client} account: {errors}',
+    'UNABLE_TO_SAVE_USER_errors'=>'Unable to save user: {errors}',
+    'LINKED_client_ACCOUNT'=>'Linked {client} account.',
+    'UNABLE_TO_LINK_client_ACCOUNT_errors'=>'Unable to link {client} account: {errors}',
+    'UNABLE_TO_LINK_client_ACCOUNT_THERE_IS_ANOTHER_USER_USING_IT'=>'Unable to link {client} account. There is another user using it.',
 ];
+
+ // \Yii::t('app','')

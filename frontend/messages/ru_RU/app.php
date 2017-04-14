@@ -94,5 +94,10 @@ return [
     'LATEST_RATINGS'=>'Последние оценки',
     'USER_RATING'=>'Оценка пользователя',
     'TRUSTED_PERSONS'=>'Доверенные лица',
+    'UNABLE_TO_SAVE_client_ACCOUNT_errors' => 'Не удалось сохранить учетную запись {client}: {errors}',
+    'UNABLE_TO_SAVE_USER_errors'=>'Не удалось сохранить пользователя: {errors}',
+    'LINKED_client_ACCOUNT'=>'Учетная запись {client} подключена.',
+    'UNABLE_TO_LINK_client_ACCOUNT_errors'=>'Невозможно подключить учетную запись {client}: {errors}',
+    'UNABLE_TO_LINK_client_ACCOUNT_THERE_IS_ANOTHER_USER_USING_IT'=>'Невозможно подключить учетную запись {client}. Есть другой пользователь использующий её.',
 
 ];

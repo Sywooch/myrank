@@ -90,5 +90,10 @@ return [
     'LATEST_RATINGS'=>'Останні оцінки',
     'USER_RATING'=>'Оцінка користувача',
     'TRUSTED_PERSONS'=>'Довірені особи',
+    'UNABLE_TO_SAVE_client_ACCOUNT_errors' => 'Не вдалося зберегти обліковий запис {client}: {errors}',
+    'UNABLE_TO_SAVE_USER_errors'=>'Неможливо зберегти користувача: {errors}',
+    'LINKED_client_ACCOUNT'=>'Обліковий запис {client} під\'єднан.',
+    'UNABLE_TO_LINK_client_ACCOUNT_errors'=>'Неможливо під\'єднати обліковий запис {client} : {errors}',
+    'UNABLE_TO_LINK_client_ACCOUNT_THERE_IS_ANOTHER_USER_USING_IT'=>'Неможливо під\'єднати обліковий запис {client}. Існує ще один користувач, який використовує його.',
 
 ];
