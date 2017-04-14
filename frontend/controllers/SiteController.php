@@ -147,9 +147,9 @@ class SiteController extends Controller {
 	$model = new ContactForm();
 	if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 	    if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-		Yii::$app->session->setFlash('success', \Yii::t('app','THANK_YOU_FOR_CONTACTING_US'););
+		Yii::$app->session->setFlash('success', \Yii::t('app','THANK_YOU_FOR_CONTACTING_US'));
 	    } else {
-		Yii::$app->session->setFlash('error', \Yii::t('app','THERE_WAS_ERROR_SENDING_EMAIL'););
+		Yii::$app->session->setFlash('error', \Yii::t('app','THERE_WAS_ERROR_SENDING_EMAIL'));
 	    }
 
 	    return $this->refresh();
