@@ -3,6 +3,7 @@
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use frontend\models\Testimonials;
+use yii\helpers\Html;
 ?>
 
 <div class="b-modal">
@@ -36,15 +37,16 @@ use frontend\models\Testimonials;
 		</div>
 		<div class="b-modal__content__user__header__content">
 		    <div class="b-modal__content__user__header__content__title"><?= $mUser->fullName ?></div>
-		    <!-- div class="b-modal__content__user__header__content__select">
+		    <div class="b-modal__content__user__header__content__select">
 			<span>Я:</span>
 			<div class="select-wrapper">
-			    <select>
+			<?= Html::dropDownList("Testimonials[who_from_to]", $model->who_from_to, Testimonials::$whoFromTo) ?>
+			    <!-- select>
 				<option value="">Начальник</option>
 				<option value="">Начальник</option>
-			    </select>
+			    </select -->
 			</div>
-		    </div -->
+		    </div>
 		</div>
 	    </div>
 	    <div class="b-modal__content__user__content">
@@ -73,6 +75,11 @@ use frontend\models\Testimonials;
 			<i>Не больше 500 символов.</i>
 		    </div>
 		</div>
+		<div class="row">
+		    <div class="col-xs-12">
+			<div id="errorBlock" style="color:#ff0000; display: none;"></div>
+		    </div>
+		</div>
 	    </div>
 	</div>
 	<div class="b-modal__content__buttons">
@@ -80,7 +87,7 @@ use frontend\models\Testimonials;
 		<a id="saveTestimonials" class="button-small" href="#">Сохранить</a>
 	    </div>
 	    <div class="b-modal__content__buttons__item">
-		<span><a href="#">Отмена</a></span>
+		<span><a id="cancelBut" href="#">Отмена</a></span>
 	    </div>
 	</div>
     </div>
@@ -90,6 +97,10 @@ use frontend\models\Testimonials;
 <?php ActiveForm::end(); ?>
 </div>
 <script type="text/javascript">
+    $("#cancelBut").on('click', function () {
+	$('#modalView').modal('hide');
+	return false;
+    });
     $("#saveTestimonials").on("click", function () {
 	var url = "<?= Url::toRoute(['users/savetestimonials']) ?>";
 	$.ajax({
@@ -102,6 +113,12 @@ use frontend\models\Testimonials;
 		    $("#modalView").modal('toggle');
 		    //alertInfo("Ваш отзыв отправлен на модерацию");
 		    location.reload(true);
+		} else {
+		    view = "";
+		    $.each(out.errors, function (i, val) {
+			view += val[0] + "<br/>";
+		    });
+		    $("#errorBlock").html(view).show("slow");
 		}
 	    }
 	});
