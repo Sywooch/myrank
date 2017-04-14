@@ -10,6 +10,7 @@ use Yii;
  * @property integer $id
  * @property string $text
  * @property integer $status
+ * @property integer $who_from_to
  * @property integer $user_from
  * @property integer $user_to
  * @property integer $smile
@@ -32,6 +33,26 @@ class Testimonials extends \yii\db\ActiveRecord {
 	self::SMILE_CLASS_NEUTRAL => 'b-comments__item__smile_neutral',
     ];
     
+    const WHO_FROM_TO_DIRECTOR = 1;
+    const WHO_FROM_TO_CHIEF = 2;
+    const WHO_FROM_TO_COLLEAGUE = 3;
+    const WHO_FROM_TO_CLOSE_RELATIVE = 4;
+    const WHO_FROM_TO_RELATIVE = 5;
+    const WHO_FROM_TO_FRIEND = 6;
+    const WHO_FROM_TO_FAMILIAR = 7;
+    const WHO_FROM_TO_SLAVE = 8;
+    
+    public static $whoFromTo = [
+	self::WHO_FROM_TO_DIRECTOR => 'Директор/Владелец компании',
+	self::WHO_FROM_TO_CHIEF => 'Начальник',
+	self::WHO_FROM_TO_COLLEAGUE => 'Коллега',
+	self::WHO_FROM_TO_CLOSE_RELATIVE => 'Близкий родственник',
+	self::WHO_FROM_TO_RELATIVE => 'Родственник',
+	self::WHO_FROM_TO_FRIEND => 'Друг',
+	self::WHO_FROM_TO_FAMILIAR => 'Знакомый',
+	self::WHO_FROM_TO_SLAVE => 'Подчинённый'
+    ];
+    
     const COUNT_LIST = 10;
 
     /**
@@ -46,7 +67,7 @@ class Testimonials extends \yii\db\ActiveRecord {
      */
     public function rules() {
 	return [
-	    [['user_from', 'user_to', 'smile'], 'required'],
+	    [['user_from', 'user_to', 'smile', 'who_from_to', 'text'], 'required'],
 	    [['text'], 'string'],
 	    [['user_from', 'user_to', 'smile', 'parent_id'], 'integer'],
 	    [['user_from', 'status'], 'safe'],
@@ -59,7 +80,7 @@ class Testimonials extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'text' => Yii::t('app', 'Text'),
+	    'text' => Yii::t('app', 'Текст отзыва'),
 	    'user_from' => Yii::t('app', 'User From'),
 	    'user_to' => Yii::t('app', 'Usert To'),
 	    'smile' => Yii::t('app', 'Smile'),

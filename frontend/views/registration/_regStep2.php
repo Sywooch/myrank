@@ -37,6 +37,6 @@ echo ModalWidget::widget([
 	]
     ],
     'success' => "document.location.href = out.link;",
-    'script' => "$('.input-phone').inputmask('+38 ( 999 ) 999 - 99 - 99');",
+    //'script' => "$('.input-phone').inputmask('+38 ( 999 ) 999 - 99 - 99');",
 ]);
 ?>
