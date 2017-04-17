@@ -134,7 +134,7 @@ $this->registerJs("var csrf = '" . Yii::$app->request->getCsrfToken() . "';
 	url = $(this).attr('data-url');
 	showModal(url, '', 1);
 	$('.country-select select').select2({
-	    placeholder: 'Страна'
+	    placeholder: '".\Yii::t('app','COUNTRY')."'
 	});
 	return false;
     });

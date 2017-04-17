@@ -6,55 +6,55 @@ use frontend\widgets\user\ModalWidget;
 
 
 echo ModalWidget::widget([
-    'title' => 'Регистрация пользователя - Шаг 1<span> из 2</span>',
+    'title' => \Yii::t('app','REGISTRATION_STEP_1_OF_2'),
     'model' => $model,
     'formOptions' => ['id' => 'regFormStep1', 'data-url' => Url::toRoute("registration/step1save")],
     'content' => [
 	'first_name' => [
-	    'label' => '* Имя',
+	    'label' => '* '.\Yii::t('app','Name'),
 	    'type' => 'textInput',
-	    'options' => ['class' => 'input-text', 'placeholder' => 'David']
+	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_FIRSTNAME')]
 	],
 	'last_name' => [
-	    'label' => '* Фамилия',
+	    'label' => '* '.\Yii::t('app','SURNAME'),
 	    'type' => 'textInput',
-	    'options' => ['class' => 'input-text', 'placeholder' => 'Dox']
+	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_SURNAME')]
 	],
 	'email' => [
 	    'label' => '* Email',
 	    'type' => 'textInput',
-	    'options' => ['class' => 'input-text', 'placeholder' => 'example@domain.com']
+	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_EMAIL')]
 	],
 	[
 	    'country_id' => [
-		'label' => '* Страна:',
+		'label' => '* '.\Yii::t('app','COUNTRY').':',
 		'divClass' => 'select-wrapper country-select',
 		'type' => 'dropDownList',
 		'options' => $model->countries,
 	    ],
 	    'city_id' => [
-		'label' => '* Город:',
+		'label' => '* '.\Yii::t('app','CITY').':',
 		'divClass' => 'select-wrapper city-select',
 		'type' => 'dropDownList',
 		'options' =>  []//$model->cityList,
 	    ],
 	],
 	'professionField' => [
-	    'label' => '* Специализация:',
+	    'label' => '* '.\Yii::t('app','SPECIALIZATION').':',
 	    'divClass' => 'select-wrapper specialization-select',
 	    'type' => 'dropDownList',
 	    'options' => $model->profList,
 	    'posOpt' => ['multiple' => true],
-	    'posInfo' => "Позвольте людям узнать чем вы занимаетесь",
+	    'posInfo' => \Yii::t('app','LET_PEOPLE_KNOW_WHAT_YOU_ARE_DOING'),
 	],
 	[
 	    'password' => [
-		'label' => '* Пароль:',
+		'label' => '* '.\Yii::t('app','PASSWORD').':',
 		'type' => 'passwordInput',
 		'options' => ['class' => 'input-text']
 	    ],
 	    'rePassword' => [
-		'label' => '* Повторите пароль:',
+		'label' => '* '.\Yii::t('app','CONFIRM_PASSWORD').':',
 		'type' => 'passwordInput',
 		'options' => ['class' => 'input-text'],
 	    ]
@@ -68,13 +68,13 @@ echo ModalWidget::widget([
     'success' => '$("#modalView .modal-content").html(out.data);',
     'script' => '    
 	$(".country-select select").select2({
-	    placeholder: "Страна"
+	    placeholder: "'.\Yii::t('app','COUNTRY').'"
 	});
 	$(".city-select select").select2({
-	    placeholder: "Город"
+	    placeholder: "'.\Yii::t('app','CITY').'"
 	});
 	$(".specialization-select select").select2({
-	    placeholder: "Специализация"
+	    placeholder: "'.\Yii::t('app','SPECIALIZATION').'"
 	});
 	$("#registration-country_id").on("change", function () {
 	    setCityList($(this).val());
