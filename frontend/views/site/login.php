@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		if (out.code == 1) {
 		    document.location.href = "<?= Url::toRoute(["users/profile"]); ?>";
 		} else {
-		    alert(<?= \Yii::t('app','INCORRECT_LOGIN_OR_PASSWORD'); ?>);
+		    alert('<?= \Yii::t('app','INCORRECT_LOGIN_OR_PASSWORD'); ?>');
 		}
 	    }
 	});

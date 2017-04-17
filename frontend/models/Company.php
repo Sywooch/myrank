@@ -79,7 +79,7 @@ class Company extends \yii\db\ActiveRecord {
     }
     
     public function getFullName () {
-	return $this->name."11";
+	return $this->name;
     }
 
 }

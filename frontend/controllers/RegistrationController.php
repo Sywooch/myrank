@@ -30,7 +30,11 @@ class RegistrationController extends Controller {
 	    ];
 	} else {
 	    //if(Registration::find()->where(['email' => $post['Registration']['email']]))
-	    $model = new Registration();
+	    if(\Yii::$app->user->id === null) {
+		$model = new Registration();
+	    } else {
+		$model = Registration::findOne(\Yii::$app->user->id);
+	    }
 	    $model->step = $post['Registration']['type'] == User::TYPE_USER_USER ? User::STEP_NEXT_USER : User::STEP_NEXT_COMPANY;
 	    if ($model->load($post) && $model->validate()) {
 		$model->setPassword($post['Registration']['password']);
