@@ -44,7 +44,7 @@ return [
 	'urlManager' => [
 	    'enablePrettyUrl' => true,
 	    'showScriptName' => false,
-	    //'enableStrictParsing' => true,
+	    'enableStrictParsing' => false,
 	    'rules' => [
 		'GET article' => 'article/index',
 		'GET article/category/<category:\d+>' => 'article/index',

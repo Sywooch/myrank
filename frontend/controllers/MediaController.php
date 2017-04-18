@@ -8,6 +8,8 @@ use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
 use frontend\models\Images;
 use yii\helpers\Json;
+use frontend\models\User;
+use yii\helpers\Url;
 
 class MediaController extends Controller {
     
@@ -19,7 +21,7 @@ class MediaController extends Controller {
 	    $sessImages = $sess->get('userImages');
 	}
 	$model = new Images();
-
+	$userId = Yii::$app->user->id;
 	$imageFile = UploadedFile::getInstance($model, 'name' . $id);
 
 	$directory = $this->userImagePath . Yii::$app->user->id . DIRECTORY_SEPARATOR;
@@ -35,12 +37,12 @@ class MediaController extends Controller {
 		$path = $this->files . Yii::$app->user->id . DIRECTORY_SEPARATOR . $fileName;
 		$sessImages[] = $path;
 		$sess->set('userImages', $sessImages);
-		echo Json::encode([
+		$out = [
 		    'files' => [
 			[
 			    'name' => $fileName,
 			    'size' => $imageFile->size,
-			    'url' => $path,
+			    'url' => '/media/viewimage?id='.$fileName.'&user='.$userId,//Url::toRoute(['media/viewimage', ['id' => $path, 'user' => 2]]),
 			    'thumbnailUrl' => $path,
 			    'deleteUrl' => 'image-delete?name=' . $fileName,
 			    'deleteType' => 'POST',
@@ -48,8 +50,7 @@ class MediaController extends Controller {
 			    'fieldId' => $id,
 			],
 		    ],
-		]);
-		\Yii::$app->end();
+		];
 	    } else {
 		$out['errors'] = \Yii::t('app','FILE_NOT_SAVED');
 	    }
@@ -58,6 +59,7 @@ class MediaController extends Controller {
 	}
 
 	echo Json::encode($out);
+	\Yii::$app->end();
     }
 
     public function actionImagedelete($name) {
@@ -84,13 +86,19 @@ class MediaController extends Controller {
     }
     
     public function actionViewimage ($id, $user = 0) {
-	$path = Yii::getAlias('@frontend/web/');
-	if($user) {
-	    $model = \frontend\models\User::findOne($id);
-	    $path .= "files/" . $model->id . DIRECTORY_SEPARATOR . $model->image;
-	} else {
-	    $model = Images::findOne($id);
-	    $path .=  $model->name;
+	$path = Yii::getAlias('@frontend/web');
+	switch ($user) {
+	    case 0:
+		$model = Images::findOne($id);
+		$path .=  DIRECTORY_SEPARATOR . $model->name;
+		break;
+	    case 1: 
+		$model = User::findOne($id);
+		$path .= "/files/" . $model->id . DIRECTORY_SEPARATOR . $model->image;
+		break;
+	    default :
+		$path .= "/files/".$user. DIRECTORY_SEPARATOR . $id;
+		break;
 	}
 	header('Content-type: image/png');
 	readfile($path);
