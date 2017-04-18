@@ -334,7 +334,7 @@ body.gray-bg .b-header__user:after{
 .b-header__user__login > span{
     display: block;
     float: left;
-    padding: 0 20px 0 0;
+    padding: 0 20px 0 2px;
     font-family: 'Open Sans', Arial, sans-serif;
     font-weight: 600;
     font-size: 13px;

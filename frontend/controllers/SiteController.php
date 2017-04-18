@@ -188,27 +188,27 @@ class SiteController extends Controller {
 		    'model' => $model,
 	]);
     }
+    
 
     /**
      * Requests password reset.
      *
      * @return mixed
      */
-    public function actionRequestPasswordReset() {
+    public function actionRequestpasswordreset() {
 	$model = new PasswordResetRequestForm();
 	if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 	    if ($model->sendEmail()) {
-		Yii::$app->session->setFlash('success', \Yii::t('app','CHECK_YOUR_EMAIL_FOR_FURTHER_INSTRUCTIONS'));
-
+		\Yii::$app->notification->set('global', \Yii::t('app','CHECK_YOUR_EMAIL_FOR_FURTHER_INSTRUCTIONS'));
 		return $this->goHome();
 	    } else {
-		Yii::$app->session->setFlash('error', \Yii::t('app','SORRY_WE_ARE_UNABLE_TO_RESET_PASSWORD_FOR_EMAIL_PROVIDED'));
+		\Yii::$app->notification->set('global', \Yii::t('app','SORRY_WE_ARE_UNABLE_TO_RESET_PASSWORD_FOR_EMAIL_PROVIDED'));
 	    }
 	}
 
-	return $this->render('requestPasswordResetToken', [
+	echo \yii\helpers\Json::encode(['code' => 1, 'data' => $this->renderPartial('requestPasswordResetToken', [
 		    'model' => $model,
-	]);
+	])]);
     }
 
     /**
@@ -216,9 +216,9 @@ class SiteController extends Controller {
      *
      * @param string $token
      * @return mixed
-     * @throws BadRequestHttpException
+     * @throws BadRequestHttpException 
      */
-    public function actionResetPassword($token) {
+    public function actionResetpassword($token) {
 	try {
 	    $model = new ResetPasswordForm($token);
 	} catch (InvalidParamException $e) {
@@ -226,7 +226,7 @@ class SiteController extends Controller {
 	}
 
 	if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-	    Yii::$app->session->setFlash('success', \Yii::t('app','NEW_PASSWORD_WAS_SAVED'));
+	    \Yii::$app->notification->set('global', \Yii::t('app','NEW_PASSWORD_WAS_SAVED'));
 
 	    return $this->goHome();
 	}

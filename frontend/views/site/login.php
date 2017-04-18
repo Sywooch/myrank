@@ -33,11 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
 	    </div>
 	</div>
 	<div class="row">
-	    <div class="col-xs-12">
-		<?= "" // $form->field($model, 'last_name')->textInput(['class' => 'input-text', 'placeholder' => 'Dox'])->label(FALSE); ?>
-	    </div>
-	</div>
-	<div class="row">
 	    <div class="col-xs-12 col-sm-12" id="regFormStep1Error" style="display: none; color:red;"></div>
 	</div>
 	<div class="b-modal__content__buttons">
@@ -45,11 +40,11 @@ $this->params['breadcrumbs'][] = $this->title;
 		<a id="loginSave" class="button-small" href="#"><?= \Yii::t('app','ENTER'); ?></a>
 	    </div>
 	    <div class="b-modal__content__buttons__item">
-		<span><a  id="registered" href="#"><?= \Yii::t('app','REGISTER'); ?></a></span>
+		<span><a id="registered" href="#"><?= \Yii::t('app','REGISTER'); ?></a></span>
 	    </div>
-	    <!-- div class="b-modal__content__buttons__item">
-		<a id="registered" class="button-small" href="#">Зарегистрироваться</a>
-	    </div -->
+	    <div class="b-modal__content__buttons__item">
+		<span><a id="rememberPass" href="#"><?= Yii::t('app', 'REMEMBER_PASSWORD') ?></a></span>
+	    </div>
 	</div>
     </div>
     <?php ActiveForm::end(); ?>
@@ -76,6 +71,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     $("#registered").on('click', function () {
 	url = '<?= Url::toRoute(['registration/step1', 'type' => User::TYPE_USER_USER]) ?>';
+	showModal(url, 0, 0);
+	return false;
+    });
+    
+    $("#rememberPass").on('click', function() {
+	url = '<?= Url::toRoute(['site/requestpasswordreset']) ?>';
 	showModal(url, 0, 0);
 	return false;
     });
