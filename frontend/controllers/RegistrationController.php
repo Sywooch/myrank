@@ -110,11 +110,12 @@ class RegistrationController extends Controller {
 	$post = \Yii::$app->request->post();
 	$out['code'] = 0;
 
-	if (\Yii::$app->user->id === null) {
-	    $model = new Company();
-	} else {
+	$model = new Company();
+	if (\Yii::$app->user->id !== null) {
 	    $mUser = User::getProfile();
-	    $model = Company::findOne($mUser->company_id);
+	    if($mUser->company_id > 0) {
+		$model = Company::findOne($mUser->company_id);
+	    }
 	}
 
 	if ($model->load($post) && $model->save()) {

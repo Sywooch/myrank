@@ -154,7 +154,7 @@ $this->title = 'Профайл пользователя';
 			<?php foreach ($mUser->images as $item) { ?>
 			<div class="b-user__portfolio__item">
 			    <a href="#" class="showModal" data-url="<?= Url::toRoute(['users/viewportfolio', 'id' => $item->id]) ?>">
-				<img src="<?= $item->name ?>" alt="">
+				<img src="<?= Url::toRoute(['media/viewimage', 'id' => $item->id]) ?>" alt="">
 			    </a>
 			</div>
 			<?php } ?>

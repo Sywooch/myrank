@@ -92,7 +92,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	return [
 	    //[['first_name', 'last_name', 'city_id'], 'required'],
 	    [['company_id', 'profileviews', 'rating'], 'integer'],
-	    [['last_login', 'birthdate', 'city_id', 'phone', 'site', 'mark', 'email', 'professionField', 'type', 'step'], 'safe'],
+	    [['last_login', 'birthdate', 'city_id', 'phone', 
+		'site', 'mark', 'email', 'professionField', 
+		'type', 'step', 'image'], 'safe'],
 	    [['image'], 'string', 'max' => 255],
 	    [['first_name', 'last_name', 'about'], 'string', 'max' => 50],
 	];
@@ -260,7 +262,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
     
     public function getUserImage () {
-	return $this->image == "" ? "/images/no_photo.png" : $this->image;
+	return $this->image == "" ? "/images/no_photo.png" : \yii\helpers\Url::toRoute([
+	    'media/viewimage', 
+	    'id' => $this->id,
+	    'user' => 1
+	    ]);
     }
 
     public function getOwner() {

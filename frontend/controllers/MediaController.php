@@ -83,10 +83,17 @@ class MediaController extends Controller {
 	return Json::encode($output);
     }
     
-    public function actionViewimage ($id, $name) {
-	$src = $_GET['img'];
+    public function actionViewimage ($id, $user = 0) {
+	$path = Yii::getAlias('@frontend/web/');
+	if($user) {
+	    $model = \frontend\models\User::findOne($id);
+	    $path .= "files/" . $model->id . DIRECTORY_SEPARATOR . $model->image;
+	} else {
+	    $model = Images::findOne($id);
+	    $path .=  $model->name;
+	}
 	header('Content-type: image/png');
-	readfile("img/{$src}");
+	readfile($path);
     }
 
     public function beforeAction($action) {

@@ -20,8 +20,12 @@ return [
 	    'identityClass' => 'frontend\models\User',
 	    'enableAutoLogin' => true,
 	    'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+//	    'rememberMeDuration' => 2592000,
+	    'loginUrl' => ['site/index']
 	],
 	'session' => [
+	    'class' => 'yii\web\Session',
+	    'cookieParams' => ['lifetime' => 30 * 24 *60 * 60],
 	    // this is the name of the session cookie used for login on the frontend
 	    'name' => 'advanced-frontend',
 	],

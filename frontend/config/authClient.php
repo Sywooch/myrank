@@ -7,6 +7,9 @@ return [
 	    'class' => 'yii\authclient\clients\VKontakte',
 	    'clientId' => '5870995',
 	    'clientSecret' => 'DGSTWkE9eYWiotx3XITH',
+	    'attributeNames' => [
+		'photo_200'
+	    ]
 	],
 	'facebook' => [
 	    'class' => 'yii\authclient\clients\Facebook',

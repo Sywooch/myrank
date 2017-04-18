@@ -7,6 +7,9 @@ use frontend\models\User;
 use Yii;
 use yii\authclient\ClientInterface;
 use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
+
+//use yii\web\User;
 
 /**
  * AuthHandler handles successful authentication via Yii auth component
@@ -28,7 +31,7 @@ class AuthHandler {
 	$email = ArrayHelper::getValue($attributes, 'email');
 	$id = ArrayHelper::getValue($attributes, 'id');
 	$nickname = ArrayHelper::getValue($attributes, 'login');
-	
+
 	$userAttr = [
 	    'username' => isset($nickname) ? $nickname : $email,
 	    'github' => $nickname,
@@ -44,6 +47,7 @@ class AuthHandler {
 		$userAttr['first_name'] = ArrayHelper::getValue($attributes, 'first_name');
 		$userAttr['last_name'] = ArrayHelper::getValue($attributes, 'last_name');
 		$userAttr['email'] = $email = ArrayHelper::getValue($attributes, 'user_id');
+		$avatar = ArrayHelper::getValue($attributes, 'photo_200');
 		break;
 	}
 	$userAttr['step'] = 1;
@@ -59,27 +63,34 @@ class AuthHandler {
 		/* @var User $user */
 		$user = $auth->user;
 		$this->updateUserInfo($user);
-		Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
+		Yii::$app->user->login($user, 0);
 	    } else { // signup
 		if ($email !== null && User::find()->where(['email' => $email])->exists()) {
 		    $user = User::find()->where(['email' => $email])->one();
 		    $auth = new Auth([
-			    'user_id' => $user->id,
-			    'source' => $this->client->getId(),
-			    'source_id' => (string) $id,
-			]);
+			'user_id' => $user->id,
+			'source' => $this->client->getId(),
+			'source_id' => (string) $id,
+		    ]);
 		    if ($auth->save()) {
-			Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
+			Yii::$app->user->login($user, 0);
 		    }
 		} else {
 		    $userAttr['password'] = Yii::$app->security->generateRandomString(6);
+
 		    $user = new User($userAttr);
 		    $user->generateAuthKey();
 		    $user->generatePasswordResetToken();
 
+
 		    $transaction = User::getDb()->beginTransaction();
 
 		    if ($user->save()) {
+			if (isset($avatar)) {
+			    $imgPath = Yii::getAlias('@frontend/web/files/') . $user->id;
+			    $user->image = $this->saveImageFrom($avatar, $imgPath);
+			    $user->save();
+			}
 			$auth = new Auth([
 			    'user_id' => $user->id,
 			    'source' => $this->client->getId(),
@@ -148,6 +159,21 @@ class AuthHandler {
 	    $user->github = $github;
 	    $user->save();
 	}
+    }
+
+    function saveImageFrom($file_url, $folder) {
+	$content = file_get_contents($file_url);
+
+	//$directory = $this->userImagePath . Yii::$app->user->id . DIRECTORY_SEPARATOR;
+	if (!is_dir($folder)) {
+	    FileHelper::createDirectory($folder);
+	}
+
+	$fileName = uniqid(time(), true) . ".jpg";
+	$path = $folder . DIRECTORY_SEPARATOR . $fileName;
+	file_put_contents($path, $content);
+
+	return $fileName;
     }
 
 }
