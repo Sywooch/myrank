@@ -17,6 +17,9 @@ return [
 	'ru_RU' => 'Ru',
 	'en_US' => 'En',
 	'ua_UA' => 'Ua',
-    ]
+    ],
+    'user' => [
+	'rememberMe' => 30 * 24 * 3600,
+    ],
 
 ];

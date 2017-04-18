@@ -1,5 +1,5 @@
 /* Widget */
-.ui-widget{
+/* .ui-widget{
 	color: #222;
   	font-family: "latoregular",Verdana,Arial,sans-serif;
 }
@@ -22,7 +22,7 @@
 	margin: 0;
 	border: none;
 	color: #555555;
-}
+} */
 
 
 /* Ui slider style */
@@ -56,7 +56,7 @@
 }
 .ui-slider-horizontal .ui-slider-handle{
 	margin-left: -5px;
-	top: -4px;
+	top: -5px;
 }
 .ui-slider-horizontal .ui-slider-range {
 	height: 100%;

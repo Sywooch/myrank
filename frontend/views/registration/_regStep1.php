@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
 use frontend\widgets\user\ModalWidget;
 
 
@@ -11,7 +10,7 @@ echo ModalWidget::widget([
     'formOptions' => ['id' => 'regFormStep1', 'data-url' => Url::toRoute("registration/step1save")],
     'content' => [
 	'first_name' => [
-	    'label' => '* '.\Yii::t('app','Name'),
+	    'label' => '* '.\Yii::t('app','NAME'),
 	    'type' => 'textInput',
 	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_FIRSTNAME')]
 	],

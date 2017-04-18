@@ -26,9 +26,13 @@ class RegistrationController extends Controller {
 	$post = \Yii::$app->request->post();
 	if ($post['Registration']['password'] != $post['Registration']['rePassword']) {
 	    $out['errors'] = [
-		'password' => \Yii::t('app','PASSWORD_AND_REPEAT_DO_NOT_MATCH')
+		'password' => [\Yii::t('app','PASSWORD_AND_REPEAT_DO_NOT_MATCH')]
 	    ];
-	} else {
+	} /*else if(isset(User::find()->where(['email' => $post['Registration']['email']])->id)) {
+	    $out['errors'] = [
+		'email' => ['Пользователь с таким адресом почты уже существует!'],
+	    ];
+	}*/ else {
 	    //if(Registration::find()->where(['email' => $post['Registration']['email']]))
 	    if(\Yii::$app->user->id === null) {
 		$model = new Registration();
@@ -72,18 +76,18 @@ class RegistrationController extends Controller {
 	$out = ['code' => 0, 'link' => '#'];
 
 	$post = \Yii::$app->request->post();
-	$post['User']['step'] = 0;
+	$post['Registration']['step'] = 0;
 
 	if (\Yii::$app->user->id !== NULL) {
-	    $post['User']['id'] = \Yii::$app->user->id;
+	    $post['Registration']['id'] = \Yii::$app->user->id;
 	}
 
-	$model = User::findOne($post['User']['id']);
-	unset($post['User']['id']);
-	if ($model->load($post) && $model->save()) {
+	$model = User::findOne($post['Registration']['id']);
+	unset($post['Registration']['id']);
+	if ($model->load($post, 'Registration') && $model->save()) {
 	    $out['code'] = 1;
 	    $out['link'] = \yii\helpers\Url::toRoute(["users/profile", "id" => $model->id]);
-	    //\Yii::$app->user->login($model, 3600 * 24 * 30);
+	    \Yii::$app->user->login($model);
 	    \Yii::$app->user->id === NULL ? \Yii::$app->notification->set('global', \Yii::t('app','IN_ORDER_TO_USE_ALL_SERVICES_YOU_MUST').' <a href="#" class="signin">'.\Yii::t('app','AUTHORIZE').'</a>') : NULL;
 	} else {
 	    $out['errors'] = $model->errors;
@@ -93,11 +97,12 @@ class RegistrationController extends Controller {
     }
 
     public function actionStep3() {
-	if (\Yii::$app->user->id === null) {
-	    $model = new Company();
-	} else {
+	$model = new Company();
+	if (\Yii::$app->user->id !== null) {
 	    $mUser = User::getProfile();
-	    $model = Company::findOne($mUser->company_id);
+	    if($mUser->company_id != 0) {
+		$model = Company::findOne($mUser->company_id);
+	    }
 	}
 	echo Json::encode([
 	    'code' => 1,

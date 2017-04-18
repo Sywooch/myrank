@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    </div>
 	</div>
 	<div class="row">
-	    <div class="col-xs-12 col-sm-12" id="regFormStep1Error" style="display: none; color:red;"></div>
+	    <div class="col-xs-12 col-sm-12" id="LoginFormError" style="display: none; color:red;"></div>
 	</div>
 	<div class="b-modal__content__buttons">
 	    <div class="b-modal__content__buttons__item">
@@ -62,7 +62,12 @@ $this->params['breadcrumbs'][] = $this->title;
 		if (out.code == 1) {
 		    document.location.href = "<?= Url::toRoute(["users/profile"]); ?>";
 		} else {
-		    alert('<?= \Yii::t('app','INCORRECT_LOGIN_OR_PASSWORD'); ?>');
+		    view = "";
+		    $.each(out.errors, function (i, val) {
+			view += val[0] + "<br/>";
+		    });
+		    $("#LoginFormError").html(view).show("slow");
+		    //alert('<?= \Yii::t('app','INCORRECT_LOGIN_OR_PASSWORD'); ?>');
 		}
 	    }
 	});

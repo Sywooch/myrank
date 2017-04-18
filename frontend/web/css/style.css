@@ -277,6 +277,12 @@ textarea:focus {
     font-size: 30px;
     line-height: 36px;
     color: #ffffff;
+    
+    text-shadow: -1px -1px 0 #315389,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+
 }
 .b-header__nav{
     background: rgba(255,255,255,0.75);
@@ -3293,6 +3299,10 @@ body.gray-bg .b-header__user:after{
     overflow: hidden;
 }
 
+.city-select .select2-container .select2-selection--single .select2-selection__rendered,
+.city-select .select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 35px;
+}
 
 
 

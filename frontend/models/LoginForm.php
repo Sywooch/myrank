@@ -22,10 +22,19 @@ class LoginForm extends Model {
 	return [
 	    // username and password are both required
 	    [['username', 'password'], 'required'],
+	    [['username'], 'email'],
 	    // rememberMe must be a boolean value
 	    ['rememberMe', 'boolean'],
 	    // password is validated by validatePassword()
 	    ['password', 'validatePassword'],
+	];
+    }
+    
+    public function attributeLabels() {
+	//parent::attributeLabels();
+	return [
+	    'username' => 'Email',
+	    'password' => \Yii::t('app','PASSWORD')
 	];
     }
 
@@ -42,7 +51,7 @@ class LoginForm extends Model {
 	    $user = $this->getUser();
 	    Logs::saveLog(var_export($this->password, true));
 	    if (!$user || !$user->validatePassword($this->password)) {
-		$this->addError($attribute, 'Incorrect username or password.');
+		$this->addError($attribute, \Yii::t('app','INCORRECT_LOGIN_OR_PASSWORD'));
 	    }
 	}
     }

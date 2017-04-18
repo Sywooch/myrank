@@ -46,7 +46,7 @@ $mSearch = new UsersSearch();
 		<div class="col-xs-12 col-sm-3">
 		    <div class="b-header__search__col">
 			<span><?= \Yii::t('app','REGION'); ?></span>
-			<div class="b-header__search__select">
+			<div class="b-header__search__select city-select">
 			    <?= $form->field($mSearch, 'city_id')->dropDownList($city)->label(FALSE); ?>
 			</div>
 		    </div>
@@ -130,6 +130,7 @@ $mSearch = new UsersSearch();
 </div>
 <?php
 $this->registerJs("var csrf = '" . Yii::$app->request->getCsrfToken() . "';
+    $('.city-select select').select2();
     $('.regstep').on('click', function () {
 	url = $(this).attr('data-url');
 	showModal(url, '', 1);

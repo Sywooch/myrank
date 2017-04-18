@@ -63,7 +63,7 @@ class AuthHandler {
 		/* @var User $user */
 		$user = $auth->user;
 		$this->updateUserInfo($user);
-		Yii::$app->user->login($user, 0);
+		Yii::$app->user->login($user, Yii::$app->params['user.rememberMe']);
 	    } else { // signup
 		if ($email !== null && User::find()->where(['email' => $email])->exists()) {
 		    $user = User::find()->where(['email' => $email])->one();
@@ -73,7 +73,7 @@ class AuthHandler {
 			'source_id' => (string) $id,
 		    ]);
 		    if ($auth->save()) {
-			Yii::$app->user->login($user, 0);
+			Yii::$app->user->login($user, Yii::$app->params['user.rememberMe']);
 		    }
 		} else {
 		    $userAttr['password'] = Yii::$app->security->generateRandomString(6);
@@ -98,7 +98,7 @@ class AuthHandler {
 			]);
 			if ($auth->save()) {
 			    $transaction->commit();
-			    Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
+			    Yii::$app->user->login($user, Yii::$app->params['user.rememberMe']);
 			} else {
 			    Yii::$app->getSession()->setFlash('error', [
 				Yii::t('app', 'UNABLE_TO_SAVE_client_ACCOUNT_errors', [

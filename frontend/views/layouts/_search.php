@@ -50,7 +50,7 @@ $city = Yii::$app->userinfo->getCityArr();
 		<div class="col-xs-12 col-sm-3">
 		    <div class="b-header__search__col">
 			<span><?= \Yii::t('app','REGION'); ?></span>
-			<div class="b-header__search__select">
+			<div class="b-header__search__select city-select">
 			    <?= $form->field($mSearch, 'city_id')->dropDownList($city)->label(false) ?>
 			</div>
 		    </div>
@@ -120,7 +120,9 @@ $city = Yii::$app->userinfo->getCityArr();
     </div>
 </div>
 <?php
-$this->registerJs('$("#userChoose").autocomplete({
+$this->registerJs('
+$(".city-select select").select2();
+$("#userChoose").autocomplete({
   source: function(request, response){
     $.ajax({
       url: "'.Url::toRoute(['users/userslist']).'",

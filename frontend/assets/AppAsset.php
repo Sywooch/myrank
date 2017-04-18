@@ -18,6 +18,7 @@ class AppAsset extends AssetBundle {
 	'/js/select2/select2.min.css',
 	'/css/style.css',
 	'/css/responsive.css',
+    '/js/jquery-ui/jquery-ui.css',
 	'/js/jquery-ui/jquery-ui-custom.css'
     ];
     public $js = [
