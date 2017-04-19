@@ -1,5 +1,17 @@
 <?php
 use frontend\widgets\user\BestRatingWidget;
+use yii\helpers\Url;
+
+$getParam = Yii::$app->request->get();
+//var_dump($getParam);
+$params = $getParam;
+if(isset($getParam['limit'])) { 
+    unset($getParam['UsersSearch']['limit']);
+}
+$params[] = 'users/search';
+$viewList10 = $viewList20 = $params;
+$viewList10['UsersSearch']['limit'] = 10;
+$viewList20['UsersSearch']['limit'] = 20;
 ?>
 
 <div class="container">
@@ -14,15 +26,19 @@ use frontend\widgets\user\BestRatingWidget;
 			<div class="row">
 			    <div class="col-xs-12 col-sm-4">
 				<div class="b-filter__text">
-				    Найдено: <span><?= count($mSearch) ?></span> элемента
+				    Найдено: <span><?= $pagin['count'] ?></span> элемента
 				</div>
 			    </div>
 			    <div class="col-xs-12 col-sm-8">
 				<div class="b-filter__options">
 				    <div class="b-filter__options__number">
 					<ul>
-					    <li class="active"><a href="#">По 10 шт</a></li>
-					    <li><a href="#">По 20 шт</a></li>
+					    <li <?= $model->limit == 10 ? 'class="active"' : "" ?>>
+						<a href="<?= Url::toRoute($viewList10) ?>">По 10 шт</a>
+					    </li>
+					    <li <?= $model->limit == 20 ? 'class="active"' : "" ?>>
+						<a href="<?= Url::toRoute($viewList20) ?>">По 20 шт</a>
+					    </li>
 					</ul>
 				    </div>
 				    <!-- div class="b-filter__options__select">
@@ -37,7 +53,7 @@ use frontend\widgets\user\BestRatingWidget;
 			</div>
 		    </div>
 		</div>
-		<?= $this->render("searchResult", ['model' => $mSearch]) ?>
+		<?= $this->render("searchResult", ['model' => $mSearch, 'pagin' => $pagin, 'USmodel' => $model]) ?>
 	    </div>
 
 	</div>

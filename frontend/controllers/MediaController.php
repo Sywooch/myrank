@@ -35,7 +35,7 @@ class MediaController extends Controller {
 	    $filePath = $directory . $fileName;
 	    if ($imageFile->saveAs($filePath)) {
 		$path = $this->files . Yii::$app->user->id . DIRECTORY_SEPARATOR . $fileName;
-		$sessImages[] = $path;
+		$sessImages[] = $fileName;
 		$sess->set('userImages', $sessImages);
 		$out = [
 		    'files' => [

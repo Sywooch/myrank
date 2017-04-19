@@ -10,6 +10,7 @@ use frontend\models\User;
 $city = Yii::$app->userinfo->getCityArr();
 
 $mSearch = new UsersSearch();
+//$mSearch->load(Yii::$app->request->get());
 ?>
 <div class="container">
 
@@ -23,7 +24,7 @@ $mSearch = new UsersSearch();
 	    $form = ActiveForm::begin([
 			'options' => ['id' => 'searchForm'],
 			'action' => Url::toRoute(['users/search']),
-			'method' => 'POST',
+			'method' => 'GET',
 			'fieldConfig' => [
 			    'options' => [
 				'tag' => false,

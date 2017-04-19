@@ -16,7 +16,8 @@ class Registration extends User {
 
     public function rules() {
 	return [
-	    [['first_name', 'last_name', 'email', 'city_id', 'professionField', 'password'], 'required'],
+	    [['first_name', 'last_name', 'email', 'city_id', 'professionField'], 'required'],
+	    [['password'], 'required', 'on' => 'step1'],
 	    [['first_name', 'last_name'], 'match', 'pattern' => '/^[A-Za-zА-Яа-яs,]+$/u'],
 	    [['email'], 'email'],
 	    [['company_id', 'profileviews', 'rating'], 'integer'],

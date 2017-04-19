@@ -35,6 +35,9 @@ $this->registerJs('
 		location.reload(true);
 	    });
 	});
+	$(".cancel").on("click", function () {
+	    $("#modalView").modal("hide");
+	});
 	function setCityList (id) {
 	    csrf = $("[name=\"csrf-token\"]").attr("content");
 	    url = "' . Url::toRoute("users/getcities") . '";

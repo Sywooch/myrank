@@ -14,7 +14,7 @@ $i = 1;
     		<div class="b-modal__content__portfolio__item__image">
     		    <div class="input-file-wrapper">
     			<span>Загрузите новое фото проекта</span>
-    			<input id="images-name<?= $i ?>" name="Images[name<?= $i ?>]" data-url="<?= Url::toRoute(['media/imageupload', 'id' => $i]) ?>" type="file">
+    			<input id="images-name<?= $i ?>" name="Images[name<?= $i ?>]" data-url="<?= Url::toRoute(['media/imageupload', 'id' => $i]) ?>" type="file" accept="image/*" />
     		    </div>
     		</div>
     	    </div>
@@ -35,21 +35,21 @@ $i = 1;
     </div>
     <div class="b-modal__content__buttons" style="width:100%">
 	<div class="b-modal__content__buttons__item">
-	    <a id="savePortfolio" class="button-small" href="#">Сохранить</a>
+	    <a id="saveUserImage" class="button-small" href="#">Сохранить</a>
 	</div>
 	<div class="b-modal__content__buttons__item">
-	    <span><a href="#">Отменить</a></span>
+	    <span><a class="cancel" href="#">Отменить</a></span>
 	</div>
     </div>
 </div>
 <script type="text/javascript">
-    $("#savePortfolio").on('click', function () {
-	$.ajax({
-	    url: "<?= Url::toRoute(['users/saveportfolio']); ?>",
-	    type: 'POST',
-	    data: $("#formPortfolio").serialize(),
-	    dataType: 'json',
-	}).done(function() {location.reload(true)});
+    $("#saveUserImage").on('click', function () {
+	url = '<?= Url::toRoute(['users/saveuserimage']); ?>';
+	$.post(url, {'_csrf-frontend': $('[name="csrf-token"]').attr('content')}, function (out) {
+	    if(out.code == 1) {
+		location.reload(true);
+	    }
+	}, 'json');
 	return false;
     });
 </script>

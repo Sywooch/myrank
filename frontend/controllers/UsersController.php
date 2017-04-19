@@ -60,8 +60,21 @@ class UsersController extends Controller {
     }
 
     public function actionPhotouserupload() {
+	\Yii::$app->session->remove('userImages');
 	$uId = \Yii::$app->user->id;
 	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/uploadPhotoUser')]);
+    }
+    
+    public function actionSaveuserimage () {
+	$arr = \Yii::$app->session->get('userImages');
+	
+	$mUser = User::getProfile();
+	$mUser->image = $arr[0];
+	
+	$out['code'] = $mUser->save() ? 1 : 0;
+	
+	echo Json::encode($out);
+	\Yii::$app->end();
     }
 
     public function actionSavemarks($id) {
@@ -188,7 +201,7 @@ class UsersController extends Controller {
 	$mUser = Registration::findOne($uId);
 	$out['code'] = 0;
 	if ($mUser->load($post) && $mUser->validate()) {
-	    if (($post['Registration']['password'] == $post['Registration']['rePassword']) && $mUser->validate()) {
+	    if ($mUser->validate()) {
 		$out['code'] = $mUser->save();
 	    } else {
 		$out['errors'] = ['password' => [\Yii::t('app','PASSWORD_AND_REPEAT_DO_NOT_MATCH')]];
@@ -272,15 +285,30 @@ class UsersController extends Controller {
     }
 
     public function actionSearch() {
-	$post = \Yii::$app->request->post();
-	$get['UsersSearch'] = \Yii::$app->request->get();
-	$req = array_merge($get, $post);
-	//var_dump($req);
+	$req = \Yii::$app->request->get();
+	
+	if(!isset($req['UsersSearch']['limit'])) {
+	    $req['UsersSearch']['limit'] = User::LIMIT_VIEW;
+	}
 
 	$model = new UsersSearch();
 	$modelSearch = $model->search($req);
+	$query = clone $modelSearch;
+	
+	$pagin['count'] = $query->count();
+	$maxPage = $pagin['count'] / $req['UsersSearch']['limit'];
+	
+	$pagin['pages'] = (int)$maxPage + 1;
+	
+	if(!isset($req['UsersSearch']['page'])) {
+	    $req['UsersSearch']['page'] = 1;
+	}
+	
+	$start = $req['UsersSearch']['limit'] * $req['UsersSearch']['page'] - $req['UsersSearch']['limit'];
+	$search = $modelSearch->limit($req['UsersSearch']['limit'])->offset($start)->all();
+	
 	$model->load($req);
-	return $this->render("search", ['model' => $model, 'mSearch' => $modelSearch]);
+	return $this->render("search", ['model' => $model, 'mSearch' => $search, 'pagin' => $pagin]);
     }
 
     public function actionUserslist($startsWith) {

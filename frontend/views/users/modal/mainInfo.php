@@ -50,7 +50,7 @@ echo ModalWidget::widget([
 	    'label' => 'Личная информация',
 	    'type' => 'textarea',
 	    'options' => ['placeholder' => 'Расскажите немного о себе']
-	],
+	],/*
 	[
 	    'password' => [
 		'label' => 'Пароль:',
@@ -62,7 +62,7 @@ echo ModalWidget::widget([
 		'type' => 'passwordInput',
 		'options' => ['class' => 'input-text'],
 	    ]
-	]
+	]*/
     ],
     'success' => 'location.reload(true);',
     'script' => '$("#registration-country_id").on("change", function () {

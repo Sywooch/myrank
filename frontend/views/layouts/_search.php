@@ -6,12 +6,9 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 
 $mSearch = new UsersSearch();
-$post = Yii::$app->request->post();
-$get['UsersSearch'] = \Yii::$app->request->get();
-$req = array_merge($get, $post);
+$get = \Yii::$app->request->get();
 
-$mSearch->load($req);
-
+$mSearch->load($get);
 
 $city = Yii::$app->userinfo->getCityArr();
 ?>
@@ -25,7 +22,7 @@ $city = Yii::$app->userinfo->getCityArr();
 	    $form = ActiveForm::begin([
 			'options' => ['id' => 'searchForm'],
 			'action' => Url::toRoute(['users/search']),
-			'method' => 'POST',
+			'method' => 'GET',
 			'fieldConfig' => [
 			    'options' => [
 				'tag' => false,

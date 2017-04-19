@@ -1,5 +1,8 @@
 <?php
+
 use yii\helpers\Url;
+
+$get = Yii::$app->request->get();
 ?>
 <div class="b-search__content">
     <?php foreach ($model as $item) { ?>
@@ -8,12 +11,12 @@ use yii\helpers\Url;
     	<div class="b-user__data">
     	    <div class="b-user__data__left">
     		<div class="b-user__data__image">
-		    <img src="<?= $item->userImage ?>" alt="">
+    		    <img src="<?= $item->userImage ?>" alt="">
     		    <div class="b-user__data__image__info">
     			<ul>
-			    <?php foreach ($item->userProfession as $item2) { ?>
-    			    <li><?= $item2->title ?></li>
-			    <?php } ?>
+				<?php foreach ($item->userProfession as $item2) { ?>
+				    <li><?= $item2->title ?></li>
+				<?php } ?>
     			</ul>
     			<!-- div class="b-user__data__image__info__likes">
     			    10
@@ -27,7 +30,7 @@ use yii\helpers\Url;
     	    <div class="b-user__data__right">
     		<div class="b-user__data__header">
     		    <div class="b-user__data__name">
-			<div><a href="<?= Url::toRoute(['users/profile', 'id' => $item->id]) ?>"><?= $item->fullName ?></a></div>
+    			<div><a href="<?= Url::toRoute(['users/profile', 'id' => $item->id]) ?>"><?= $item->fullName ?></a></div>
     			<!-- span class="b-user__data__name__edit"></span -->
     		    </div>
     		    <div class="b-user__data__info">
@@ -55,9 +58,9 @@ use yii\helpers\Url;
 			<?php } ?>
     		</div>
     		<div class="b-tags">
-		    <?php foreach ($item->userProfession as $item2) { ?>
-    		    <span><?= $item2->title ?></span>
-		    <?php } ?>
+			<?php foreach ($item->userProfession as $item2) { ?>
+			    <span><?= $item2->title ?></span>
+			<?php } ?>
     		</div>
     	    </div>
     	</div>
@@ -65,16 +68,37 @@ use yii\helpers\Url;
     <?php } ?>
 </div>
 
-<?php if(count($mSearch) > 10) { ?>
-<div class="b-pagination">
-    <ul>
-	<li class="b-pagination__prev"><a href="#"></a></li>
-	<li class="active"><a href="#">1</a></li>
-	<li><a href="#">2</a></li>
-	<li><a href="#">3</a></li>
-	<li><a href="#">4</a></li>
-	<li><a href="#">5</a></li>
-	<li class="b-pagination__next"><a href="#"></a></li>
-    </ul>
-</div>
+<?php
+if ($pagin['count'] > $USmodel->limit) {
+    unset($get['UsersSearch']['page']);
+
+    $getParam = $get;
+    $getParam[] = 'users/search';
+    $getParam['UsersSearch']['page'] = 1;
+    $paramsFirsPage = $getParam;
+    $getParam['UsersSearch']['page'] = $pagin['pages'];
+    $paramsEndPage = $getParam;
+    ?>
+    <div class="b-pagination">
+        <ul>
+	    <li class="b-pagination__prev">
+		    <?php if ($USmodel->page != 1) { ?>
+			<a href="<?= Url::toRoute($paramsFirsPage) ?>"></a>
+		    <?php } ?>
+	    </li>
+		<?php
+		for ($i = 1; $i <= $pagin['pages']; $i++) {
+		    $getParam['UsersSearch']['page'] = $i;
+		    ?>
+		    <li <?= $USmodel->page == $i ? 'class="active"' : "" ?>>
+			<a href="<?= Url::toRoute($getParam) ?>"><?= $i ?></a>
+		    </li>
+		<?php } ?>
+	    <li class="b-pagination__next">
+		    <?php if ($USmodel->page != $pagin['pages']) { ?>
+			<a href="<?= Url::toRoute($paramsEndPage) ?>"></a>
+		    <?php } ?>
+	    </li>
+        </ul>
+    </div>
 <?php } ?>

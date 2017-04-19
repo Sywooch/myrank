@@ -12,6 +12,8 @@ use frontend\models\User;
  */
 class UsersSearch extends User {
     
+    public $page;
+    public $limit;
     public $searchName;
     public $ratingStart = 0;
     public $ratingEnd = 1000;
@@ -25,7 +27,8 @@ class UsersSearch extends User {
 	    [['id', 'company_id', 'profileviews', 'type', 'rating', 'gender', 'city_id'], 'integer'],
 	    [['company_name', 'company_post', 'image', 'first_name', 'last_name', 'email', 'auth_key', 
 		'password_hash', 'password_reset_token', 'about', 'last_login', 'birthdate', 'phone', 
-		'site', 'mark', 'marks_config', 'searchName', 'ratingStart', 'ratingEnd', 'professionField'], 'safe'],
+		'site', 'mark', 'marks_config', 'searchName', 'ratingStart', 'ratingEnd', 
+		'professionField', 'limit', 'page'], 'safe'],
 	];
     }
 
@@ -56,7 +59,6 @@ class UsersSearch extends User {
 		$params['UsersSearch']['last_name'] = str_replace(" ", "", $params['UsersSearch']['searchName']);
 	    }
 	}
-	//($params['UsersSearch']['city_id'] == "") ? unset($params['UsersSearch']['city_id']) : NULL;
 	$this->load($params);
 
 	// grid filtering conditions
@@ -75,7 +77,7 @@ class UsersSearch extends User {
 	$query->andFilterWhere(['between', 'rating', $this->ratingStart, $this->ratingEnd])
 		->andFilterWhere(['like', 'about', $this->about]);
 	
-	return $query->all();
+	return $query;
     }
 
 }
