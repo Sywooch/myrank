@@ -1118,6 +1118,8 @@ body.gray-bg .b-header__user:after{
 }
 .b-rating__item__image{
     position: relative;
+    height: 170px;
+    overflow: hidden;
 }
 .b-rating__item__info{
     display: none;
