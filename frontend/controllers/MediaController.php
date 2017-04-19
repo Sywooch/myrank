@@ -90,7 +90,7 @@ class MediaController extends Controller {
 	switch ($user) {
 	    case 0:
 		$model = Images::findOne($id);
-		$path .=  DIRECTORY_SEPARATOR . $model->name;
+		$path .= "/files/" . $model->user_id . DIRECTORY_SEPARATOR . $model->name;
 		break;
 	    case 1: 
 		$model = User::findOne($id);
