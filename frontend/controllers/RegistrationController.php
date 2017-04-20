@@ -44,6 +44,7 @@ class RegistrationController extends Controller {
 		$model->setPassword($post['Registration']['password']);
 		$model->generateAuthKey();
 		if ($model->save()) {
+		    \Yii::$app->rating->process($model);
 		    $model->saveProfession();
 		    $out['code'] = 1;
 		    //$out['id'] = $model->id;
@@ -88,6 +89,7 @@ class RegistrationController extends Controller {
 	    $out['code'] = 1;
 	    $out['link'] = \yii\helpers\Url::toRoute(["users/profile", "id" => $model->id]);
 	    \Yii::$app->user->login($model);
+	    \Yii::$app->rating->process($model);
 	    \Yii::$app->user->id === NULL ? \Yii::$app->notification->set('global', \Yii::t('app','IN_ORDER_TO_USE_ALL_SERVICES_YOU_MUST').' <a href="#" class="signin">'.\Yii::t('app','AUTHORIZE').'</a>') : NULL;
 	} else {
 	    $out['errors'] = $model->errors;
@@ -132,6 +134,7 @@ class RegistrationController extends Controller {
 	    $mUser->company_name = $model->name;
 	    $mUser->step = 0;
 	    if ($mUser->save()) {
+		\Yii::$app->rating->process($mUser);
 		\Yii::$app->user->login($mUser, 3600 * 24 * 30);
 	    }
 

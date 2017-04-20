@@ -25,7 +25,7 @@ $mProf = Profession::find()->asArray()->all();
 			    <ul>
 			    <?php } ?>
 				<li>
-				    <a href="<?= Url::toRoute(['users/search', 'professionField' => $item['id']]) ?>">
+				    <a href="<?= Url::toRoute(['users/search', 'UsersSearch' => ['professionField' => $item['id']]]) ?>">
 					<?= $item['title'] ?>
 				    </a>
 				</li>

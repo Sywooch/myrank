@@ -94,7 +94,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	    [['company_id', 'profileviews', 'rating'], 'integer'],
 	    [['last_login', 'birthdate', 'city_id', 'phone', 
 		'site', 'mark', 'email', 'professionField', 
-		'type', 'step', 'image'], 'safe'],
+		'type', 'step', 'image', 'company_name', 'marks_config'], 'safe'],
 	    [['image'], 'string', 'max' => 255],
 	    [['first_name', 'last_name', 'about'], 'string', 'max' => 50],
 	];
