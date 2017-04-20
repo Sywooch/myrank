@@ -127,7 +127,7 @@ class UsersController extends Controller {
     }
     
     public function actionConfigmarks () {
-	$model = Marks::findAll(['parent_id' => 0]);
+	$model = Marks::findAll(['parent_id' => 0, 'required' => 0]);
 	$mUser = User::getProfile();
 	if(!is_null($mUser->marks_config)) {
 	    $configArr = Json::decode($mUser->marks_config, true);
@@ -371,7 +371,10 @@ class UsersController extends Controller {
 	$model = UserTrustees::find()->where(['user_from' => $id])->all();
 	echo Json::encode([
 	    'code' => 1,
-	    'data' => $this->renderPartial('modal/allTrustUser', ['model' => $model, 'title' => \Yii::t('app','TRUSTED_PERSONS')])
+	    'data' => $this->renderPartial('modal/allTrustUser', [
+		'model' => $model, 
+		'title' => \Yii::t('app','TRUSTED_PERSONS')
+	    ])
 	]);
 	\Yii::$app->end();
     }

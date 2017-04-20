@@ -13,6 +13,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $parent_id
  * @property integer $access
  * @property integer $type
+ * @property integer $required
  */
 class Marks extends \yii\db\ActiveRecord {
 
@@ -48,7 +49,7 @@ class Marks extends \yii\db\ActiveRecord {
 	return [
 	    [['parent_id'], 'integer'],
 	    [['name'], 'string', 'max' => 255],
-	    [['access', 'type'], 'safe'],
+	    [['access', 'type', 'required'], 'safe'],
 	];
     }
 

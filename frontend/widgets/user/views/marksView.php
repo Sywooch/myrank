@@ -86,14 +86,24 @@ $script = "
 	
 	function changeField () {
 	    $('.b-marks__item__content').each(function(i, elem) {
-		out = 0;
+		var out = 0;
+		var count = 0;
+		var res = 0;
 		$(elem).find('.summField').each(function(j, elem2) {
 		    $(elem2).attr('data-def', $(elem2).val());
-		    out = (out + parseFloat($(elem2).val()) / $(elem).find('.summField').length);
+		    if($(elem2).val() != '0.0') {
+			count++;
+			out += parseFloat($(elem2).val());
+		    } else {
+			out += 0.0;
+		    }
 		});
+		if(count != 0) { 
+		    res = out / count;
+		}
 		id = $(elem).attr('data-summ');
-		$('#summField' + id).text(out.toFixed(1));
-		$('#summInput' + id).val(out.toFixed(1));
+		$('#summField' + id).text(res.toFixed(1));
+		$('#summInput' + id).val(res.toFixed(1));
 	    });
 	}";
 if (Yii::$app->user->id !== Null) {

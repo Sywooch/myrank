@@ -221,11 +221,23 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 
     // Marks
+    
+    public function getConfigMarks () {
+	return is_null($this->marks_config) ? [] : Json::decode($this->marks_config, true);
+    }
 
-    public static function getMarks() {
+    public function getMarks() {
+	$configMarksArr = $this->configMarks;
+	
 	$model = Marks::find()->all();
 	foreach ($model as $item) {
-	    $arr[$item->parent_id][$item->id] = $item->name;
+	    if(isset($configMarksArr[$item->parent_id])) {
+		if ($configMarksArr[$item->parent_id] == Marks::MARKS_ACCESS_FRONT_ALL) {
+		    $arr[$item->parent_id][$item->id] = $item->name;
+		}
+	    } else {
+		$arr[$item->parent_id][$item->id] = $item->name;
+	    }
 	}
 	return $arr;
     }
