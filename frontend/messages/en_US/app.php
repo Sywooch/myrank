@@ -2,13 +2,6 @@
 
 return [
     'REQUESTED_PAGE_WAS_NOT_FOUND'=>'The requested page was not found',
-    'HOME'=>'Home',
-    'ABOUT'=>'About',
-    'ARTICLES'=>'News',
-    'BALANCE'=>'Balance',
-    'HELP'=>'Help',
-    'CONTACTS'=>'Contacts',
-    'LEGALINFO'=>'Legal info',
     'MYRANK_SLOGAN'=>'Assess the reliability, honesty and professionalism of a potential partner or counterparty.',
     'FIND'=>'Find',
     'REGION'=>'Region',
@@ -133,9 +126,37 @@ return [
     'TELL_US_ABOUT_COMPANY_NO_MORE_THAN_500_CHARACTERS'=>'Tell us about company. No more than 500 characters.',
     
     // Menu
+    'HOME'=>'Home',
+    'ABOUT'=>'About',
+    'ARTICLES'=>'News',
+    'BALANCE'=>'Balance',
+    'HELP'=>'Help',
+    'CONTACTS'=>'Contacts',
+    'LEGALINFO'=>'Legal info',
     'PRIVACY_POLICY' => 'Privacy policy',
-];
 
+    'FILEUPLOAD'=>'Select file ...',
+    'MARK_MINE'=>'Mine mark',
+    'MARK'=>'Mark',
+    'RATING_AVERAGE'=>'Average rating',
+    'VIEW_ALL'=>'View all',
+    'MARKS_DIAGRAM'=>'Marks diagram',
+    'RATING_SAVE'=>'Save rating',
+    'REPLY'=>'Reply',
+    'COMPLAIN'=>'Complain',
+    'MORE'=>'MORE',
+    'NO_REVIEWS'=>'No reviews',
+    'NO_REVIEWS_YOU_CAN_SHARE_USEFUL_INFORMATION_ABOUT_THIS_PERSON'=>'No reviews, you can share useful information about this person.',
+    'CANCEL'=>'Cancel',
+    'ENTER_TO_LEAVE_MARKS_FOR_USERS'=>'Enter to leave marks for users',
+    'COMPLIANT_SUBMITTED'=>'Complaint submitted',
+    'PORTFOLIO'=>'Portfolio',
+    'UPLOAD_A_NEW_PROJECT_PHOTO'=>'Upload a new project photo',
+    'PROJECT_NAME'=>'Project name',
+    'PROJECT_DESCRIPTION'=>'Project description',
+    'NO_MORE_THAN_500_CHARACTERS'=>'No more than 500 characters.',
+    'PHOTO_DID_NOT_LOAD_PLEASE_CONSULT_ADMINISTRATOR'=>'The photo did not load, please consult the administrator'
+];
 
 /*
 <?= \Yii::t('app',''); ?>

@@ -20,10 +20,10 @@ class MarksWidget extends Widget {
 	parent::init();
 	$this->allList = $this->model->marks;
 	if($this->model->owner) {
-	    $this->title = "Моя оценка";
+	    $this->title = \Yii::t('app','MARK_MINE');
 	    $this->list = Json::decode($this->model->mark, true);
 	} else {
-	    $this->title = "Оценка";
+	    $this->title = \Yii::t('app','MARK');
 	    $this->list = $this->model->getUserMarksFromList();
 	}
     }

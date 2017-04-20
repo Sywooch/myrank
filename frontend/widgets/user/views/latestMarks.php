@@ -6,7 +6,7 @@ use frontend\models\UserMarks;
 if (count($list) > 0) {
     ?>
     <div class="b-last-marks b-block">
-        <div class="b-title">Последние оценки</div>
+        <div class="b-title"><?= \Yii::t('app','LATEST_RATINGS'); ?></div>
         <div class="b-last-marks__content">
 	    <?php foreach ($list as $item) { ?>
 		<div class="b-last-marks__item">
@@ -29,7 +29,7 @@ if (count($list) > 0) {
 			}
 			?>
 			<div class="b-last-marks__item__category">
-			    Средняя оценка:
+                <?= \Yii::t('app','RATING_AVERAGE'); ?>:
 			</div>
 			<div class="b-last-marks__item__value showModal" data-url="<?= Url::toRoute(['users/markview', 'id' => $item->id]) ?>" style="cursor: pointer">
 			    <?= round($summMarks / count($item->descrArr), 1) ?>
@@ -40,7 +40,7 @@ if (count($list) > 0) {
 	    <?php if ($count > UserMarks::COUNT_LIST_USER_PROFILE) { ?>
 		<div class="link">
 		    <a href="#" class="showModal" data-url="<?= Url::toRoute(['users/lastmarksuser', 'id' => $model->id]) ?>">
-			<span>Посмотреть всех</span>
+			<span><?= \Yii::t('app','VIEW_ALL'); ?></span>
 		    </a>
 		</div>
 	    <?php } ?>

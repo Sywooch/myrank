@@ -7,7 +7,7 @@ use yii\helpers\Url;
     <div class="b-title">
 	Отзывы
 	<?php if (!is_null(Yii::$app->user->id) && !$mUser->owner) { ?>
-    	<a class="button-small" id="writeTestimonial" href="#">Оставить отзыв</a>
+    	<a class="button-small" id="writeTestimonial" href="#"><?= \Yii::t('app','GIVE_FEEDBACK'); ?></a>
 	<?php } ?>
     </div>
     <div class="b-comments__content">
@@ -27,8 +27,8 @@ use yii\helpers\Url;
 			<div class="b-comments__item__smile <?= Testimonials::$smiles[$item->smile] ?>"></div>
 			<div class="b-comments__item__actions">
 			    <?php if ($item->userTo->owner) { ?>
-				<?php if (!isset($item->answer->id)) { ?><a class="answerTestimonial" href="#">Ответить</a><?php } ?>
-	    		    <a class="claimTestimonial" href="#">Пожаловаться</a>
+				<?php if (!isset($item->answer->id)) { ?><a class="answerTestimonial" href="#"><?= \Yii::t('app','REPLY'); ?></a><?php } ?>
+	    		    <a class="claimTestimonial" href="#"><?= \Yii::t('app','COMPLAIN'); ?></a>
 			    <?php } ?>
 			</div>
 		    </div>
@@ -61,12 +61,12 @@ use yii\helpers\Url;
 
 	    <?php if (count($list) > Testimonials::COUNT_LIST) { ?>
 		<div class="b-comments__button-more">
-		    <span class="b-comments__button-more__default">БОЛЬШЕ</span>
+		    <span class="b-comments__button-more__default"><?= \Yii::t('app','MORE'); ?></span>
 		    <span class="b-comments__button-more__loading"></span>
 		</div>
 	    <?php } ?>
 	<?php } else { 
-	    $text = $mUser->owner ? "Отзывов нет" : "Отзывов нет, вы можете поделиться полезной информацией об этом человеке.";
+	    $text = $mUser->owner ? \Yii::t('app','NO_REVIEWS') : \Yii::t('app','NO_REVIEWS_YOU_CAN_SHARE_USEFUL_INFORMATION_ABOUT_THIS_PERSON');
 	    ?>
 	<p><?= $text ?></p>
 	<?php } ?>
@@ -84,7 +84,7 @@ $this->registerJs("
 	    id = $(this).closest('.b-comments__item').attr('data-id');
 	    url = '" . Url::toRoute(["users/sendclaim"]) . "';
 	    sendPost(url, id);
-	    alertInfo('Жалоба отправлена');
+	    alertInfo('".\Yii::t('app','COMPLIANT_SUBMITTED')."');
 	    return false;
 	});
 	$('.answerTestimonial').on('click', function() {

@@ -3,7 +3,7 @@ $this->registerJsFile("http://d3js.org/d3.v3.min.js", ['position' => \yii\web\Vi
 $this->registerJsFile("/js/RadarChart.js", ['position' => \yii\web\View::POS_END]);
 ?>
 <div class="b-diagramm b-block">
-    <div class="b-title">Диаграмма оценок</div>
+    <div class="b-title"><?= \Yii::t('app','MARKS_DIAGRAM'); ?></div>
     <div class="b-diagramm__content">
 	<div id="chart"></div>
     </div>

@@ -51,10 +51,10 @@ use yii\widgets\ActiveForm;
 	</div>
 	<div class="b-modal__content__buttons">
 	    <div class="b-modal__content__buttons__item">
-		<a id="<?= $formOptions['id'] ?>_save" class="button-small" href="#">Сохранить</a>
+		<a id="<?= $formOptions['id'] ?>_save" class="button-small" href="#"><?= \Yii::t('app','SAVE'); ?></a>
 	    </div>
 	    <div class="b-modal__content__buttons__item">
-		<span><a id="<?= $formOptions['id'] ?>_cancel" href="#">Отменить</a></span>
+		<span><a id="<?= $formOptions['id'] ?>_cancel" href="#"><?= \Yii::t('app','CANCEL'); ?></a></span>
 	    </div>
 	</div>
     </div>
