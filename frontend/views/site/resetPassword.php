@@ -15,15 +15,11 @@ $this->title = Yii::t('app', 'RESET_PASSWORD');
     <div style="text-align: center">
 	<div class="row">
 	    <div class="col-lg-5">
-
 		<?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
-
 		<?= $form->field($model, 'password')->passwordInput(['autofocus' => true]) ?>
-
                 <div class="form-group">
 		    <?= Html::submitButton(Yii::t('app', 'SAVE'), ['class' => 'btn btn-primary']) ?>
                 </div>
-
 		<?php ActiveForm::end(); ?>
 	    </div>
         </div>

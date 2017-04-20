@@ -302,17 +302,17 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 */
     public function beforeSave($insert) {
-	$sess = \Yii::$app->session;
+	//$sess = \Yii::$app->session;
 	
 	isset($this->id) ? $this->saveProfession() : NULL;
-	
-	if($sess->has('typeUser')) {
+	/*
+	if(($sess->has('typeUser')) && ($this->type == 0)) {
 	    $this->type = $sess->get('typeUser');
 	    if(!isset($this->step)) {
 		$this->step = $this->type == self::TYPE_USER_USER ? self::STEP_NEXT_USER : self::STEP_NEXT_COMPANY;
 	    }
 	    $sess->remove('typeUser');
-	}
+	} */
 	return parent::beforeSave($insert);
     }
 

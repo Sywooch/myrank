@@ -34,9 +34,11 @@ $get = Yii::$app->request->get();
     			<!-- span class="b-user__data__name__edit"></span -->
     		    </div>
     		    <div class="b-user__data__info">
-    			<a class="b-user__data__info__add-trusted" href="#">
-    			    В доверенные
+			<?php if((Yii::$app->user->id !== null) && !$item->owner) { ?>
+    			<a class="b-user__data__info__add-trusted" href="#" data-url="<?= Url::toRoute(['users/trustees', 'id' => $item->id]) ?>">
+    			    <?= $item->trustUser ? "Доверенный" : "В доверенные" ?>
     			</a>
+			<?php } ?>
     			<div class="b-user__data__info__rating">
     			    <span><?= $item->rating ?></span>
     			    Рейтинг
@@ -101,4 +103,17 @@ if ($pagin['count'] > $USmodel->limit) {
 	    </li>
         </ul>
     </div>
-<?php } ?>
+<?php } 
+$this->registerJs("
+    $('.b-user__data__info__add-trusted').on('click', function() {
+	var that = $(this);
+	url = $(this).attr('data-url');
+	$.post(url, {'_csrf-frontend':$('[name=\"csrf-token\"]').attr('content')}, function(out) {
+	    if(out.code) {
+		that.text(out.data);
+		alertInfo('Ваш запрос отправлен и ждет подтверждения пользователем');
+	    }
+	}, 'json');
+	return false;
+    })", yii\web\View::POS_END);
+?>

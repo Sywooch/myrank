@@ -5,7 +5,7 @@ use yii\helpers\Html;
 $i = 1;
 ?>
 <div class="b-modal__header">
-    Загрузка фото
+    Загрузить аватар 
 </div>
 <div class="b-modal__content">
     <div class="b-modal__content__portfolio">
@@ -13,7 +13,7 @@ $i = 1;
     	    <div class="b-modal__content__portfolio__item" id="uploadFile<?= $i ?>">
     		<div class="b-modal__content__portfolio__item__image">
     		    <div class="input-file-wrapper">
-    			<span>Загрузите новое фото проекта</span>
+    			<span>Загрузите новое фото</span>
     			<input id="images-name<?= $i ?>" name="Images[name<?= $i ?>]" data-url="<?= Url::toRoute(['media/imageupload', 'id' => $i]) ?>" type="file" accept="image/*" />
     		    </div>
     		</div>

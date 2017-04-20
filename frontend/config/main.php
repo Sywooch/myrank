@@ -28,7 +28,6 @@ return [
 	    'class' => 'yii\web\Session',
 	    'timeout' => 30 * 24 * 60 * 60,
 	    'cookieParams' => ['lifetime' => 30 * 24 *60 * 60],
-	    // this is the name of the session cookie used for login on the frontend
 	    'name' => 'advanced-frontend',
 	],
 	'mailer' => [
@@ -93,7 +92,7 @@ return [
     'modules' => [
 	'debug' => [
 	    'class' => 'yii\debug\Module',
-	    'allowedIPs' => ['127.0.0.1', '::1', '193.34.94.25']
+	    'allowedIPs' => ['127.0.0.1', '::1', '193.34.94.25', '95.47.150.103']
 	]
     ],
     'params' => $params,

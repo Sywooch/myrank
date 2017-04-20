@@ -31,9 +31,9 @@ if (Yii::$app->user->id === null) { ?>
     	    </div>
     	    <div class="b-header__user__info__dropdown">
     		<ul>
-    		    <li><a href="#">Опция один</a></li>
+    		    <!-- li><a href="#">Опция один</a></li>
     		    <li><a href="#">Активный пункт меню</a></li>
-    		    <li><a href="#">Опция два</a></li>
+    		    <li><a href="#">Опция два</a></li -->
 		    <li><a href="<?= Url::toRoute(['site/logout']); ?>"><?= \Yii::t('app','EXIT'); ?> <span></span></a></li>
     		</ul>
     	    </div>

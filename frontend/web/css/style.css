@@ -1018,9 +1018,9 @@ body.gray-bg .b-header__user:after{
 }
 .b-category h2{
     display: inline-block;
-    margin: 0;
+    margin: 0 0 10px 0;
     padding: 0 10px;
-    background: #ffffff;
+    /* background: #ffffff; */
 }
 .b-category h2:after{
     display: none;
@@ -1460,7 +1460,7 @@ body.gray-bg .b-header__user:after{
 .b-last-users__item{
     width: 170px;
     margin: 0 36px;
-    background: #ffffff;
+    /* background: #ffffff; */
 }
 .b-last-users__item__image img{
     border-radius: 85px;

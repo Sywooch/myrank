@@ -197,7 +197,13 @@ class SiteController extends Controller {
      */
     public function actionRequestpasswordreset() {
 	$model = new PasswordResetRequestForm();
-	if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+	$post = Yii::$app->request->post();
+	/* $mUser = User::find()->where(['email' => $post['PasswordResetRequestForm']['email']])->one();
+	if(isset($post['PasswordResetRequestForm'])) {
+	    
+	}*/
+	
+	if ($model->load($post) && $model->validate()) {
 	    if ($model->sendEmail()) {
 		\Yii::$app->notification->set('global', \Yii::t('app','CHECK_YOUR_EMAIL_FOR_FURTHER_INSTRUCTIONS'));
 		return $this->goHome();

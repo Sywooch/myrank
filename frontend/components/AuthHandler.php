@@ -46,7 +46,7 @@ class AuthHandler {
 	    case "vkontakte":
 		$userAttr['first_name'] = ArrayHelper::getValue($attributes, 'first_name');
 		$userAttr['last_name'] = ArrayHelper::getValue($attributes, 'last_name');
-		$userAttr['email'] = $email = ArrayHelper::getValue($attributes, 'user_id');
+		//$userAttr['email'] = $email = ArrayHelper::getValue($attributes, 'user_id');
 		$avatar = ArrayHelper::getValue($attributes, 'photo_200');
 		break;
 	}
@@ -82,9 +82,11 @@ class AuthHandler {
 		    $user->generateAuthKey();
 		    $user->generatePasswordResetToken();
 
-
 		    $transaction = User::getDb()->beginTransaction();
-
+		    
+		    $user->type = Yii::$app->session->get("typeUser");
+		    Yii::$app->session->remove("typeUser");
+		    
 		    if ($user->save()) {
 			if (isset($avatar)) {
 			    $imgPath = Yii::getAlias('@frontend/web/files/') . $user->id;

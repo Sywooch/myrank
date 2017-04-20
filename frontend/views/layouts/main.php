@@ -35,7 +35,7 @@ $this->registerJs('
 		location.reload(true);
 	    });
 	});
-	$(".cancel").on("click", function () {
+	$("body").on("click", ".cancel", function () {
 	    $("#modalView").modal("hide");
 	});
 	function setCityList (id) {

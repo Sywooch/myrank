@@ -7,7 +7,7 @@ use yii\helpers\Url;
 	<div class="b-rating__header">
 	    <div class="b-rating__header__text"><?= \Yii::t('app','BEST_RATING_TEXT'); ?></div>
 	    <div class="b-rating__header__link">
-		<a href="#"><?= \Yii::t('app','ALL_CATEGORIES'); ?></a>
+		<!-- a href="#"><?= \Yii::t('app','ALL_CATEGORIES'); ?></a -->
 	    </div>
 	</div>
 	<div class="b-rating__content">

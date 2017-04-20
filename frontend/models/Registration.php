@@ -18,6 +18,7 @@ class Registration extends User {
 	return [
 	    [['first_name', 'last_name', 'email', 'city_id', 'professionField'], 'required'],
 	    [['password'], 'required', 'on' => 'step1'],
+	    [['password'], 'string', 'length' => [6, 24]],
 	    [['first_name', 'last_name'], 'match', 'pattern' => '/^[A-Za-zА-Яа-яs,]+$/u'],
 	    [['email'], 'email'],
 	    [['company_id', 'profileviews', 'rating'], 'integer'],

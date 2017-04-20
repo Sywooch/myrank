@@ -17,6 +17,7 @@ use frontend\models\Images;
 use frontend\models\UserNotification;
 use yii\web\NotFoundHttpException;
 use frontend\models\Registration;
+use frontend\models\Company;
 
 /**
  * Description of UserController
@@ -176,8 +177,9 @@ class UsersController extends Controller {
 	$uId = \Yii::$app->user->id;
 	$model = Registration::findOne($uId);
 	if ($model->type) {
+	    $mCompany = (isset($model->company)) ? $model->company : new Company();
 	    $out = $this->renderPartial("/registration/_regStep3", [
-		'mCompany' => $model->company,
+		'mCompany' => $mCompany,
 		'title' => \Yii::t('app','EDITING_COMPANY'),
 	    ]);
 	} else {

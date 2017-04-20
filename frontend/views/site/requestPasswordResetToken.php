@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Url;
 ?>
 
 
@@ -15,7 +16,7 @@ use yii\bootstrap\ActiveForm;
 		<?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
 		<div class="form-group">
-		    <?= Html::submitButton(Yii::t('app', 'SEND'), ['class' => 'btn btn-primary']) ?>
+		    <?= Html::button(Yii::t('app', 'SEND'), ['class' => 'btn btn-primary', 'id' => 'saveReset']) ?>
 		</div>
 
 		<?php ActiveForm::end(); ?>
@@ -23,3 +24,21 @@ use yii\bootstrap\ActiveForm;
 	</div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $("#saveReset").on('click', function() {
+	url = '<?= Url::toRoute(['site/requestpasswordreset']) ?>';
+	$.ajax({
+	    url: url,
+	    dataType: 'json',
+	    method: 'POST',
+	    data: $("#request-password-reset-form").serialize(),
+	    success: function (out) {
+		if(out.code == 1) {
+		    location.reload(true);
+		}
+	    }
+	});
+	return false;
+    });
+</script>
