@@ -63,6 +63,7 @@ class AuthHandler {
 		/* @var User $user */
 		$user = $auth->user;
 		$this->updateUserInfo($user);
+		\Yii::$app->rating->process($user);
 		Yii::$app->user->login($user, Yii::$app->params['user.rememberMe']);
 	    } else { // signup
 		if ($email !== null && User::find()->where(['email' => $email])->exists()) {
@@ -73,6 +74,7 @@ class AuthHandler {
 			'source_id' => (string) $id,
 		    ]);
 		    if ($auth->save()) {
+			Yii::$app->rating->process($user);
 			Yii::$app->user->login($user, Yii::$app->params['user.rememberMe']);
 		    }
 		} else {
@@ -88,6 +90,7 @@ class AuthHandler {
 		    Yii::$app->session->remove("typeUser");
 		    
 		    if ($user->save()) {
+			\Yii::$app->rating->process($user);
 			if (isset($avatar)) {
 			    $imgPath = Yii::getAlias('@frontend/web/files/') . $user->id;
 			    $user->image = $this->saveImageFrom($avatar, $imgPath);

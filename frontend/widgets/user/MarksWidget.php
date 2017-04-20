@@ -32,7 +32,7 @@ class MarksWidget extends Widget {
 	return $this->render($this->view, [
 	    'allList' => $this->allList, 
 	    'list' => $this->list,
-	    'uId' => $this->model->id,
+	    'model' => $this->model,
 	    'title' => $this->title,
 	]);
     }

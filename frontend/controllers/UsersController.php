@@ -18,6 +18,7 @@ use frontend\models\UserNotification;
 use yii\web\NotFoundHttpException;
 use frontend\models\Registration;
 use frontend\models\Company;
+use frontend\models\Marks;
 
 /**
  * Description of UserController
@@ -124,6 +125,28 @@ class UsersController extends Controller {
 	}
 	\Yii::$app->end();
     }
+    
+    public function actionConfigmarks () {
+	$model = Marks::findAll(['parent_id' => 0]);
+	$mUser = User::getProfile();
+	if(!is_null($mUser->marks_config)) {
+	    $configArr = Json::decode($mUser->marks_config, true);
+	} else {
+	    $configArr = [];
+	}
+	echo Json::encode([
+	    'code' => 1, 
+	    'data' => $this->renderPartial('modal/configMarks', ['model' => $model, 'configArr' => $configArr])
+	]);
+	\Yii::$app->end();
+    }
+    
+    public function actionConfigmarkssave () {
+	$post = \Yii::$app->request->post('Marks');
+	$mUser = User::getProfile();
+	$mUser->marks_config = Json::encode($post);
+	echo Json::encode(['code' => $mUser->save() ? 1 : 0]);
+    }
 
     /**
      * Модальное окно комментария
@@ -192,6 +215,7 @@ class UsersController extends Controller {
 
 	    $out = $this->renderPartial("modal/mainInfo", ['model' => $model]);
 	}
+	\Yii::$app->rating->process($model);
 	echo Json::encode(['code' => 1, 'data' => $out]);
 	\Yii::$app->end();
     }
@@ -205,6 +229,7 @@ class UsersController extends Controller {
 	if ($mUser->load($post) && $mUser->validate()) {
 	    if ($mUser->validate()) {
 		$out['code'] = $mUser->save();
+		\Yii::$app->rating->process($mUser);
 	    } else {
 		$out['errors'] = ['password' => [\Yii::t('app','PASSWORD_AND_REPEAT_DO_NOT_MATCH')]];
 	    }
