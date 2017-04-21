@@ -31,17 +31,14 @@ use frontend\models\Testimonials;
  * @property string $mark
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface {
-    
-    const LIMIT_VIEW = 10;
 
-    const ROLE_USER_TYPE_USER = 0;
-    const ROLE_USER_TYPE_MODERATOR = 1;
-    const ROLE_USER_TYPE_ADMIN = 10;
+    const LIMIT_VIEW = 10;
     const ROLE_ACCESS_TYPE_STANDART = 0;
     const ROLE_ACCESS_TYPE_ADVANCED = 1;
     const ROLE_ACCESS_TYPE_PREMIUM = 2;
     const TYPE_USER_USER = 0;
     const TYPE_USER_COMPANY = 1;
+    const TYPE_USER_ADMIN = 10;
     const GENDER_DEFAULT = 0;
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 2;
@@ -49,11 +46,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     const STEP_NEXT_USER = 2;
     const STEP_NEXT_COMPANY = 3;
 
-    public static $roleUser = [
-	self::ROLE_USER_TYPE_USER => "user",
-	self::ROLE_USER_TYPE_MODERATOR => "moderator",
-	self::ROLE_USER_TYPE_ADMIN => "admin"
-    ];
     public static $roleAccess = [
 	self::ROLE_ACCESS_TYPE_STANDART => "standart",
 	self::ROLE_ACCESS_TYPE_ADVANCED => "advanced",
@@ -62,6 +54,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public static $typeUser = [
 	self::TYPE_USER_USER => "user",
 	self::TYPE_USER_COMPANY => "company",
+	self::TYPE_USER_ADMIN => "admin",
     ];
     public $genderUser = [
 	self::GENDER_DEFAULT => "default",
@@ -75,7 +68,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public $rePassword;
     public $github;
     public $username;
-    
     public $defMarks = [];
 
     /**
@@ -92,9 +84,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	return [
 	    //[['first_name', 'last_name', 'city_id'], 'required'],
 	    [['company_id', 'profileviews', 'rating'], 'integer'],
-	    [['last_login', 'birthdate', 'city_id', 'phone', 
-		'site', 'mark', 'email', 'professionField', 
-		'type', 'step', 'image', 'company_name', 'marks_config'], 'safe'],
+	    [['last_login', 'birthdate', 'city_id', 'phone',
+	    'site', 'mark', 'email', 'professionField',
+	    'type', 'step', 'image', 'company_name', 'marks_config'], 'safe'],
 	    [['image'], 'string', 'max' => 255],
 	    [['first_name', 'last_name', 'about'], 'string', 'max' => 50],
 	];
@@ -119,7 +111,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	    'birthdate' => Yii::t('app', 'День рождения'),
 	    'gender' => Yii::t('app', 'Пол'),
 	    'city_id' => \Yii::t('app', 'Город'),
-        'cityName' => \Yii::t('app', 'Город'),
+	    'cityName' => \Yii::t('app', 'Город'),
 	    'phone' => \Yii::t('app', 'Номер телефона'),
 	    'site' => \Yii::t('app', 'Сайт'),
 	    'mark' => \Yii::t('app', 'Оценка'),
@@ -142,47 +134,59 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public function getTestimonials() {
 	return $this->hasMany(Testimonials::className(), ['user_to' => 'id']);
     }
-    
-    public function getTestimonialsActive () {
+
+    public function getTestimonialsActive() {
 	return $this->getTestimonials()->andWhere(['status' => Testimonials::STATUS_ACTIVE]);
     }
 
     public function getTestimonialsTo() {
-        return $this->hasMany(Testimonials1::className(), ['user_to' => 'id']);
+	return $this->hasMany(Testimonials1::className(), ['user_to' => 'id']);
     }
 
     public function getTestimonialsFrom() {
-        return $this->hasMany(Testimonials1::className(), ['user_from' => 'id']);
+	return $this->hasMany(Testimonials1::className(), ['user_from' => 'id']);
     }
-    
-    public function getUserTrusteesTo () {
+
+    public function getUserTrusteesTo() {
 	return $this->hasMany(UserTrustees::className(), ['user_to' => 'id']);
     }
-    
-    public function getUserTrusteesFrom () {
+
+    public function getUserTrusteesFrom() {
 	return $this->hasMany(UserTrustees::className(), ['user_from' => 'id']);
     }
-    
-    public function getUserMarkRatingTo () {
+
+    public function getUserMarkRatingTo() {
 	return $this->hasMany(UserMarkRating::className(), ['user_to' => 'id']);
     }
-    
-    public function getProfession () {
+
+    public function getProfession() {
 	return $this->hasMany(UserProfession::className(), ['user_id' => 'id']);
     }
-    
-    public function getUserProfession () {
+
+    public function getUserProfession() {
 	return $this->hasMany(Profession::className(), ['id' => 'profession_id'])->via("profession");
     }
-    
-    public function getCompany () {
+
+    public function getCompany() {
 	return $this->hasOne(Company::className(), ['id' => 'company_id']);
     }
 
     //
+    
+    public function getProfileProfession () {
+	switch ($this->type) {
+	    case self::TYPE_USER_COMPANY:
+		$out = $this->company->companyProfession;
+		break;
+	    case self::TYPE_USER_USER:
+		$out = $this->userProfession;
+		break;
+	}
+	return $out;
+    }
 
     public function getFullName() {
-	if($this->type && $this->company->name != "") {
+	if ($this->type && $this->company->name != "") {
 	    return $this->company->name;
 	}
 	return $this->first_name . " " . $this->last_name;
@@ -208,6 +212,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	return $out;
     }
 
+    public function getCountryCity() {
+	return $this->city->country_id;
+    }
+
     public function getCountryName() {
 	return ($this->city_id == 0) ? FALSE : $this->getCity()->one()->countryName;
     }
@@ -216,22 +224,34 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	return $this->getCityName() && $this->getCountryName() ? $this->getCityName() . ", " . $this->getCountryName() : "Не указано";
     }
     
-    public function getAboutProfile () {
+    public function getProfilePosition () {
+	switch ($this->type) {
+	    case self::TYPE_USER_USER:
+		$out = $this->position;
+		break;
+	    case self::TYPE_USER_COMPANY:
+		$out = $this->company->position;
+		break;
+	}
+	return $out;
+    }
+
+    public function getAboutProfile() {
 	return $this->type ? $this->company->about : $this->about;
     }
 
     // Marks
-    
-    public function getConfigMarks () {
+
+    public function getConfigMarks() {
 	return is_null($this->marks_config) ? [] : Json::decode($this->marks_config, true);
     }
 
     public function getMarks() {
 	$configMarksArr = $this->configMarks;
-	
+
 	$model = Marks::find()->all();
 	foreach ($model as $item) {
-	    if(isset($configMarksArr[$item->parent_id])) {
+	    if (isset($configMarksArr[$item->parent_id])) {
 		if ($configMarksArr[$item->parent_id] == Marks::MARKS_ACCESS_FRONT_ALL) {
 		    $arr[$item->parent_id][$item->id] = $item->name;
 		}
@@ -272,26 +292,26 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	}
 	return $arr;
     }
-    
-    public function getUserImage () {
+
+    public function getUserImage() {
 	return $this->image == "" ? "/images/no_photo.png" : \yii\helpers\Url::toRoute([
-	    'media/viewimage', 
-	    'id' => $this->id,
-	    'user' => 1
-	    ]);
+		    'media/viewimage',
+		    'id' => $this->id,
+		    'user' => 1
+	]);
     }
 
     public function getOwner() {
 	return (\Yii::$app->user->id === NULL) ? FALSE : (\Yii::$app->user->id == $this->id) ? TRUE : FALSE;
     }
-    
-    public function getTrustUser () {
+
+    public function getTrustUser() {
 	$id = \Yii::$app->user->id;
 	return $this->getUserTrusteesTo()->andWhere(['user_from' => $id])->count() > 0 ? TRUE : FALSE;
     }
-    
-    public function saveProfession () {
-	if(isset($this->professionField) && (count($this->professionField) > 0)) {
+
+    public function saveProfession() {
+	if (isset($this->professionField) && (count($this->professionField) > 0)) {
 	    UserProfession::deleteAll(['user_id' => $this->id]);
 	    foreach ($this->professionField as $item) {
 		$mProf = new UserProfession();
@@ -303,28 +323,20 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	    }
 	}
     }
-/*    
-    public function getQueryRangeDate ($query) {
-	return $query->andWhere([
-	    'between', 
-	    'created',
-	    new \yii\db\Expression('(NOW() - INTERVAL 1 DAY)'),
-	    new \yii\db\Expression('NOW()')
-	])->count();
-    }
-*/
+
+    /*
+      public function getQueryRangeDate ($query) {
+      return $query->andWhere([
+      'between',
+      'created',
+      new \yii\db\Expression('(NOW() - INTERVAL 1 DAY)'),
+      new \yii\db\Expression('NOW()')
+      ])->count();
+      }
+     */
+
     public function beforeSave($insert) {
-	//$sess = \Yii::$app->session;
-	
 	isset($this->id) ? $this->saveProfession() : NULL;
-	/*
-	if(($sess->has('typeUser')) && ($this->type == 0)) {
-	    $this->type = $sess->get('typeUser');
-	    if(!isset($this->step)) {
-		$this->step = $this->type == self::TYPE_USER_USER ? self::STEP_NEXT_USER : self::STEP_NEXT_COMPANY;
-	    }
-	    $sess->remove('typeUser');
-	} */
 	return parent::beforeSave($insert);
     }
 
