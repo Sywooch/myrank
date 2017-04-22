@@ -18,6 +18,11 @@ use yii\widgets\ActiveForm;
 	<?= $title; ?>
     </div>
     <div class="b-modal__content">
+	<?php if($message != "") { ?>
+	<div class="row">
+	    <div class="col-xs-12 col-sm-12" style="color:red"><?= $message ?></div>
+	</div>
+	<?php } ?>
 	<?php foreach ($content as $key => $item) { ?>
     	<div class="row" <?= $item['type'] == 'hiddenInput' ? "style='display:none'" : "" ?>>
 		<?php

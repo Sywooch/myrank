@@ -13,11 +13,15 @@ use Yii;
  * @property integer $conut_persons
  * @property string $reg_date
  * @property integer $cash
+ * @property integer $city_id
  * @property string $director
  * @property string $contact_face
  * @property string $about
  */
 class Company extends \yii\db\ActiveRecord {
+    
+    public $country_id;
+    public $professionField;
     
     const COUNT_PERSONS_SMALL = 1;
     const COUNT_PERSONS_MEDIUM = 2;
@@ -54,8 +58,9 @@ class Company extends \yii\db\ActiveRecord {
     public function rules() {
 	return [
 	    [['name', 'reg_date'], 'required'],
+	    [['professionField'], 'required', 'on' => 'editmaininfo'],
 	    [['count_persons', 'cash'], 'integer'],
-	    [['reg_date', 'user_id'], 'safe'],
+	    [['reg_date', 'user_id', 'city_id'], 'safe'],
 	    [['about'], 'string'],
 	    [['phone', 'director', 'contact_face'], 'string', 'max' => 255],
 	];
@@ -78,8 +83,55 @@ class Company extends \yii\db\ActiveRecord {
 	];
     }
     
+    public function getCity () {
+	return $this->hasOne(City::className(), ['city_id' => 'city_id']);
+    }
+    
+    public function getCountryCity() {
+	return $this->city->country_id;
+    }
+    
     public function getFullName () {
 	return $this->name;
+    }
+    
+    public function saveProfession() {
+	if (isset($this->professionField) && (count($this->professionField) > 0)) {
+	    CompanyProfession::deleteAll(['company_id' => $this->id]);
+	    foreach ($this->professionField as $item) {
+		$mProf = new CompanyProfession();
+		$mProf->attributes = [
+		    'company_id' => $this->id,
+		    'profession_id' => $item,
+		];
+		$mProf->save();
+	    }
+	}
+    }
+    
+    public function getCityName() {
+	return ($this->city_id == 0) ? FALSE : $this->getCity()->one()->name;
+    }
+    
+    public function getCountryName() {
+	return ($this->city_id == 0) ? FALSE : $this->getCity()->one()->countryName;
+    }
+    
+    public function getPosition() {
+	return $this->getCityName() && $this->getCountryName() ? $this->getCityName() . ", " . $this->getCountryName() : "Не указано";
+    }
+    
+    public function getProfession () {
+	return $this->hasMany(CompanyProfession::className(), ['company_id' => 'id']);
+    }
+    
+    public function getCompanyProfession() {
+	return $this->hasMany(Profession::className(), ['id' => 'profession_id'])->via("profession");
+    }
+    
+    public function beforeSave($insert) {
+	isset($this->id) ? $this->saveProfession() : NULL;
+	return parent::beforeSave($insert);
     }
 
 }

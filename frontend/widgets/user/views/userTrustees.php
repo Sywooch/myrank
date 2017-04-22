@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use frontend\models\UserTrustees;
 
 if (count($list) > 0) {
     ?>
@@ -29,7 +30,7 @@ if (count($list) > 0) {
 		    </div>
 		</div>
 	    <?php } ?>
-	    <?php if ($count > frontend\models\UserTrustees::COUNT_LIST_USER_PROFILE) { ?>
+	    <?php if ($count > UserTrustees::COUNT_LIST_USER_PROFILE) { ?>
 		<div class="link">
 		    <a href="#" class="showModal" data-url="<?= Url::toRoute(['users/alltrustuser', 'id' => $model->id]) ?>">
 			<span><?= \Yii::t('app','VIEW_ALL'); ?></span>

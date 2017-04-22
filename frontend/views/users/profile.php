@@ -60,7 +60,7 @@ $this->title = 'Профайл пользователя';
 			<div class="b-user__data__content">
 			    <div class="b-user__data__content__item">
 				<div class="b-user__data__content__item__adress">
-				    <?= $mUser->position ?>
+				    <?= $mUser->profilePosition ?>
 				</div>
 			    </div>
 			    <?php if(isset($mUser->company_name) && ($mUser->company_name != "")) { ?>
@@ -72,7 +72,7 @@ $this->title = 'Профайл пользователя';
 			    <?php } ?>
 			</div>
 			<div class="b-tags">
-			    <?php foreach ($mUser->userProfession as $item) { ?>
+			    <?php foreach ($mUser->profileProfession as $item) { ?>
 			    <span><?= $item->title ?></span>
 			    <?php } ?>
 			</div>

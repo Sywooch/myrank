@@ -5,6 +5,7 @@ namespace frontend\components;
 use yii\base\Component;
 use frontend\models\Testimonials;
 use frontend\models\UserTrustees;
+use frontend\models\User;
 
 class Rating extends Component {
 
@@ -81,11 +82,12 @@ class Rating extends Component {
     }
 
     private function userInfo() {
-	$this->model->getProfession()->count() > 0 ? $this->rating += self::USER_FIELD_SUMM : NULL; // int
-	$this->model->position ? $this->rating += self::USER_FIELD_SUMM : NULL; // bool
-	($this->model->company_name != NULL) || ($this->model->company_name != "") ? $this->rating += self::USER_FIELD_SUMM : NULL; // Null
-	($this->model->company_post != NULL) || ($this->model->company_post != "") ? $this->rating += self::USER_FIELD_SUMM : NULL; // Null
-	($this->model->phone != NULL) || ($this->model->phone != "") ? $this->rating += self::USER_FIELD_SUMM : NULL; // Null
+	if(($this->model->type == User::TYPE_USER_COMPANY) && ($this->model->company_id != 0)) {
+	    $this->rating += 40;
+	    ($this->model->company->count_persons == 0) ? : $this->rating += self::USER_FIELD_SUMM;
+	    ($this->model->company->cash == 0) ? : $this->rating += self::USER_FIELD_SUMM;
+	    ($this->model->company->director == "") ? : $this->rating += self::USER_FIELD_SUMM;
+	}
     }
 
 }

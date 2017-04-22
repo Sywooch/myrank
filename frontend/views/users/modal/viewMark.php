@@ -3,7 +3,7 @@
 use yii\helpers\Url;
 use yii\helpers\Json;
 
-$markNames = \frontend\models\User::getMarks();
+$markNames = $item->markNames;
 ?>
 <div class="b-modal__header">
     <?= $title ?>
@@ -29,7 +29,7 @@ $markNames = \frontend\models\User::getMarks();
 			    <?php foreach ($item->descrArr as $key => $item2) { ?>
                             <div class="col-md-3 col-sm-4 col-xs-6">
                                 <div class="b-last-marks__item__category">
-                                    <?= $markNames[0][$key]; ?>:
+                                    <?= $markNames[$key]; ?>:
                                 </div>
                                 <div class="b-last-marks__item__value">
                                     <?= $item2 ?>

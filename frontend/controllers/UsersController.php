@@ -127,7 +127,7 @@ class UsersController extends Controller {
     }
     
     public function actionConfigmarks () {
-	$model = Marks::findAll(['parent_id' => 0]);
+	$model = Marks::findAll(['parent_id' => 0, 'required' => 0]);
 	$mUser = User::getProfile();
 	if(!is_null($mUser->marks_config)) {
 	    $configArr = Json::decode($mUser->marks_config, true);
@@ -199,19 +199,25 @@ class UsersController extends Controller {
     public function actionEditmaininfo() {
 	$uId = \Yii::$app->user->id;
 	$model = Registration::findOne($uId);
+	$profArr = [];
 	if ($model->type) {
 	    $mCompany = (isset($model->company)) ? $model->company : new Company();
-	    $out = $this->renderPartial("/registration/_regStep3", [
+	    foreach ($mCompany->companyProfession as $item) {
+		$profArr[] = $item->id;
+	    }
+	    $mCompany->professionField = $profArr;
+	    $mCompany->country_id = $mCompany->countryCity;
+	    $out = $this->renderPartial("modal/editCompany", [
 		'mCompany' => $mCompany,
+		'model' => $model,
 		'title' => \Yii::t('app','EDITING_COMPANY'),
 	    ]);
 	} else {
-	    $profArr = [];
 	    foreach ($model->userProfession as $item) {
 		$profArr[] = $item->id;
 	    }
 	    $model->professionField = $profArr;
-	    $model->country_id = City::findOne($model->city_id)->country_id;
+	    $model->country_id = $model->countryCity;
 
 	    $out = $this->renderPartial("modal/mainInfo", ['model' => $model]);
 	}
@@ -219,10 +225,29 @@ class UsersController extends Controller {
 	echo Json::encode(['code' => 1, 'data' => $out]);
 	\Yii::$app->end();
     }
+    
+    public function actionEditcompanysave () {
+	$post = \Yii::$app->request->post();
+	$uId = \Yii::$app->user->id;
+	$mUser = User::getProfile();
+	$mCompany = $mUser->company;
+	$out['code'] = 0;
+	if ($mCompany->load($post) && $mCompany->validate()) {
+	    if ($mCompany->validate()) {
+		$out['code'] = $mCompany->save();
+		\Yii::$app->rating->process($mUser);
+	    } else {
+		$out['errors'] = ['password' => [\Yii::t('app','PASSWORD_AND_REPEAT_DO_NOT_MATCH')]];
+	    }
+	} else {
+	    $out['errors'] = $mUser->errors;
+	}
+	echo Json::encode($out);
+	\Yii::$app->end();
+    }
 
     public function actionSavemaininfo() {
 	$post = \Yii::$app->request->post();
-	//$mUser = User::getProfile();
 	$uId = \Yii::$app->user->id;
 	$mUser = Registration::findOne($uId);
 	$out['code'] = 0;
@@ -371,7 +396,10 @@ class UsersController extends Controller {
 	$model = UserTrustees::find()->where(['user_from' => $id])->all();
 	echo Json::encode([
 	    'code' => 1,
-	    'data' => $this->renderPartial('modal/allTrustUser', ['model' => $model, 'title' => \Yii::t('app','TRUSTED_PERSONS')])
+	    'data' => $this->renderPartial('modal/allTrustUser', [
+		'model' => $model, 
+		'title' => \Yii::t('app','TRUSTED_PERSONS')
+	    ])
 	]);
 	\Yii::$app->end();
     }

@@ -11,7 +11,9 @@ class ModalWidget extends Widget {
     public $formOptions = [];
     public $success = "";
     public $script = "";
-    
+    public $message = "";
+
+
     public $view = 'modal';
     
     public function init() {
@@ -22,7 +24,8 @@ class ModalWidget extends Widget {
     public function run() {
 	parent::run();
 	return $this->render("modal/" . $this->view, [
-	    'content' => $this->content, 
+	    'content' => $this->content,
+	    'message' => $this->message,
 	    'title' => $this->title,
 	    'formOptions' => $this->formOptions,
 	    'model' => $this->model,

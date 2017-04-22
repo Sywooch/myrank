@@ -73,6 +73,10 @@ class UserTrustees extends \yii\db\ActiveRecord {
     public function getFullNameTo() {
         return $this->userTo ? ($this->userTo->first_name.' '.$this->userTo->last_name) : 'Нет пользователя';
     }
+    
+    public function getMarks () {
+	return "Hello";
+    }
 
 
 }

@@ -24,9 +24,9 @@ class Registration extends User {
 	    [['company_id', 'profileviews', 'rating'], 'integer'],
 	    [['email'], 'unique', 'on' => 'step1'],
 	    [['last_login', 'company_name', 'birthdate', 'city_id', 'phone', 
-		'site', 'mark', 'type', 'step'], 'safe'],
+		'site', 'mark', 'type', 'step', 'about'], 'safe'],
 	    [['image'], 'string', 'max' => 255],
-	    [['first_name', 'last_name', 'about'], 'string', 'max' => 50],
+	    [['first_name', 'last_name'], 'string', 'max' => 50],
 	];
     }
 

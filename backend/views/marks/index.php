@@ -43,6 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
 		},
 		'filter' => Marks::$marksAccess,
 	    ],
+	    [
+		'attribute' => 'required',
+		
+	    ],
 		    
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -24,15 +24,19 @@ if (count($list) > 0) {
 			</div>
 			<?php
 			$summMarks = 0;
+			$count = 0;
 			foreach ($item->descrArr as $item2) {
-			    $summMarks += $item2;
+			    if($item2 != 0.0) {
+				$count++;
+				$summMarks += $item2;
+			    }
 			}
 			?>
 			<div class="b-last-marks__item__category">
                 <?= \Yii::t('app','RATING_AVERAGE'); ?>:
 			</div>
 			<div class="b-last-marks__item__value showModal" data-url="<?= Url::toRoute(['users/markview', 'id' => $item->id]) ?>" style="cursor: pointer">
-			    <?= round($summMarks / count($item->descrArr), 1) ?>
+			    <?= round($summMarks / $count, 1) ?>
 			</div>
 		    </div>
 		</div>

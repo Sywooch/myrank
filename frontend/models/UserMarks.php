@@ -73,5 +73,13 @@ class UserMarks extends \yii\db\ActiveRecord {
     public function getFullNameTo() {
         return $this->userTo ? ($this->userTo->first_name.' '.$this->userTo->last_name) : 'Нет пользователя';
     }
+    
+    public function getMarkNames () {
+	$model = Marks::find()->where(['parent_id' => 0])->all();
+	foreach ($model as $item) {
+	    $out[$item->id] = $item->name;
+	}
+	return $out;
+    }
 
 }

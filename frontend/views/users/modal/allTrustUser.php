@@ -3,7 +3,6 @@
 use yii\helpers\Url;
 use yii\helpers\Json;
 
-$markNames = \frontend\models\User::getMarks();
 ?>
 <div class="b-modal__header">
     <?= $title ?>
