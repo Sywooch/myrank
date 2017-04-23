@@ -13,7 +13,7 @@ use yii\helpers\Url;
     ]);
     ?>
     <div class="b-modal__header">
-	Настроить отображение оценок
+        <?= \Yii::t('app','CONFIGURE_THE_DISPLAY_OF_MARKS'); ?>
     </div>
     <div class="b-modal__content">
 	<div class="row">
@@ -32,10 +32,10 @@ use yii\helpers\Url;
 	</div>
 	<div class="b-modal__content__buttons">
 	    <div class="b-modal__content__buttons__item">
-		<a id="configMarks_save" class="button-small" href="#">Сохранить</a>
+		<a id="configMarks_save" class="button-small" href="#"><?= \Yii::t('app','SAVE'); ?></a>
 	    </div>
 	    <div class="b-modal__content__buttons__item">
-		<span><a id="configMarks_cancel" class="cancel" href="#">Отменить</a></span>
+		<span><a id="configMarks_cancel" class="cancel" href="#"><?= \Yii::t('app','CANCEL'); ?></a></span>
 	    </div>
 	</div>
     </div>

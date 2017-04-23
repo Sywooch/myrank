@@ -14,7 +14,7 @@ class ArticleLastIssuesWidget extends Widget {
     public function init() {
         parent::init();
         if($this->message === null) {
-            $this->message = 'empty message';
+            $this->message = \Yii::t('app','NO_ARTICLES');
         }
     }
 

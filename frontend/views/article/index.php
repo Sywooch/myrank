@@ -20,7 +20,7 @@ use yii\data\ActiveDataProvider;
 // echo $widget->renderPager();
 
 
-$this->title = 'Articles';
+$this->title = \Yii::t('app','ARTICLES');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>    <!-- <div class="container"> -->

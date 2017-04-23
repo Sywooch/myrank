@@ -26,7 +26,7 @@ $viewList20['UsersSearch']['limit'] = 20;
 			<div class="row">
 			    <div class="col-xs-12 col-sm-4">
 				<div class="b-filter__text">
-				    Найдено: <span><?= $pagin['count'] ?></span> элемента
+                    <?= \Yii::t('app','FOUND'); ?>: <span><?= $pagin['count'] ?></span> <?= \Yii::t('app','ITEMS'); ?>
 				</div>
 			    </div>
 			    <div class="col-xs-12 col-sm-8">
@@ -34,10 +34,10 @@ $viewList20['UsersSearch']['limit'] = 20;
 				    <div class="b-filter__options__number">
 					<ul>
 					    <li <?= $model->limit == 10 ? 'class="active"' : "" ?>>
-						<a href="<?= Url::toRoute($viewList10) ?>">По 10 шт</a>
+						<a href="<?= Url::toRoute($viewList10) ?>"><?= \Yii::t('app','VIEW_LIST_10'); ?></a>
 					    </li>
 					    <li <?= $model->limit == 20 ? 'class="active"' : "" ?>>
-						<a href="<?= Url::toRoute($viewList20) ?>">По 20 шт</a>
+						<a href="<?= Url::toRoute($viewList20) ?>"><?= \Yii::t('app','VIEW_LIST_20'); ?></a>
 					    </li>
 					</ul>
 				    </div>

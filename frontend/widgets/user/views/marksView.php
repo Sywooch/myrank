@@ -51,9 +51,9 @@ use yii\helpers\Url;
 	<?php if ($model->owner) { ?>
     	<a class="button-small showModal" 
     	   data-url="<?= Url::toRoute(['users/configmarks']) ?>" 
-    	   href="#">Настроить</a>
+    	   href="#"><?= \Yii::t('app','CONFIGURE'); ?></a>
 	   <?php } ?>
-	<a id="saveMarks" class="button-small" href="#">Сохранить оценку</a>
+	<a id="saveMarks" class="button-small" href="#"><?= \Yii::t('app','RATING_SAVE'); ?></a>
     </div>
 
 </div>
@@ -130,7 +130,7 @@ if (Yii::$app->user->id !== Null) {
 	";
 } else {
     $script .= "$('#saveMarks').on('click', function() {
-		    alertRed('Ввойдите, чтоб оставлять оценки пользователям');
+		    alertRed('".\Yii::t('app','ENTER_TO_LEAVE_MARKS_FOR_USERS')."');
 		return false;
 	    });";
 }

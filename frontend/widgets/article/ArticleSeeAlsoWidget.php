@@ -16,7 +16,7 @@ class ArticleSeeAlsoWidget extends Widget {
         parent::init();
 
         if($this->message === null) {
-            $this->message = 'empty message';
+            $this->message = \Yii::t('app','NO_ARTICLES');
         }
 
         if($this->articleCategoryId === null) {

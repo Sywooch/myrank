@@ -4,19 +4,19 @@ use frontend\widgets\user\ModalWidget;
 use yii\helpers\Url;
 
 echo ModalWidget::widget([
-    'title' => "Редактировать профайл",
+    'title' => \Yii::t('app','PROFILE_EDIT'),
     'formOptions' => ['id' => 'editProfile', 'data-url' => Url::toRoute('users/savemaininfo')],
     'model' => $model,
     'content' => [
 	'first_name' => [
-	    'label' => 'Имя *:',
+	    'label' => \Yii::t('app','NAME').' *:',
 	    'type' => 'textInput',
-	    'options' => ['class' => 'input-text', 'placeholder' => 'David']
+	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_FIRSTNAME')]
 	],
 	'last_name' => [
-	    'label' => 'Фамилия *:',
+	    'label' => \Yii::t('app','SURNAME').' *:',
 	    'type' => 'textInput',
-	    'options' => ['class' => 'input-text', 'placeholder' => 'Dox']
+	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_SURNAME')]
 	],
 	'email' => [
 	    'label' => 'Email *:',
@@ -25,31 +25,31 @@ echo ModalWidget::widget([
 	],
 	[
 	    'country_id' => [
-		'label' => 'Страна:',
+		'label' => \Yii::t('app','COUNTRY').':',
 		'divClass' => 'select-wrapper country-select',
 		'type' => 'dropDownList',
 		'options' => $model->countries,
 	    ],
 	    'city_id' => [
-		'label' => 'Город:',
+		'label' => \Yii::t('app','CITY').':',
 		'divClass' => 'select-wrapper city-select',
 		'type' => 'dropDownList',
 		'options' => isset($model->country_id) ? $model->getCityList($model->country_id) : [],
 	    ],
 	],
 	'professionField' => [
-	    'label' => 'Специализация *:',
+	    'label' => \Yii::t('app','SPECIALIZATION').' *:',
 	    'divClass' => 'select-wrapper specialization-select',
 	    //'type' => 'dropDownList',
 	    'type' => 'listBox',
 	    'options' => $model->profList,
 	    'posOpt' => ['multiple' => true],
-	    'posInfo' => "Позвольте людям узнать чем вы занимаетесь",
+	    'posInfo' => \Yii::t('app','LET_PEOPLE_KNOW_WHAT_YOU_ARE_DOING'),
 	],
 	'about' => [
-	    'label' => 'Личная информация',
+	    'label' => \Yii::t('app','PERSONAL_INFORMATION'),
 	    'type' => 'textarea',
-	    'options' => ['placeholder' => 'Расскажите немного о себе']
+	    'options' => ['placeholder' => \Yii::t('app','TELL_A_LITTLE_ABOUT_YOURSELF')]
 	],/*
 	[
 	    'password' => [

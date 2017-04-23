@@ -83,7 +83,9 @@ return [
     'GIVE_FEEDBACK'=>'Give feedback',
     'EDITING_COMPANY'=>'Editing a company',
     'IN_TRUSTED'=>'IN TRUSTED',
+    'IN_TRUSTED_SMALL'=>'In trusted',
     'TRUSTED'=>'TRUSTED',
+    'TRUSTED_SMALL'=>'Trusted',
     'LATEST_RATINGS'=>'Latest ratings',
     'USER_RATING'=>'User rating',
     'TRUSTED_PERSONS'=>'Trusted persons',
@@ -155,7 +157,28 @@ return [
     'PROJECT_NAME'=>'Project name',
     'PROJECT_DESCRIPTION'=>'Project description',
     'NO_MORE_THAN_500_CHARACTERS'=>'No more than 500 characters.',
-    'PHOTO_DID_NOT_LOAD_PLEASE_CONSULT_ADMINISTRATOR'=>'The photo did not load, please consult the administrator'
+    'PHOTO_DID_NOT_LOAD_PLEASE_CONSULT_ADMINISTRATOR'=>'The photo did not load, please consult the administrator',
+    'CHECK_CORRECTNESS_OF_THE_DATA_FILLING_FILL_IN_THE_MISSING_INFORMATION'=>'Check the correctness of the data filling, fill in the missing information',
+    'CONFIGURE_THE_DISPLAY_OF_MARKS'=>'Configure the display of marks',
+    'YOUR_REQUEST_HAS_BEEN_SENT_AND_IS_WAITING_FOR_CONFIRMATION_BY_THE_USER'=>'Your request has been sent and is waiting for confirmation by the user',
+    'FOUND'=>'Found',
+    'ITEMS'=>'items',
+    'VIEW_LIST_10'=>'Each 10 items',
+    'VIEW_LIST_20'=>'Each 20 items',
+    'USER_PROFILE'=>'User profile',
+    'TRUSTED_WHOM'=>'Trusted',
+    'MARKS_WHOM'=>'Marks',
+    'REVIEWS_WHOM'=>'Reviews',
+    'MINIMIZE'=>'Minimize',
+    'UPLOAD_AVATAR'=>'Upload avatar',
+    'UPLOAD_A_NEW_PHOTO'=>'Upload a new photo',
+    'IAM'=>'I\'m',
+    'TESTIMONIALS_TEXT'=>'Testimonials text',
+    'WRITE_A_FEW_WORDS'=>'Write a few words',
+    'PROFILE_EDIT'=>'Edit profile',
+    'CONFIGURE'=>'Configure',
+
+
 ];
 
 /*

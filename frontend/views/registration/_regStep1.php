@@ -8,7 +8,7 @@ echo ModalWidget::widget([
     'title' => \Yii::t('app','REGISTRATION_STEP_1_OF_2'),
     'model' => $model,
     'formOptions' => ['id' => 'regFormStep1', 'data-url' => Url::toRoute("registration/step1save")],
-    'message' => 'Проверьте правильность заполнения данных, заполните недостающую информацию',
+    'message' => \Yii::t('app','CHECK_CORRECTNESS_OF_THE_DATA_FILLING_FILL_IN_THE_MISSING_INFORMATION'),
     'content' => [
 	'first_name' => [
 	    'label' => '* '.\Yii::t('app','NAME'),

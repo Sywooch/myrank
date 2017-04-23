@@ -5,7 +5,7 @@ use yii\helpers\Html;
 $i = 1;
 ?>
 <div class="b-modal__header">
-    Загрузить аватар 
+    <?= \Yii::t('app','UPLOAD_AVATAR'); ?>
 </div>
 <div class="b-modal__content">
     <div class="b-modal__content__portfolio">
@@ -13,7 +13,7 @@ $i = 1;
     	    <div class="b-modal__content__portfolio__item" id="uploadFile<?= $i ?>">
     		<div class="b-modal__content__portfolio__item__image">
     		    <div class="input-file-wrapper">
-    			<span>Загрузите новое фото</span>
+    			<span><?= \Yii::t('app','UPLOAD_A_NEW_PHOTO'); ?></span>
     			<input id="images-name<?= $i ?>" name="Images[name<?= $i ?>]" data-url="<?= Url::toRoute(['media/imageupload', 'id' => $i]) ?>" type="file" accept="image/*" />
     		    </div>
     		</div>
@@ -26,7 +26,7 @@ $i = 1;
     		    $("#uploadFile" + res.fieldId + " .b-modal__content__portfolio__item__image").html("<img src='" + res.url + "' />");
     		});
     		jQuery('#images-name<?= $i ?>').on('fileuploadfail', function (e, data) {
-    		    alert("Фото не загрузилось, пожалуйсто обратитесь к администратору");
+    		    alert("<?= \Yii::t('app','PHOTO_DID_NOT_LOAD_PLEASE_CONSULT_ADMINISTRATOR'); ?>");
     		});
 
     	    </script>
@@ -35,10 +35,10 @@ $i = 1;
     </div>
     <div class="b-modal__content__buttons" style="width:100%">
 	<div class="b-modal__content__buttons__item">
-	    <a id="saveUserImage" class="button-small" href="#">Сохранить</a>
+	    <a id="saveUserImage" class="button-small" href="#"><?= \Yii::t('app','SAVE'); ?></a>
 	</div>
 	<div class="b-modal__content__buttons__item">
-	    <span><a class="cancel" href="#">Отменить</a></span>
+	    <span><a class="cancel" href="#"><?= \Yii::t('app','CANCEL'); ?></a></span>
 	</div>
     </div>
 </div>

@@ -13,7 +13,7 @@ if(Yii::$app->user->id !== null) {
     $fieldVal = $mUser->attributeLabels();
 }
 
-$this->title = 'Профайл пользователя';
+$this->title = \Yii::t('app','USER_PROFILE');
 ?>
 
 <div class="container">
@@ -48,12 +48,12 @@ $this->title = 'Профайл пользователя';
 			    <div class="b-user__data__info">
 				<?php if(!$mUser->owner && (Yii::$app->user->id !== NULL)) { ?>
 				<a class="b-user__data__info__add-trusted" href="#" data-url="<?= Url::toRoute(['users/trustees', 'id' => $mUser->id]) ?>">
-				    <?= $mUser->trustUser ? "Доверенный" : "В доверенные" ?>
+				    <?= $mUser->trustUser ? \Yii::t('app','TRUSTED_SMALL') : \Yii::t('app','IN_TRUSTED_SMALL') ?>
 				</a>
 				<?php } ?>
 				<div class="b-user__data__info__rating">
 				    <span><?= $mUser->rating ?></span>
-				    <?= Yii::t("profile", "Рейтинг"); ?>
+				    <?= Yii::t("app", "RATING"); ?>
 				</div>
 			    </div>
 			</div>
@@ -83,7 +83,7 @@ $this->title = 'Профайл пользователя';
 			<div class="b-user__stats__item__content">
 			    <div class="b-user__stats__item__icon b-user__stats__item__icon_1"></div>
 			    <div class="b-user__stats__item__text">
-				Доверенных:
+                <?= \Yii::t('app','TRUSTED_WHOM'); ?>:
 			    </div>
 			    <div class="b-user__stats__item__number">
 				<?= $mUser->getUserTrusteesFrom()->count() ?>
@@ -99,7 +99,7 @@ $this->title = 'Профайл пользователя';
 		    <div class="b-user__stats__item">
 			<div class="b-user__stats__item__content">
 			    <div class="b-user__stats__item__icon b-user__stats__item__icon_2"></div>
-			    <div class="b-user__stats__item__text">Оценок:</div>
+			    <div class="b-user__stats__item__text"><?= \Yii::t('app','MARKS_WHOM'); ?>:</div>
 			    <div class="b-user__stats__item__number"><?= $mUser->getUserMarksTo()->count(); ?></div>
 			    <?php $count = !$mUser->owner ? 0 : Yii::$app->notification->getNotif(UserNotification::NOTIF_TYPE_MARKS) ?>
 			    <?php if($count > 0) { ?>
@@ -113,7 +113,7 @@ $this->title = 'Профайл пользователя';
 			<div class="b-user__stats__item__content">
 			    <div class="b-user__stats__item__icon b-user__stats__item__icon_3"></div>
 			    <div class="b-user__stats__item__text">
-				Отзывов:
+                <?= \Yii::t('app','REVIEWS_WHOM'); ?>:
 			    </div>
 			    <div class="b-user__stats__item__number">
 				<?= $mUser->getTestimonialsActive()->andWhere(['parent_id' => 0])->count() ?>
@@ -130,7 +130,7 @@ $this->title = 'Профайл пользователя';
 		<?php if(($mUser->aboutProfile != "") || ($mUser->phone != "")) { ?>
 		<div class="b-user__info">
 		    <div class="b-title">
-			Личная информация
+            <?= \Yii::t('app','PERSONAL_INFORMATION'); ?>
 		    </div>
 		    <div class="b-user__info__content">
 			<div class="b-user__info__text">
@@ -149,7 +149,7 @@ $this->title = 'Профайл пользователя';
 		<?php } ?>
 		<?php if($mUser->type) { ?>
 		<div class="b-user__portfolio">
-		    <div class="b-title">Портфолио</div>
+		    <div class="b-title"><?= \Yii::t('app','PORTFOLIO'); ?></div>
 		    <div class="b-user__portfolio__content">
 			<?php foreach ($mUser->images as $item) { ?>
 			<div class="b-user__portfolio__item">
@@ -165,7 +165,7 @@ $this->title = 'Профайл пользователя';
 			<?php } ?>
 		    </div>
 		    <span class="b-user__portfolio__more open">
-			<span>Свернуть</span>
+			<span><?= \Yii::t('app','MINIMIZE'); ?></span>
 		    </span>
 		</div>
 		<?php } ?>
@@ -222,7 +222,7 @@ $this->registerJs("
 	$.post(url, {'_csrf-frontend':$('[name=\"csrf-token\"]').attr('content')}, function(out) {
 	    if(out.code) {
 		that.text(out.data);
-		alertInfo('Ваш запрос отправлен и ждет подтверждения пользователем');
+		alertInfo('".\Yii::t('app','YOUR_REQUEST_HAS_BEEN_SENT_AND_IS_WAITING_FOR_CONFIRMATION_BY_THE_USER')."');
 	    }
 	}, 'json');
     })", yii\web\View::POS_END);
