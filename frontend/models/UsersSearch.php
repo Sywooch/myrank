@@ -48,7 +48,7 @@ class UsersSearch extends User {
      * @return ActiveDataProvider
      */
     public function search($params) {
-	$query = User::find()->joinWith("userProfession");
+	$query = User::find()->joinWith(["userProfession", "company"]);
 	
 	if(isset($params['UsersSearch']['searchName']) && ($params['UsersSearch']['searchName'] != "")) {
 	    if(strpos($params['UsersSearch']['searchName'], " ") != FALSE) {
@@ -69,10 +69,17 @@ class UsersSearch extends User {
 	    'birthdate' => $this->birthdate,
 	    'gender' => $this->gender,
 	    'city_id' => $this->city_id,
-	    'last_name' => $this->last_name,
+	    //'last_name' => $this->last_name,
 	    'first_name' => $this->first_name,
 	    'profession_id' => $this->professionField
 	]);
+	
+	$query->andOnCondition("last_name = :lastName OR company.name LIKE :companyName", [
+	    ':companyName' => "%".$this->last_name."%",
+	    ':lastName' => $this->last_name
+	]);
+	
+	//$query->and
 
 	$query->andFilterWhere(['between', 'rating', $this->ratingStart, $this->ratingEnd])
 		->andFilterWhere(['like', 'about', $this->about]);

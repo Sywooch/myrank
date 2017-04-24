@@ -15,11 +15,11 @@ use Yii;
  */
 class Images extends \yii\db\ActiveRecord {
 
+    public $name0;
     public $name1;
     public $name2;
     public $name3;
     public $name4;
-    public $name5;
 
     /**
      * @inheritdoc
@@ -53,11 +53,11 @@ class Images extends \yii\db\ActiveRecord {
     }
 
     public function beforeSave($insert) {
+	if(isset($this->name0)) $this->name = $this->name0;
 	if(isset($this->name1)) $this->name = $this->name1;
 	if(isset($this->name2)) $this->name = $this->name2;
 	if(isset($this->name3)) $this->name = $this->name3;
 	if(isset($this->name4)) $this->name = $this->name4;
-	if(isset($this->name5)) $this->name = $this->name5;
 	return parent::beforeSave($insert);
     }
 

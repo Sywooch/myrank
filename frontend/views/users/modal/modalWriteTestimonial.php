@@ -10,6 +10,11 @@ use yii\helpers\Html;
     <?php
     $form = ActiveForm::begin([
 		'options' => ["id" => "testimonialsForm"],
+		'fieldConfig' => [
+		    'options' => [
+			'tag' => false,
+		    ],
+		]
     ]);
     ?>
     <div class="b-modal__header">
@@ -23,15 +28,27 @@ use yii\helpers\Html;
 		</div>
 		<div class="b-modal__content__user__header__info">
 		    <div class="b-modal__content__user__header__info__radio b-modal__content__user__header__info__radio_positive">
-			<input value="<?= Testimonials::SMILE_CLASS_POSITIVE ?>" type="radio" id="modal-radio1" name="Testimonials[smile]" checked/>
+			<input value="<?= Testimonials::SMILE_CLASS_POSITIVE ?>" 
+			       type="radio" 
+			       id="modal-radio1" 
+			       name="Testimonials[smile]"
+			       <?= $model->smile == Testimonials::SMILE_CLASS_POSITIVE ? "checked" : "" ?> />
 			<label for="modal-radio1"><span></span></label>
 		    </div>
 		    <div class="b-modal__content__user__header__info__radio b-modal__content__user__header__info__radio_neutral">
-			<input value="<?= Testimonials::SMILE_CLASS_NEUTRAL ?>" type="radio" id="modal-radio2" name="Testimonials[smile]"/>
+			<input value="<?= Testimonials::SMILE_CLASS_NEUTRAL ?>" 
+			       type="radio" 
+			       id="modal-radio2" 
+			       name="Testimonials[smile]"
+			       <?= $model->smile == Testimonials::SMILE_CLASS_NEUTRAL ? "checked" : "" ?> />
 			<label for="modal-radio2"><span></span></label>
 		    </div>
 		    <div class="b-modal__content__user__header__info__radio b-modal__content__user__header__info__radio_negative">
-			<input value="<?= Testimonials::SMILE_CLASS_NEGATIVE ?>" type="radio" id="modal-radio3" name="Testimonials[smile]"/>
+			<input value="<?= Testimonials::SMILE_CLASS_NEGATIVE ?>" 
+			       type="radio" 
+			       id="modal-radio3" 
+			       name="Testimonials[smile]"
+			       <?= $model->smile == Testimonials::SMILE_CLASS_NEGATIVE ? "checked" : "" ?> />
 			<label for="modal-radio3"><span></span></label>
 		    </div>
 		</div>
@@ -40,17 +57,13 @@ use yii\helpers\Html;
 		    <div class="b-modal__content__user__header__content__select">
 			<span>Я:</span>
 			<div class="select-wrapper">
-			<?= Html::dropDownList("Testimonials[who_from_to]", $model->who_from_to, Testimonials::$whoFromTo) ?>
-			    <!-- select>
-				<option value="">Начальник</option>
-				<option value="">Начальник</option>
-			    </select -->
+			    <?= $form->field($model, "who_from_to")->dropDownList(Testimonials::$whoFromTo)->label(false) ?>
 			</div>
 		    </div>
 		</div>
 	    </div>
 	    <div class="b-modal__content__user__content">
-		<!-- div class="b-modal__content__user__content__item" style="display: none">
+		<!-- div class="b-modal__content__user__content__item" >
 		    <div class="b-modal__content__user__content__title">
 			Отличный работник!
 		    </div>
@@ -71,7 +84,8 @@ use yii\helpers\Html;
 		<div class="row">
 		    <div class="col-xs-12">
 			<span>Текст отзыва</span>
-			<textarea name="Testimonials[text]" placeholder="Напишите несколько слов"></textarea>
+			<?= $form->field($model, 'text')->textarea(['placeholder' => "Напишите несколько слов"])->label(FALSE); ?>
+			<!-- textarea name="Testimonials[text]" placeholder="Напишите несколько слов"></textarea -->
 			<i>Не больше 500 символов.</i>
 		    </div>
 		</div>
@@ -94,7 +108,7 @@ use yii\helpers\Html;
     <input type="hidden" name="Testimonials[user_from]" value="<?= $mUser->id ?>" />
     <input type="hidden" name="Testimonials[user_to]" value="<?= $user_to ?>" />
     <input type="hidden" name="Testimonials[parent_id]" value="<?= $parent ?>" />
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 </div>
 <script type="text/javascript">
     $("#cancelBut").on('click', function () {
@@ -108,8 +122,8 @@ use yii\helpers\Html;
 	    dataType: "json",
 	    method: "POST",
 	    data: $("#testimonialsForm").serialize(),
-	    success: function(out) {
-		if(out.code == 1) {
+	    success: function (out) {
+		if (out.code == 1) {
 		    $("#modalView").modal('toggle');
 		    //alertInfo("Ваш отзыв отправлен на модерацию");
 		    location.reload(true);

@@ -47,7 +47,9 @@ $this->title = 'Профайл пользователя';
 			    </div>
 			    <div class="b-user__data__info">
 				<?php if(!$mUser->owner && (Yii::$app->user->id !== NULL)) { ?>
-				<a class="b-user__data__info__add-trusted" href="#" data-url="<?= Url::toRoute(['users/trustees', 'id' => $mUser->id]) ?>">
+				<a class="b-user__data__info__add-trusted <?= $mUser->trustUser ? "minus" : "" ?>" 
+				   href="#" 
+				   data-url="<?= Url::toRoute(['users/trustees', 'id' => $mUser->id]) ?>">
 				    <?= $mUser->trustUser ? "Доверенный" : "В доверенные" ?>
 				</a>
 				<?php } ?>
@@ -221,6 +223,11 @@ $this->registerJs("
 	url = $(this).attr('data-url');
 	$.post(url, {'_csrf-frontend':$('[name=\"csrf-token\"]').attr('content')}, function(out) {
 	    if(out.code) {
+		if(out.addClass) {
+		    that.addClass('minus');
+		} else {
+		    that.removeClass('minus');
+		}
 		that.text(out.data);
 		alertInfo('Ваш запрос отправлен и ждет подтверждения пользователем');
 	    }

@@ -140,11 +140,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 
     public function getTestimonialsTo() {
-	return $this->hasMany(Testimonials1::className(), ['user_to' => 'id']);
+	return $this->hasMany(Testimonials::className(), ['user_to' => 'id']);
     }
 
     public function getTestimonialsFrom() {
-	return $this->hasMany(Testimonials1::className(), ['user_from' => 'id']);
+	return $this->hasMany(Testimonials::className(), ['user_from' => 'id']);
     }
 
     public function getUserTrusteesTo() {
@@ -301,8 +301,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	]);
     }
 
+    // Checkouts
+    
     public function getOwner() {
 	return (\Yii::$app->user->id === NULL) ? FALSE : (\Yii::$app->user->id == $this->id) ? TRUE : FALSE;
+    }
+    
+    public function getTestimonial () {
+	return $this->getTestimonialsTo()->andWhere(['user_from' => \Yii::$app->user->id]);
+    }
+    
+    public function getHasTestimonial () {
+	return $this->getTestimonial()->count() > 0;
     }
 
     public function getTrustUser() {

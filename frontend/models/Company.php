@@ -60,7 +60,7 @@ class Company extends \yii\db\ActiveRecord {
 	    [['name', 'reg_date'], 'required'],
 	    [['professionField'], 'required', 'on' => 'editmaininfo'],
 	    [['count_persons', 'cash'], 'integer'],
-	    [['reg_date', 'user_id', 'city_id'], 'safe'],
+	    [['reg_date', 'user_id', 'city_id', 'professionField'], 'safe'],
 	    [['about'], 'string'],
 	    [['phone', 'director', 'contact_face'], 'string', 'max' => 255],
 	];

@@ -3,7 +3,10 @@
     <div class="b-trusted-users__content">
 	<?php foreach ($model as $item) { ?>
 	<div class="b-trusted-users__item" <?= count($item->userProfession) == 0 ? 'style="height: 110px"' : ""?>>
-    	    <div class="b-trusted-users__item__image"><img src="<?= $item->userImage ?>" alt=""></div>
+    	    <div class="b-trusted-users__item__image" style="position: relative;">
+		<img src="<?= $item->userImage ?>" alt="">
+		<div class="b-rating__item__number" style="padding: 0 6px; line-height: 25px;"><?= $item->rating ?></div>
+	    </div>
     	    <div class="b-trusted-users__item__content">
     		<div class="b-trusted-users__item__name">
 		    <a href="<?= \yii\helpers\Url::toRoute(['users/profile', 'id' => $item->id]) ?>"><?= $item->fullName ?></a>

@@ -7,7 +7,15 @@ use yii\helpers\Url;
     <div class="b-title">
 	Отзывы
 	<?php if (!is_null(Yii::$app->user->id) && !$mUser->owner) { ?>
-    	<a class="button-small" id="writeTestimonial" href="#">Оставить отзыв</a>
+	<?php if($mUser->hasTestimonial) { ?>
+	    <a class="button-small showModal" 
+	       data-url="<?= Url::toRoute(["users/edittestimonial", "id" => $mUser->getTestimonial()->one()->id]) ?>" 
+	       href="#">Редактировать отзыв</a>
+	<?php } else { ?>
+	    <a class="button-small showModal" 
+	       data-url="<?= Url::toRoute(["users/writetestimonials", "id" => $mUser->id]) ?>" 
+	       href="#">Оставить отзыв</a>
+	<?php } ?>
 	<?php } ?>
     </div>
     <div class="b-comments__content">
@@ -65,21 +73,16 @@ use yii\helpers\Url;
 		    <span class="b-comments__button-more__loading"></span>
 		</div>
 	    <?php } ?>
-	<?php } else { 
+	<?php
+	} else {
 	    $text = $mUser->owner ? "Отзывов нет" : "Отзывов нет, вы можете поделиться полезной информацией об этом человеке.";
 	    ?>
-	<p><?= $text ?></p>
-	<?php } ?>
+    	<p><?= $text ?></p>
+<?php } ?>
     </div>
 </div>
 <?php
 $this->registerJs("
-	$('#writeTestimonial').on('click', function() {
-	    url = '" . Url::toRoute(["users/writetestimonials", "id" => $mUser->id]) . "';
-	    csrf = '" . Yii::$app->getRequest()->getCsrfToken() . "';
-	    showModal(url, 1, 1); 
-	    return false;
-	});
 	$('.claimTestimonial').on('click', function() {
 	    id = $(this).closest('.b-comments__item').attr('data-id');
 	    url = '" . Url::toRoute(["users/sendclaim"]) . "';

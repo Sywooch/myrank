@@ -9,27 +9,41 @@ use yii\helpers\Html;
 <div class="b-modal__content">
     <div class="b-modal__content__portfolio">
 	<form action="" method="POST" id="formPortfolio">
-	    <?php for ($i = 1; $i <= 5; $i++) { ?>
+	    <?php for ($i = 0; $i < 5; $i++) {
+		unset($image);
+		if(isset($model[$i]->id)) {
+		    $image = $model[$i]->id;
+		}
+		?>
     	    <div class="b-modal__content__portfolio__item" id="uploadFile<?= $i ?>">
     		<div class="b-modal__content__portfolio__item__image">
-    		    <div class="input-file-wrapper">
-    			<span>Загрузите новое фото проекта</span>
+		    <?php if(isset($image)) { ?><img src="<?= Url::toRoute(['media/viewimage', 'id' => $image]) ?>" /><?php } ?>
+		    <div class="input-file-wrapper" <?= isset($image) ? "style='background:none'" : "" ?>>
+			<span class="uploadTitle" <?= isset($image) ? "style='display:none'" : '' ?>>Загрузите новое фото проекта</span>
     			<input id="images-name<?= $i ?>" name="Images[name<?= $i ?>]" data-url="<?= Url::toRoute(['media/imageupload', 'id' => $i]) ?>" type="file">
     		    </div>
     		</div>
     		<div class="b-modal__content__portfolio__item__content">
     		    <div class="row">
     			<div class="col-xs-12">
-    			    <input type="text" name="Images[title][]" class="input-text" placeholder="Название проекта <?= $i ?>">
+    			    <input 
+				type="text" 
+				name="Images[title][]" 
+				class="input-text" 
+				placeholder="Название проекта <?= $i + 1 ?>"
+				value="<?= isset($image) ? $model[$i]->title : "" ?>" />
     			</div>
     		    </div>
     		    <div class="row">
     			<div class="col-xs-12">
-    			    <textarea name="Images[description][]" placeholder="Описание проекта <?= $i ?>"></textarea>
+    			    <textarea 
+				name="Images[description][]" 
+				placeholder="Описание проекта <?= $i + 1 ?>"><?= isset($image) ? trim($model[$i]->description) : "" ?></textarea>
     			    <i>Не больше 500 символов.</i>
     			</div>
     		    </div>
     		</div>
+		<?php if(isset($image)) { ?><input type="hidden" name="Images[id][]" value="<?= $model[$i]->id ?>" /><?php } ?>
     	    </div>
     	    <script type="text/javascript">
     		;

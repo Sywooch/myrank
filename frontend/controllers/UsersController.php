@@ -165,6 +165,19 @@ class UsersController extends Controller {
 	echo Json::encode(['code' => 1, 'data' => $out, 'title' => \Yii::t('app','GIVE_FEEDBACK')]);
 	\Yii::$app->end();
     }
+    
+    public function actionEdittestimonial ($id) {
+	$model = Testimonials::findOne($id);
+	$mUser = User::getProfile();
+	$out = $this->renderPartial("modal/modalWriteTestimonial", [
+	    'model' => $model,
+	    'mUser' => $mUser,
+	    'user_to' => $model->user_to,
+	    'parent' => $model->parent_id
+	]);
+	echo Json::encode(['code' => 1, 'data' => $out, 'title' => "Редактирование отзыва"]);
+	\Yii::$app->end();
+    }
 
     /**
      * Сохранение комента
@@ -172,8 +185,16 @@ class UsersController extends Controller {
     public function actionSavetestimonials() {
 	$post = \Yii::$app->request->post();
 	$code = 0;
-	$model = new Testimonials();
-	//$post['Testimonials']['status'] = Testimonials::STATUS_MODERATION;
+	$model = Testimonials::findOne([
+	    'user_to' => $post['Testimonials']['user_to'],
+	    'user_from' => $post['Testimonials']['user_from'],
+	]);
+	if(!isset($model->id)) {
+	    $model = new Testimonials();
+	} else {
+	    Testimonials::deleteAll(['parent_id' => $model->id]);
+	}
+	
 	if ($model->load($post) && $model->save()) {
 	    \Yii::$app->rating->process(User::findOne($model->user_to));
 	    \Yii::$app->notification->saveNotif(UserNotification::NOTIF_TYPE_TESTIMONIALS, $model->user_to);
@@ -267,7 +288,8 @@ class UsersController extends Controller {
 
     public function actionEditportfolio() {
 	\Yii::$app->session->remove("userImages");
-	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/editProfile')]);
+	$mUser = User::getProfile();
+	echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/editProfile', ['model' => $mUser->images])]);
 	\Yii::$app->end();
     }
 
@@ -285,8 +307,7 @@ class UsersController extends Controller {
 	    $userImages = $sess->get("userImages");
 	}
 
-	$uId = \Yii::$app->user->id;
-	$mUser = User::findOne($uId);
+	$mUser = User::getProfile();
 
 	foreach ($req['title'] as $key => $item) {
 	    if (($item != "") && isset($userImages[$key])) {
@@ -324,11 +345,13 @@ class UsersController extends Controller {
 	$mTrus = UserTrustees::find()->where($params)->one();
 	if (isset($mTrus->id)) {
 	    $out['code'] = $mTrus->delete() ? 1 : 0;
+	    $out['addClass'] = 0;
 	    $out['data'] = \Yii::t('app','IN_TRUSTED');
 	} else {
 	    $mTrus = new UserTrustees();
 	    $mTrus->attributes = $params;
 	    $out['code'] = $mTrus->save() ? 1 : 0;
+	    $out['addClass'] = 1;
 	    $out['data'] = \Yii::t('app','TRUSTED');
 	}
 	\Yii::$app->rating->process(User::findOne($id));
@@ -365,12 +388,19 @@ class UsersController extends Controller {
 
     public function actionUserslist($startsWith) {
 	$model = User::find()
+		->select(['last_name', 'type', 'first_name', 'company.name'])
+		->joinWith(['company'])
 		->where(['like', 'last_name', $startsWith])
 		->orWhere(['like', 'first_name', $startsWith])
+		->orWhere(['like', 'company.name', $startsWith])
 		->asArray()
 		->all();
 	foreach ($model as $item) {
-	    $out['users'][]['name'] = $item['last_name'] . " " . $item['first_name'];
+	    if($item['type'] == User::TYPE_USER_COMPANY) {
+		$out['users'][]['name'] = $item['name'];
+	    } else {
+		$out['users'][]['name'] = $item['last_name'] . " " . $item['first_name'];
+	    }
 	}
 	return Json::encode($out);
     }
