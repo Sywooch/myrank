@@ -6,7 +6,7 @@ use frontend\models\UserTrustees;
 if (count($list) > 0) {
     ?>
     <div class="b-trusted-users b-block">
-        <div class="b-title">Доверенные лица</div>
+        <div class="b-title"><?= \Yii::t('app','TRUSTED_PERSONS'); ?></div>
         <div class="b-trusted-users__content">
 	    <?php foreach ($list as $item) { ?>
 		<div class="b-trusted-users__item">
@@ -33,7 +33,7 @@ if (count($list) > 0) {
 	    <?php if ($count > UserTrustees::COUNT_LIST_USER_PROFILE) { ?>
 		<div class="link">
 		    <a href="#" class="showModal" data-url="<?= Url::toRoute(['users/alltrustuser', 'id' => $model->id]) ?>">
-			<span>Посмотреть всех</span>
+			<span><?= \Yii::t('app','VIEW_ALL'); ?></span>
 		    </a>
 		</div>
 		<!-- script type="text/javascript">

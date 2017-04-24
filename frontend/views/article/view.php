@@ -7,7 +7,7 @@ use frontend\widgets\article\ArticleLastIssuesWidget;
 use frontend\widgets\article\ArticleSeeAlsoWidget;
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('app','ARTICLES'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

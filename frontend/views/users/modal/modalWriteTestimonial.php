@@ -18,7 +18,7 @@ use yii\helpers\Html;
     ]);
     ?>
     <div class="b-modal__header">
-	Оставить отзыв
+    <?= \Yii::t('app','GIVE_FEEDBACK'); ?>
     </div>
     <div class="b-modal__content">
 	<div class="b-modal__content__user">
@@ -55,7 +55,7 @@ use yii\helpers\Html;
 		<div class="b-modal__content__user__header__content">
 		    <div class="b-modal__content__user__header__content__title"><?= $mUser->fullName ?></div>
 		    <div class="b-modal__content__user__header__content__select">
-			<span>Я:</span>
+			<span><?= \Yii::t('app','IAM'); ?>:</span>
 			<div class="select-wrapper">
 			    <?= $form->field($model, "who_from_to")->dropDownList(Testimonials::$whoFromTo)->label(false) ?>
 			</div>
@@ -83,10 +83,9 @@ use yii\helpers\Html;
 		</div -->
 		<div class="row">
 		    <div class="col-xs-12">
-			<span>Текст отзыва</span>
-			<?= $form->field($model, 'text')->textarea(['placeholder' => "Напишите несколько слов"])->label(FALSE); ?>
-			<!-- textarea name="Testimonials[text]" placeholder="Напишите несколько слов"></textarea -->
-			<i>Не больше 500 символов.</i>
+			<span><?= \Yii::t('app','TESTIMONIALS_TEXT'); ?></span>
+			<?= $form->field($model, 'text')->textarea(['placeholder' => \Yii::t('app','WRITE_A_FEW_WORDS')])->label(FALSE); ?>
+			<i><?= \Yii::t('app','NO_MORE_THAN_500_CHARACTERS'); ?></i>
 		    </div>
 		</div>
 		<div class="row">
@@ -98,10 +97,10 @@ use yii\helpers\Html;
 	</div>
 	<div class="b-modal__content__buttons">
 	    <div class="b-modal__content__buttons__item">
-		<a id="saveTestimonials" class="button-small" href="#">Сохранить</a>
+		<a id="saveTestimonials" class="button-small" href="#"><?= \Yii::t('app','SAVE'); ?></a>
 	    </div>
 	    <div class="b-modal__content__buttons__item">
-		<span><a id="cancelBut" href="#">Отмена</a></span>
+		<span><a id="cancelBut" href="#"><?= \Yii::t('app','CANCEL'); ?></a></span>
 	    </div>
 	</div>
     </div>

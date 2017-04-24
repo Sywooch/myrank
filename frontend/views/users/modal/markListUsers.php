@@ -33,7 +33,7 @@ use yii\helpers\Json;
 			    ?>
                             <div class="col-md-3 col-sm-4 col-xs-6">
                                 <div class="b-last-marks__item__category">
-                                    Средняя оценка:
+                                    <?= \Yii::t('app','RATING_AVERAGE'); ?>:
                                 </div>
                                 <div class="b-last-marks__item__value">
                                     <?= round($summMarks / count($item->descrArr), 1) ?>

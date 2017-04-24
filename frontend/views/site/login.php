@@ -8,7 +8,7 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 use frontend\models\User;
 
-$this->title = 'Login';
+$this->title = \Yii::t('app','LOGIN');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

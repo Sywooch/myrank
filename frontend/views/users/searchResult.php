@@ -36,12 +36,12 @@ $get = Yii::$app->request->get();
     		    <div class="b-user__data__info">
 			<?php if((Yii::$app->user->id !== null) && !$item->owner) { ?>
     			<a class="b-user__data__info__add-trusted" href="#" data-url="<?= Url::toRoute(['users/trustees', 'id' => $item->id]) ?>">
-    			    <?= $item->trustUser ? "Доверенный" : "В доверенные" ?>
+    			    <?= $item->trustUser ? \Yii::t('app','TRUSTED_SMALL') : \Yii::t('app','IN_TRUSTED_SMALL') ?>
     			</a>
 			<?php } ?>
     			<div class="b-user__data__info__rating">
     			    <span><?= $item->rating ?></span>
-    			    Рейтинг
+                    <?= \Yii::t('app','RATING'); ?>
     			</div>
     		    </div>
     		</div>
@@ -111,7 +111,7 @@ $this->registerJs("
 	$.post(url, {'_csrf-frontend':$('[name=\"csrf-token\"]').attr('content')}, function(out) {
 	    if(out.code) {
 		that.text(out.data);
-		alertInfo('Ваш запрос отправлен и ждет подтверждения пользователем');
+		alertInfo('".\Yii::t('app','YOUR_REQUEST_HAS_BEEN_SENT_AND_IS_WAITING_FOR_CONFIRMATION_BY_THE_USER')."');
 	    }
 	}, 'json');
 	return false;

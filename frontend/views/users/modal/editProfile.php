@@ -2,7 +2,7 @@
 use frontend\widgets\user\ModalWidget;
 
 echo ModalWidget::widget([
-    'title' => 'Портфолио',
+    'title' => \Yii::t('app','PORTFOLIO'),
     'model' => $model,
     'content' => [],
     'view' => "portfolio"
