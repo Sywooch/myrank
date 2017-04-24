@@ -35,7 +35,7 @@ class Images extends \yii\db\ActiveRecord {
 	return [
 	    [['type', 'type_id', 'user_id'], 'required'],
 	    [['name'], 'string', 'max' => 255],
-	    [['name1', 'name2', 'name3', 'name4', 'name5', 'title', 'description'], 'safe']
+	    [['name0', 'name1', 'name2', 'name3', 'name4', 'title', 'description'], 'safe']
 	];
     }
 
@@ -68,6 +68,11 @@ class Images extends \yii\db\ActiveRecord {
 
     public function getUserFullName() {
 	return $this->user->fullName;
+    }
+    
+    public function beforeDelete() {
+	
+	return parent::beforeDelete();
     }
 
 }

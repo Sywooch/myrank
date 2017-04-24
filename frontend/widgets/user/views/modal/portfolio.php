@@ -28,7 +28,7 @@ use yii\helpers\Html;
     			<div class="col-xs-12">
     			    <input 
 				type="text" 
-				name="Images[title][]" 
+				name="Images[title][<?= $i ?>]" 
 				class="input-text" 
 				placeholder="<?= \Yii::t('app','PROJECT_NAME'); ?> <?= $i + 1 ?>"
 				value="<?= isset($image) ? $model[$i]->title : "" ?>" />
@@ -37,13 +37,13 @@ use yii\helpers\Html;
     		    <div class="row">
     			<div class="col-xs-12">
     			    <textarea 
-				name="Images[description][]" 
+				name="Images[description][<?= $i ?>]" 
 				placeholder="<?= \Yii::t('app','PROJECT_DESCRIPTION'); ?> <?= $i + 1 ?>"><?= isset($image) ? trim($model[$i]->description) : "" ?></textarea>
     			    <i><?= \Yii::t('app','NO_MORE_THAN_500_CHARACTERS'); ?></i>
     			</div>
     		    </div>
     		</div>
-		<?php if(isset($image)) { ?><input type="hidden" name="Images[id][]" value="<?= $model[$i]->id ?>" /><?php } ?>
+		<?php if(isset($image)) { ?><input type="hidden" name="Images[id][<?= $i ?>]" value="<?= $model[$i]->id ?>" /><?php } ?>
     	    </div>
     	    <script type="text/javascript">
     		;
