@@ -43,14 +43,14 @@ class Testimonials extends \yii\db\ActiveRecord {
     const WHO_FROM_TO_SLAVE = 8;
     
     public static $whoFromTo = [
-	self::WHO_FROM_TO_DIRECTOR => 'Директор/Владелец компании',
-	self::WHO_FROM_TO_CHIEF => 'Начальник',
-	self::WHO_FROM_TO_COLLEAGUE => 'Коллега',
-	self::WHO_FROM_TO_CLOSE_RELATIVE => 'Близкий родственник',
-	self::WHO_FROM_TO_RELATIVE => 'Родственник',
-	self::WHO_FROM_TO_FRIEND => 'Друг',
-	self::WHO_FROM_TO_FAMILIAR => 'Знакомый',
-	self::WHO_FROM_TO_SLAVE => 'Подчинённый'
+	self::WHO_FROM_TO_DIRECTOR => (string) \Yii::t('app','WHO_FROM_TO_DIRECTOR'),
+	self::WHO_FROM_TO_CHIEF => (string) \Yii::t('app','WHO_FROM_TO_CHIEF'),
+	self::WHO_FROM_TO_COLLEAGUE => (string) \Yii::t('app','WHO_FROM_TO_COLLEAGUE'),
+	self::WHO_FROM_TO_CLOSE_RELATIVE => (string) \Yii::t('app','WHO_FROM_TO_CLOSE_RELATIVE'),
+	self::WHO_FROM_TO_RELATIVE => (string) \Yii::t('app','WHO_FROM_TO_RELATIVE'),
+	self::WHO_FROM_TO_FRIEND => (string) \Yii::t('app','WHO_FROM_TO_FRIEND'),
+	self::WHO_FROM_TO_FAMILIAR => (string) \Yii::t('app','WHO_FROM_TO_FAMILIAR'),
+	self::WHO_FROM_TO_SLAVE => (string) \Yii::t('app','WHO_FROM_TO_SLAVE')
     ];
     
     const COUNT_LIST = 10;
@@ -80,12 +80,12 @@ class Testimonials extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'text' => Yii::t('app', 'Текст отзыва'),
-	    'user_from' => Yii::t('app', 'User From'),
-	    'user_to' => Yii::t('app', 'Usert To'),
-	    'smile' => Yii::t('app', 'Smile'),
-	    'parent_id' => Yii::t('app', 'Parent ID'),
-	    'created' => Yii::t('app', 'Created'),
+	    'text' => Yii::t('app', 'TESTIMONIALS_TEXT'),
+	    'user_from' => Yii::t('app', 'USER_FROM'),
+	    'user_to' => Yii::t('app', 'USER_TO'),
+	    'smile' => Yii::t('app', 'SMILE'),
+	    'parent_id' => Yii::t('app', 'PARENT_ID'),
+	    'created' => Yii::t('app', 'CREATED'),
 	];
     }
     

@@ -25,7 +25,7 @@ class PasswordResetRequestForm extends Model
             ['email', 'exist',
                 'targetClass' => '\frontend\models\User',
                 //'filter' => ['status' => User::STATUS_ACTIVE],
-                'message' => 'There is no user with such email.'
+                'message' => \Yii::t('app','THERE_IS_NO_USER_WITH_SUCH_EMAIL')
             ],
         ];
     }
@@ -62,7 +62,7 @@ class PasswordResetRequestForm extends Model
             )
             ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
             ->setTo($this->email)
-            ->setSubject('Password reset for ' . Yii::$app->name)
+            ->setSubject( \Yii::t('app','PASSWORD_RESET_FOR').' ' . Yii::$app->name)
             ->send();
     }
 }

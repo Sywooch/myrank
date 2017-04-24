@@ -45,10 +45,10 @@ class Images extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'type' => Yii::t('app', 'Тип компания или юзер'),
-	    'type_id' => Yii::t('app', 'айди компании или юзера'),
-	    'name' => Yii::t('app', 'Image Name'),
-	    'userFullName' => Yii::t('app', 'User Full Name')
+	    'type' => Yii::t('app', 'COMPANY_OR_USER_TYPE'),
+	    'type_id' => Yii::t('app', 'COMPANY_OR_USER_TYPE_ID'),
+	    'name' => Yii::t('app', 'IMAGE_NAME'),
+	    'userFullName' => Yii::t('app', 'USER_FULL_NAME')
 	];
     }
 

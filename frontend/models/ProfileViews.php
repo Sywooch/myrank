@@ -38,8 +38,8 @@ class ProfileViews extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'lastweek' => Yii::t('app', 'Lastweek'),
-            'lastmonth' => Yii::t('app', 'Lastmonth'),
+            'lastweek' => Yii::t('app', 'LASTWEEK'),
+            'lastmonth' => Yii::t('app', 'LASTMONTH'),
         ];
     }
 }

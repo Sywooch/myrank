@@ -38,9 +38,9 @@ class Logs extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'type' => Yii::t('app', 'Type'),
-	    'text' => Yii::t('app', 'Text'),
-	    'created' => Yii::t('app', 'Created'),
+	    'type' => Yii::t('app', 'LOGS_TYPE'),
+	    'text' => Yii::t('app', 'TEXT'),
+	    'created' => Yii::t('app', 'CREATED'),
 	];
     }
     

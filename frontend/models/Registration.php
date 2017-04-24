@@ -9,9 +9,9 @@ class Registration extends User {
     const REG_STEP_THREE = 3;
     
     public $regStep = [
-	self::REG_STEP_ONE => "Регистрация - Шаг 1<span> из 2</span>",
-	self::REG_STEP_TWO => "Регистрация - Шаг 2<span> из 2</span>",
-	self::REG_STEP_THREE => "Регистрация - Шаг 2<span> из 2</span>",
+	self::REG_STEP_ONE => (string) \Yii::t('app','REGISTRATION_STEP_1_OF_2'),
+	self::REG_STEP_TWO => (string) \Yii::t('app','REGISTRATION_STEP_2_OF_2'),
+	self::REG_STEP_THREE => (string) \Yii::t('app','REGISTRATION_STEP_2_OF_2'),
     ];
 
     public function rules() {

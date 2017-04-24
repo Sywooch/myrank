@@ -22,9 +22,9 @@ class Marks1 extends \yii\db\ActiveRecord
     const MARKS_ACCESS_COMPANY = 2;
 
     public static $marksAccess = [
-        self::MARKS_ACCESS_ALL => 'Всем',
-        self::MARKS_ACCESS_USER => 'Пользователю',
-        self::MARKS_ACCESS_COMPANY => 'Пользователям',
+        self::MARKS_ACCESS_ALL => (string) \Yii::t('app','MARKS_ACCESS_ALL'),
+        self::MARKS_ACCESS_USER => (string) \Yii::t('app','MARKS_ACCESS_USER'),
+        self::MARKS_ACCESS_COMPANY => (string) \Yii::t('app','MARKS_ACCESS_COMPANY'),
     ];
 
     /**
@@ -53,11 +53,11 @@ class Marks1 extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'parent_id' => Yii::t('app', 'Parent ID'),
-            'access' => Yii::t('app', 'Access(Кому показывать)'),
-            'type' => Yii::t('app', 'Type(Специализация)'),
-            'parentName' => Yii::t('app', 'Parent Name')
+            'name' => Yii::t('app', 'MARKS_NAME'),
+            'parent_id' => Yii::t('app', 'PARENT_ID'),
+            'access' => Yii::t('app', 'MARKS_ACCESS'),
+            'type' => Yii::t('app', 'MARKS_TYPE'),
+            'parentName' => Yii::t('app', 'PARENT_NAME')
         ];
     }
 
@@ -77,7 +77,7 @@ class Marks1 extends \yii\db\ActiveRecord
         //return @$this->parent->name;
         //return $this->parent['name'];
         $parent = $this->parent;
-        return $parent ? $parent->name : 'Без родителя';
+        return $parent ? $parent->name : ((string) \Yii::t('app','WITHOUT_PARENT'));
     }
 
 }

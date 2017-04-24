@@ -69,17 +69,17 @@ class StaticPages extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ИД'),
-            'title' => Yii::t('app', 'Заглавие'),
-            'alias' => Yii::t('app', 'Псевдоним'),
-            'published' => Yii::t('app', 'Опубликовано'),
-            'content' => Yii::t('app', 'Содержание'),
-            'locale' => Yii::t('app', 'Locale'),
-            'title_browser' => Yii::t('app', 'Заглавие браузера'),
-            'meta_keywords' => Yii::t('app', 'Мета-ключевые слова'),
-            'meta_description' => Yii::t('app', 'Метаописание'),
-            'create_time' => Yii::t('app', 'Дата создания'),
-            'update_time' => Yii::t('app', 'Дата обновления'),
+            'id' => Yii::t('app', 'ID'),
+            'title' => Yii::t('app', 'TITLE'),
+            'alias' => Yii::t('app', 'ALIAS'),
+            'published' => Yii::t('app', 'PUBLISHED'),
+            'content' => Yii::t('app', 'CONTENT'),
+            'locale' => Yii::t('app', 'LOCALE'),
+            'title_browser' => Yii::t('app', 'TITLE_BROWSER'),
+            'meta_keywords' => Yii::t('app', 'META_KEYWORDS'),
+            'meta_description' => Yii::t('app', 'META_DESCRIPTION'),
+            'create_time' => Yii::t('app', 'CREATE_TIME'),
+            'update_time' => Yii::t('app', 'UPDATE_TIME'),
         ];
     }
 

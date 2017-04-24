@@ -31,21 +31,21 @@ class Article extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_article' => Yii::t('app','ИД'),
-            'title' => Yii::t('app','Заглавие'),
-            'abridgment' => Yii::t('app','Сокращенный текст'),
-            'content' => Yii::t('app','Содержание'),
-            'header_title' => Yii::t('app','Заголовок заглавия'),
-            'header_image' => Yii::t('app','Заголовок изображение'),
-            'header_image_small' => Yii::t('app','Заголовок среднее изображение'),
-            'header_image_small_square' => Yii::t('app','Заголовок уменьшенное изображение'),
-            'article_category_id' => Yii::t('app','ИД категории статьи'),
-            'articleCategoryName' => Yii::t('app','Наименование категории статьи'),
-            'status' => Yii::t('app','Статус'),
-            'locale' => Yii::t('app', 'Locale'),
-            'views' => Yii::t('app','Просмотры'),
-            'create_time' => Yii::t('app','Дата создания'),
-            'update_time' => Yii::t('app','Дата обновления'),
+            'id_article' => Yii::t('app','ARTICLE_ID'),
+            'title' => Yii::t('app','TITLE'),
+            'abridgment' => Yii::t('app','ABRIDGMENT'),
+            'content' => Yii::t('app','CONTENT'),
+            'header_title' => Yii::t('app','HEADER_TITLE'),
+            'header_image' => Yii::t('app','HEADER_IMAGE'),
+            'header_image_small' => Yii::t('app','HEADER_IMAGE_SMALL'),
+            'header_image_small_square' => Yii::t('app','HEADER_IMAGE_SMALL_SQUARE'),
+            'article_category_id' => Yii::t('app','ARTICLE_CATEGORY_ID'),
+            'articleCategoryName' => Yii::t('app','ARTICLE_CATEGORY_NAME'),
+            'status' => Yii::t('app','STATUS'),
+            'locale' => Yii::t('app', 'LOCALE'),
+            'views' => Yii::t('app','VIEWS'),
+            'create_time' => Yii::t('app','CREATE_TIME'),
+            'update_time' => Yii::t('app','UPDATE_TIME'),
         ];
     }
 
@@ -73,8 +73,8 @@ class Article extends \yii\db\ActiveRecord
         $items = [];
 
         $items['status'] = [
-            self::STATUS_DISABLE => 'Нет',
-            self::STATUS_ACTIVE => 'Да',
+            self::STATUS_DISABLE => \Yii::t('app','NO'),
+            self::STATUS_ACTIVE => \Yii::t('app','YES'),
         ];
 
         if ($exclude !== null) {

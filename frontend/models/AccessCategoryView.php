@@ -39,11 +39,11 @@ class AccessCategoryView extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'category_id' => Yii::t('app', 'Category ID'),
-            'value' => Yii::t('app', 'Value'),
-            'userFullName' => Yii::t('app', 'User Full Name'),
-            //'categoryName' => Yii::t('app', 'Category Name'),
+            'user_id' => Yii::t('app', 'USER_ID'),
+            'category_id' => Yii::t('app', 'CATEGORY_ID'),
+            'value' => Yii::t('app', 'VALUE'),
+            'userFullName' => Yii::t('app', 'USER_FULL_NAME'),
+            //'categoryName' => Yii::t('app', 'CATEGORY_NAME'),
         ];
     }
 
@@ -60,6 +60,6 @@ class AccessCategoryView extends \yii\db\ActiveRecord
     }
 
     public function getUserFullName() {
-        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : 'Нет пользователя';
+        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : \Yii::t('app','NO_USER');
     }
 }

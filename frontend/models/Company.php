@@ -72,14 +72,14 @@ class Company extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'name' => Yii::t('app', 'Название компании'),
-	    'phone' => Yii::t('app', 'Телефон компании'),
-	    'count_persons' => Yii::t('app', 'Количество сотрудников'),
-	    'reg_date' => Yii::t('app', 'Дата регистрации компании'),
-	    'cash' => Yii::t('app', 'Ежегодный оборот компании'),
-	    'director' => Yii::t('app', 'Фио директора'),
-	    'contact_face' => Yii::t('app', 'Контактное лицо'),
-	    'about' => Yii::t('app', 'Информация о компании'),
+	    'name' => Yii::t('app', 'COMPANY_NAME'),
+	    'phone' => Yii::t('app', 'COMPANY_PHONE'),
+	    'count_persons' => Yii::t('app', 'PERSONS_QUANTITY'),
+	    'reg_date' => Yii::t('app', 'COMPANY_DATA_REGISTRATION'),
+	    'cash' => Yii::t('app', 'COMPANY_ANNUAL_TURNOVER'),
+	    'director' => Yii::t('app', 'DIRECTOR_FULLNAME'),
+	    'contact_face' => Yii::t('app', 'CONTACT_PERSON'),
+	    'about' => Yii::t('app', 'COMPANY_ABOUT '),
 	];
     }
     
@@ -118,7 +118,7 @@ class Company extends \yii\db\ActiveRecord {
     }
     
     public function getPosition() {
-	return $this->getCityName() && $this->getCountryName() ? $this->getCityName() . ", " . $this->getCountryName() : "Не указано";
+	return $this->getCityName() && $this->getCountryName() ? $this->getCityName() . ", " . $this->getCountryName() : \Yii::t('app','NOT_LISTED');
     }
     
     public function getProfession () {

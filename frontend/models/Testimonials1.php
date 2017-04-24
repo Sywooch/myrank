@@ -46,15 +46,15 @@ class Testimonials1 extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'text' => Yii::t('app', 'Text'),
-            'user_from' => Yii::t('app', 'User From'),
-            'user_to' => Yii::t('app', 'User To'),
-            'smile' => Yii::t('app', 'Smile'),
-            'parent_id' => Yii::t('app', 'Parent ID'),
-            'created' => Yii::t('app', 'Created'),
-            'parentText' => Yii::t('app', 'Parent Text'),
-            'fullNameFrom'=> Yii::t('app', 'UserFrom Full Name'),
-            'fullNameTo'=> Yii::t('app', 'UserTo Full Name'),
+            'text' => Yii::t('app', 'TESTIMONIALS_TEXT'),
+            'user_from' => Yii::t('app', 'USER_FROM'),
+            'user_to' => Yii::t('app', 'USER_TO'),
+            'smile' => Yii::t('app', 'SMILE'),
+            'parent_id' => Yii::t('app', 'PARENT_ID'),
+            'created' => Yii::t('app', 'CREATED'),
+            'parentText' => Yii::t('app', 'PARENT_TEXT'),
+            'fullNameFrom'=> Yii::t('app', 'USER_FROM_FULLNAME'),
+            'fullNameTo'=> Yii::t('app', 'USER_TO_FULLNAME'),
         ];
     }
 
@@ -74,7 +74,7 @@ class Testimonials1 extends \yii\db\ActiveRecord
         //return @$this->parent->name;
         //return $this->parent['name'];
         $parent = $this->parent;
-        return $parent ? $parent->text : 'Без родителя';
+        return $parent ? $parent->text : ( (string) \Yii::t('app','WITHOUT_PARENT') );
     }
 
     public function getUserFrom() {
@@ -86,11 +86,11 @@ class Testimonials1 extends \yii\db\ActiveRecord
     }
 
     public function getFullNameFrom() {
-        return $this->userFrom ? ($this->userFrom->first_name.' '.$this->userFrom->last_name) : 'Нет пользователя';
+        return $this->userFrom ? ($this->userFrom->first_name.' '.$this->userFrom->last_name) : ( (string) \Yii::t('app','NO_USER') );
     }
 
     public function getFullNameTo() {
-        return $this->userTo ? ($this->userTo->first_name.' '.$this->userTo->last_name) : 'Нет пользователя';
+        return $this->userTo ? ($this->userTo->first_name.' '.$this->userTo->last_name) : ( (string) \Yii::t('app','NO_USER') );
     }
 
 }

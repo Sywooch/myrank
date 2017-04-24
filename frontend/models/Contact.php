@@ -41,9 +41,9 @@ class Contact extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'city_id' => Yii::t('app', 'City ID'),
-            'phone' => Yii::t('app', 'Phone'),
-            'site' => Yii::t('app', 'Site'),
+            'city_id' => Yii::t('app', 'CITY_ID'),
+            'phone' => Yii::t('app', 'PHONE'),
+            'site' => Yii::t('app', 'SITE'),
         ];
     }
 }
