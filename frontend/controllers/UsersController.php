@@ -311,12 +311,16 @@ class UsersController extends Controller {
 
 	foreach ($req['title'] as $key => $item) {
 	    if (($item != "") && isset($userImages[$key])) {
-		$model = new \frontend\models\Images();
+		if(isset($req['id'][$key])) {
+		    $model = Images::findOne($req['id'][$key]);
+		} else {
+		    $model = new \frontend\models\Images();
+		}
 
 		$model->attributes = [
 		    'type' => $mUser->type,
-		    'type_id' => $mUser->type ? $mUser->company_id : $uId,
-		    'user_id' => $uId,
+		    'type_id' => $mUser->type ? $mUser->company_id : $mUser->id,
+		    'user_id' => $mUser,
 		    'name' => $userImages[$key],
 		    'title' => $item,
 		    'description' => $req['description'][$key],
