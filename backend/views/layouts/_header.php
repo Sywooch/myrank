@@ -14,6 +14,7 @@
 	</a>
 
 	<div class="navbar-custom-menu">
+	    <?php /* ?>
 	    <ul class="nav navbar-nav">
 		<!-- Messages: style can be found in dropdown.less-->
 		<li class="dropdown messages-menu">
@@ -255,6 +256,7 @@
 		    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
 		</li>
 	    </ul>
+	    <?php */ ?>
 	</div>
     </nav>
 </header>

@@ -24,10 +24,25 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'text:ntext',
-            'user_from',
-            'user_to',
+	    [
+		'label' => 'От',
+		'content' => function ($data) {
+		    return $data->userFrom->fullName;
+		}
+	    ],
+	    [
+		'label' => 'Кому',
+		'content' => function ($data) {
+		    return $data->userTo->fullName;
+		}
+	    ],
+	    [
+		'label' => 'Ответ',
+		'content' => function($data) {
+		    return $data->parent_id > 0 ? "Да" : "Нет";
+		}
+	    ],
             // 'smile',
             // 'parent_id',
             // 'created',

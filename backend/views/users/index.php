@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    [
 		'label' => "Имя",
 		'content' => function ($data) {
-		    return $data->last_name . " " . $data->first_name;
+		    return $data->fullName;
 		}
 	    ],
             [
