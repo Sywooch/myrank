@@ -40,11 +40,11 @@ class Region extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'region_id' => Yii::t('app', 'Region ID'),
-            'country_id' => Yii::t('app', 'Country ID'),
-            'city_id' => Yii::t('app', 'City ID'),
-            'name' => Yii::t('app', 'Region Name'),
-            'countryName' => Yii::t('app','Country Name')
+            'region_id' => Yii::t('app', 'REGION_ID'),
+            'country_id' => Yii::t('app', 'COUNTRY_ID'),
+            'city_id' => Yii::t('app', 'CITY_ID'),
+            'name' => Yii::t('app', 'REGION_NAME'),
+            'countryName' => Yii::t('app','COUNTRY_NAME')
         ];
     }
 

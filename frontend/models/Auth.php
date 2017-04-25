@@ -38,9 +38,9 @@ class Auth extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'user_id' => Yii::t('app', 'User ID'),
-	    'source' => Yii::t('app', 'Source'),
-	    'source_id' => Yii::t('app', 'Source ID'),
+	    'user_id' => Yii::t('app', 'USER_ID'),
+	    'source' => Yii::t('app', 'SOURCE'),
+	    'source_id' => Yii::t('app', 'SOURCE_ID'),
 	];
     }
     
@@ -49,7 +49,7 @@ class Auth extends \yii\db\ActiveRecord {
     }
 
     public function getUserFullName() {
-        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : 'Нет пользователя';
+        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : \Yii::t('app','NO_USER');
     }
 
 }

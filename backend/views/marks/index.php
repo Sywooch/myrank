@@ -38,10 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
 		'attribute' => 'access',
 		'format' => 'text',
 		'content' => function ($data) {
-		    $list2 = Marks::$marksAccess;
+		    $list2 = Marks::marksAccess();
 		    return $list2[$data->access];
 		},
-		'filter' => Marks::$marksAccess,
+		'filter' => Marks::marksAccess(),
 	    ],
 	    [
 		'attribute' => 'required',

@@ -36,9 +36,9 @@ class Profession extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
 	return [
-	    'id' => Yii::t('app', 'ID'),
-	    'title' => Yii::t('app', 'Title'),
-	    'listProf' => Yii::t('app', 'Список'),
+	    'id' => Yii::t('app', 'PROFESSION_ID'),
+	    'title' => Yii::t('app', 'PROFESSION_TITLE'),
+	    'listProf' => Yii::t('app', 'LIST'),
 	];
     }
     

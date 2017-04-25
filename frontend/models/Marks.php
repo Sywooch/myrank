@@ -25,16 +25,21 @@ class Marks extends \yii\db\ActiveRecord {
     const MARKS_ACCESS_FRONT_ALL = 1;
     const MARKS_ACCESS_FRONT_NONE = 2;
 
-    public static $marksAccess = [
-	self::MARKS_ACCESS_ALL => 'Всем',
-	self::MARKS_ACCESS_USER => 'Пользователю',
-	self::MARKS_ACCESS_COMPANY => 'Пользователям',
-    ];
+    public static function marksAccess () {
+	return [
+	    self::MARKS_ACCESS_ALL => (string) \Yii::t('app','MARKS_ACCESS_ALL'),
+	    self::MARKS_ACCESS_USER => (string) \Yii::t('app','MARKS_ACCESS_USER'),
+	    self::MARKS_ACCESS_COMPANY => (string) \Yii::t('app','MARKS_ACCESS_COMPANY'),
+	];
+    }
     
-    public static $marksAccessFront = [
-	self::MARKS_ACCESS_FRONT_ALL => "Всем",
-	self::MARKS_ACCESS_FRONT_NONE => "Отключить",
-    ];
+    public static function marksAccessFront () {
+	return [
+	    self::MARKS_ACCESS_FRONT_ALL => (string) \Yii::t('app','MARKS_ACCESS_FRONT_ALL'),
+	    self::MARKS_ACCESS_FRONT_NONE => (string) \Yii::t('app','MARKS_ACCESS_FRONT_NONE'),
+	];
+    } 
+    
     /**
      * @inheritdoc
      */
@@ -59,10 +64,10 @@ class Marks extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'name' => Yii::t('app', 'Name'),
-	    'parent_id' => Yii::t('app', 'Parent ID'),
-	    'access' => Yii::t('app', 'Кому показывать'),
-	    'type' => Yii::t('app', 'Специализация'),
+	    'name' => Yii::t('app', 'MARKS_NAME'),
+	    'parent_id' => Yii::t('app', 'PARENT_ID'),
+	    'access' => Yii::t('app', 'MARKS_ACCESS'),
+	    'type' => Yii::t('app', 'MARKS_TYPE'),
 	];
     }
 
@@ -71,7 +76,7 @@ class Marks extends \yii\db\ActiveRecord {
 	    $mMarks = Marks::find()
 			    ->select(['id', 'name'])->where(['parent_id' => 0])
 			    ->all();
-	    self::$lists[0] = 'Без родителя';
+	    self::$lists[0] = (string) \Yii::t('app','WITHOUT_PARENT');
 
 	    foreach ($mMarks as $item) {
 		self::$lists[$item->id] = $item->name;

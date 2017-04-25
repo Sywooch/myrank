@@ -35,9 +35,9 @@ class Country extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
 	return [
-	    'country_id' => Yii::t('app', 'Country ID'),
-	    'city_id' => Yii::t('app', 'City ID'),
-	    'name' => Yii::t('app', 'Country Name'),
+	    'country_id' => Yii::t('app', 'COUNTRY_ID'),
+	    'city_id' => Yii::t('app', 'CITY_ID'),
+	    'name' => Yii::t('app', 'COUNTRY_NAME'),
 	];
     }
     
@@ -46,7 +46,7 @@ class Country extends \yii\db\ActiveRecord {
     }
     
     public function getCityArr () {
-	$out[""] = "Все";
+	$out[""] = \Yii::t('app','ALL');
 	foreach ($this->getCity()->orderBy('name ASC')->asArray()->all() as $item) {
 	    $out[$item['city_id']] = $item['name'];
 	}

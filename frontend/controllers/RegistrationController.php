@@ -54,7 +54,7 @@ class RegistrationController extends Controller {
 		    $out['data'] = $this->renderPartial("_regStep" . $model->step, [
 			'model' => $model,
 			'mCompany' => $mCompany,
-			'title' => $model->regStep[$model->step]
+			'title' => $model->regStep($model->step)
 		    ]);
 		} else {
 		    $out['errors'] = $model->errors;

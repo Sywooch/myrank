@@ -32,9 +32,9 @@ class ArticleCategory extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_article_category' => Yii::t('app','ИД категории статьи'),
-            'name' => Yii::t('app','Наименование категории статьи'),
-            'locale' => Yii::t('app', 'Locale'),
+            'id_article_category' => Yii::t('app','ARTICLE_CATEGORY_ID'),
+            'name' => Yii::t('app','ARTICLE_CATEGORY_NAME'),
+            'locale' => Yii::t('app', 'LOCALE'),
         ];
     }
 

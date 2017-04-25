@@ -33,7 +33,7 @@ class LoginForm extends Model {
     public function attributeLabels() {
 	//parent::attributeLabels();
 	return [
-	    'username' => 'Email',
+	    'username' => \Yii::t('app','EMAIL'),
 	    'password' => \Yii::t('app','PASSWORD')
 	];
     }

@@ -38,8 +38,8 @@ class CompanyProfession extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'company_id' => Yii::t('app', 'Company ID'),
-            'profession_id' => Yii::t('app', 'Profession ID'),
+            'company_id' => Yii::t('app', 'COMPANY_ID'),
+            'profession_id' => Yii::t('app', 'PROFESSION_ID'),
         ];
     }
 }

@@ -57,7 +57,7 @@ use yii\helpers\Html;
 		    <div class="b-modal__content__user__header__content__select">
 			<span><?= \Yii::t('app','IAM'); ?>:</span>
 			<div class="select-wrapper">
-			    <?= $form->field($model, "who_from_to")->dropDownList(Testimonials::$whoFromTo)->label(false) ?>
+			    <?= $form->field($model, "who_from_to")->dropDownList(Testimonials::whoFromTo())->label(false) ?>
 			</div>
 		    </div>
 		</div>

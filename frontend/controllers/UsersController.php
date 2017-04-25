@@ -175,7 +175,7 @@ class UsersController extends Controller {
 	    'user_to' => $model->user_to,
 	    'parent' => $model->parent_id
 	]);
-	echo Json::encode(['code' => 1, 'data' => $out, 'title' => "Редактирование отзыва"]);
+	echo Json::encode(['code' => 1, 'data' => $out, 'title' => \Yii::t('app','TESTIMONIALS_EDIT')]);
 	\Yii::$app->end();
     }
 

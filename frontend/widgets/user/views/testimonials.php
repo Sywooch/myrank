@@ -5,12 +5,12 @@ use yii\helpers\Url;
 ?>
 <div class="b-comments b-block">
     <div class="b-title">
-	Отзывы
+        <?= \Yii::t('app','TESTIMONIALS'); ?>
 	<?php if (!is_null(Yii::$app->user->id) && !$mUser->owner) { ?>
 	<?php if($mUser->hasTestimonial) { ?>
 	    <a class="button-small showModal" 
 	       data-url="<?= Url::toRoute(["users/edittestimonial", "id" => $mUser->getTestimonial()->one()->id]) ?>" 
-	       href="#">Редактировать отзыв</a>
+	       href="#"><?= \Yii::t('app','TESTIMONIALS_EDIT'); ?></a>
 	<?php } else { ?>
 	    <a class="button-small showModal" 
 	       data-url="<?= Url::toRoute(["users/writetestimonials", "id" => $mUser->id]) ?>" 

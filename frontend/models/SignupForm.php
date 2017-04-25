@@ -21,13 +21,13 @@ class SignupForm extends Model {
 	return [
 	    ['username', 'trim'],
 	    ['username', 'required'],
-	    ['username', 'unique', 'targetClass' => '\frontend\models\User', 'message' => 'This username has already been taken.'],
+	    ['username', 'unique', 'targetClass' => '\frontend\models\User', 'message' => \Yii::t('app','THIS_USERNAME_HAS_ALREADY_BEEN_TAKEN')],
 	    ['username', 'string', 'min' => 2, 'max' => 255],
 	    ['email', 'trim'],
 	    ['email', 'required'],
 	    ['email', 'email'],
 	    ['email', 'string', 'max' => 255],
-	    ['email', 'unique', 'targetClass' => '\frontend\models\User', 'message' => 'This email address has already been taken.'],
+	    ['email', 'unique', 'targetClass' => '\frontend\models\User', 'message' => \Yii::t('app','THIS_EMAIL_ADDRESS_HAS_ALREADY_BEEN_TAKEN')],
 	    ['password', 'required'],
 	    ['password', 'string', 'min' => 6],
 	];
