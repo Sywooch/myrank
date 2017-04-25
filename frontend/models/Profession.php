@@ -9,10 +9,13 @@ use Yii;
  *
  * @property integer $id
  * @property string $title
+ * @property string $title_ua
+ * @property string $title_en
  */
 class Profession extends \yii\db\ActiveRecord {
     
     public $listProf;
+    public $prefixLang = 'title_';
 
     /**
      * @inheritdoc
@@ -26,7 +29,7 @@ class Profession extends \yii\db\ActiveRecord {
      */
     public function rules() {
 	return [
-	    [['title'], 'string', 'max' => 255],
+	    [['title', 'title_en', 'title_ua'], 'string', 'max' => 255],
 	    [['listProf'], 'safe']
 	];
     }
@@ -38,6 +41,8 @@ class Profession extends \yii\db\ActiveRecord {
 	return [
 	    'id' => Yii::t('app', 'PROFESSION_ID'),
 	    'title' => Yii::t('app', 'PROFESSION_TITLE'),
+	    'title_ua' => \Yii::t('app', 'PROFESSION_TITLE'). " UA",
+	    'title_en' => \Yii::t('app', 'PROFESSION_TITLE'). " EN",
 	    'listProf' => Yii::t('app', 'LIST'),
 	];
     }

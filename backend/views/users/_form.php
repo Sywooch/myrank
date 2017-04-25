@@ -12,8 +12,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'account_id')->textInput() ?>
-
     <?= $form->field($model, 'company_id')->textInput() ?>
 
     <?= $form->field($model, 'profileviews')->textInput() ?>
@@ -39,8 +37,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'site')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'way')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'mark')->textarea(['rows' => 6]) ?>
 

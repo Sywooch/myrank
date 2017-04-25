@@ -34,14 +34,14 @@ $get = Yii::$app->request->get();
     			<!-- span class="b-user__data__name__edit"></span -->
     		    </div>
     		    <div class="b-user__data__info">
-			<?php if((Yii::$app->user->id !== null) && !$item->owner) { ?>
-    			<a class="b-user__data__info__add-trusted" href="#" data-url="<?= Url::toRoute(['users/trustees', 'id' => $item->id]) ?>">
-    			    <?= $item->trustUser ? \Yii::t('app','TRUSTED_SMALL') : \Yii::t('app','IN_TRUSTED_SMALL') ?>
-    			</a>
-			<?php } ?>
+			    <?php if ((Yii::$app->user->id !== null) && !$item->owner) { ?>
+				<a class="b-user__data__info__add-trusted" href="#" data-url="<?= Url::toRoute(['users/trustees', 'id' => $item->id]) ?>">
+				    <?= $item->trustUser ? \Yii::t('app', 'TRUSTED_SMALL') : \Yii::t('app', 'IN_TRUSTED_SMALL') ?>
+				</a>
+			    <?php } ?>
     			<div class="b-user__data__info__rating">
     			    <span><?= $item->rating ?></span>
-                    <?= \Yii::t('app','RATING'); ?>
+				<?= \Yii::t('app', 'RATING'); ?>
     			</div>
     		    </div>
     		</div>
@@ -83,27 +83,28 @@ if ($pagin['count'] > $USmodel->limit) {
     ?>
     <div class="b-pagination">
         <ul>
-	    <li class="b-pagination__prev">
-		    <?php if ($USmodel->page != 1) { ?>
-			<a href="<?= Url::toRoute($paramsFirsPage) ?>"></a>
-		    <?php } ?>
-	    </li>
-		<?php
-		for ($i = 1; $i <= $pagin['pages']; $i++) {
-		    $getParam['UsersSearch']['page'] = $i;
-		    ?>
-		    <li <?= $USmodel->page == $i ? 'class="active"' : "" ?>>
-			<a href="<?= Url::toRoute($getParam) ?>"><?= $i ?></a>
-		    </li>
+    	<li class="b-pagination__prev">
+		<?php if ($USmodel->page != 1) { ?>
+		    <a href="<?= Url::toRoute($paramsFirsPage) ?>"></a>
 		<?php } ?>
-	    <li class="b-pagination__next">
-		    <?php if ($USmodel->page != $pagin['pages']) { ?>
-			<a href="<?= Url::toRoute($paramsEndPage) ?>"></a>
-		    <?php } ?>
-	    </li>
+    	</li>
+	    <?php
+	    for ($i = 1; $i <= $pagin['pages']; $i++) {
+		$getParam['UsersSearch']['page'] = $i;
+		?>
+		<li <?= $USmodel->page == $i ? 'class="active"' : "" ?>>
+		    <a href="<?= Url::toRoute($getParam) ?>"><?= $i ?></a>
+		</li>
+	    <?php } ?>
+    	<li class="b-pagination__next">
+		<?php if ($USmodel->page != $pagin['pages']) { ?>
+		    <a href="<?= Url::toRoute($paramsEndPage) ?>"></a>
+		<?php } ?>
+    	</li>
         </ul>
     </div>
-<?php } 
+<?php
+}
 $this->registerJs("
     $('.b-user__data__info__add-trusted').on('click', function() {
 	var that = $(this);
@@ -111,7 +112,7 @@ $this->registerJs("
 	$.post(url, {'_csrf-frontend':$('[name=\"csrf-token\"]').attr('content')}, function(out) {
 	    if(out.code) {
 		that.text(out.data);
-		alertInfo('".\Yii::t('app','YOUR_REQUEST_HAS_BEEN_SENT_AND_IS_WAITING_FOR_CONFIRMATION_BY_THE_USER')."');
+		alertInfo('" . \Yii::t('app', 'YOUR_REQUEST_HAS_BEEN_SENT_AND_IS_WAITING_FOR_CONFIRMATION_BY_THE_USER') . "');
 	    }
 	}, 'json');
 	return false;

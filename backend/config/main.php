@@ -23,7 +23,9 @@ return [
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
         'session' => [
-            // this is the name of the session cookie used for login on the backend
+	    'class' => 'yii\web\DbSession',
+	    'timeout' => 30 * 24 * 60 * 60,
+	    'cookieParams' => ['lifetime' => 30 * 24 *60 * 60],
             'name' => 'advanced-backend',
         ],
         'log' => [

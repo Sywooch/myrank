@@ -25,7 +25,7 @@ return [
 	    'enableSession' => true,
 	],
 	'session' => [
-	    'class' => 'yii\web\Session',
+	    'class' => 'yii\web\DbSession',
 	    'timeout' => 30 * 24 * 60 * 60,
 	    'cookieParams' => ['lifetime' => 30 * 24 *60 * 60],
 	    'name' => 'advanced-frontend',
@@ -92,7 +92,7 @@ return [
     'modules' => [
 	'debug' => [
 	    'class' => 'yii\debug\Module',
-	    'allowedIPs' => ['127.0.0.1', '::1', '93.79.21.63', '95.47.150.103']
+	    'allowedIPs' => ['127.0.0.1', '::1', '93.79.21.63', '95.47.150.103', '193.34.94.25']
 	]
     ],
     'params' => $params,

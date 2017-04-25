@@ -48,7 +48,7 @@ class UsersSearch extends User {
      * @return ActiveDataProvider
      */
     public function search($params) {
-	$query = User::find()->joinWith(["userProfession", "company"]);
+	$query = User::find()->joinWith(["userProfession", "company"])->distinct("user.id");
 	
 	if(isset($params['UsersSearch']['searchName']) && ($params['UsersSearch']['searchName'] != "")) {
 	    if(strpos($params['UsersSearch']['searchName'], " ") != FALSE) {
@@ -68,18 +68,24 @@ class UsersSearch extends User {
 	    'type' => $this->type,
 	    'birthdate' => $this->birthdate,
 	    'gender' => $this->gender,
-	    'city_id' => $this->city_id,
+	    //'city_id' => $this->city_id,
 	    //'last_name' => $this->last_name,
 	    'first_name' => $this->first_name,
 	    'profession_id' => $this->professionField
 	]);
 	
-	$query->andOnCondition("last_name = :lastName OR company.name LIKE :companyName", [
-	    ':companyName' => "%".$this->last_name."%",
-	    ':lastName' => $this->last_name
-	]);
+	if(isset($this->city_id)) {
+	    $query->andOnCondition("user.city_id = :cityId OR company.city_id = :cityId", [
+		':cityId' => $this->city_id,
+	    ]);
+	}
 	
-	//$query->and
+	if(isset($this->last_name)) {
+	    $query->andOnCondition("last_name = :lastName OR company.name LIKE :companyName", [
+		':companyName' => "%".$this->last_name."%",
+		':lastName' => $this->last_name
+	    ]);
+	}
 
 	$query->andFilterWhere(['between', 'rating', $this->ratingStart, $this->ratingEnd])
 		->andFilterWhere(['like', 'about', $this->about]);

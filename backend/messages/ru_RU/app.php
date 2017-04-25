@@ -11,5 +11,8 @@ return [
     'ARE_YOU_SURE_DELETE_ITEM'=>'Вы уверены что хотите удалить данную вещь?',
     'CITIES'=>'Города',
     'CREATE_CITY'=>'Добавить города',
-    'UPDATE_CITY'=>'Обновить город'
+    'UPDATE_CITY'=>'Обновить город',
+    'PROFESSION_ID'=>'ИД профессии',
+    'PROFESSION_TITLE'=>'Наименование профессии',
+    'LIST'=>'Список',
 ];

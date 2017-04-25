@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use frontend\models\User;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -26,11 +27,19 @@ $this->params['breadcrumbs'][] = $this->title;
 	    ['class' => 'yii\grid\SerialColumn'],
 	    
 	    [
-		'label' => "Имя",
-		'content' => function ($data) {
-		    return $data->fullName;
-		}
-	    ],
+                'label' => 'Имя',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return Html::a(
+                            $data->fullName,
+                            Url::to(['users/view', 'id' => $data->id]),
+                            [
+                                    'title' => $data->fullName,
+                                    'target' =>'_blank'
+                            ]
+                    );
+                },
+            ],
             [
 		'label' => "Тип",
 		'content' => function ($data) {
