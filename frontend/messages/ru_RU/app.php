@@ -159,7 +159,7 @@ return [
     'NO_MORE_THAN_500_CHARACTERS'=>'Не больше 500 символов.',
     'PHOTO_DID_NOT_LOAD_PLEASE_CONSULT_ADMINISTRATOR'=>'Фото не загрузилось, пожалуйста обратитесь к администратору',
     'CHECK_CORRECTNESS_OF_THE_DATA_FILLING_FILL_IN_THE_MISSING_INFORMATION'=>'Проверьте правильность заполнения данных, заполните недостающую информацию',
-    'CONFIGURE_THE_DISPLAY_OF_MARKS'=>'Настроить отображение оценок',
+    'CONFIGURE_THE_DISPLAY_OF_MARKS'=>'Настроить оценки',
     'YOUR_REQUEST_HAS_BEEN_SENT_AND_IS_WAITING_FOR_CONFIRMATION_BY_THE_USER'=>'Ваш запрос отправлен и ждет подтверждения пользователем',
     'FOUND'=>'Найдено',
     'ITEMS'=>'элемента',

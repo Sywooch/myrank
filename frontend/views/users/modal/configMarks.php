@@ -18,10 +18,10 @@ use yii\helpers\Url;
     <div class="b-modal__content">
 	<div class="row">
 	<?php foreach ($model as $item) { ?>
-	    <div class="col-xs-6 col-sm-6">
+	    <div class="col-xs-12 col-sm-12">
 		<span><?= $item->name ?></span>
 		<div class="select-wrapper">
-		    <?= Html::dropDownList('Marks['.$item->id.']', isset($configArr[$item->id]) ? $configArr[$item->id] : 1, Marks::$marksAccessFront, []) ?>
+		    <?= Html::dropDownList('Marks['.$item->id.']', isset($configArr[$item->id]) ? $configArr[$item->id] : 1, Marks::marksAccessFront(), []) ?>
 		</div>
 	    </div>
 	<?php } ?>

@@ -70,16 +70,20 @@ class UsersSearch extends User {
 	    'gender' => $this->gender,
 	    //'city_id' => $this->city_id,
 	    //'last_name' => $this->last_name,
-	    'first_name' => $this->first_name,
+	    //'first_name' => $this->first_name,
 	    'profession_id' => $this->professionField
 	]);
 	
-	if(isset($this->city_id)) {
+	if(isset($this->city_id) && ($this->city_id != "")) {
 	    $query->andOnCondition("user.city_id = :cityId OR company.city_id = :cityId", [
 		':cityId' => $this->city_id,
 	    ]);
 	}
-	
+	/*
+	if(isset($this->first_name) && ($this->first_name != "")) {
+	    $query->andOnCondition("first_name = :partName OR");
+	}
+	*/
 	if(isset($this->last_name)) {
 	    $query->andOnCondition("last_name = :lastName OR company.name LIKE :companyName", [
 		':companyName' => "%".$this->last_name."%",

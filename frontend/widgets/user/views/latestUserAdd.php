@@ -4,9 +4,9 @@ use yii\helpers\Url;
 <div class="b-last-users">
     <div class="container">
         <h2><?= \Yii::t('app','LAST_ADDED_USERS'); ?></h2>
-	<div class="b-last-users__text">
+	<!-- div class="b-last-users__text">
         <?= \Yii::t('app','TOP_USERS_WITH_HIGHEST_RATING'); ?>
-	</div>
+	</div -->
 	<div class="b-last-users__carousel owl-carousel owl-theme">
 	    <?php foreach ($model as $item) { ?>
 	    <div class="item">

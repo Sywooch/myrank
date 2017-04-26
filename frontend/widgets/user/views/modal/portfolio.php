@@ -43,7 +43,7 @@ use yii\helpers\Html;
     			</div>
     		    </div>
     		</div>
-		<?php if(isset($image)) { ?><input type="hidden" name="Images[id][<?= $i ?>]" value="<?= $model[$i]->id ?>" /><?php } ?>
+		<input type="hidden" name="Images[new][<?= $i ?>]" value="<?= isset($image) ? $image : 1 ?>" />
     	    </div>
     	    <script type="text/javascript">
     		;
@@ -53,7 +53,7 @@ use yii\helpers\Html;
     		    $("#uploadFile" + res.fieldId + " .b-modal__content__portfolio__item__image").html("<img src='" + res.url + "' />");
     		});
     		jQuery('#images-name<?= $i ?>').on('fileuploadfail', function (e, data) {
-    		    alert(<?= \Yii::t('app','PHOTO_DID_NOT_LOAD_PLEASE_CONSULT_ADMINISTRATOR') ?>);
+    		    alert("<?= \Yii::t('app','PHOTO_DID_NOT_LOAD_PLEASE_CONSULT_ADMINISTRATOR') ?>");
     		});
 
     	    </script>
