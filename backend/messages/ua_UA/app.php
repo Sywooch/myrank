@@ -1,18 +1,6 @@
 <?php
 
 return [
-    //дубляж из фронта
-    'REQUESTED_PAGE_WAS_NOT_FOUND'=>'The requested page was not found',
-    'USER_FULL_NAME'=>'Повне ім\'я користувача',
-    'USER_FROM_FULLNAME'=> 'Від користувача повне ім\'я',
-    'USER_TO_FULLNAME'=> 'До користувача повне ім\'я',
-    'COUNTRY' => 'Країна',
-    'REGION' => 'Область',
-    'CREATED' => 'Створено',
-    'PROFESSION_TITLE'=>'Найменування професії',
-    'CITY' => 'Місто',
-    //
-
     //
     'ARTICLES_CATEGORY'=>'Категорія новин',
     'VERSION' => 'Версія',
@@ -27,5 +15,21 @@ return [
     'SEARCH'=>'Знайти',
     'RESET'=>'Скинути',
     'ARE_YOU_SURE_DELETE_ITEM'=>'Ви впевнені що хочете видалити цю річ?',
+
+    //дубляж из фронта
+    'REQUESTED_PAGE_WAS_NOT_FOUND'=>'The requested page was not found',
+    'USER_FULL_NAME'=>'Повне ім\'я користувача',
+    'USER_FROM_FULLNAME'=> 'Від користувача повне ім\'я',
+    'USER_TO_FULLNAME'=> 'До користувача повне ім\'я',
+    'COUNTRY' => 'Країна',
+    'REGION' => 'Область',
+    'CREATED' => 'Створено',
+    'PROFESSION_TITLE'=>'Найменування професії',
+    'CITY' => 'Місто',
+    //
+
+
+
+
 
 ];
