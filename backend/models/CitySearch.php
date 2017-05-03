@@ -59,12 +59,12 @@ class CitySearch extends City
                 'countryName' => [
                     'asc' => ['country.name' => SORT_ASC],
                     'desc' => ['country.name' => SORT_DESC],
-                    'label' => 'Страна'
+                    'label' => ((string) \Yii::t('app','COUNTRY') )
                 ],
                 'regionName' => [
                     'asc' => ['region.name' => SORT_ASC],
                     'desc' => ['region.name' => SORT_DESC],
-                    'label' => 'Регион'
+                    'label' => ((string) \Yii::t('app','REGION') )
                 ],
                 'name',
             ]

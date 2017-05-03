@@ -85,7 +85,7 @@ class UserMarkRatingController extends Controller
         if (($model = UserMarkRating::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(((string) \Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND') ));
         }
     }
 }

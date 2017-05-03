@@ -58,7 +58,7 @@ class LogsSearch extends Logs
                 'created'=> [
                     'asc' => ['logs.created' => SORT_ASC],
                     'desc' => ['logs.created' => SORT_DESC],
-                    'label' => 'Создано'
+                    'label' => ((string) \Yii::t('app','CREATED') )
                 ],
             ]
         ]);

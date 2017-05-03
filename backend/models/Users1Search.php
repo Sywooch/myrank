@@ -79,7 +79,7 @@ class Users1Search extends User
                 'cityName' => [
                     'asc' => ['city.name' => SORT_ASC],
                     'desc' => ['city.name' => SORT_DESC],
-                    'label' => 'Город'
+                    'label' => ((string) \Yii::t('app','CITY') )
                 ],
                 'phone',
                 'site',

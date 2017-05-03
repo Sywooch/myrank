@@ -69,7 +69,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        throw new NotSupportedException('"findIdentityByAccessToken"'.((string) \Yii::t('app','IS_NOT_IMPLEMENTED') ));
     }
 
     /**

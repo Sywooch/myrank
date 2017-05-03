@@ -83,7 +83,7 @@ class ProfileViewsController extends Controller
         if (($model = ProfileViews::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(((string) \Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND') ));
         }
     }
 }

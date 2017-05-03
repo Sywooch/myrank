@@ -59,14 +59,14 @@ class UserProfession1Search extends UserProfession1
                 'userFullName' => [
                     'asc' => ['user.first_name' => SORT_ASC, 'user.last_name' => SORT_ASC],
                     'desc' => ['user.first_name' => SORT_DESC, 'user.last_name' => SORT_DESC],
-                    'label' => 'User Full Name',
+                    'label' => ((string) \Yii::t('app','USER_FULL_NAME') ),
                     'default' => SORT_ASC
                 ],
                 'profession_id',
                 'profession1Title' => [
                     'asc' => ['profession1.title' => SORT_ASC],
                     'desc' => ['profession1.title' => SORT_DESC],
-                    'label' => 'Profession Title',
+                    'label' => ((string) \Yii::t('app','PROFESSION_TITLE') ),
                     'default' => SORT_ASC
                 ],
                 'name',

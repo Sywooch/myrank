@@ -50,7 +50,7 @@ class ArticleSearch extends Article
                 'articleCategoryName' => [
                     'asc' => ['article_category.name' => SORT_ASC],
                     'desc' => ['article_category.name' => SORT_DESC],
-                    'label' => 'Категория новостей'
+                    'label' => ((string) \Yii::t('app','ARTICLES_CATEGORY') )
                 ],
                 'status',
                 'views',

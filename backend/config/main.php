@@ -52,7 +52,7 @@ return [
                 '*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@backend/messages',
-                    'forceTranslation' => true,
+                    //'forceTranslation' => true,
                     //'sourceLanguage' => 'ru-RU',
                     /*'fileMap' => [
                     'app' => 'app.php',

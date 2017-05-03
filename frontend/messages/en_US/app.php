@@ -311,5 +311,5 @@ return [
 ];
 
 /*
-<?= ((string) \Yii::t('app','PROFESSION_NO') ); ?>
+<?= ((string) \Yii::t('app','') ); ?>
 */

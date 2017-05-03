@@ -62,21 +62,21 @@ class UserMarkRatingSearch extends UserMarkRating
                 'fullNameFrom' => [//'userFromFullName' => [
                     'asc' => ['userFrom.first_name' => SORT_ASC, 'userFrom.last_name' => SORT_ASC],
                     'desc' => ['userFrom.first_name' => SORT_DESC, 'userFrom.last_name' => SORT_DESC],
-                    'label' => 'UserFrom Full Name',
+                    'label' => ((string) \Yii::t('app','USER_FROM_FULLNAME') ),
                     'default' => SORT_ASC
                 ],
                 'user_to',
                 'fullNameTo' => [//'userToFullName' => [
                     'asc' => ['userTo.first_name' => SORT_ASC, 'userTo.last_name' => SORT_ASC],
                     'desc' => ['userTo.first_name' => SORT_DESC, 'userTo.last_name' => SORT_DESC],
-                    'label' => 'UserTo Full Name',
+                    'label' => ((string) \Yii::t('app','USER_TO_FULLNAME') ),
                     'default' => SORT_ASC
                 ],
                 'mark_id',
                 'marks1Name' => [
                     'asc' => ['marks1.name' => SORT_ASC],
                     'desc' => ['marks1.name' => SORT_DESC],
-                    'label' => 'Profession Title',
+                    'label' => ((string) \Yii::t('app','PROFESSION_TITLE') ),
                     'default' => SORT_ASC
                 ],
                 'mark_val'

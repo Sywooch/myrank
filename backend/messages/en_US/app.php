@@ -1,6 +1,24 @@
 <?php
 
 return [
+    //дубляж из фронта
+    'REQUESTED_PAGE_WAS_NOT_FOUND'=>'The requested page was not found',
+    'USER_FULL_NAME'=>'User Full Name',
+    'USER_FROM_FULLNAME' => 'User From Full Name',
+    'USER_TO_FULLNAME' => 'User To Full Name',
+    'COUNTRY' => 'Country',
+    'REGION' => 'Region',
+    'CREATED' => 'Created',
+    'PROFESSION_TITLE' => 'Profession title',
+    'CITY' => 'City',
+    //
+
+    //
+    'ARTICLES_CATEGORY'=>'Articles category',
+    'VERSION' => 'Version',
+    'APPLY_TIME' => 'Apply time',
+    //
+
     'CREATE'=>'Create',
     'UPDATE'=>'Update',
     'DELETE'=>'Delete',
@@ -13,3 +31,6 @@ return [
     'CREATE_CITY'=>'Create City',
     'UPDATE_CITY'=>'Update City',
 ];
+/*
+<?= ((string) \Yii::t('app','USER_TO_FULLNAME') ); ?>
+*/

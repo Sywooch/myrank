@@ -60,7 +60,7 @@ class ImagesSearch extends Images
                 'userFullName' => [
                     'asc' => ['user.first_name' => SORT_ASC, 'user.last_name' => SORT_ASC],
                     'desc' => ['user.first_name' => SORT_DESC, 'user.last_name' => SORT_DESC],
-                    'label' => 'User Full Name',
+                    'label' => ((string) \Yii::t('app','USER_FULL_NAME') ),
                     'default' => SORT_ASC
                 ],
                 'name',

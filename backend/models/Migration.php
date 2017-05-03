@@ -35,8 +35,8 @@ class Migration extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
 	return [
-	    'version' => Yii::t('app', 'Версия'),
-	    'apply_time' => Yii::t('app', 'Время применения'),
+	    'version' => Yii::t('app', ((string) \Yii::t('app','VERSION') )),
+	    'apply_time' => Yii::t('app', ((string) \Yii::t('app','APPLY_TIME') )),
 	];
     }
 

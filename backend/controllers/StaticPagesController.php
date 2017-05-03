@@ -124,7 +124,7 @@ class StaticPagesController extends Controller
         if (($model = StaticPages::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(Yii::t('app','Запрошенная страница не существует.'));
+            throw new NotFoundHttpException(((string) \Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND') ));
         }
     }
 }

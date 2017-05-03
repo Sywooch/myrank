@@ -64,7 +64,7 @@ class RegionSearch extends Region
                 'countryName' => [
                     'asc' => ['country.name' => SORT_ASC],
                     'desc' => ['country.name' => SORT_DESC],
-                    'label' => 'Страна'
+                    'label' => ((string) \Yii::t('app','COUNTRY') )
                 ],
             ],
         ]);

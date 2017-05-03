@@ -85,7 +85,7 @@ class UserProfession1Controller extends Controller
         if (($model = UserProfession1::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(((string) \Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND') ));
         }
     }
 }
