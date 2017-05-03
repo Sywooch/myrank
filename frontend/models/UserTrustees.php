@@ -44,9 +44,9 @@ class UserTrustees extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'user_to' => Yii::t('app', 'User To'),
-	    'user_from' => Yii::t('app', 'User From'),
-	    'created' => Yii::t('app', 'Created'),
+	    'user_to' => Yii::t('app', 'USER_TO'),
+	    'user_from' => Yii::t('app', 'USER_FROM'),
+	    'created' => Yii::t('app', 'CREATED'),
 	];
     }
     
@@ -67,11 +67,11 @@ class UserTrustees extends \yii\db\ActiveRecord {
     }
 
     public function getFullNameFrom() {
-        return $this->userFrom ? ($this->userFrom->first_name.' '.$this->userFrom->last_name) : 'Нет пользователя';
+        return $this->userFrom ? ($this->userFrom->first_name.' '.$this->userFrom->last_name) : ((string) \Yii::t('app','NO_USER') );
     }
 
     public function getFullNameTo() {
-        return $this->userTo ? ($this->userTo->first_name.' '.$this->userTo->last_name) : 'Нет пользователя';
+        return $this->userTo ? ($this->userTo->first_name.' '.$this->userTo->last_name) : ((string) \Yii::t('app','NO_USER') );
     }
     
     public function getMarks () {

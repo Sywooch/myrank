@@ -41,9 +41,9 @@ class UserEvent extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'name' => Yii::t('app', 'Name'),
-            'datetime' => Yii::t('app', 'Datetime'),
+            'user_id' => Yii::t('app', 'USER_ID'),
+            'name' => Yii::t('app', 'NAME_TITLE'),
+            'datetime' => Yii::t('app', 'DATETIME'),
         ];
     }
 
@@ -53,7 +53,7 @@ class UserEvent extends \yii\db\ActiveRecord
 
     public function getUserFullName() {
 
-        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : 'Нет пользователя';
+        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : ((string) \Yii::t('app','NO_USER') );
     }
 
 }

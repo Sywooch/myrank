@@ -285,6 +285,27 @@ return [
     'PARENT_TEXT' => 'Текст родителя',
     'USER_FROM_FULLNAME'=> 'От пользователя полное имя',
     'USER_TO_FULLNAME'=> 'К пользователю полное имя',
+    'CONTACT_ID' => 'ИД контакта',
+    'COMPANY_ID' => 'ИД компании',
+    'PROFILE_VIEWS' => 'Просмотры профиля',
+    'PROFILE_COMPANY' => 'Профиль компании',
+    'IMAGE' => 'Изображение',
+    'LAST_LOGIN' => 'Последний вход',
+    'BIRTHDATE' => 'Дата рождения',
+    'GENDER'=>'Пол',
+    'PROFESSION_FIELD' => 'Специализация',
+    'IS_NOT_IMPLEMENTED' => 'не реализован',
+    'OBJ' => 'Объект',
+    'OBJ_ID' => 'ИД объекта',
+    'NAME_TITLE' => 'Название',
+    'DATETIME' => 'Дата/время',
+    'MARK_ID' => 'ИД оценки',
+    'MARK_VAL' => 'Значение оценки',
+    'MARK_NO' => 'Нет оценки',
+    'DESCRIPTION' => 'Описание',
+    'NOTIFICATION_TYPE' => 'Тип уведомления',
+    'PROFESSION_NO' => 'Нет профессии',
+
     // Models End
 
 ];

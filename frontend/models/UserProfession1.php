@@ -37,11 +37,11 @@ class UserProfession1 extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'user_id' => 'User ID',
-            'userFullName' => 'User FullName',
-            'profession_id' => 'Profession ID',
-            'profession1Title' => 'Profession Title'
+            'id' => \Yii::t('app','ID'),
+            'user_id' => \Yii::t('app','USER_ID'),
+            'userFullName' => \Yii::t('app','USER_FULL_NAME'),
+            'profession_id' => \Yii::t('app','PROFESSION_ID'),
+            'profession1Title' => \Yii::t('app','PROFESSION_TITLE')
         ];
     }
 
@@ -50,7 +50,7 @@ class UserProfession1 extends \yii\db\ActiveRecord
     }
 
     public function getProfession1Title() {
-        return $this->profession1 ? ($this->profession1->title) : 'Нет профессии';
+        return $this->profession1 ? ($this->profession1->title) : ((string) \Yii::t('app','PROFESSION_NO') );
     }
 
     public function getUser () {
@@ -59,6 +59,6 @@ class UserProfession1 extends \yii\db\ActiveRecord
 
     public function getUserFullName() {
 
-        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : 'Нет пользователя';
+        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : ((string) \Yii::t('app','NO_USER') );
     }
 }

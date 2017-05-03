@@ -42,10 +42,10 @@ class UserMarks extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => 'ID',
-	    'user_to' => 'User To',
-	    'user_from' => 'User From',
-	    'description' => 'Description',
-	    'created' => 'Created',
+	    'user_to' => 'USER_TO',
+	    'user_from' => 'USER_FROM',
+	    'description' => 'DESCRIPTION',
+	    'created' => 'CREATED',
 	];
     }
     
@@ -67,11 +67,11 @@ class UserMarks extends \yii\db\ActiveRecord {
     }
 
     public function getFullNameFrom() {
-        return $this->userFrom ? ($this->userFrom->first_name.' '.$this->userFrom->last_name) : 'Нет пользователя';
+        return $this->userFrom ? ($this->userFrom->first_name.' '.$this->userFrom->last_name) : ((string) \Yii::t('app','NO_USER') );
     }
 
     public function getFullNameTo() {
-        return $this->userTo ? ($this->userTo->first_name.' '.$this->userTo->last_name) : 'Нет пользователя';
+        return $this->userTo ? ($this->userTo->first_name.' '.$this->userTo->last_name) : ((string) \Yii::t('app','NO_USER') );
     }
     
     public function getMarkNames () {

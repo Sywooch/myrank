@@ -40,10 +40,10 @@ class UserClaim extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'obj' => Yii::t('app', 'Obj'),
-	    'obj_id' => Yii::t('app', 'Obj ID'),
-	    'user_id' => Yii::t('app', 'User ID'),
-	    'created' => Yii::t('app', 'Created'),
+	    'obj' => Yii::t('app', 'OBJ'),
+	    'obj_id' => Yii::t('app', 'OBJ_ID'),
+	    'user_id' => Yii::t('app', 'USER_ID'),
+	    'created' => Yii::t('app', 'CREATED'),
 	];
     }
 
@@ -53,6 +53,6 @@ class UserClaim extends \yii\db\ActiveRecord {
 
     public function getUserFullName() {
 
-        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : 'Нет пользователя';
+        return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : ((string) \Yii::t('app','NO_USER') );
     }
 }

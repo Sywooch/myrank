@@ -38,13 +38,13 @@ class UserMarkRating extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'user_from' => Yii::t('app', 'User From'),
-        'fullNameFrom' => Yii::t('app', 'UserFrom FullName'),
-	    'user_to' => Yii::t('app', 'User To'),
-        'fullNameTo' => Yii::t('app', 'UserTo FullName'),
-	    'mark_id' => Yii::t('app', 'Mark ID'),
-        'marks1Name' =>Yii::t('app', 'Marks Name'),
-	    'mark_val' => Yii::t('app', 'Mark Val'),
+	    'user_from' => Yii::t('app', 'USER_FROM'),
+        'fullNameFrom' => Yii::t('app', 'USER_FROM_FULLNAME'),
+	    'user_to' => Yii::t('app', 'USER_TO'),
+        'fullNameTo' => Yii::t('app', 'USER_TO_FULLNAME'),
+	    'mark_id' => Yii::t('app', 'MARK_ID'),
+        'marks1Name' =>Yii::t('app', 'MARKS_NAME'),
+	    'mark_val' => Yii::t('app', 'MARK_VAL'),
 	];
     }
     
@@ -57,11 +57,11 @@ class UserMarkRating extends \yii\db\ActiveRecord {
     }
 
     public function getFullNameFrom() {
-        return $this->userFrom ? ($this->userFrom->first_name.' '.$this->userFrom->last_name) : 'Нет пользователя';
+        return $this->userFrom ? ($this->userFrom->first_name.' '.$this->userFrom->last_name) : ((string) \Yii::t('app','NO_USER') );
     }
 
     public function getFullNameTo() {
-        return $this->userTo ? ($this->userTo->first_name.' '.$this->userTo->last_name) : 'Нет пользователя';
+        return $this->userTo ? ($this->userTo->first_name.' '.$this->userTo->last_name) : ((string) \Yii::t('app','NO_USER') );
     }
 
     public function getMarks1 () {
@@ -69,6 +69,6 @@ class UserMarkRating extends \yii\db\ActiveRecord {
     }
 
     public function getMarks1Name() {
-        return $this->marks1 ? ($this->marks1->name) : 'Нет оценки';
+        return $this->marks1 ? ($this->marks1->name) : ((string) \Yii::t('app','MARK_NO') );
     }
 }

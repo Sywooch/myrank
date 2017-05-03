@@ -284,6 +284,27 @@ return [
     'PARENT_TEXT' => 'ТЕкст батька',
     'USER_FROM_FULLNAME'=> 'Від користувача повне ім\'я',
     'USER_TO_FULLNAME'=> 'До користувача повне ім\'я',
+    'CONTACT_ID' => 'ІД контакту',
+    'COMPANY_ID' => 'ІД компанії',
+    'PROFILE_VIEWS' => 'Перегляди профілю',
+    'PROFILE_COMPANY' => 'Профиль компании',
+    'IMAGE' => 'Зображення',
+    'LAST_LOGIN' => 'Останній вхід',
+    'BIRTHDATE' => 'Дата народження',
+    'GENDER'=>'Стать',
+    'PROFESSION_FIELD' => 'Спеціалізація',
+    'IS_NOT_IMPLEMENTED' => 'не релізовано',
+    'OBJ' => 'Об\'єкт',
+    'OBJ_ID' => 'ІД об\'єкту',
+    'NAME_TITLE' => 'Назва',
+    'DATETIME' => 'Дата/час',
+    'MARK_ID' => 'ІД оцінки',
+    'MARK_VAL' => 'Значення оцінки',
+    'MARK_NO' => 'Немає оцінки',
+    'DESCRIPTION' => 'Опис',
+    'NOTIFICATION_TYPE' => 'Тип повідомлення',
+    'PROFESSION_NO' => 'Немає професії',
+
     // Models End
 
 ];

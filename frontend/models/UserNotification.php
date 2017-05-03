@@ -43,10 +43,10 @@ class UserNotification extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'type' => Yii::t('app', 'Тип уведомления'),
-	    'user_id' => Yii::t('app', 'User ID'),
-	    'value' => Yii::t('app', 'Value'),
-	    'create' => Yii::t('app', 'Create'),
+	    'type' => Yii::t('app', 'NOTIFICATION_TYPE'),
+	    'user_id' => Yii::t('app', 'USER_ID'),
+	    'value' => Yii::t('app', 'VALUE'),
+	    'create' => Yii::t('app', 'CREATED'),
 	];
     }
 

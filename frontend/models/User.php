@@ -98,26 +98,26 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'contact_id' => Yii::t('app', 'Contact ID'),
-	    'company_id' => Yii::t('app', 'Company ID'),
-	    'profileviews' => Yii::t('app', 'Profileviews'),
-	    'profile_company' => Yii::t('app', 'Profile Company'),
-	    'image' => Yii::t('app', 'Image'),
-	    'first_name' => Yii::t('app', 'Имя'),
-	    'last_name' => Yii::t('app', 'Фамилия'),
-	    'about' => Yii::t('app', 'About'),
-	    'last_login' => Yii::t('app', 'Last Login'),
-	    'rating' => Yii::t('app', 'Рейтинг'),
-	    'birthdate' => Yii::t('app', 'День рождения'),
-	    'gender' => Yii::t('app', 'Пол'),
-	    'city_id' => \Yii::t('app', 'Город'),
-	    'cityName' => \Yii::t('app', 'Город'),
-	    'phone' => \Yii::t('app', 'Номер телефона'),
-	    'site' => \Yii::t('app', 'Сайт'),
-	    'mark' => \Yii::t('app', 'Оценка'),
-	    'password' => \Yii::t('app', 'Пароль'),
-	    'rePassword' => \Yii::t('app', 'Повторите пароль'),
-	    'professionField' => \Yii::t('app', 'Специализация'),
+	    'contact_id' => Yii::t('app', 'CONTACT_ID'),
+	    'company_id' => Yii::t('app', 'COMPANY_ID'),
+	    'profileviews' => Yii::t('app', 'PROFILE_VIEWS'),
+	    'profile_company' => Yii::t('app', 'PROFILE_COMPANY'),
+	    'image' => Yii::t('app', 'IMAGE'),
+	    'first_name' => Yii::t('app', 'NAME'),
+	    'last_name' => Yii::t('app', 'SURNAME'),
+	    'about' => Yii::t('app', 'ABOUT'),
+	    'last_login' => Yii::t('app', 'LAST_LOGIN'),
+	    'rating' => Yii::t('app', 'RATING'),
+	    'birthdate' => Yii::t('app', 'BIRTHDATE'),
+	    'gender' => Yii::t('app', 'GENDER'),
+	    'city_id' => \Yii::t('app', 'CITY_ID'),
+	    'cityName' => \Yii::t('app', 'CITY_NAME'),
+	    'phone' => \Yii::t('app', 'PHONE'),
+	    'site' => \Yii::t('app', 'SITE'),
+	    'mark' => \Yii::t('app', 'MARK'),
+	    'password' => \Yii::t('app', 'PASSWORD'),
+	    'rePassword' => \Yii::t('app', 'CONFIRM_PASSWORD'),
+	    'professionField' => \Yii::t('app', 'PROFESSION_FIELD'),
 	];
     }
 
@@ -221,7 +221,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 
     public function getPosition() {
-	return $this->getCityName() && $this->getCountryName() ? $this->getCityName() . ", " . $this->getCountryName() : "Не указано";
+	return $this->getCityName() && $this->getCountryName() ? $this->getCityName() . ", " . $this->getCountryName() : ((string) \Yii::t('app','NOT_LISTED') );
     }
     
     public function getProfilePosition () {
@@ -361,7 +361,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      * @inheritdoc
      */
     public static function findIdentityByAccessToken($token, $type = null) {
-	throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+	throw new NotSupportedException('"findIdentityByAccessToken"'.((string) \Yii::t('app','IS_NOT_IMPLEMENTED') ));
     }
 
     /**
