@@ -19,6 +19,7 @@ class Controller extends \yii\web\Controller {
 	
 	$this->userImagePath = Yii::getAlias('@frontend/web') . $this->files;
 
+    //Yii::$app->request->headers->set('Accept-Language','ru-RU');
     $this->fromRequestHeader = Yii::$app->request->headers->get('Accept-Language');
     if($this->fromRequestHeader !== null && isset($this->fromRequestHeader))
     {
@@ -29,7 +30,7 @@ class Controller extends \yii\web\Controller {
         if($this->langFromRequest == 'uk_UA')
             $this->langFromRequest = 'ua_UA';
         if(array_key_exists($this->langFromRequest,Yii::$app->params['lang']))
-            Yii::$app->language = $this->langFromRequest; // 'ua_UA', 'ru_RU', 'en_US'
+            Yii::$app->language = $this->langFromRequest;
         else
             Yii::$app->language = 'ru_RU';
     } else {
@@ -53,9 +54,9 @@ class Controller extends \yii\web\Controller {
 	    $session->set("country", $cookies->getValue('country'));
 	}
 	
-	/*if($cookies->has('lang')) {
+	if($cookies->has('lang')) {
 	    \Yii::$app->language = $cookies->get('lang');
-	} else {
+	}/* else {
 	    \Yii::$app->language = 'ru_RU';
 	}*/
     }
