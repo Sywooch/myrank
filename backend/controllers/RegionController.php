@@ -6,7 +6,7 @@ use Yii;
 
 use frontend\models\Region;
 use backend\models\RegionSearch;
-use frontend\components\Controller;
+use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 

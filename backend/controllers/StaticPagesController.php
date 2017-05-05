@@ -5,7 +5,7 @@ namespace backend\controllers;
 use Yii;
 use frontend\models\StaticPages;
 use backend\models\StaticPagesSearch;
-use frontend\components\Controller;
+use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;

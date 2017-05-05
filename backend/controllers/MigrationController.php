@@ -5,7 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Migration;
 use backend\models\MigrationSearch;
-use frontend\components\Controller;
+use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 
 /**

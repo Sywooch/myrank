@@ -5,7 +5,7 @@ namespace backend\controllers;
 use Yii;
 use frontend\models\UserProfession1;
 use backend\models\UserProfession1Search;
-use frontend\components\Controller;
+use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
