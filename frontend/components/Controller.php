@@ -32,9 +32,9 @@ class Controller extends \yii\web\Controller {
         if(array_key_exists($this->langFromRequest,Yii::$app->params['lang']))
             Yii::$app->language = $this->langFromRequest;
         else
-            Yii::$app->language = 'ru_RU';
+            Yii::$app->language = 'en_US';
     } else {
-        Yii::$app->language = 'ru_RU';
+        Yii::$app->language = 'en_US';
     }
 	
 	$session = Yii::$app->session;
