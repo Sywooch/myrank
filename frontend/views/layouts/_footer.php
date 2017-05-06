@@ -34,7 +34,7 @@
 				['label' => Yii::t('app', 'HOME'), 'url' => ['site/index']],
 				['label' => Yii::t('app', 'ABOUT'), 'url' => ['/page/aboutus']],
 				['label' => Yii::t('app', 'ARTICLES'), 'url' => ['article/index']],
-				['label' => Yii::t('app', 'BALANCE'), 'url' => "#"],
+				['label' => Yii::t('app', 'BALANCE'), 'url' => ['/page/balance']],
 				['label' => Yii::t('app', 'HELP'), 'url' => ['/page/help']],
 				['label' => Yii::t('app', 'CONTACTS'), 'url' => ['/page/contacts']],
 				['label' => Yii::t('app', 'LEGALINFO'), 'url' => ['/page/legalinfo']],
@@ -49,14 +49,14 @@
 			<?=
 			\yii\widgets\Menu::widget([
 			    'items' => [
-				['label' => \Yii::t('app', 'ENTER'), 'url' => ['site/index']],
-				['label' => \Yii::t('app', 'REGISTER'), 'url' => ['/page/aboutus']],
-				['label' => \Yii::t('app', 'RESTORE_ACCESS'), 'url' => ['article/index']],
-				['label' => \Yii::t('app', 'RECOMMENDATIONS_EXECUTOR'), 'url' => "#"],
-				['label' => \Yii::t('app', 'RECOMMENDATIONS_CUSTOMER'), 'url' => ['/page/help']],
-				['label' => \Yii::t('app', 'SITE_SEARCH'), 'url' => ['/page/contacts']],
-				['label' => \Yii::t('app', 'PAID_OPTIONS_IN_PROJECTS'), 'url' => ['/page/legalinfo']],
-				['label' => \Yii::t('app', 'SITE_ADS'), 'url' => ['/page/legalinfo']],
+				['label' => \Yii::t('app', 'ENTER'), 'url' => ['#']],
+				['label' => \Yii::t('app', 'REGISTER'), 'url' => ['#']],
+				['label' => \Yii::t('app', 'RESTORE_ACCESS'), 'url' => ['#']],
+				['label' => \Yii::t('app', 'RECOMMENDATIONS_EXECUTOR'), 'url' => ['/page/recommendations_executor']],
+				['label' => \Yii::t('app', 'RECOMMENDATIONS_CUSTOMER'), 'url' => ['/page/recommendations_customer']],
+				['label' => \Yii::t('app', 'SITE_SEARCH'), 'url' => ['/users/search']],
+				['label' => \Yii::t('app', 'PAID_OPTIONS_IN_PROJECTS'), 'url' => ['/page/paid_options_in_projects']],
+				['label' => \Yii::t('app', 'SITE_ADS'), 'url' => ['/page/site_ads']],
 				['label' => \Yii::t('app', 'PRIVACY_POLICY'), 'url' => ['/page/privacy-policy']],
 			    ],
 			]);

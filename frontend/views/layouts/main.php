@@ -135,7 +135,7 @@ AppAsset::register($this);
 						    ['label' => Yii::t('app','HOME'), 'url' => ['site/index']],
 						    ['label' => Yii::t('app','ABOUT'), 'url' => ['/page/aboutus']],
 						    ['label' => Yii::t('app','ARTICLES'), 'url' => ['article/index']],
-						    ['label' => Yii::t('app','BALANCE'), 'url' => "#"],
+						    ['label' => Yii::t('app','BALANCE'), 'url' => ['/page/balance']],
 						    ['label' => Yii::t('app','HELP'), 'url' => ['/page/help']],
 						    ['label' => Yii::t('app','CONTACTS'), 'url' => ['/page/contacts']],
 						    ['label' => Yii::t('app','LEGALINFO'), 'url' => ['/page/legalinfo']],
