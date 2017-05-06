@@ -6,7 +6,7 @@ use Yii;
 
 use frontend\models\AccessCategoryRating;
 use backend\models\AccessCategoryRatingSearch;
-use frontend\components\Controller;
+use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
