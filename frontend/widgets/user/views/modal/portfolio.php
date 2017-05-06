@@ -23,6 +23,7 @@ use yii\helpers\Html;
     			<input id="images-name<?= $i ?>" name="Images[name<?= $i ?>]" data-url="<?= Url::toRoute(['media/imageupload', 'id' => $i]) ?>" type="file">
     		    </div>
     		</div>
+		<?php /* if(isset($image)) { ?><a href="#" style="color:red">Удалить</a><?php } */ ?>
     		<div class="b-modal__content__portfolio__item__content">
     		    <div class="row">
     			<div class="col-xs-12">
