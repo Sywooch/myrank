@@ -17,6 +17,7 @@ class AppAsset extends AssetBundle {
 	'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css',
 	'https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css',
 	'/dist/css/AdminLTE.min.css',
+    '/dist/css/AdminLTE.usermod.css',
 	'/dist/css/skins/_all-skins.min.css',
 	'/plugins/iCheck/flat/blue.css',
 	'/plugins/morris/morris.css',

@@ -30,7 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_article',
             'title',
             'abridgment',
-            'content:ntext',
+            [
+                'attribute'=>'content',
+                'format'=>'ntext',
+                'contentOptions' => ['class' => 'text-wrap'],
+                'value' => function($model, $key, $index, $column) {
+                    return mb_substr($model->content,0,200);
+                }
+            ],
             'header_title',
             //'header_image','header_image:image',
             [

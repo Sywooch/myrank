@@ -36,7 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Yii::$app->formatter->asBoolean($model->published);
                 },
             ],
-            'content:ntext',
+            [
+                'attribute'=>'content', //'attribute'=>'content:ntext',
+                'format'=>'ntext',
+                'contentOptions' => ['class' => 'text-wrap'],//'contentOptions' => ['style' => ['max-width' => '200px;', 'height' => '100px']],
+                'value' => function($model, $key, $index, $column) {
+                    return mb_substr($model->content,0,200);
+                }
+            ],
             'locale',
             'title_browser',
             'meta_keywords',
@@ -46,5 +53,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
+
     ]); ?>
 </div>
