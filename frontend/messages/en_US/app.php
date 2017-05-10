@@ -31,6 +31,7 @@ return [
     'MENU'=>'Menu',
     'PROFILE_AND_SERVICES'=>'Profile and services',
     'ENTER'=>'Enter',
+    'LOGOUT'=>'Logout',
     'SEND' => 'Send',
     'SAVE' => 'Save',
     'REGISTER'=>'Register',

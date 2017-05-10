@@ -1,3 +1,8 @@
+<?php
+use frontend\models\User;
+use yii\helpers\Url;
+
+?>
 <!-- begin b-footer -->
 <footer class="b-footer">
     <div class="b-footer__content">
@@ -49,9 +54,14 @@
 			<?=
 			\yii\widgets\Menu::widget([
 			    'items' => [
-				['label' => \Yii::t('app', 'ENTER'), 'url' => ['#']],
-				['label' => \Yii::t('app', 'REGISTER'), 'url' => ['#']],
-				['label' => \Yii::t('app', 'RESTORE_ACCESS'), 'url' => ['#']],
+			    ['label' => \Yii::t('app', 'LOGOUT'), 'url' => ['site/logout'],
+                    'visible' => (Yii::$app->user->id !== null)],
+				['label' => \Yii::t('app', 'ENTER'), 'url' => ['#'],
+                    'options'=>['class'=>'signin'], 'visible' => (Yii::$app->user->id === null)],
+				['label' => \Yii::t('app', 'REGISTER'), 'url' => ['#'],
+                    'options'=>['id'=>'registered'], 'visible' => 0], // ???
+				['label' => \Yii::t('app', 'RESTORE_ACCESS'), 'url' => ['#'],
+                    'options'=>['id'=>'rememberPass'], 'visible' => (Yii::$app->user->id === null)],
 				['label' => \Yii::t('app', 'RECOMMENDATIONS_EXECUTOR'), 'url' => ['/page/recommendations_executor']],
 				['label' => \Yii::t('app', 'RECOMMENDATIONS_CUSTOMER'), 'url' => ['/page/recommendations_customer']],
 				['label' => \Yii::t('app', 'SITE_SEARCH'), 'url' => ['/users/search']],
@@ -88,3 +98,21 @@
     </div>
 </footer>
 <!-- end b-footer -->
+<?php
+
+$this->registerJs ("$('.signin').on('click', function () {
+	url = '" . Url::toRoute("site/login") . "';
+	var csrf = '" . Yii::$app->request->getCsrfToken() . "';
+	showModal(url, '', 1);
+	return false;
+    });", \yii\web\View::POS_END);
+
+?>
+<script type="text/javascript">
+    $("#rememberPass").on('click', function() {
+        url = '<?= Url::toRoute(['site/requestpasswordreset']) ?>';
+        showModal(url, 0, 1);
+        return false;
+    });
+</script>
+
