@@ -26,9 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'title',
-            'alias',
+            //'alias',
             [
                 'attribute' => 'published',
                 'filter' => StaticPages::publishedDropDownList(),
@@ -41,15 +41,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'ntext',
                 'contentOptions' => ['class' => 'text-wrap'],//'contentOptions' => ['style' => ['max-width' => '200px;', 'height' => '100px']],
                 'value' => function($model, $key, $index, $column) {
-                    return mb_substr($model->content,0,200);
+                    return mb_substr(strip_tags($model->content),0,200);
                 }
             ],
             'locale',
-            'title_browser',
-            'meta_keywords',
-            'meta_description',
-            'create_time',
-            'update_time',
+            //'title_browser',
+            //'meta_keywords',
+            //'meta_description',
+            //'create_time',
+            //'update_time',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

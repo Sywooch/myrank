@@ -17,7 +17,7 @@ class StaticPagesSearch extends StaticPages
     {
         return [
             [['id', 'published'], 'integer'],
-            [['title', 'alias', 'content', 'locale', 'title_browser', 'meta_keywords', 'meta_description', 'create_time', 'update_time'], 'safe'],
+            [['title', 'alias', 'locale', 'title_browser', 'meta_keywords', 'meta_description', 'create_time', 'update_time'], 'safe'],
         ];
     }
 
@@ -51,7 +51,7 @@ class StaticPagesSearch extends StaticPages
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'alias', $this->alias])
-            ->andFilterWhere(['like', 'content', $this->content])
+            //->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'locale', $this->locale])
             ->andFilterWhere(['like', 'title_browser', $this->title_browser])
             ->andFilterWhere(['like', 'meta_keywords', $this->meta_keywords])
