@@ -1,12 +1,46 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+use yii\web\View;
 use yii\widgets\ActiveForm;
 use vova07\imperavi\Widget;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Article */
 /* @var $form yii\widgets\ActiveForm */
+
+$model->views = 0;
+$url = Url::toRoute(['article/getsubcategories']);
+$this->registerJs("
+(function(){
+    var select = $('#article-article_category_id');
+    var buildOptions = function(options) {
+        if (typeof options === 'object') {
+            select.children('option').remove();
+            $('<option />')
+                .appendTo(select)
+                .html('Выберите категорию новостей')
+            $.each(options, function(index, option) {
+                $('<option />', {value:option.id_article_category})
+                .appendTo(select)
+                .html(option.name);
+            });
+        }
+    };
+    var categoryOnChange = function(locale){
+        $.ajax({
+            dataType: 'json',
+            url: '" . $url . "/' + locale ,
+            success: buildOptions
+        });
+    };
+    window.buildOptions = buildOptions;
+    window.categoryOnChange = categoryOnChange;
+})();
+", View::POS_READY);
+
 ?>
 
 <div class="article-form">
@@ -53,13 +87,21 @@ use vova07\imperavi\Widget;
 
     <?= $form->field($model, 'header_image_small_square')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'article_category_id')->textInput() ?>
+    <?= $form->field($model, 'locale')->dropDownList(Yii::$app->params['lang'], [
+        'prompt' => 'Выберите локаль',
+        'onChange' => 'categoryOnChange($(this).val());',
+    ]); ?>
+
+    <?= $form->field($model, 'article_category_id')->dropDownList(
+        ArrayHelper::map(\frontend\models\ArticleCategory::getSubcategories($model->locale), 'id_article_category'
+            ,'name'), [
+        'prompt' => 'Выберите категорию новостей',
+    ])
+    ?>
 
     <?php /*echo $form->field($model, 'status')->checkbox(); */
         echo $form->field($model, 'status')->dropDownList($model->getItemAlias('status', null, null));
     ?>
-
-    <?= $form->field($model, 'locale')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'views')->textInput() ?>
 

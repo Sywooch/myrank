@@ -4,11 +4,12 @@ namespace backend\controllers;
 
 use Yii;
 use frontend\models\Article;
+use frontend\models\ArticleCategory;
 use backend\models\ArticleSearch;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\helpers\Json;
 
 class ArticleController extends Controller
 {
@@ -81,5 +82,13 @@ class ArticleController extends Controller
         } else {
             throw new NotFoundHttpException(((string) \Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND') ));
         }
+    }
+
+    public function actionGetsubcategories($locale)
+    {
+        if (!Yii::$app->request->isAjax) {
+            throw new \yii\web\HttpException(400, 'Разрешен только ajax-запрос.');
+        }
+        return Json::encode(ArticleCategory::getSubcategories($locale));
     }
 }

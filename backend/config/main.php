@@ -45,6 +45,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'GET profile/<id:\d+>' => 'site/profile',
+                'GET article/getsubcategories/<locale:\w+>'=> 'article/getsubcategories'
             ],
         ],
         'i18n' => [

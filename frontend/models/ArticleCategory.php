@@ -42,4 +42,17 @@ class ArticleCategory extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Article::className(), ['article_category_id' => 'id_article_category']);
     }
+
+    public static function getSubcategories($locale)
+    {
+        $subCategories = [];
+        if ($locale) {
+            $subCategories = self::find()
+                ->select(['id_article_category','name'])
+                ->where(['locale'=>$locale])
+                ->asArray()
+                ->all();
+        }
+        return $subCategories;
+    }
 }

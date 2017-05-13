@@ -27,9 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_article',
+            //'id_article',
             'title',
-            'abridgment',
+            //'abridgment',
+            [
+                'attribute'=>'abridgment',
+                'format'=>'text',
+                'contentOptions' => ['class' => 'text-wrap'],
+            ],
             [
                 'attribute'=>'content',
                 'format'=>'ntext',
@@ -51,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             //'header_image_small',
-            [
+            /*[
                 'label' => 'Заголовок среднее изображение',
                 'format' => 'raw',
                 'value' => function($data){
@@ -59,9 +64,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'style' => 'width:150px;'
                     ]);
                 },
-            ],
+            ],*/
             //'header_image_small_square',
-            [
+            /*[
                 'label' => 'Заголовок уменьшенное изображение',
                 'format' => 'raw',
                 'value' => function($data){
@@ -69,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'style' => 'width:50px;'
                     ]);
                 },
-            ],
+            ],*/
             'articleCategoryName', //'article_category_id' =>  'articleCategory.name',
             //'status',
             [
