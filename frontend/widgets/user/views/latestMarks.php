@@ -36,7 +36,11 @@ if (count($list) > 0) {
                 <?= \Yii::t('app','RATING_AVERAGE'); ?>:
 			</div>
 			<div class="b-last-marks__item__value showModal" data-url="<?= Url::toRoute(['users/markview', 'id' => $item->id]) ?>" style="cursor: pointer">
-			    <?= round($summMarks / $count, 1) ?>
+			    <?php if(($count != 0) && ($summMarks != 0)) {
+				echo round($summMarks / $count, 1);
+			    } else {
+				echo "0.0";
+			    } ?>
 			</div>
 		    </div>
 		</div>
