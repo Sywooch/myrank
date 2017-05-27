@@ -8,7 +8,16 @@ use yii\helpers\Url;
 use frontend\models\User;
 
 $this->title = 'MyRank.com';
-$mProf = Profession::find()->asArray()->all();
+$field = Profession::$locales[\Yii::$app->language->value];
+if($field != "") {
+    $select = [$field. " AS title"];
+} else {
+    $select = "title";
+}
+$mProf = Profession::find()
+	->select($select)
+	->asArray()
+	->all(); 
 ?>
 
 <!-- begin b-category -->

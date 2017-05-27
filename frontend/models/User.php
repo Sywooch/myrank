@@ -51,7 +51,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	self::ROLE_ACCESS_TYPE_ADVANCED => "advanced",
 	self::ROLE_ACCESS_TYPE_PREMIUM => "premium",
     ];
-    public static $typeUser = [
+    static public $typeUser = [
 	self::TYPE_USER_USER => "user",
 	self::TYPE_USER_COMPANY => "company",
 	self::TYPE_USER_ADMIN => "admin",
@@ -84,9 +84,24 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 	return [
 	    //[['first_name', 'last_name', 'city_id'], 'required'],
 	    [['company_id', 'profileviews', 'rating'], 'integer'],
-	    [['last_login', 'birthdate', 'city_id', 'phone',
-	    'site', 'mark', 'email', 'professionField',
-	    'type', 'step', 'image', 'company_name', 'marks_config'], 'safe'],
+	    [
+		[
+		    'last_login',
+		    'birthdate',
+		    'city_id',
+		    'phone',
+		    'site',
+		    'mark',
+		    'email',
+		    'professionField',
+		    'type',
+		    'step',
+		    'image',
+		    'company_name',
+		    'marks_config',
+		    'password',
+		    'rePassword'
+		], 'safe'],
 	    [['image'], 'string', 'max' => 255],
 	    [['first_name', 'last_name', 'about'], 'string', 'max' => 50],
 	];
@@ -172,14 +187,16 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 
     //
-    
-    public function getProfileProfession () {
+
+    public function getProfileProfession() {
 	switch ($this->type) {
 	    case self::TYPE_USER_COMPANY:
 		$out = $this->company->companyProfession;
 		break;
 	    case self::TYPE_USER_USER:
 		$out = $this->userProfession;
+		break;
+	    default : $out = [];
 		break;
 	}
 	return $out;
@@ -221,10 +238,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 
     public function getPosition() {
-	return $this->getCityName() && $this->getCountryName() ? $this->getCityName() . ", " . $this->getCountryName() : ((string) \Yii::t('app','NOT_LISTED') );
+	return $this->getCityName() && $this->getCountryName() ? $this->getCityName() . ", " . $this->getCountryName() : ((string) \Yii::t('app', 'NOT_LISTED') );
     }
-    
-    public function getProfilePosition () {
+
+    public function getProfilePosition() {
 	switch ($this->type) {
 	    case self::TYPE_USER_USER:
 		$out = $this->position;
@@ -302,16 +319,16 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     }
 
     // Checkouts
-    
+
     public function getOwner() {
 	return (\Yii::$app->user->id === NULL) ? FALSE : (\Yii::$app->user->id == $this->id) ? TRUE : FALSE;
     }
-    
-    public function getTestimonial () {
+
+    public function getTestimonial() {
 	return $this->getTestimonialsTo()->andWhere(['user_from' => \Yii::$app->user->id]);
     }
-    
-    public function getHasTestimonial () {
+
+    public function getHasTestimonial() {
 	return $this->getTestimonial()->count() > 0;
     }
 
@@ -347,6 +364,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 
     public function beforeSave($insert) {
 	isset($this->id) ? $this->saveProfession() : NULL;
+	if(isset($this->password) && ($this->password != "")) {
+	    $this->setPassword($this->password);
+	    $this->generateAuthKey();
+	}
 	return parent::beforeSave($insert);
     }
 
@@ -361,7 +382,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      * @inheritdoc
      */
     public static function findIdentityByAccessToken($token, $type = null) {
-	throw new NotSupportedException('"findIdentityByAccessToken"'.((string) \Yii::t('app','IS_NOT_IMPLEMENTED') ));
+	throw new NotSupportedException('"findIdentityByAccessToken"' . ((string) \Yii::t('app', 'IS_NOT_IMPLEMENTED') ));
     }
 
     /**
@@ -440,7 +461,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      * @return bool if password provided is valid for current user
      */
     public function validatePassword($password) {
-	Logs::saveLog(var_export([$this->password_hash, $password], true));
+	//Logs::saveLog(var_export([$this->password_hash, $password], true));
 	//return $this->password_hash === sha1($password);
 	return Yii::$app->security->validatePassword($password, $this->password_hash);
     }

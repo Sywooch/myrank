@@ -19,7 +19,7 @@ class UsersController extends Controller {
      */
     public function actionIndex() {
 	$dataProvider = new ActiveDataProvider([
-	    'query' => User::find(),
+	    'query' => User::find()->orderBy('type DESC, id ASC'),
 	]);
 
 	return $this->render('index', [
@@ -62,13 +62,15 @@ class UsersController extends Controller {
     public function actionUpdate($id) {
 	$model = $this->findModel($id);
 
-	if ($model->load(Yii::$app->request->post()) && $model->save()) {
-	    return $this->redirect(['view', 'id' => $model->id]);
-	} else {
-	    return $this->render('update', [
-			'model' => $model,
-	    ]);
+	if ($model->load(Yii::$app->request->post()) && ($model->password === $model->rePassword)) {
+	    if ($model->save()) {
+		return $this->redirect(['view', 'id' => $model->id]);
+	    }
 	}
+
+	return $this->render('update', [
+		    'model' => $model,
+	]);
     }
 
     /**
@@ -94,7 +96,7 @@ class UsersController extends Controller {
 	if (($model = User::findOne($id)) !== null) {
 	    return $model;
 	} else {
-	    throw new NotFoundHttpException(((string) \Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND') ));
+	    throw new NotFoundHttpException(((string) \Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND')));
 	}
     }
 

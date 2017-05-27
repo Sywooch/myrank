@@ -16,6 +16,12 @@ class Profession extends \yii\db\ActiveRecord {
     
     public $listProf;
     public $prefixLang = 'title_';
+    
+    public static $locales = [
+	'ru_RU' => 'title',
+	'en_US' => 'title_en',
+	'ua_UA' => 'title_ua',
+    ];
 
     /**
      * @inheritdoc
