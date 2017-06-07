@@ -32,7 +32,7 @@ class Rating extends Component {
 	$this->model = $mUser;
 
 	$this->processMark();
-	$this->processTestimonials();
+	//$this->processTestimonials();
 	$this->trustCount();
 	$this->userInfo();
 	
