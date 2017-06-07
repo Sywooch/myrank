@@ -243,7 +243,7 @@ $this->registerJs("
 	}, 'json');
     })", yii\web\View::POS_END);
 
-
+$i = 0;
 echo FileUploadWidget::widget([
     'model' => new frontend\models\Images(),
     'attribute' => 'name' . $i,
