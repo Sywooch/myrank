@@ -103,7 +103,7 @@ class AuthHandler {
 			]);
 			if ($auth->save()) {
 			    $transaction->commit();
-			    Yii::$app->user->login($user, Yii::$app->params['user.rememberMe']);
+			    Yii::$app->user->login($user, Yii::$app->params['user']['rememberMe']);
 			} else {
 			    Yii::$app->getSession()->setFlash('error', [
 				Yii::t('app', 'UNABLE_TO_SAVE_client_ACCOUNT_errors', [
