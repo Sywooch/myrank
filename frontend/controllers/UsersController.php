@@ -26,25 +26,6 @@ use frontend\models\Marks;
  * @author dmitrywp
  */
 class UsersController extends Controller {
-    /*
-      public function behaviors() {
-      return [
-      'access' => [
-      'class' => AccessControl::className(),
-      'rules' => [
-      [
-      'actions' => ['search', 'error'],
-      'allow' => true,
-      ],
-      [
-      'actions' => ['profile'],
-      'allow' => true,
-      'roles' => ['@'],
-      ],
-      ],
-      ],
-      ];
-      } */
 
     public function actionProfile() {
 	$req = \Yii::$app->request->get();
