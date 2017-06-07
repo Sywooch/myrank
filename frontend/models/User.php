@@ -265,6 +265,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
 
     public function getMarks() {
 	$configMarksArr = $this->configMarks;
+	$arr = [];
 
 	$model = Marks::find()->all();
 	foreach ($model as $item) {
