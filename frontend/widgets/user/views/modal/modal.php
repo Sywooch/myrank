@@ -44,9 +44,9 @@ use yii\widgets\ActiveForm;
 		    <div class="col-xs-12">
 			<span><?= $item['label'] ?></span>
 			<div <?= isset($item['divClass']) ? 'class="' . $item['divClass'] . '"' : "" ?>>
-			<?= $form
+			<?php echo $form
 			    ->field($model, $key)
-			    ->$item['type']($item['options'], "")
+			    ->$item['type']($item['options'], $posOpt)
 			    ->label(FALSE); ?>
 			</div>
 		    <?= isset($item['posInfo']) ? "<i>" . $item['posInfo'] . "</i>" : "" ?>
