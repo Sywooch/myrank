@@ -25,7 +25,7 @@ class LatestMarksWidget extends \yii\base\Widget {
 	return $this->render("latestMarks", [
 	    'model' => $this->model,
 	    'list' => $this->list,
-	    'marks' => $this->marks[0],
+	    'marks' => isset($this->marks[0]) ? $this->marks[0] : [],
 	    'count' => $this->count
 	]);
     }
