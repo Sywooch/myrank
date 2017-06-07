@@ -144,7 +144,7 @@ $this->title = \Yii::t('app', 'USER_PROFILE');
 				UserInfoWidget::widget([
 				    'model' => $mUser,
 				    'fields' => [
-					$fieldVal['phone'] => $mUser->phone,
+				    isset($fieldVal['phone']) ? $fieldVal['phone'] : 'phone'  => $mUser->phone,
 				    ],
 				]);
 				?>
