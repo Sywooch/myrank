@@ -8,7 +8,7 @@ use yii\helpers\Url;
 use frontend\models\User;
 
 $this->title = 'MyRank.com';
-$field = Profession::$locales[\Yii::$app->language->value];
+$field = Profession::$locales[\Yii::$app->language];
 if($field != "") {
     $select = [$field. " AS title"];
 } else {

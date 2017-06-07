@@ -3,8 +3,8 @@
 /frontend/web/index.php
 /frontend/web/index-test.php
 
-composer.json
-composer.lock
+/composer.json
+/composer.lock
 
 # yii console commands
 /yii

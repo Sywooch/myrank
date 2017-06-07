@@ -11,7 +11,7 @@ class m170327_124122_add_pages extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->alterColumn('{{%article}}','update_time','timestamp on update current_timestamp');
+        //$this->alterColumn('{{%article}}','update_time','timestamp on update current_timestamp');
 
         $this->createTable('{{%static_pages}}',[
             'id'   => $this->bigPrimaryKey(20),
@@ -23,7 +23,7 @@ class m170327_124122_add_pages extends Migration
             'meta_keywords' => $this->string(200)->comment(""),
             'meta_description'  => $this->string(160)->comment(""),
             'create_time' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP')->comment("Отметка времени создания"),
-            'update_time' => $this->timestamp()->append('ON UPDATE CURRENT_TIMESTAMP'),//created_at, updated_at
+            'update_time' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),//created_at, updated_at
         ], $tableOptions
         );
 
@@ -86,6 +86,6 @@ class m170327_124122_add_pages extends Migration
         $this->dropIndex('idx-static_pages-alias','static_pages');
         $this->dropTable('{{%static_pages}}');
         $this->alterColumn('{{%article}}','update_time',//'timestamp on update current_timestamp');
-            $this->timestamp()->null()->defaultValue(null)->append('ON UPDATE CURRENT_TIMESTAMP')->comment("Отметка времени обновления"));
+            $this->timestamp()->null()->defaultValue(null)->comment("Отметка времени обновления"));
     }
 }
