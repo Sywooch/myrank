@@ -15,6 +15,7 @@ class MarksDiagramWidget extends MarksWidget {
 
     public function init() {
 	parent::init();
+	$out = [];
 	
 	$markUsers = $this->model->getUserMarksTo()->select('description')->asArray()->all();
 	isset($this->model->mark) ? $markUsers[]['description'] = $this->model->mark : NULL;
