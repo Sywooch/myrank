@@ -64,7 +64,7 @@ class AuthHandler {
 		$user = $auth->user;
 		$this->updateUserInfo($user);
 		\Yii::$app->rating->process($user);
-		Yii::$app->user->login($user, Yii::$app->params['user.rememberMe']);
+		Yii::$app->user->login($user, Yii::$app->params['user']['rememberMe']);
 	    } else { // signup
 		if ($email !== null && User::find()->where(['email' => $email])->exists()) {
 		    $user = User::find()->where(['email' => $email])->one();
@@ -75,7 +75,7 @@ class AuthHandler {
 		    ]);
 		    if ($auth->save()) {
 			Yii::$app->rating->process($user);
-			Yii::$app->user->login($user, Yii::$app->params['user.rememberMe']);
+			Yii::$app->user->login($user, Yii::$app->params['user']['rememberMe']);
 		    }
 		} else {
 		    $userAttr['password'] = Yii::$app->security->generateRandomString(6);
