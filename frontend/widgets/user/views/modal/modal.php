@@ -38,7 +38,7 @@ use yii\widgets\ActiveForm;
 	    	    </div>
 			<?php
 		    }
-		} else {
+		}/* else {
 		    $posOpt = isset($item['posOpt']) ? $item['posOpt'] : [];
 		    ?>
 		    <div class="col-xs-12">
@@ -51,7 +51,7 @@ use yii\widgets\ActiveForm;
 			</div>
 		    <?= isset($item['posInfo']) ? "<i>" . $item['posInfo'] . "</i>" : "" ?>
 		    </div>
-	    <?php } ?>
+	    <?php }*/ ?>
     	</div>
 <?php } ?>
 	<div class="row">
