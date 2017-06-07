@@ -24,34 +24,33 @@ use yii\widgets\ActiveForm;
 	</div>
 	<?php } ?>
 	<?php foreach ($content as $key => $item) { ?>
-    	<div class="row" <?= $item['type'] == 'hiddenInput' ? "style='display:none'" : "" ?>>
+	<div class="row" <?= isset($item['type']) && $item['type'] == 'hiddenInput' ? "style='display:none'" : "" ?>>
 		<?php
 		if (!isset($content[$key]['label'])) {
 		    foreach ($item as $keyEl => $el) {
+			$elType = $el['type'];
 			?>
 	    	    <div class="col-xs-12 col-sm-<?= 12 / count($item) ?>">
 	    		<span><?= $el['label'] ?></span>
 	    		<div <?= isset($el['divClass']) ? 'class="' . $el['divClass'] . '"' : "" ?>>
-			    <?= $form->field($model, $keyEl)->$el['type']($el['options'])->label(FALSE); ?>
+			    <?= $form->field($model, $keyEl)->$elType($el['options'])->label(FALSE); ?>
 	    		</div>
 			<?= isset($el['posInfo']) ? "<i>" . $el['posInfo'] . "</i>" : "" ?>
 	    	    </div>
 			<?php
 		    }
-		}/* else {
+		} else {
 		    $posOpt = isset($item['posOpt']) ? $item['posOpt'] : [];
+		    $itemType = $item['type'];
 		    ?>
 		    <div class="col-xs-12">
 			<span><?= $item['label'] ?></span>
 			<div <?= isset($item['divClass']) ? 'class="' . $item['divClass'] . '"' : "" ?>>
-			<?php echo $form
-			    ->field($model, $key)
-			    ->$item['type']($item['options'], $posOpt)
-			    ->label(FALSE); ?>
+			<?php echo $form->field($model, $key)->$itemType($item['options'], $posOpt)->label(FALSE); ?>
 			</div>
 		    <?= isset($item['posInfo']) ? "<i>" . $item['posInfo'] . "</i>" : "" ?>
 		    </div>
-	    <?php }*/ ?>
+	    <?php } ?>
     	</div>
 <?php } ?>
 	<div class="row">
