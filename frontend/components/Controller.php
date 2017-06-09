@@ -31,7 +31,7 @@ class Controller extends \yii\web\Controller {
 		'name' => 'country',
 		'value' => $country,
 		'path' => "/",
-		'domain' => 'myrankf.site4ever.com',
+		'domain' => 'myrank.com',
 		'expire' => time() + 365 * 24 * 60 * 60,
 	    ]));
 	} else if (!$session->has("country") && $cookies->has("country")) {
@@ -39,7 +39,7 @@ class Controller extends \yii\web\Controller {
 	}
 
 	if ($cookies->has('lang')) {
-	    \Yii::$app->language = $cookies->get('lang');
+	    \Yii::$app->language = $cookies->get('lang')->value;
 	}/* else {
 	  \Yii::$app->language = 'ru_RU';
 	  } */ 
