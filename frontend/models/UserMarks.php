@@ -5,6 +5,8 @@ namespace frontend\models;
 use Yii;
 use yii\helpers\Json;
 
+//use frontend\models\UserConstant;
+
 /**
  * This is the model class for table "user_marks".
  *
@@ -14,72 +16,56 @@ use yii\helpers\Json;
  * @property string $description
  * @property string $created
  */
-class UserMarks extends \yii\db\ActiveRecord {
-    
+class UserMarks extends UserConstant {
+
     const COUNT_LIST_USER_PROFILE = 5;
 
     /**
      * @inheritdoc
      */
     public static function tableName() {
-	return 'user_marks';
+        return 'user_marks';
     }
 
     /**
      * @inheritdoc
      */
     public function rules() {
-	return [
-	    [['user_to', 'user_from'], 'integer'],
-	    [['description'], 'string'],
-	    [['created'], 'safe'],
-	];
+        return [
+            [['to_id', 'from_id', 'type_from', 'type_to'], 'integer'],
+            [['description'], 'string']
+        ];
     }
 
     /**
      * @inheritdoc
      */
     public function attributeLabels() {
-	return [
-	    'id' => 'ID',
-	    'user_to' => 'USER_TO',
-	    'user_from' => 'USER_FROM',
-	    'description' => 'DESCRIPTION',
-	    'created' => 'CREATED',
-	];
-    }
-    
-    public function getUser () {
-	return $this->hasOne(User::className(), ['id' => 'user_from']);
-    }
-    
-    public function getDescrArr () {
-	$out = Json::decode($this->description, true);
-	return $out[0];
+        return [
+            'id' => 'ID',
+            'user_to' => 'USER_TO',
+            'user_from' => 'USER_FROM',
+            'description' => 'DESCRIPTION',
+            'created' => 'CREATED',
+        ];
     }
 
-    public function getUserFrom() {
-        return $this->hasOne(User::className(), ['id' => 'user_from'])->from(User::tableName() . ' AS userFrom');
+    public function getUser() {
+        $class = ($this->type_from == User::TYPE_USER_COMPANY) ? Company::className() : User::className();
+        return $this->hasOne($class, ['id' => 'from_id']);
     }
 
-    public function getUserTo() {
-        return $this->hasOne(User::className(), ['id' => 'user_to'])->from(User::tableName() . ' AS userTo');
+    public function getDescrArr() {
+        $out = Json::decode($this->description, true);
+        return $out[0];
     }
 
-    public function getFullNameFrom() {
-        return $this->userFrom ? ($this->userFrom->first_name.' '.$this->userFrom->last_name) : ((string) \Yii::t('app','NO_USER') );
-    }
-
-    public function getFullNameTo() {
-        return $this->userTo ? ($this->userTo->first_name.' '.$this->userTo->last_name) : ((string) \Yii::t('app','NO_USER') );
-    }
-    
-    public function getMarkNames () {
-	$model = Marks::find()->where(['parent_id' => 0])->all();
-	foreach ($model as $item) {
-	    $out[$item->id] = $item->name;
-	}
-	return $out;
+    public function getMarkNames() {
+        $model = Marks::find()->where(['parent_id' => 0])->all();
+        foreach ($model as $item) {
+            $out[$item->id] = $item->name;
+        }
+        return $out;
     }
 
 }

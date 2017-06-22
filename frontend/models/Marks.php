@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author Shilo Dmitry
+ * @email dmitrywp@gmail.com
+ */
+
 namespace frontend\models;
 
 use Yii;
@@ -18,71 +23,71 @@ use yii\helpers\ArrayHelper;
 class Marks extends \yii\db\ActiveRecord {
 
     static $lists = [];
-    
+
     const MARKS_ACCESS_ALL = 0;
     const MARKS_ACCESS_USER = 1;
     const MARKS_ACCESS_COMPANY = 2;
     const MARKS_ACCESS_FRONT_ALL = 1;
     const MARKS_ACCESS_FRONT_NONE = 2;
 
-    public static function marksAccess () {
-	return [
-	    self::MARKS_ACCESS_ALL => (string) \Yii::t('app','MARKS_ACCESS_ALL'),
-	    self::MARKS_ACCESS_USER => (string) \Yii::t('app','MARKS_ACCESS_USER'),
-	    self::MARKS_ACCESS_COMPANY => (string) \Yii::t('app','MARKS_ACCESS_COMPANY'),
-	];
+    public static function marksAccess() {
+        return [
+            self::MARKS_ACCESS_ALL => (string) \Yii::t('app', 'MARKS_ACCESS_ALL'),
+            self::MARKS_ACCESS_USER => (string) \Yii::t('app', 'MARKS_ACCESS_USER'),
+            self::MARKS_ACCESS_COMPANY => (string) \Yii::t('app', 'MARKS_ACCESS_COMPANY'),
+        ];
     }
-    
-    public static function marksAccessFront () {
-	return [
-	    self::MARKS_ACCESS_FRONT_ALL => (string) \Yii::t('app','MARKS_ACCESS_FRONT_ALL'),
-	    self::MARKS_ACCESS_FRONT_NONE => (string) \Yii::t('app','MARKS_ACCESS_FRONT_NONE'),
-	];
-    } 
-    
+
+    public static function marksAccessFront() {
+        return [
+            self::MARKS_ACCESS_FRONT_ALL => (string) \Yii::t('app', 'MARKS_ACCESS_FRONT_ALL'),
+            self::MARKS_ACCESS_FRONT_NONE => (string) \Yii::t('app', 'MARKS_ACCESS_FRONT_NONE'),
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public static function tableName() {
-	return 'marks';
+        return 'marks';
     }
 
     /**
      * @inheritdoc
      */
     public function rules() {
-	return [
-	    [['parent_id'], 'integer'],
-	    [['name'], 'string', 'max' => 255],
-	    [['access', 'type', 'required'], 'safe'],
-	];
+        return [
+            [['parent_id'], 'integer'],
+            [['name'], 'string', 'max' => 255],
+            [['access', 'type', 'required'], 'safe'],
+        ];
     }
 
     /**
      * @inheritdoc
      */
     public function attributeLabels() {
-	return [
-	    'id' => Yii::t('app', 'ID'),
-	    'name' => Yii::t('app', 'MARKS_NAME'),
-	    'parent_id' => Yii::t('app', 'PARENT_ID'),
-	    'access' => Yii::t('app', 'MARKS_ACCESS'),
-	    'type' => Yii::t('app', 'MARKS_TYPE'),
-	];
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'MARKS_NAME'),
+            'parent_id' => Yii::t('app', 'PARENT_ID'),
+            'access' => Yii::t('app', 'MARKS_ACCESS'),
+            'type' => Yii::t('app', 'MARKS_TYPE'),
+        ];
     }
 
     public static function getList() {
-	if (empty(self::$lists)) {
-	    $mMarks = Marks::find()
-			    ->select(['id', 'name'])->where(['parent_id' => 0])
-			    ->all();
-	    self::$lists[0] = (string) \Yii::t('app','WITHOUT_PARENT');
+        if (empty(self::$lists)) {
+            $mMarks = Marks::find()
+                    ->select(['id', 'name'])->where(['parent_id' => 0])
+                    ->all();
+            self::$lists[0] = (string) \Yii::t('app', 'WITHOUT_PARENT');
 
-	    foreach ($mMarks as $item) {
-		self::$lists[$item->id] = $item->name;
-	    }
-	}
-	return self::$lists;
+            foreach ($mMarks as $item) {
+                self::$lists[$item->id] = $item->name;
+            }
+        }
+        return self::$lists;
     }
 
 }

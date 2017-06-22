@@ -13,7 +13,7 @@ use yii\helpers\Url;
 		<div class="b-last-users__item">
 		    <div class="b-last-users__item__header">
 			<div class="b-last-users__item__image">
-			    <img src="<?= $item->userImage ?>" alt="">
+			    <img src="<?= $item->imageName ?>" alt="">
 			</div>
 		    </div>
 		    <div class="b-last-users__item__content">

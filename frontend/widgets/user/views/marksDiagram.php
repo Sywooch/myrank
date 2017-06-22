@@ -22,7 +22,7 @@ var LegendOptions = ["Smartphone","Tablet"];
 var d = [
 		  [';
 foreach (isset($allList[0]) ? $allList[0] : [] as $key => $item) {
-    if(count($allList[$key]) > 0) {
+    if(isset($allList[$key]) && count($allList[$key]) > 0) {
 	$script .= '{axis:"' . $item . '",value:' . (isset($list[$key]) ? $list[$key] : 0) . '},';
     }
 }

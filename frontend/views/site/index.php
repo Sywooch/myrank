@@ -10,9 +10,9 @@ use frontend\models\User;
 $this->title = 'MyRank.com';
 $field = Profession::$locales[\Yii::$app->language];
 if($field != "") {
-    $select = [$field. " AS title"];
+    $select = ["id" ,$field. " AS title"];
 } else {
-    $select = "title";
+    $select = ["id", "title"];
 }
 $mProf = Profession::find()
 	->select($select)

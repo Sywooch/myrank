@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Url;
+use yii\helpers\Html;
 ?>
 <div class="b-rating">
     <div class="container">
@@ -16,7 +17,7 @@ use yii\helpers\Url;
 		<div class="b-rating__item">
 		    <div class="b-rating__item__header">
 			<div class="b-rating__item__image">
-			    <img src="<?= $item->userImage ?>" alt="">
+			    <img src="<?= $item->imageName ?>" alt="">
 			    <div class="b-rating__item__info">
 				<ul>
 				    <?php foreach ($item->getUserProfession()->limit(3)->all() as $item2) { ?>
@@ -35,9 +36,7 @@ use yii\helpers\Url;
 		    </div>
 		    <div class="b-rating__item__content">
 			<div class="b-rating__item__title">
-			    <a href="<?= Url::toRoute(['users/profile', 'id' => $item->id]) ?>">
-					    <?= $item->fullName ?>
-			    </a>
+                            <?= Html::a($item->fullName, $item->profileLink) ?>
 			</div>
 			<div class="b-rating__item__text"><?= $item->company_post ?></div>
 		    </div>

@@ -69,9 +69,9 @@ class Testimonials extends \yii\db\ActiveRecord {
      */
     public function rules() {
 	return [
-	    [['user_from', 'user_to', 'smile', 'who_from_to', 'text'], 'required'],
+	    [['from_id', 'to_id', 'smile', 'who_from_to', 'text'], 'required'],
 	    [['text'], 'string'],
-	    [['user_from', 'user_to', 'smile', 'parent_id'], 'integer'],
+	    [['type_from', 'from_id', 'type_to', 'to_id', 'smile', 'parent_id'], 'integer'],
 	    [['user_from', 'status'], 'safe'],
 	];
     }

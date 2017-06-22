@@ -15,7 +15,7 @@
     "minimum-stability": "stable",
     "require": {
 	"php": ">=5.4.0",
-	"yiisoft/yii2": "~2.0.6",
+	"yiisoft/yii2": "~2.0.12",
 	"yiisoft/yii2-bootstrap": "~2.0.0",
 	"yiisoft/yii2-swiftmailer": "~2.0.0",
 	"yiisoft/yii2-authclient": "*",
@@ -23,7 +23,8 @@
 	"2amigos/yii2-file-upload-widget": "~1.0",
 	"vova07/yii2-imperavi-widget": "*",
 	"yii2mod/yii2-google-maps-markers": "*",
-	"lysenkobv/yii2-geoip": "~1.0"
+	"lysenkobv/yii2-geoip": "~1.0",
+        "sammaye/yii2-audittrail": "^1.2"
     },
     "require-dev": {
 	"yiisoft/yii2-debug": "~2.0.0",

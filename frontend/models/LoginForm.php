@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author Shilo Dmitry
+ * @email dmitrywp@gmail.com
+ */
+
 namespace frontend\models;
 
 use Yii;
@@ -19,23 +24,23 @@ class LoginForm extends Model {
      * @inheritdoc
      */
     public function rules() {
-	return [
-	    // username and password are both required
-	    [['username', 'password'], 'required'],
-	    [['username'], 'email'],
-	    // rememberMe must be a boolean value
-	    ['rememberMe', 'boolean'],
-	    // password is validated by validatePassword()
-	    ['password', 'validatePassword'],
-	];
+        return [
+            // username and password are both required
+            [['username', 'password'], 'required'],
+            [['username'], 'email'],
+            // rememberMe must be a boolean value
+            ['rememberMe', 'boolean'],
+            // password is validated by validatePassword()
+            ['password', 'validatePassword'],
+        ];
     }
-    
+
     public function attributeLabels() {
-	//parent::attributeLabels();
-	return [
-	    'username' => \Yii::t('app','EMAIL'),
-	    'password' => \Yii::t('app','PASSWORD')
-	];
+        //parent::attributeLabels();
+        return [
+            'username' => \Yii::t('app', 'EMAIL'),
+            'password' => \Yii::t('app', 'PASSWORD')
+        ];
     }
 
     /**
@@ -46,14 +51,14 @@ class LoginForm extends Model {
      * @param array $params the additional name-value pairs given in the rule
      */
     public function validatePassword($attribute, $params) {
-	
-	if (!$this->hasErrors()) {
-	    $user = $this->getUser();
-	    Logs::saveLog(var_export($this->password, true));
-	    if (!$user || !$user->validatePassword($this->password)) {
-		$this->addError($attribute, \Yii::t('app','INCORRECT_LOGIN_OR_PASSWORD'));
-	    }
-	}
+
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+            Logs::saveLog(var_export($this->password, true));
+            if (!$user || !$user->validatePassword($this->password)) {
+                $this->addError($attribute, \Yii::t('app', 'INCORRECT_LOGIN_OR_PASSWORD'));
+            }
+        }
     }
 
     /**
@@ -62,13 +67,13 @@ class LoginForm extends Model {
      * @return bool whether the user is logged in successfully
      */
     public function login() {
-	if ($this->validate()) {
-	    $mUser = $this->getUser();
-	    \Yii::$app->rating->process($mUser);
-	    return Yii::$app->user->login($mUser, 3600 * 24 * 30);
-	} else {
-	    return false;
-	}
+        if ($this->validate()) {
+            $mUser = $this->getUser();
+            \Yii::$app->rating->process($mUser);
+            return Yii::$app->user->login($mUser, 3600 * 24 * 30);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -77,11 +82,11 @@ class LoginForm extends Model {
      * @return User|null
      */
     protected function getUser() {
-	if ($this->_user === null) {
-	    $this->_user = User::findByEmail($this->username);
-	}
+        if ($this->_user === null) {
+            $this->_user = User::findByEmail($this->username);
+        }
 
-	return $this->_user;
+        return $this->_user;
     }
 
 }

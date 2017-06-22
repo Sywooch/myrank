@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author Shilo Dmitry
+ * @email dmitrywp@gmail.com
+ */
+
 namespace frontend\models;
 
 use Yii;
@@ -11,21 +16,19 @@ use Yii;
  * @property integer $company_id
  * @property integer $profession_id
  */
-class CompanyProfession extends \yii\db\ActiveRecord
-{
+class CompanyProfession extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'company_profession';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['company_id', 'profession_id'], 'integer'],
         ];
@@ -34,12 +37,12 @@ class CompanyProfession extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => Yii::t('app', 'ID'),
             'company_id' => Yii::t('app', 'COMPANY_ID'),
             'profession_id' => Yii::t('app', 'PROFESSION_ID'),
         ];
     }
+
 }

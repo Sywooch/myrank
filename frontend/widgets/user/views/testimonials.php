@@ -23,7 +23,7 @@ use yii\helpers\Url;
 	    <?php foreach ($list as $key => $item) { ?>
 		<div class="b-comments__item" data-id="<?= $item->id ?>" id="testimonials<?= $item->id ?>">
 		    <div class="b-comments__item__image">
-			<img src="<?= $item->userFrom->userImage ?>" alt="">
+			<img src="<?= $item->userFrom->imageName ?>" alt="">
 			<div class="b-comments__item__number">
 			    <?= $item->userFrom->rating ?>
 			</div>
@@ -56,7 +56,7 @@ use yii\helpers\Url;
 			<?php if (isset($item->answer->id)) { ?>
 	    		<div class="b-comments__item__answer">
 	    		    <div class="b-comments__item__answer__image">
-	    			<img src="<?= $item->answer->userFrom->userImage ?>" alt="">
+	    			<img src="<?= $item->answer->userFrom->imageName ?>" alt="">
 	    		    </div>
 	    		    <div class="b-comments__item__answer__text">
 	    			<p><?= $item->answer->text ?></p>

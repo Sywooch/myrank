@@ -2,7 +2,7 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-$i = 1;
+$i = 0;
 ?>
 <div class="b-modal__header">
     <?= \Yii::t('app','UPLOAD_AVATAR'); ?>

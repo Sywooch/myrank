@@ -59,7 +59,12 @@ echo ModalWidget::widget([
 	    'label' => "",
 	    'type' => "hiddenInput",
 	    'options' => []
-	]
+	],
+        'city_id' => [
+            'label' => "",
+            'type' => 'hiddenInput',
+            'options' => [],
+        ],
     ],
     'success' => 'location.reload(true)',
     'script' => '$( function() {

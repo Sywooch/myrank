@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="b-article__header__info">
                         <div class="b-articles__item__tags">
-                            <a href="<?= Url::to(['article/index', 'category' => $model->article_category_id]); ?>"><?= Html::encode($model->articleCategory->name) ?></a>
+                            <a href="<?= Url::to(['article/index', 'category' => $model->article_category_id]); ?>"><?= Html::encode($model->articleCategoryName) ?></a>
                         </div>
                         <div class="b-article__header__info__social">
                             <!--<a href="#"><img src="images/b-article__header__info__social/1.jpg" alt=""></a>-->

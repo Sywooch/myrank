@@ -46,6 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		    return User::$typeUser[$data->type];
 		}
 	    ],
+                    'company_id',
 
 	    ['class' => 'yii\grid\ActionColumn'],
 	],

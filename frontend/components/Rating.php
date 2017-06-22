@@ -28,11 +28,11 @@ class Rating extends Component {
     private $model;
     private $rating = 0;
 
-    public function process($mUser) {
-	$this->model = $mUser;
+    public function process($model) {
+	$this->model = $model;
 
 	$this->processMark();
-	//$this->processTestimonials();
+	$this->processTestimonials();
 	$this->trustCount();
 	$this->userInfo();
 	
@@ -58,7 +58,7 @@ class Rating extends Component {
     }
 
     private function processTestimonials() {
-	$model = $this->model->getTestimonials()->andWhere(['parent_id' => self::MAIN_PARENT])->groupBy("user_from")->asArray()->all();
+	$model = $this->model->getTestimonialsFrom()->andWhere(['parent_id' => self::MAIN_PARENT])->groupBy("from_id")->asArray()->all();
 	foreach ($model as $item) {
 	    $summ = $this->trustBackUser($item) ? self::USER_TRUST_SUMM_BACK : self::USER_TRUST_SUMM_NO_BACK;
 	    if ($item['smile'] <= Testimonials::SMILE_CLASS_NEGATIVE) {
@@ -71,8 +71,8 @@ class Rating extends Component {
 
     private function trustBackUser($item) {
 	$model = UserTrustees::find()
-		->where(['user_from' => $item['user_from'], 'user_to' => $item['user_to']])
-		->orWhere(['user_from' => $item['user_to'], 'user_to' => $item['user_from']])
+		->where(['from_id' => $item['user_from'], 'to_id' => $item['user_to']])
+		->orWhere(['from_id' => $item['user_to'], 'to_id' => $item['user_from']])
 		->count();
 	return $model == self::TRUST_BACK_COUNT;
     }

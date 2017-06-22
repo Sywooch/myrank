@@ -14,7 +14,7 @@ $markNames = $item->markNames;
             <div class="b-last-marks__content">
                 <div class="b-last-marks__item">
                     <div class="b-last-marks__item__image">
-                        <img src="<?= $item->user->userImage ?>" alt="">
+                        <img src="<?= $item->user->imageName ?>" alt="">
                     </div>
                     <div class="b-last-marks__item__content">
                         <div class="b-last-marks__item__name">

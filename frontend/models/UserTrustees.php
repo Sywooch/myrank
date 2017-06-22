@@ -32,9 +32,9 @@ class UserTrustees extends \yii\db\ActiveRecord {
      */
     public function rules() {
 	return [
-	    [['user_to', 'user_from'], 'required'],
-	    [['user_to', 'user_from'], 'integer'],
-	    [['created'], 'safe'],
+	    [['to_id', 'from_id'], 'required'],
+	    [['to_id', 'from_id', 'type'], 'integer'],
+            [['type_from', 'type_to'], 'safe']
 	];
     }
 
@@ -51,32 +51,8 @@ class UserTrustees extends \yii\db\ActiveRecord {
     }
     
     public function getUser () {
-	return $this->hasOne(User::className(), ['id' => 'user_to']);
+	return $this->hasOne(User::className(), ['id' => 'to_id'])
+                ->andWhere(['type_to' => User::TYPE_USER_USER]);
     }
-    /*
-    public function getUserTo () {
-	return $this->hasOne(User::className(), ['id' => 'user_to']);
-    }*/
-
-    public function getUserFrom() {
-        return $this->hasOne(User::className(), ['id' => 'user_from'])->from(User::tableName() . ' AS userFrom');
-    }
-
-    public function getUserTo() {
-        return $this->hasOne(User::className(), ['id' => 'user_to'])->from(User::tableName() . ' AS userTo');
-    }
-
-    public function getFullNameFrom() {
-        return $this->userFrom ? ($this->userFrom->first_name.' '.$this->userFrom->last_name) : ((string) \Yii::t('app','NO_USER') );
-    }
-
-    public function getFullNameTo() {
-        return $this->userTo ? ($this->userTo->first_name.' '.$this->userTo->last_name) : ((string) \Yii::t('app','NO_USER') );
-    }
-    
-    public function getMarks () {
-	return "Hello";
-    }
-
 
 }

@@ -51,6 +51,7 @@ class RegistrationController extends Controller {
 
 		    $mCompany = new Company();
 		    $mCompany->user_id = $model->id;
+                    $mCompany->city_id = $model->city_id;
 		    $out['data'] = $this->renderPartial("_regStep" . $model->step, [
 			'model' => $model,
 			'mCompany' => $mCompany,

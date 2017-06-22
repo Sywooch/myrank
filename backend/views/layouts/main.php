@@ -17,7 +17,7 @@ $mUser = Yii::$app->user->getIdentity();
 	<title><?= Html::encode($this->title) ?></title>
 	<?php $this->head() ?>
     </head>
-    <body class="hold-transition skin-blue sidebar-mini">
+    <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
 	<?php $this->beginBody() ?>
 	<div class="wrapper">
 	    <?php if(Yii::$app->user->id !== NULL) { ?>

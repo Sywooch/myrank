@@ -45,6 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'header_title',
             //'header_image','header_image:image',
+                    /*
             [
                 'label' => 'Заголовок изображение',
                 'format' => 'raw',
@@ -54,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'style' => 'width:250px;'
                     ]);
                 },
-            ],
+            ],*/
             //'header_image_small',
             /*[
                 'label' => 'Заголовок среднее изображение',
@@ -86,8 +87,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'locale',
             //'views',
-            'create_time',
-            'update_time',
+            //'create_time',
+            //'update_time',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
