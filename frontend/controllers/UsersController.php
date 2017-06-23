@@ -49,17 +49,17 @@ class UsersController extends Controller {
 
     public function actionPhotouserupload() {
         \Yii::$app->session->remove('userImages');
-        $uId = \Yii::$app->user->id;
+        //$uId = \Yii::$app->user->id;
         echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/uploadPhotoUser')]);
     }
 
     public function actionSaveuserimage() {
         $arr = \Yii::$app->session->get('userImages');
 
-        $mUser = User::getProfile();
-        $mUser->image = $arr[0];
+        $mObj = UserConstant::getProfile();
+        $mObj->image = $arr[0];
 
-        $out['code'] = $mUser->save() ? 1 : 0;
+        $out['code'] = $mObj->save() ? 1 : 0;
 
         echo Json::encode($out);
         \Yii::$app->end();
@@ -68,13 +68,13 @@ class UsersController extends Controller {
     public function actionSavemarks($id, $typeTo) {
         $req = \Yii::$app->request->post('mark');
         $code = 0;
-        
-        if($typeTo == UserConstant::TYPE_USER_COMPANY) {
+
+        if ($typeTo == UserConstant::TYPE_USER_COMPANY) {
             $model = Company::findOne($id);
         } else {
             $model = User::findOne($id);
         }
-        
+
         if ($model->owner) {
             $model->mark = \yii\helpers\Json::encode($req);
             echo Json::encode(['code' => $model->save() ? 1 : 0, 'error' => $model->errors]);
@@ -92,7 +92,7 @@ class UsersController extends Controller {
             if (!isset($mMarks->description)) {
                 $mMarks = new UserMarks();
             }
-            
+
             $mMarks->attributes = array_merge($attrs, [
                 'description' => Json::encode($req)
             ]);
@@ -128,7 +128,7 @@ class UsersController extends Controller {
 
     public function actionConfigmarks() {
         $model = Marks::findAll(['parent_id' => 0, 'required' => 0]);
-        $mUser = User::getProfile();
+        $mUser = UserConstant::getProfile();
         if (!is_null($mUser->marks_config)) {
             $configArr = Json::decode($mUser->marks_config, true);
         } else {
@@ -152,15 +152,19 @@ class UsersController extends Controller {
      * Модальное окно комментария
      * @param int $id - айди юзверя, которому адресован коммент
      */
-    public function actionWritetestimonials($id) {
+    public function actionWritetestimonials($id, $typeTo) {
         $param = \Yii::$app->request->post('param');
-        $mUser = User::getProfile();
+        $mObj = UserConstant::getProfile();
         $model = new Testimonials();
+        $model->type_from = $mObj->isCompany ? UserConstant::TYPE_USER_COMPANY : UserConstant::TYPE_USER_USER;
+        $model->from_id = $mObj->id;
+        $model->type_to = $typeTo;
+        $model->to_id = $id;
+        $model->parent_id = isset($param['parent']) ? $param['parent'] : 0;
+
         $out = $this->renderPartial("modal/modalWriteTestimonial", [
             'model' => $model,
-            'mUser' => $mUser,
-            'user_to' => $id,
-            'parent' => isset($param['parent']) ? $param['parent'] : 0
+            'mObj' => $mObj
         ]);
         echo Json::encode(['code' => 1, 'data' => $out, 'title' => \Yii::t('app', 'GIVE_FEEDBACK')]);
         \Yii::$app->end();
@@ -183,21 +187,21 @@ class UsersController extends Controller {
      * Сохранение комента
      */
     public function actionSavetestimonials() {
-        $post = \Yii::$app->request->post();
+        $post = \Yii::$app->request->post('Testimonials');
         $code = 0;
         $model = Testimonials::findOne([
-                    'user_to' => $post['Testimonials']['user_to'],
-                    'user_from' => $post['Testimonials']['user_from'],
+                    'type_from' => $post['type_from'],
+                    'from_id' => $post['from_id'],
+                    'type_to' => $post['type_to'],
+                    'to_id' => $post['to_id'],
         ]);
         if (!isset($model->id)) {
             $model = new Testimonials();
-        } else {
-            Testimonials::deleteAll(['parent_id' => $model->id]);
         }
 
-        if ($model->load($post) && $model->save()) {
-            \Yii::$app->rating->process(User::findOne($model->user_to));
-            \Yii::$app->notification->saveNotif(UserNotification::NOTIF_TYPE_TESTIMONIALS, $model->user_to);
+        if ($model->load($post, '') && $model->save()) {
+            //\Yii::$app->rating->process(User::findOne($model->to_id));
+            \Yii::$app->notification->saveNotif(UserNotification::NOTIF_TYPE_TESTIMONIALS, $model->to_id);
             $code = 1;
         }
         echo Json::encode(['code' => $code, 'errors' => $model->errors]);
@@ -342,10 +346,15 @@ class UsersController extends Controller {
         \Yii::$app->end();
     }
 
-    public function actionTrustees($id) {
+    public function actionTrustees($id, $typeTo) {
         $post = \Yii::$app->request->post();
-        $user_from = \Yii::$app->user->id;
-        $params = ['user_to' => $id, 'user_from' => $user_from];
+        $userFrom = \Yii::$app->user->identity;
+        $params = [
+            'type_from' => $userFrom->isCompany ? UserConstant::TYPE_USER_COMPANY : UserConstant::TYPE_USER_USER,
+            'from_id' => $userFrom->isCompany ? $userFrom->company_id : $userFrom->id, // FIXME: Сделать через связующую таблицу
+            'type_to' => $typeTo,
+            'to_id' => $id,
+        ];
         $mTrus = UserTrustees::find()->where($params)->one();
         if (isset($mTrus->id)) {
             $out['code'] = $mTrus->delete() ? 1 : 0;
@@ -358,7 +367,8 @@ class UsersController extends Controller {
             $out['addClass'] = 1;
             $out['data'] = \Yii::t('app', 'TRUSTED');
         }
-        \Yii::$app->rating->process(User::findOne($id));
+        // FIXME: сделать рейтинг
+        //\Yii::$app->rating->process(User::findOne($id));
         echo Json::encode($out);
         \Yii::$app->end();
     }

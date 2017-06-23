@@ -17,8 +17,10 @@ class Controller extends \yii\web\Controller {
 	parent::init();
 	$this->checkLang();
 
-	$this->userImagePath = Yii::getAlias('@frontend/web') . $this->files;
-
+        if(Yii::$app->user->id !== null) {
+            $mObj = Yii::$app->user->identity;
+            $this->userImagePath = Yii::getAlias('@frontend/web') . $this->files . DIRECTORY_SEPARATOR . $mObj->saveFolder . DIRECTORY_SEPARATOR;
+        }
 	//Yii::$app->request->headers->set('Accept-Language','ru-RU');
 
 	$session = Yii::$app->session;

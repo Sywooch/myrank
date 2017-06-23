@@ -10,6 +10,7 @@ use frontend\models\Images;
 use yii\helpers\Json;
 use frontend\models\User;
 use yii\helpers\Url;
+use frontend\models\UserConstant;
 
 class MediaController extends Controller {
     
@@ -23,8 +24,10 @@ class MediaController extends Controller {
 	$model = new Images();
 	$userId = Yii::$app->user->id;
 	$imageFile = UploadedFile::getInstance($model, 'name' . $id);
+        
+        $mObj = UserConstant::getProfile();
 
-	$directory = $this->userImagePath . Yii::$app->user->id . DIRECTORY_SEPARATOR;
+	$directory = $this->userImagePath . $mObj->id . DIRECTORY_SEPARATOR;
 	if (!is_dir($directory)) {
 	    FileHelper::createDirectory($directory);
 	}
@@ -34,7 +37,7 @@ class MediaController extends Controller {
 	    $fileName = $uid . '.' . $imageFile->extension;
 	    $filePath = $directory . $fileName;
 	    if ($imageFile->saveAs($filePath)) {
-		$path = $this->files . Yii::$app->user->id . DIRECTORY_SEPARATOR . $fileName;
+		$path = $this->files . $mObj->saveFolder . DIRECTORY_SEPARATOR . $mObj->id . DIRECTORY_SEPARATOR . $fileName;
 		$sessImages[$id] = $fileName;
 		$sess->set('userImages', $sessImages);
 		$out = [
@@ -42,7 +45,7 @@ class MediaController extends Controller {
 			[
 			    'name' => $fileName,
 			    'size' => $imageFile->size,
-			    'url' => '/media/viewimage?id='.$fileName.'&user='.$userId,//Url::toRoute(['media/viewimage', ['id' => $path, 'user' => 2]]),
+			    'url' => $path,
 			    'thumbnailUrl' => $path,
 			    'deleteUrl' => 'image-delete?name=' . $fileName,
 			    'deleteType' => 'POST',

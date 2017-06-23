@@ -69,7 +69,7 @@ class LoginForm extends Model {
     public function login() {
         if ($this->validate()) {
             $mUser = $this->getUser();
-            \Yii::$app->rating->process($mUser);
+            //\Yii::$app->rating->process($mUser);
             return Yii::$app->user->login($mUser, 3600 * 24 * 30);
         } else {
             return false;

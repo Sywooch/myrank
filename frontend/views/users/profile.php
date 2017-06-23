@@ -10,6 +10,7 @@ use frontend\widgets\user\LatestMarksWidget;
 use frontend\widgets\user\UserTrusteesWidget;
 use frontend\widgets\image\FileUploadWidget;
 use frontend\models\UserNotification;
+use frontend\models\UserConstant;
 
 $this->title = \Yii::t('app', 'USER_PROFILE');
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profile', 'id' => $model->id]];
@@ -29,9 +30,10 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profi
                             <img
                             <?php if ($model->owner) { ?>
                                     class="showModal" 
-                                    data-url="<?= Url::toRoute(['users/photouserupload']) ?>" 
+                                    data-url="<?= Url::toRoute(['users/photouserupload']) ?>"
+                                    style="cursor: pointer"
                                 <?php } ?>
-                                src="<?= $model->imageName ?>" alt="" style="cursor: pointer">
+                                src="<?= $model->imageName ?>" alt="" >
                         </div>
                     </div>
                     <div class="b-user__data__right">
@@ -48,7 +50,13 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profi
                                 <?php if (!$model->owner && (Yii::$app->user->id !== NULL)) { ?>
                                     <a class="b-user__data__info__add-trusted <?= $model->trustUser ? "minus" : "" ?>" 
                                        href="#" 
-                                       data-url="<?= Url::toRoute(['users/trustees', 'id' => $model->id]) ?>">
+                                       data-url="<?=
+                                       Url::toRoute([
+                                           'users/trustees',
+                                           'id' => $model->id,
+                                           'typeTo' => $model->isCompany ? UserConstant::TYPE_USER_COMPANY : UserConstant::TYPE_USER_USER
+                                       ])
+                                       ?>">
                                            <?= $model->trustUser ? \Yii::t('app', 'TRUSTED_SMALL') : \Yii::t('app', 'IN_TRUSTED_SMALL') ?>
                                     </a>
                                 <?php } ?>
@@ -79,10 +87,12 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profi
                         </div>
                     </div>
                 </div>
-                    <?= ProfileStatWidget::widget([
-                        'model' => $model
-                    ]); ?>
-                
+                <?=
+                ProfileStatWidget::widget([
+                    'model' => $model
+                ]);
+                ?>
+
                 <?php if (($model->aboutProfile != "") || ($model->phone != "")) { ?>
                     <div class="b-user__info">
                         <div class="b-title">
@@ -112,7 +122,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profi
                             <?php if ($model->owner) { ?>
                                 <span 
                                     class="b-user__portfolio__edit modalView" 
-                                    data-url="<?= Url::toRoute("users/editportfolio") ?>"></span>
+                                    data-url="<?= Url::toRoute(["users/editportfolio"]) ?>"></span>
                                 <?php } ?>
                         </div>
                         <span class="b-user__portfolio__more open">

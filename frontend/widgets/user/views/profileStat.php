@@ -3,6 +3,7 @@
  * @author Shilo Dmitry
  * @email dmitrywp@gmail.com
  */
+use frontend\models\UserNotification;
 ?>
 <div class="b-user__stats">
     <div class="b-user__stats__item">

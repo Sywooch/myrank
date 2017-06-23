@@ -16,12 +16,12 @@ class StatMarksWidget extends MarksWidget {
     public $view = "statMarks";
 
     public function init() {
-        return parent::init();
+        $this->list = $this->model->userMarksTo;
     }
 
     public function run() {
         return $this->render($this->view, [
-                    'allList' => $this->allList,
+                    //'allList' => $this->allList,
                     'list' => $this->list,
                     'model' => $this->model,
                     //'title' => $this->title,

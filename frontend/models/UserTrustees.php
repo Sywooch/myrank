@@ -33,7 +33,7 @@ class UserTrustees extends \yii\db\ActiveRecord {
     public function rules() {
 	return [
 	    [['to_id', 'from_id'], 'required'],
-	    [['to_id', 'from_id', 'type'], 'integer'],
+	    [['to_id', 'from_id', 'type_from', 'type_to'], 'integer'],
             [['type_from', 'type_to'], 'safe']
 	];
     }
@@ -44,15 +44,18 @@ class UserTrustees extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('app', 'ID'),
-	    'user_to' => Yii::t('app', 'USER_TO'),
-	    'user_from' => Yii::t('app', 'USER_FROM'),
+	    'to_id' => Yii::t('app', 'USER_TO'),
+	    'from_id' => Yii::t('app', 'USER_FROM'),
 	    'created' => Yii::t('app', 'CREATED'),
 	];
     }
     
+    public function getObjTo () {
+        return $this->type_to == UserConstant::TYPE_USER_COMPANY ? Company::className() : User::className();
+    }
+    
     public function getUser () {
-	return $this->hasOne(User::className(), ['id' => 'to_id'])
-                ->andWhere(['type_to' => User::TYPE_USER_USER]);
+	return $this->hasOne($this->objTo, ['id' => 'to_id']);
     }
 
 }

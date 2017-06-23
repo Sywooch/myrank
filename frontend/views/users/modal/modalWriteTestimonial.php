@@ -24,7 +24,7 @@ use yii\helpers\Html;
 	<div class="b-modal__content__user">
 	    <div class="b-modal__content__user__header">
 		<div class="b-modal__content__user__header__image">
-		    <img src="<?= $mUser->userImage ?>" alt="">
+		    <img src="<?= $mObj->imageName ?>" alt="">
 		</div>
 		<div class="b-modal__content__user__header__info">
 		    <div class="b-modal__content__user__header__info__radio b-modal__content__user__header__info__radio_positive">
@@ -53,7 +53,7 @@ use yii\helpers\Html;
 		    </div>
 		</div>
 		<div class="b-modal__content__user__header__content">
-		    <div class="b-modal__content__user__header__content__title"><?= $mUser->fullName ?></div>
+		    <div class="b-modal__content__user__header__content__title"><?= $mObj->fullName ?></div>
 		    <div class="b-modal__content__user__header__content__select">
 			<span><?= \Yii::t('app','IAM'); ?>:</span>
 			<div class="select-wrapper">
@@ -63,24 +63,6 @@ use yii\helpers\Html;
 		</div>
 	    </div>
 	    <div class="b-modal__content__user__content">
-		<!-- div class="b-modal__content__user__content__item" >
-		    <div class="b-modal__content__user__content__title">
-			Отличный работник!
-		    </div>
-		    <div class="b-modal__content__user__content__name">
-			Борис Годунов
-		    </div>
-		    <div class="b-modal__content__user__content__post">
-			Рекрутер
-		    </div>
-		    <div class="b-modal__content__user__content__text">
-			<p>
-			    Далеко-далеко за словесными горами в
-			    стране гласных и согласных живут рыбные
-			    тексты.
-			</p>
-		    </div>
-		</div -->
 		<div class="row">
 		    <div class="col-xs-12">
 			<span><?= \Yii::t('app','TESTIMONIALS_TEXT'); ?></span>
@@ -104,9 +86,13 @@ use yii\helpers\Html;
 	    </div>
 	</div>
     </div>
-    <input type="hidden" name="Testimonials[user_from]" value="<?= $mUser->id ?>" />
-    <input type="hidden" name="Testimonials[user_to]" value="<?= $user_to ?>" />
-    <input type="hidden" name="Testimonials[parent_id]" value="<?= $parent ?>" />
+    <?php
+    echo $form->field($model, "type_from")->hiddenInput()->label(false);
+    echo $form->field($model, "from_id")->hiddenInput()->label(false);
+    echo $form->field($model, "type_to")->hiddenInput()->label(false);
+    echo $form->field($model, "to_id")->hiddenInput()->label(false);
+    echo $form->field($model, "parent_id")->hiddenInput()->label(false);
+    ?>
     <?php ActiveForm::end(); ?>
 </div>
 <script type="text/javascript">

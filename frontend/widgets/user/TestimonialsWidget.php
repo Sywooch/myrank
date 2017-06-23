@@ -24,7 +24,7 @@ class TestimonialsWidget extends Widget {
 	parent::run();
 	return $this->render("testimonials", [
 	    'list' => $this->list, 
-	    'mUser' => $this->model
+	    'mObj' => $this->model
 	]);
     }
 }

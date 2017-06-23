@@ -138,14 +138,6 @@ class User extends UserConstant implements IdentityInterface {
         return $this->hasOne(City::className(), ['city_id' => 'city_id']);
     }
 
-    public function getProfession() {
-        return $this->hasMany(UserProfession::className(), ['user_id' => 'id']);
-    }
-
-    public function getUserProfession() {
-        return $this->hasMany(Profession::className(), ['id' => 'profession_id'])->via("profession");
-    }
-
     public function getCompany() {
         return $this->hasOne(Company::className(), ['id' => 'company_id']);
     }
@@ -197,10 +189,6 @@ class User extends UserConstant implements IdentityInterface {
             $arr[$item->id] = $item->title;
         }
         return $arr;
-    }
-
-    public function getTestimonial() {
-        return $this->getTestimonialsTo()->andWhere(['user_from' => \Yii::$app->user->id]);
     }
 
     public function saveProfession() {
