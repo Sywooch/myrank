@@ -11,10 +11,11 @@ $get = Yii::$app->request->get();
     	<div class="b-user__data">
     	    <div class="b-user__data__left">
     		<div class="b-user__data__image">
-    		    <img src="<?= $item->userImage ?>" alt="">
+    		    <img src="<?= $item->imageName ?>" alt="">
     		    <div class="b-user__data__image__info">
     			<ul>
-				<?php foreach ($item->userProfession as $item2) { ?>
+				<?php 
+                                foreach ($item->profileProfession as $item2) { ?>
 				    <li><?= $item2->title ?></li>
 				<?php } ?>
     			</ul>
@@ -30,12 +31,14 @@ $get = Yii::$app->request->get();
     	    <div class="b-user__data__right">
     		<div class="b-user__data__header">
     		    <div class="b-user__data__name">
-    			<div><a href="<?= Url::toRoute(['users/profile', 'id' => $item->id]) ?>"><?= $item->fullName ?></a></div>
+    			<div><a href="<?= Url::toRoute($item->profileLink) ?>"><?= $item->fullName ?></a></div>
     			<!-- span class="b-user__data__name__edit"></span -->
     		    </div>
     		    <div class="b-user__data__info">
 			    <?php if ((Yii::$app->user->id !== null) && !$item->owner) { ?>
-				<a class="b-user__data__info__add-trusted" href="#" data-url="<?= Url::toRoute(['users/trustees', 'id' => $item->id]) ?>">
+				<a class="b-user__data__info__add-trusted <?= $item->trustUser ? "minus" : "" ?>" 
+                                   href="#" 
+                                   data-url="<?= Url::toRoute(['users/trustees', 'id' => $item->id]) ?>">
 				    <?= $item->trustUser ? \Yii::t('app', 'TRUSTED_SMALL') : \Yii::t('app', 'IN_TRUSTED_SMALL') ?>
 				</a>
 			    <?php } ?>
@@ -60,7 +63,7 @@ $get = Yii::$app->request->get();
 			<?php } ?>
     		</div>
     		<div class="b-tags">
-			<?php foreach ($item->userProfession as $item2) { ?>
+			<?php foreach ($item->profileProfession as $item2) { ?>
 			    <span><?= $item2->title ?></span>
 			<?php } ?>
     		</div>

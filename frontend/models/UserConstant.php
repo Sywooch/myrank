@@ -26,6 +26,18 @@ class UserConstant extends \yii\db\ActiveRecord {
     const SAVE_FOLDER_USER = 'user';
     const SAVE_FOLDER_COMPANY = 'company';
     
+    public $noPhoto = "/images/no_photo.png";
+    
+    public static function findModel($cond) {
+        $type = $cond['type'];
+        unset($cond['type']);
+        if($type == self::TYPE_USER_COMPANY) {
+            return Company::findOne($cond['id']);
+        } else {
+            return User::findOne($cond['id']);
+        }
+    }
+    
     public function getUserTrusteesAll () {
         return "";
     }
@@ -57,6 +69,10 @@ class UserConstant extends \yii\db\ActiveRecord {
 
     public function getTestimonial() {
         $mObj = \Yii::$app->user->identity;
+        Logs::saveLog([
+                    'from_id' => $mObj->isCompany ? $mObj->company_id : $mObj->id,
+                    'type_from' => $mObj->objType,
+        ]);
         return $this->getTestimonialsTo()->andWhere([
                     'from_id' => $mObj->isCompany ? $mObj->company_id : $mObj->id,
                     'type_from' => $mObj->objType,
@@ -69,13 +85,15 @@ class UserConstant extends \yii\db\ActiveRecord {
     }
 
     public function getTestimonialsFrom() {
-        $mObj = \Yii::$app->user->identity;
-        return $this->hasMany(Testimonials::className(), ['from_id' => 'id'])
-                        ->andWhere(['type_from' => $mObj->objType]);
+        if(\Yii::$app->user->id !== null) {
+            $mObj = \Yii::$app->user->identity;
+            return $this->hasMany(Testimonials::className(), ['from_id' => 'id'])
+                            ->andWhere(['type_from' => $mObj->objType]);
+        }
     }
 
     public function getHasTestimonial() {
-        return $this->getTestimonialsFrom()->count() > 0;
+        return $this->getTestimonial()->count() > 0;
     }
 
     public function getTestimonialsActive() {
@@ -104,13 +122,17 @@ class UserConstant extends \yii\db\ActiveRecord {
      * FIXME: Сделать через связующую таблицу
      */
     public function getUserMarksFromList() {
-        $mUserFrom = \Yii::$app->user->identity;
-        $model = $this->getUserMarksTo()
-                ->andWhere([
-                    'from_id' => $mUserFrom->isCompany ? $mUserFrom->company_id : $mUserFrom->id,
-                ])
-                ->one();
-        return isset($model->description) ? Json::decode($model->description, true) : [];
+        if(\Yii::$app->user->id !== null) {
+            $mUserFrom = \Yii::$app->user->identity;
+            $model = $this->getUserMarksTo()
+                    ->andWhere([
+                        'from_id' => $mUserFrom->isCompany ? $mUserFrom->company_id : $mUserFrom->id,
+                    ])
+                    ->one();
+            return isset($model->description) ? Json::decode($model->description, true) : [];
+        } else {
+            return [];
+        }
     }
 
     public function getConfigMarks() {
@@ -134,8 +156,11 @@ class UserConstant extends \yii\db\ActiveRecord {
         return $arr;
     }
 
+    // FIXME: Сделать через связ таблицу
     public function getTrustUser() {
-        return $this->getUserTrusteesTo()->andWhere(['from_id' => \Yii::$app->user->id])->count() > 0 ? TRUE : FALSE;
+        $mObj = \Yii::$app->user->identity;
+        $id = ($mObj->isCompany) ? $mObj->company_id : $mObj->id;
+        return $this->getUserTrusteesTo()->andWhere(['from_id' => $id, 'type_from' => $mObj->objType])->count() > 0 ? TRUE : FALSE;
     }
 
     public function getAboutProfile() {
@@ -147,7 +172,7 @@ class UserConstant extends \yii\db\ActiveRecord {
     }
 
     public function getImageName() {
-        return $this->image == "" ? "/images/no_photo.png" : DIRECTORY_SEPARATOR . implode("/", [
+        return $this->objImage == "" ? $this->noPhoto : DIRECTORY_SEPARATOR . implode("/", [
             'files',
             $this->saveFolder,
             $this->objId,
@@ -175,7 +200,15 @@ class UserConstant extends \yii\db\ActiveRecord {
     }
 
     public function getProfileProfession() {
-        return ($this->isCompany) ? $this->companyProfession : $this->userProfession;
+        if($this->isCompany) {
+            if(isset($this->type)) {
+                return $this->company->getCompanyProfession();
+            } else {
+                return $this->getCompanyProfession();
+            }
+        } else {
+            return $this->getUserProfession();
+        }
     }
 
     // FIXME: Сделать через связующую таблицу
@@ -199,7 +232,7 @@ class UserConstant extends \yii\db\ActiveRecord {
     
     // FIXME: Сделать через связующую таблицу
     public function getObjImage () {
-        return isset($this->type) && $this->isCompany ? $this->company->image : $this->image;
+        return isset($this->type) && $this->isCompany ? isset($this->company->image) ? $this->company->image : "" : $this->image;
     }
 
 }

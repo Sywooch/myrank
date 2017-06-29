@@ -272,6 +272,8 @@ return [
     'TITLE_BROWSER'=>'Заглавие браузера',
     'META_KEYWORDS'=>'Мета-ключевые слова',
     'META_DESCRIPTION'=>'Метаописание',
+    
+    // Список должностей
     'WHO_FROM_TO_DIRECTOR' => 'Директор/Владелец компании',
     'WHO_FROM_TO_CHIEF' => 'Начальник',
     'WHO_FROM_TO_COLLEAGUE' => 'Коллега',
@@ -280,6 +282,8 @@ return [
     'WHO_FROM_TO_FRIEND' => 'Друг',
     'WHO_FROM_TO_FAMILIAR' => 'Знакомый',
     'WHO_FROM_TO_SLAVE' => 'Подчинённый',
+    'WHO_FROM_TO_UNKNOW' => 'Не знаком',
+    'WHO_FROM_TO_ANONIM' => 'Аноним',
     'USER_FROM' => 'От пользователя',
     'USER_TO' => 'К пользователю',
     'SMILE' =>  'Улыбка',

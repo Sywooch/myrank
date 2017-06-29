@@ -38,7 +38,7 @@ class UsersController extends Controller {
             $req['id'] = \Yii::$app->user->id;
         }
         $mUser = User::findOne($req['id']);
-        if (isset($mUser->id)) {
+        if (isset($mUser->id) && !$mUser->isCompany) {
             return $this->render("profile", [
                         'model' => $mUser,
             ]);
@@ -111,14 +111,12 @@ class UsersController extends Controller {
                     $mUserMarkRating->attributes = $query;
                     $mUserMarkRating->save();
                 }
-                // FIXME Сделать рабочим рейтинг для компаний
-                //$rating = \Yii::$app->rating->process($model);
-                $rating = 0;
+                $rating = \Yii::$app->rating->process($model);
+                //$rating = 0;
             }
             if ($mMarks->save()) {
                 $code = 1;
-                // FIXME Допилить нотификатор для компаний
-                //isset($mMarks->id) ?: \Yii::$app->notification->saveNotif(UserNotification::NOTIF_TYPE_MARKS, $mMarks->to_id);
+                \Yii::$app->notification->saveNotif(UserNotification::NOTIF_TYPE_MARKS, $mMarks->to_id, $mMarks->type_to);
                 \Yii::$app->notification->set('global', \Yii::t('app', 'YOUR_SCORE_HAS_BEEN_SAVED'));
             }
             echo Json::encode(['code' => $code, 'error' => $mMarks->errors, 'out' => $rating]);
@@ -156,7 +154,7 @@ class UsersController extends Controller {
         $param = \Yii::$app->request->post('param');
         $mObj = UserConstant::getProfile();
         $model = new Testimonials();
-        $model->type_from = $mObj->isCompany ? UserConstant::TYPE_USER_COMPANY : UserConstant::TYPE_USER_USER;
+        $model->type_from = $mObj->objType;
         $model->from_id = $mObj->id;
         $model->type_to = $typeTo;
         $model->to_id = $id;
@@ -172,12 +170,10 @@ class UsersController extends Controller {
 
     public function actionEdittestimonial($id) {
         $model = Testimonials::findOne($id);
-        $mUser = User::getProfile();
+        $mUser = UserConstant::getProfile();
         $out = $this->renderPartial("modal/modalWriteTestimonial", [
             'model' => $model,
-            'mUser' => $mUser,
-            'user_to' => $model->user_to,
-            'parent' => $model->parent_id
+            'mObj' => $mUser,
         ]);
         echo Json::encode(['code' => 1, 'data' => $out, 'title' => \Yii::t('app', 'TESTIMONIALS_EDIT')]);
         \Yii::$app->end();
@@ -200,8 +196,8 @@ class UsersController extends Controller {
         }
 
         if ($model->load($post, '') && $model->save()) {
-            //\Yii::$app->rating->process(User::findOne($model->to_id));
-            \Yii::$app->notification->saveNotif(UserNotification::NOTIF_TYPE_TESTIMONIALS, $model->to_id);
+            \Yii::$app->rating->process(UserConstant::findModel(['id' => $model->to_id, 'type' => $model->type_to]));
+            \Yii::$app->notification->saveNotif(UserNotification::NOTIF_TYPE_TESTIMONIALS, $model->to_id, $model->type_to);
             $code = 1;
         }
         echo Json::encode(['code' => $code, 'errors' => $model->errors]);
@@ -246,26 +242,23 @@ class UsersController extends Controller {
 
             $out = $this->renderPartial("modal/mainInfo", ['model' => $model]);
         }
-        \Yii::$app->rating->process($model);
         echo Json::encode(['code' => 1, 'data' => $out]);
         \Yii::$app->end();
     }
 
     public function actionEditcompanysave() {
         $post = \Yii::$app->request->post();
-        $uId = \Yii::$app->user->id;
-        $mUser = User::getProfile();
-        $mCompany = $mUser->company;
+        $mObj = UserConstant::getProfile();
         $out['code'] = 0;
-        if ($mCompany->load($post) && $mCompany->validate()) {
-            if ($mCompany->validate()) {
-                $out['code'] = $mCompany->save();
-                \Yii::$app->rating->process($mUser);
+        if ($mObj->load($post)) {
+            if ($mObj->validate()) {
+                $out['code'] = $mObj->save();
+                \Yii::$app->rating->process($mObj);
             } else {
                 $out['errors'] = ['password' => [\Yii::t('app', 'PASSWORD_AND_REPEAT_DO_NOT_MATCH')]];
             }
         } else {
-            $out['errors'] = $mUser->errors;
+            $out['errors'] = $mObj->errors;
         }
         echo Json::encode($out);
         \Yii::$app->end();
@@ -368,7 +361,7 @@ class UsersController extends Controller {
             $out['data'] = \Yii::t('app', 'TRUSTED');
         }
         // FIXME: сделать рейтинг
-        //\Yii::$app->rating->process(User::findOne($id));
+        \Yii::$app->rating->process(UserConstant::findModel(['id' => $id, 'type' => $typeTo]));
         echo Json::encode($out);
         \Yii::$app->end();
     }

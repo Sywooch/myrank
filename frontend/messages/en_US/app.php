@@ -279,6 +279,8 @@ return [
     'WHO_FROM_TO_FRIEND' => 'Friend',
     'WHO_FROM_TO_FAMILIAR' => 'Familiar',
     'WHO_FROM_TO_SLAVE' => 'Subordinate',
+    'WHO_FROM_TO_UNKNOW' => 'Dont know',
+    'WHO_FROM_TO_ANONIM' => 'Anonymous',
     'USER_FROM' => 'User From',
     'USER_TO' => 'User To',
     'SMILE' =>  'Smile',

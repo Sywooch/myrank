@@ -32,6 +32,7 @@ class Testimonials extends \yii\db\ActiveRecord {
         self::SMILE_CLASS_NEUTRAL => 'b-comments__item__smile_neutral',
     ];
 
+    const WHO_FROM_TO_ANONIM = 0;
     const WHO_FROM_TO_DIRECTOR = 1;
     const WHO_FROM_TO_CHIEF = 2;
     const WHO_FROM_TO_COLLEAGUE = 3;
@@ -40,9 +41,10 @@ class Testimonials extends \yii\db\ActiveRecord {
     const WHO_FROM_TO_FRIEND = 6;
     const WHO_FROM_TO_FAMILIAR = 7;
     const WHO_FROM_TO_SLAVE = 8;
+    const WHO_FROM_TO_UNKNOW = 9;
 
-    public static function whoFromTo() {
-        return [
+    public static function whoFromTo($id = Null) {
+        $arr = [
             self::WHO_FROM_TO_DIRECTOR => (string) \Yii::t('app', 'WHO_FROM_TO_DIRECTOR'),
             self::WHO_FROM_TO_CHIEF => (string) \Yii::t('app', 'WHO_FROM_TO_CHIEF'),
             self::WHO_FROM_TO_COLLEAGUE => (string) \Yii::t('app', 'WHO_FROM_TO_COLLEAGUE'),
@@ -50,8 +52,14 @@ class Testimonials extends \yii\db\ActiveRecord {
             self::WHO_FROM_TO_RELATIVE => (string) \Yii::t('app', 'WHO_FROM_TO_RELATIVE'),
             self::WHO_FROM_TO_FRIEND => (string) \Yii::t('app', 'WHO_FROM_TO_FRIEND'),
             self::WHO_FROM_TO_FAMILIAR => (string) \Yii::t('app', 'WHO_FROM_TO_FAMILIAR'),
-            self::WHO_FROM_TO_SLAVE => (string) \Yii::t('app', 'WHO_FROM_TO_SLAVE')
+            self::WHO_FROM_TO_SLAVE => (string) \Yii::t('app', 'WHO_FROM_TO_SLAVE'),
+            self::WHO_FROM_TO_UNKNOW => (string) \Yii::t('app', 'WHO_FROM_TO_UNKNOW'),
+            self::WHO_FROM_TO_ANONIM => (string) \Yii::t('app', 'WHO_FROM_TO_ANONIM'),
         ];
+        if(isset($id)) {
+            return $arr[$id];
+        }
+        return $arr;
     }
 
     const COUNT_LIST = 10;
@@ -105,6 +113,14 @@ class Testimonials extends \yii\db\ActiveRecord {
     public function getUserTo() {
         return $this->hasOne($this->objTo, ['id' => 'to_id']);
     }
+    
+    public function getUserFromName () {
+        return $this->isAnonim ? "****" : $this->userFrom->fullName;
+    }
+    
+    public function getUserFromImage () {
+        return $this->isAnonim ? $this->userFrom->noPhoto : $this->userFrom->imageName;
+    }
 
     public function getAnswer() {
         return static::findOne(['parent_id' => $this->id]);
@@ -120,6 +136,10 @@ class Testimonials extends \yii\db\ActiveRecord {
     public function beforeDelete() {
         static::deleteAll(['parent_id' => $this->id]);
         return parent::beforeDelete();
+    }
+    
+    public function getIsAnonim () {
+        return $this->who_from_to == self::WHO_FROM_TO_ANONIM;
     }
 
 }

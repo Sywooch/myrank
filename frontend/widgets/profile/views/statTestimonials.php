@@ -18,10 +18,12 @@ use yii\helpers\Html;
         <?php foreach ($list as $item) { ?>
             <div class="b-comments__item">
                 <div class="b-comments__item__image">
-                    <img src="<?= $item->userFrom->imageName ?>" alt="">
+                    <img src="<?= $item->userFromImage ?>" alt="">
+                    <?php if(!$item->isAnonim) { ?>
                     <div class="b-comments__item__number">
                         <?= $item->userFrom->rating ?>
                     </div>
+                    <?php } ?>
                 </div>
                 <div class="b-comments__item__info">
                     <div class="b-comments__item__date">
@@ -40,7 +42,7 @@ use yii\helpers\Html;
                         Доволен сотрудничеством
                     </div -->
                     <div class="b-comments__item__name">
-                        <?= Html::a($item->userFrom->fullName, $item->userFrom->profileLink) ?>
+                        <?= $item->isAnonim ? "****" : Html::a($item->userFromName, $item->userFrom->profileLink) ?>
                     </div>
                     <!-- div class="b-comments__item__post">
                         Менеджер

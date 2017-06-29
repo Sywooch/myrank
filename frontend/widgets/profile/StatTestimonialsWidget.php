@@ -18,6 +18,6 @@ class StatTestimonialsWidget extends \frontend\widgets\user\TestimonialsWidget {
     }
     
     public function run() {
-        return $this->render("statTestimonials", ['list' => $this->list]);
+        return $this->render("statTestimonials", ['list' => $this->list, 'mObj' => $this->model]);
     }
 }

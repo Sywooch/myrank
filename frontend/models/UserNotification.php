@@ -31,7 +31,7 @@ class UserNotification extends \yii\db\ActiveRecord {
      */
     public function rules() {
 	return [
-	    [['type', 'user_id', 'value'], 'integer'],
+	    [['type', 'user_id', 'user_type', 'value'], 'integer'],
 	    [['user_id'], 'required'],
 	    [['create'], 'safe'],
 	];

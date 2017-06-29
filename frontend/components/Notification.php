@@ -27,12 +27,13 @@ class Notification extends Component {
 	return false;
     }
 
-    public function saveNotif ($type, $userId) {
-	$model = UserNotification::find()->where(['user_id' => $userId, 'type' => $type])->one();
+    public function saveNotif ($type, $userId, $userType) {
+	$model = UserNotification::find()->where(['user_id' => $userId, 'user_type' => $userType, 'type' => $type])->one();
 	if(!isset($model->id)) {
 	    $model = new UserNotification();
 	    $model->type = $type;
 	    $model->user_id = $userId;
+            $model->user_type = $userType;
 	    $model->value = 1;
 	} else {
 	    $model->updateCounters(['value' => 1]);

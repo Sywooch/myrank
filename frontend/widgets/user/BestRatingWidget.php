@@ -18,7 +18,7 @@ class BestRatingWidget extends Widget {
     
     public function run() {
 	parent::run();
-	$model = User::find()->where(['step' => 0])->orderBy("rating DESC")->limit(10)->all();
+	$model = User::find()->joinWith('company')->where(['step' => 0])->orderBy("rating DESC")->limit(10)->all();
 	return $this->render($this->view, ['model' => $model]);
     }
 }

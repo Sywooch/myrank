@@ -8,9 +8,10 @@ use yii\helpers\Json;
 class MarksDiagramWidget extends MarksWidget {
     
     public $model;
-    public $view = "marksDiagram";
+    public $view = "marksDiagram_new";
     public $allList;
     public $list;
+    public $userList;
 
 
     public function init() {
@@ -18,25 +19,27 @@ class MarksDiagramWidget extends MarksWidget {
 	$out = [];
 	
 	$markUsers = $this->model->getUserMarksTo()->select('description')->asArray()->all();
-	isset($this->model->mark) ? $markUsers[]['description'] = $this->model->mark : NULL;
 	foreach ($markUsers as $item) {
 	    $arr = Json::decode($item['description'], true);
 	    if(isset($arr[0])) {
 		foreach ($arr[0] as $key => $el) {
 		    if(isset($out[$key])) {
-			$out[$key] += (($el != 0.0) ? $el / count($markUsers) / 10 : $el);
+			$out[$key] += (($el != 0.0) ? $el / count($markUsers) : $el);
 		    } else {
-			$out[$key] = (($el != 0.0) ? $el / count($markUsers) / 10 : $el);
+			$out[$key] = (($el != 0.0) ? $el / count($markUsers) : $el);
 		    }
 		}
 	    }
-	    //echo "<pre>"; var_dump($arr); echo "</pre>";
 	}
-	//echo "<pre>"; var_dump($arr); echo "</pre>";
+        $this->userList = isset($this->model->mark) ? Json::decode($this->model->mark, TRUE) : [];
 	$this->list = $out;
     }
     
     public function run() {
-	return parent::run();
+	return $this->render($this->view, [
+            'allList' => $this->allList,
+            'list' => $this->list,
+            'userList' => $this->userList[0]
+        ]);
     }
 }

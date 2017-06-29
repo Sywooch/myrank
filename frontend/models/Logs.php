@@ -52,7 +52,7 @@ class Logs extends \yii\db\ActiveRecord {
     public static function saveLog($text, $type = "app") {
         $model = new Logs();
         $model->type = $type;
-        $model->text = $text;
+        $model->text = var_export($text, true);
         $model->save();
     }
 

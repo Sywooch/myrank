@@ -47,7 +47,7 @@ class Company extends UserConstant {
     ];
     public $user_id;
     
-    public $rating;
+    //public $rating;
 
     /**
      * @inheritdoc
@@ -64,7 +64,7 @@ class Company extends UserConstant {
             [['name', 'reg_date'], 'required'],
             [['professionField'], 'required', 'on' => 'editmaininfo'],
             [['count_persons', 'cash'], 'integer'],
-            [['reg_date', 'user_id', 'city_id', 'professionField', 'image', 'marks_config', 'mark'], 'safe'],
+            [['reg_date', 'user_id', 'city_id', 'professionField', 'image', 'marks_config', 'mark', 'rating'], 'safe'],
             [['about'], 'string'],
             [['phone', 'director', 'contact_face'], 'string', 'max' => 255],
         ];

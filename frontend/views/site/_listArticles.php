@@ -25,7 +25,7 @@ use yii\helpers\Url;
                                 <?= $model->abridgment ?>
                             </div>
                             <div class="b-articles__item__tags">
-                                <a href="#"><?= $model->articleCategoryName ?></a>
+                                <a href="<?= Url::toRoute(['article/index', 'category' => $model->article_category_id]) ?>"><?= $model->articleCategoryName ?></a>
                             </div>
                         </div>
                     </div>
@@ -50,7 +50,7 @@ use yii\helpers\Url;
                                 <?= $model->abridgment ?>
                             </div>
                             <div class="b-articles__item__tags">
-                                <a href="#"><?= $model->articleCategory->name ?></a>
+                                <a href="<?= Url::toRoute(['article/index', 'category' => $model->article_category_id]) ?>"><?= $model->articleCategory->name ?></a>
                             </div>
                         </div>
                     </div>

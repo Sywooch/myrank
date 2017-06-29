@@ -30,7 +30,7 @@ class Registration extends User {
 	    [['first_name', 'last_name'], 'match', 'pattern' => '/^[A-Za-zА-Яа-яs,]+$/u'],
 	    [['email'], 'email'],
 	    [['company_id', 'profileviews', 'rating'], 'integer'],
-	    [['email'], 'unique', 'on' => 'step1'],
+	    [['email'], 'unique'],
 	    [['last_login', 'company_name', 'birthdate', 'city_id', 'phone', 
 		'site', 'mark', 'type', 'step', 'about'], 'safe'],
 	    [['image'], 'string', 'max' => 255],

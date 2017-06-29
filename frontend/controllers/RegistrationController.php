@@ -44,6 +44,7 @@ class RegistrationController extends Controller {
 		$model->setPassword($post['Registration']['password']);
 		$model->generateAuthKey();
 		if ($model->save()) {
+                    
 		    \Yii::$app->rating->process($model);
 		    $model->saveProfession();
 		    $out['code'] = 1;
@@ -134,8 +135,9 @@ class RegistrationController extends Controller {
 	    $mUser->company_id = $model->id;
 	    $mUser->company_name = $model->name;
 	    $mUser->step = 0;
+            
 	    if ($mUser->save()) {
-		\Yii::$app->rating->process($mUser);
+		\Yii::$app->rating->process($model);
 		\Yii::$app->user->login($mUser, 3600 * 24 * 30);
 	    }
 
@@ -146,7 +148,7 @@ class RegistrationController extends Controller {
 	$out['errors'] = $model->errors;
 	echo Json::encode($out);
 
-	//var_dump($post);
+	//var_dump($out);
     }
 
     public function actionTest() {

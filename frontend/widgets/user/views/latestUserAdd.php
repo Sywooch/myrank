@@ -18,7 +18,7 @@ use yii\helpers\Url;
 		    </div>
 		    <div class="b-last-users__item__content">
 			<div class="b-last-users__item__title">
-			    <a href="<?= Url::toRoute(['users/profile', 'id' => $item->id]) ?>"><?= $item->fullName ?></a>
+			    <a href="<?= Url::toRoute($item->profileLink) ?>"><?= $item->fullName ?></a>
 			</div>
 			<div class="b-last-users__item__text">
 			    <?= $item->position ?>

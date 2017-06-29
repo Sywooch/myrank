@@ -20,7 +20,7 @@ use yii\helpers\Html;
 			    <img src="<?= $item->imageName ?>" alt="">
 			    <div class="b-rating__item__info">
 				<ul>
-				    <?php foreach ($item->getUserProfession()->limit(3)->all() as $item2) { ?>
+				    <?php foreach ($item->getProfileProfession()->limit(3)->all() as $item2) { ?>
 				    <li><?= $item2->title ?></li>
 				    <?php } ?>
 				</ul>

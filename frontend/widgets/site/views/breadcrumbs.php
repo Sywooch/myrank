@@ -13,7 +13,7 @@ use yii\widgets\Breadcrumbs;
         <?php
         $out = [];
         foreach ($links as $key => $item) {
-            $item['class'] = 'b-breadcrumbs__link';
+            //$out['class'] = 'b-breadcrumbs__link';
             $out[] = $item;
         }
         

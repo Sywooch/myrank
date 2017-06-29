@@ -279,6 +279,8 @@ return [
     'WHO_FROM_TO_FRIEND' => 'Друг',
     'WHO_FROM_TO_FAMILIAR' => 'Знайомий',
     'WHO_FROM_TO_SLAVE' => 'Підлеглий',
+    'WHO_FROM_TO_UNKNOW' => 'Не знайомий',
+    'WHO_FROM_TO_ANONIM' => 'Аноним',
     'USER_FROM' => 'Від користувача',
     'USER_TO' => 'До користувача',
     'SMILE' =>  'Посмішка',

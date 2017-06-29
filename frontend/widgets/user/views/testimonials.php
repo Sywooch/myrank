@@ -2,6 +2,7 @@
 
 use frontend\models\Testimonials;
 use yii\helpers\Url;
+use yii\helpers\Html;
 ?>
 <div class="b-comments b-block">
     <div class="b-title">
@@ -29,10 +30,12 @@ use yii\helpers\Url;
             <?php foreach ($list as $key => $item) { ?>
                 <div class="b-comments__item" data-id="<?= $item->id ?>" id="testimonials<?= $item->id ?>">
                     <div class="b-comments__item__image">
-                        <img src="<?= $item->userFrom->imageName ?>" alt="">
+                        <img src="<?= $item->userFromImage ?>" alt="">
+                        <?php if(!$item->isAnonim) { ?>
                         <div class="b-comments__item__number">
                             <?= $item->userFrom->rating ?>
                         </div>
+                        <?php } ?>
                     </div>
                     <div class="b-comments__item__info">
                         <div class="b-comments__item__date">
@@ -51,11 +54,11 @@ use yii\helpers\Url;
                             Отличный работник!
                         </div -->
                         <div class="b-comments__item__name">
-                            <a href="<?= Url::toRoute($item->userFrom->profileLink) ?>"><?= $item->userFrom->fullName ?></a>
+                            <?= $item->isAnonim ? $item->userFromName : Html::a($item->userFromName, $item->userFrom->profileLink) ?>
                         </div>
-                        <!-- div class="b-comments__item__post">
-                            Инженер
-                        </div -->
+                        <div class="b-comments__item__post">
+                            <?= Testimonials::whoFromTo($item->who_from_to) ?>
+                        </div>
                         <div class="b-comments__item__text">
                             <p><?= $item->text ?></p>
                         </div>
@@ -98,7 +101,7 @@ $this->registerJs("
 	});
 	$('.answerTestimonial').on('click', function() {
 	    id = $(this).closest('.b-comments__item').attr('data-id');
-	    url = '" . Url::toRoute(["users/writetestimonials", "id" => $mObj->id, 'typeTo' => $mObj->isCompany ? $mObj::TYPE_USER_COMPANY : $mObj::TYPE_USER_USER,]) . "';
+	    url = '" . Url::toRoute(["users/writetestimonials", "id" => $mObj->id, 'typeTo' => $mObj->objType]) . "';
 	    showModal(url, {'parent':id}, 1);
 		
 	    return false;

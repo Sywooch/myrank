@@ -59,7 +59,7 @@ class Country extends \yii\db\ActiveRecord {
     }
 
     static function getList() {
-        $model = static::find()->all();
+        $model = static::find()->orderBy("name")->all();
         foreach ($model as $item) {
             $out[$item->country_id] = $item->name;
         }

@@ -85,15 +85,15 @@ echo ModalWidget::widget([
     ],
     'success' => 'location.reload(true)',
     'script' => '$( function() {
-		   $("#regDate").after("<input type=\"hidden\" id=\"regDateAlter\" name=\"Company[reg_date]\" />");
-		   $("#regDateAlter").val($("#regDate").val());
-		   $("#regDate").attr("name", "");
-		   $("#regDate").datepicker({
-			altField: "#regDateAlter",
-			altFormat: "yy-mm-dd",
-			dateFormat: "dd-mm-yy"
-		   });
-		 } );
+                    $("#regDate").after("<input type=\"hidden\" id=\"regDateAlter\" name=\"Company[reg_date]\" />");
+                    $("#regDateAlter").val($("#regDate").val());
+                    $("#regDate").attr("name", "");
+                    $("#regDate").datepicker({
+                        altField: "#regDateAlter",
+                        altFormat: "yy-mm-dd",
+                        dateFormat: "dd-mm-yy"
+                    });
+		});
 		 
 		$("#company-country_id").on("change", function () {
 		    setCityList($(this).val());

@@ -131,6 +131,17 @@ $(document).ready(function () {
     function changeLike(that, val) {
         cont = $(that).parents('.b-marks__item__content__row');
         block = $('.b-marks__item__content__like', cont);
+        
+        if(val > 0.0) {
+            block.show();
+        } else {
+            block.hide();
+        }
+        
+        valClass(block, val);
+    }
+    
+    function valClass (block, val) {
         likeDown = block.hasClass('b-marks__item__content__like_down');
         if (val < 5.0) {
             if (!likeDown) {

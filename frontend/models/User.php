@@ -141,7 +141,11 @@ class User extends UserConstant implements IdentityInterface {
     public function getCompany() {
         return $this->hasOne(Company::className(), ['id' => 'company_id']);
     }
-
+    /*
+    public function getProfileProfession() {
+        return $this->getUserProfession();
+    }
+*/
     public function getFullName() {
         if ($this->isCompany && isset($this->company->name)) {
             return $this->company->name;
@@ -235,6 +239,32 @@ class User extends UserConstant implements IdentityInterface {
             $this->generateAuthKey();
         }
         return parent::beforeSave($insert);
+    }
+    
+    public function beforeDelete() {
+        if(!$this->isCompany) {
+            Images::deleteAll(['type' => self::TYPE_USER_USER, 'type_id' => $this->id]);
+            
+            $condFrom = ['type_from' => self::TYPE_USER_USER, 'from_id' => $this->id];
+            $condTo = ['type_to' => self::TYPE_USER_USER, 'to_id' => $this->id];
+            
+            Testimonials::deleteAll($condFrom);
+            Testimonials::deleteAll($condTo);
+            
+            UserMarks::deleteAll($condFrom);
+            UserMarks::deleteAll($condTo);
+            
+            UserMarkRating::deleteAll($condFrom);
+            UserMarkRating::deleteAll($condTo);
+            
+            UserNotification::deleteAll(['user_id' => $this->id, 'user_type' => self::TYPE_USER_USER]);
+            
+            UserProfession::deleteAll(['user_id' => $this->id]);
+            
+            UserTrustees::deleteAll($condFrom);
+            UserTrustees::deleteAll($condTo);
+        }
+        return parent::beforeDelete();
     }
 
     /**
