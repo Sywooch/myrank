@@ -12,8 +12,6 @@ foreach (isset($allList[0]) ? $allList[0] : [] as $key => $item) {
     }
 }
 ?>
-
-<script type="text/javascript" src="/js/chart/Chart.bundle.min.js"></script>
 <div class="b-diagramm b-block">
     <div class="b-title"><?= \Yii::t('app','MARKS_DIAGRAM'); ?></div>
     <div class="b-diagramm__content">
@@ -36,8 +34,8 @@ $this->registerJs("var ctx = document.getElementById('myChart').getContext('2d')
                 },{
                     label: 'Самооценка',
                     backgroundColor: color('rgb(255, 0, 0)').alpha(0.4).rgbString(),
-                    borderColor: 'rgb(255, 99, 132)',
-                    pointBackgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 0, 0)',
+                    pointBackgroundColor: 'rgb(255, 0, 0)',
                     data: [". implode(",", $userVal)."]
                 }
             ]

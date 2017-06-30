@@ -39,7 +39,7 @@ class MarksDiagramWidget extends MarksWidget {
 	return $this->render($this->view, [
             'allList' => $this->allList,
             'list' => $this->list,
-            'userList' => $this->userList[0]
+            'userList' => isset($this->userList[0]) ? $this->userList[0] : []
         ]);
     }
 }
