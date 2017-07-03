@@ -2018,6 +2018,45 @@ body.gray-bg .b-header__user:after{
 .b-marks__item .b-marks__item__content{
     display: none;
 }
+.b-marks__item__with-sub-content{
+    margin: 10px 0 10px 20px;
+}
+.b-marks__item__with-sub-content .b-marks__item__content__row{
+    padding: 0 0 0 30px;
+}
+.b-marks__item__with-sub-content__header{
+    display: table;
+    width: 100%;
+}
+.b-marks__item__with-sub-content__header__text{
+    display: table-cell;
+    vertical-align: top;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.2;
+    color: #747474;
+    width: 100%;
+}
+.b-marks__item__with-sub-content__header__text__wrapper{
+    display: table;
+}
+.b-marks__item__with-sub-content__header__text__wrapper span{
+    display: table-cell;
+    vertical-align: top;
+    padding: 0 0 0 10px;
+}
+.b-marks__item__with-sub-content__header__number{
+    display: table-cell;
+    vertical-align: top;
+    text-align: center;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.2;
+    color: #226377;
+    padding: 0 0 0 10px;
+}
 .b-marks__item__content__row{
     display: table;
     width:  100%;

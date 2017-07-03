@@ -19,13 +19,14 @@
 	"yiisoft/yii2-bootstrap": "~2.0.0",
 	"yiisoft/yii2-swiftmailer": "~2.0.0",
 	"yiisoft/yii2-authclient": "*",
+	"yiisoft/yii2-jui": "*",
 	"kartik-v/yii2-widget-fileinput": "@dev",
 	"2amigos/yii2-file-upload-widget": "~1.0",
 	"vova07/yii2-imperavi-widget": "*",
 	"yii2mod/yii2-google-maps-markers": "*",
 	"lysenkobv/yii2-geoip": "~1.0",
         "sammaye/yii2-audittrail": "^1.2",
-        "bower-asset/chartjs": "*"
+        "2amigos/yii2-chartjs-widget": "~2.0"
     },
     "require-dev": {
 	"yiisoft/yii2-debug": "~2.0.0",

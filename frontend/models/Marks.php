@@ -76,18 +76,23 @@ class Marks extends \yii\db\ActiveRecord {
         ];
     }
 
-    public static function getList() {
-        if (empty(self::$lists)) {
-            $mMarks = Marks::find()
-                    ->select(['id', 'name'])->where(['parent_id' => 0])
-                    ->all();
-            self::$lists[0] = (string) \Yii::t('app', 'WITHOUT_PARENT');
+    public function getChild() {
+        return $this->hasMany(Marks::className(), ['parent_id' => 'id']);
+    }
 
-            foreach ($mMarks as $item) {
-                self::$lists[$item->id] = $item->name;
-            }
+    public static function getList($parent_id = 0, &$arr = [], $pref = "") {
+        $mMarks = Marks::find()
+                ->with('child')
+                ->select(['id', 'name'])->where(['parent_id' => 0])
+                ->where(['parent_id' => $parent_id])
+                ->all();
+        empty($arr) ? $arr[0] = (string) \Yii::t('app', 'WITHOUT_PARENT') : NULL;
+
+        foreach ($mMarks as $item) {
+            $arr[$item->id] = $pref . $item->name;
+            static::getList($item->id, $arr, $pref . " - ");
         }
-        return self::$lists;
+        return $arr;
     }
 
 }

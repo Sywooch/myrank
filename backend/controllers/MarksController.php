@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use frontend\models\Marks;
+use backend\models\Marks;
 use backend\models\MarksSearch;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
@@ -33,12 +33,10 @@ class MarksController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
-	$searchModel = new MarksSearch();
-	$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+	$model = Marks::find()->with("child")->where(['parent_id' => 0])->all();
 
 	return $this->render('index', [
-		    'searchModel' => $searchModel,
-		    'dataProvider' => $dataProvider,
+            'model' => $model
 	]);
     }
 
@@ -59,7 +57,9 @@ class MarksController extends Controller {
      * @return mixed
      */
     public function actionCreate() {
+        $get = Yii::$app->request->get();
 	$model = new Marks();
+        $model->parent_id = isset($get['parent_id']) ? $get['parent_id'] : 0;
 
 	if ($model->load(Yii::$app->request->post()) && $model->save()) {
 	    return $this->redirect(['index']);

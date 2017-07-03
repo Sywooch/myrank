@@ -59,7 +59,7 @@ class AppAsset extends AssetBundle {
                     break;
             }
         }
-        //$this->css[] = 'css/style.css';
+        $this->css[] = 'css/style.css';
         parent::init();
     }
 

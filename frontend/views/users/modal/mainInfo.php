@@ -46,6 +46,21 @@ echo ModalWidget::widget([
 	    'posOpt' => ['multiple' => true],
 	    'posInfo' => \Yii::t('app','LET_PEOPLE_KNOW_WHAT_YOU_ARE_DOING'),
 	],
+	'company_name' => [
+	    'label' => \Yii::t('app','PLACE_OF_WORK_AT_THE_MOMENT'),
+	    'type' => 'textInput',
+	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_COMPANY_NAME')],
+	],
+	'company_post' => [
+	    'label' => \Yii::t('app','POSITION'),
+	    'type' => 'textInput',
+	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_COMPANY_POST')],
+	],
+	'phone' => [
+	    'label' => \Yii::t('app','PHONE_NUMBER'),
+	    'type' => 'textInput',
+	    'options' => ['class' => 'input-text input-phone'],
+	],
 	'about' => [
 	    'label' => \Yii::t('app','PERSONAL_INFORMATION'),
 	    'type' => 'textarea',

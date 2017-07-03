@@ -16,7 +16,7 @@ class MarksWidget extends Widget {
 
     public function init() {
         parent::init();
-        
+
         $this->allList = $this->getMarks();
         if ($this->model->owner) {
             $this->title = \Yii::t('app', 'MARK_MINE');
@@ -28,7 +28,7 @@ class MarksWidget extends Widget {
     }
 
     public function run() {
-        return $this->render($this->view, [
+        return $this->render("marks/" . $this->view, [
                     'allList' => $this->allList,
                     'list' => $this->list,
                     'model' => $this->model,
@@ -36,7 +36,7 @@ class MarksWidget extends Widget {
         ]);
     }
 
-    public function getMarks() {
+    public function getMarks() { 
         $configMarksArr = $this->model->configMarks;
         $arr = [];
 
