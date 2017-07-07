@@ -21,7 +21,7 @@ if (Yii::$app->user->id === null) {
 } else {
     $model = UserConstant::getProfile();
     $link['info'] = $model->isCompany ? ['company/info', 'id' => $model->id] : ['users/info'];
-    $link['profile'] = $model->isCompany ? ['company/profile', 'id' => $model->id] : ['users/profile'];
+    $link['profile'] = $model->isCompany ? ['company/profile', 'id' => $model->id] : ['users/profile', 'id' => $model->id];
     ?>
     <div class="col-xs-12 col-sm-6">
         <div class="b-header__user">

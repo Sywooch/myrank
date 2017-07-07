@@ -69,10 +69,6 @@ class UserConstant extends \yii\db\ActiveRecord {
 
     public function getTestimonial() {
         $mObj = \Yii::$app->user->identity;
-        Logs::saveLog([
-                    'from_id' => $mObj->isCompany ? $mObj->company_id : $mObj->id,
-                    'type_from' => $mObj->objType,
-        ]);
         return $this->getTestimonialsTo()->andWhere([
                     'from_id' => $mObj->isCompany ? $mObj->company_id : $mObj->id,
                     'type_from' => $mObj->objType,

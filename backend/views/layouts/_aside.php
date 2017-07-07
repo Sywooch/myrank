@@ -105,6 +105,7 @@ use yii\helpers\Url;
             <ul class="treeview-menu">
                 <li><a href="<?= Url::toRoute(['logs/index']) ?>"><i class="fa fa-circle-o"></i> Журналы</a></li>
                 <li><a href="<?= Url::toRoute(['migration/index']) ?>"><i class="fa fa-circle-o"></i> Миграции</a></li>
+                <li><a href="<?= Url::toRoute(['url-rules/index']) ?>"><i class="fa fa-circle-o"></i> SEO Rules</a></li>
             </ul>
         </li>
 

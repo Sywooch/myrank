@@ -48,7 +48,7 @@ class UsersSearch extends User {
      * @return ActiveDataProvider
      */
     public function search($params) {
-	$query = User::find()->with(["userProfession", "company"])->distinct("user.id");
+	$query = User::find()->joinWith(["userProfession", "company"])->distinct("user.id");
 	
 	if(isset($params['UsersSearch']['searchName']) && ($params['UsersSearch']['searchName'] != "")) {
 	    if(strpos($params['UsersSearch']['searchName'], " ") != FALSE) {

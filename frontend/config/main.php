@@ -50,10 +50,11 @@ return [
 	    'showScriptName' => false,
 	    'enableStrictParsing' => false,
 	    'rules' => [
-		'GET article' => 'article/index',
-		'GET article/category/<category:\d+>' => 'article/index',
-		'GET article/<id:\d+>' => 'article/view',
-		'page/<page:[\w-]+>' => 'static-pages/index',
+                ['class' => 'frontend\components\UrlRule'],
+		//'GET article' => 'article/index',
+		//'GET article/category/<category:\d+>' => 'article/index',
+		//'GET article/<id:\d+>' => 'article/view',
+		//'page/<page:[\w-]+>' => 'static-pages/index',
 	    ],
 	],
 	'assetManager' => [
@@ -93,7 +94,11 @@ return [
 	'debug' => [
 	    'class' => 'yii\debug\Module',
 	    'allowedIPs' => ['127.0.0.1', '::1', '193.34.94.25'] 
-	]
+	],
+        'gii' => [
+            'class' => 'yii\gii\Module',
+            'allowedIPs' => ['193.34.94.25']
+        ]
     ],
     'params' => $params,
 ];

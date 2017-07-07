@@ -5,7 +5,7 @@ namespace frontend\models;
 use Yii;
 
 class Article extends \yii\db\ActiveRecord {
-
+    
     const STATUS_DISABLE = 0;
     const STATUS_ACTIVE = 10;
 
@@ -52,6 +52,10 @@ class Article extends \yii\db\ActiveRecord {
 
     public function getArticleCategoryName() {
 	return isset($this->articleCategory->name) ? $this->articleCategory->name : "";
+    }
+    
+    public function getCatName () {
+        return $this->articleCategoryName;
     }
 
     static public function statusDropDownList() {
