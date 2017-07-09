@@ -90,7 +90,7 @@ class Marks extends \yii\db\ActiveRecord {
 
         foreach ($mMarks as $item) {
             $arr[$item->id] = $pref . $item->name;
-            static::getList($item->id, $arr, $pref . " - ");
+            //static::getList($item->id, $arr, $pref . " - ");
         }
         return $arr;
     }

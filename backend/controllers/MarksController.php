@@ -33,10 +33,12 @@ class MarksController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
-	$model = Marks::find()->with("child")->where(['parent_id' => 0])->all();
+	$searchModel = new MarksSearch();
+	$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 	return $this->render('index', [
-            'model' => $model
+		    'searchModel' => $searchModel,
+		    'dataProvider' => $dataProvider,
 	]);
     }
 
