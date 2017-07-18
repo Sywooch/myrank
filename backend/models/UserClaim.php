@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace backend\models;
 
 use Yii;
 
@@ -14,6 +14,8 @@ use Yii;
  * @property string $created
  */
 class UserClaim extends \yii\db\ActiveRecord {
+    
+    const OBJ_TYPE_TESTIMONIALS = 1;
 
     /**
      * @inheritdoc
@@ -29,8 +31,7 @@ class UserClaim extends \yii\db\ActiveRecord {
 	return [
 	    [['obj', 'obj_id'], 'required'],
 	    [['obj_id', 'user_id'], 'integer'],
-	    [['created'], 'safe'],
-	    [['obj'], 'string', 'max' => 255],
+	    [['user_type'], 'safe'],
 	];
     }
 
@@ -52,7 +53,6 @@ class UserClaim extends \yii\db\ActiveRecord {
     }
 
     public function getUserFullName() {
-
         return $this->user ? ($this->user->first_name.' '.$this->user->last_name) : ((string) \Yii::t('app','NO_USER') );
     }
 }

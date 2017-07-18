@@ -61,5 +61,10 @@ class Controller extends \yii\web\Controller {
 	    Yii::$app->language = 'en_US';
 	}
     }
+    
+    public function beforeAction($action) {
+        
+        return parent::beforeAction($action);
+    }
 
 }

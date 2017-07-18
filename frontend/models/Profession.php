@@ -68,5 +68,13 @@ class Profession extends \yii\db\ActiveRecord {
 	}
 	return parent::beforeSave($insert);
     }
+    
+    public function getProfessionMarks () {
+        return $this->hasMany(ProfessionMarks::className(), ['profession_id' => 'id']);
+    }
+    
+    public function getProfessionMarksValue () {
+        return $this->hasMany(Marks::className(), ['id' => 'mark_id'])->via('professionMarks');
+    }
 
 }

@@ -4,7 +4,8 @@ namespace frontend\widgets\user;
 
 use yii\base\Widget;
 use yii\helpers\Json;
-use frontend\models\Marks;
+use backend\models\Marks;
+use frontend\models\UserMarksCustom;
 
 class MarksWidget extends Widget {
 
@@ -36,12 +37,28 @@ class MarksWidget extends Widget {
         ]);
     }
 
-    public function getMarks() { 
-        $configMarksArr = $this->model->configMarks;
+    public function getMarks() {
         $arr = [];
+        $mUser = $this->model->profileProfession;
+        foreach ($mUser as $item) {
+            $arr[0]['p'.$item->id] = $item->title;
+            foreach ($item->professionMarksValue as $item2) {
+                $arr['p' . $item->id][$item2->id] = $item2->name;
+            }
+        }
+        //echo "<pre>"; var_dump($arr); echo "</pre>";
+        
+        $configMarksArr = $this->model->configMarks;
 
-        $model = Marks::find()->all();
-        foreach ($model as $item) {
+        $mMarks = Marks::find(true)->where(['type' => $this->model->objType, 'prof_only' => 0])->all();
+        $mUMC = UserMarksCustom::find()
+                ->where([
+                    'user_id' => $this->model->objId, 
+                    'user_type' => $this->model->objType
+                ])
+                ->asArray()
+                ->all();
+        foreach ($mMarks as $item) {
             if (isset($configMarksArr[$item->parent_id])) {
                 if ($configMarksArr[$item->parent_id] == Marks::MARKS_ACCESS_FRONT_ALL) {
                     $arr[$item->parent_id][$item->id] = $item->name;
@@ -49,6 +66,12 @@ class MarksWidget extends Widget {
             } else {
                 $arr[$item->parent_id][$item->id] = $item->name;
             }
+            
+            $names[$item->id] = $item->name;
+        }
+        
+        foreach ($mUMC as $item) {
+            $arr[$item['parent_id']][$item['mark_id']] = $names[$item['mark_id']];
         }
         return $arr;
     }

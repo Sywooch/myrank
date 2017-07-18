@@ -34,7 +34,9 @@ class UrlRule extends Object implements UrlRuleInterface {
                 $routeArr = explode("/", $route);
                 switch ($routeArr[0]) {
                     case 'users':
-                        $model = User::findOne($params['id']);
+                        if($routeArr[1] == 'profile') { 
+                            $model = User::findOne($params['id']);
+                        }
                         break;
                     case 'company':
                         $model = Company::findOne($params['id']);
@@ -67,7 +69,7 @@ class UrlRule extends Object implements UrlRuleInterface {
                 preg_match_all('|%(.+)%|isU', $out, $matches);
 
                 foreach ($matches[1] as $key => $item) {
-                    $out = str_replace($matches[0][$key], $model->$item, $out);
+                    isset($model->$item) ? $out = str_replace($matches[0][$key], $model->$item, $out) : NULL;
                 }
 
                 $getQuery = count($params) > 0 ? "?" . http_build_query($params) : "";

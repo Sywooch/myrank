@@ -21,8 +21,16 @@ use yii\helpers\ArrayHelper;
  * @property integer $required
  */
 class Marks extends \yii\db\ActiveRecord {
+    
+    public static $locales = [
+	'ru_RU' => 'name',
+	'en_US' => 'name_en',
+	'ua_UA' => 'name_ua',
+    ];
 
     static $lists = [];
+    
+    public $profsField;
 
     const MARKS_ACCESS_ALL = 0;
     const MARKS_ACCESS_USER = 1;
@@ -44,6 +52,15 @@ class Marks extends \yii\db\ActiveRecord {
             self::MARKS_ACCESS_FRONT_NONE => (string) \Yii::t('app', 'MARKS_ACCESS_FRONT_NONE'),
         ];
     }
+    
+    public static function find($default = false) {
+        if($default) {
+            return parent::find();
+        } else {
+            $lang = \Yii::$app->language;
+            return parent::find()->select(["*" ,self::$locales[$lang]. " AS name"]);
+        }
+    }
 
     /**
      * @inheritdoc
@@ -59,7 +76,7 @@ class Marks extends \yii\db\ActiveRecord {
         return [
             [['parent_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['access', 'type', 'required'], 'safe'],
+            [['access', 'type', 'required', 'name_en', 'name_ua', 'configure', 'profsField', 'prof_only'], 'safe'],
         ];
     }
 
@@ -72,7 +89,12 @@ class Marks extends \yii\db\ActiveRecord {
             'name' => Yii::t('app', 'MARKS_NAME'),
             'parent_id' => Yii::t('app', 'PARENT_ID'),
             'access' => Yii::t('app', 'MARKS_ACCESS'),
-            'type' => Yii::t('app', 'MARKS_TYPE'),
+            'type' => 'Для кого',
+            'name_en' => "EN",
+            'name_ua' => "UA",
+            'configure' => "Конфигурируемая",
+            'required' => 'Обязательная',
+            'prof_only' => 'Только для профессии'
         ];
     }
 
@@ -93,6 +115,15 @@ class Marks extends \yii\db\ActiveRecord {
             //static::getList($item->id, $arr, $pref . " - ");
         }
         return $arr;
+    }
+    
+    public function beforeDelete() {
+        static::deleteAll(['parent_id' => $this->id]);
+        return parent::beforeDelete();
+    }
+    
+    public function getProfessions () {
+        return ArrayHelper::map(Profession::find()->asArray()->all(), 'id', 'title');
     }
 
 }

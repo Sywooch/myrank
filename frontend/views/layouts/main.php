@@ -27,7 +27,7 @@ $this->registerJs('
 		location.reload(true);
 	    });
 	});
-	$(".showModal").on("click", function() {
+	$("body").on("click", ".showModal", function() {
 	    showModal($(this).attr("data-url"), 0, 1);
 	    return false;
 	});

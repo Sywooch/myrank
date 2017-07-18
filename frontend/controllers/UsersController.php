@@ -12,7 +12,7 @@ use frontend\models\User;
 use frontend\models\UserMarks;
 use frontend\models\UserTrustees;
 use frontend\models\Testimonials;
-use frontend\models\UserClaim;
+use backend\models\UserClaim;
 use frontend\models\UserMarkRating;
 use frontend\models\UsersSearch;
 use frontend\models\City;
@@ -21,6 +21,7 @@ use frontend\models\UserNotification;
 use frontend\models\Registration;
 use frontend\models\Company;
 use frontend\models\Marks;
+use frontend\models\UserMarksCustom;
 use yii\web\NotFoundHttpException;
 use yii\helpers\Json;
 use frontend\models\UserConstant;
@@ -125,8 +126,12 @@ class UsersController extends Controller {
     }
 
     public function actionConfigmarks() {
-        $model = Marks::findAll(['parent_id' => 0, 'required' => 0]);
         $mUser = UserConstant::getProfile();
+        $model = Marks::findAll([
+            'parent_id' => 0, 
+            'required' => 0,
+            'type' => $mUser->objType
+        ]);
         if (!is_null($mUser->marks_config)) {
             $configArr = Json::decode($mUser->marks_config, true);
         } else {
@@ -134,7 +139,11 @@ class UsersController extends Controller {
         }
         echo Json::encode([
             'code' => 1,
-            'data' => $this->renderPartial('modal/configMarks', ['model' => $model, 'configArr' => $configArr])
+            'data' => $this->renderPartial('modal/configMarks', [
+                'model' => $model,
+                'configArr' => $configArr,
+                'mObj' => $mUser
+            ])
         ]);
         \Yii::$app->end();
     }
@@ -144,6 +153,47 @@ class UsersController extends Controller {
         $mUser = User::getProfile();
         $mUser->marks_config = Json::encode($post);
         echo Json::encode(['code' => $mUser->save() ? 1 : 0]);
+    }
+
+    public function actionCustomConfigMarks($id, $obj_id, $obj_type) {
+        $mMarks = Marks::findOne($id);
+        $mObj = UserConstant::findModel(['type' => $obj_type, 'id' => $obj_id]);
+
+        if (($mMarks->parent_id == 0) && $mMarks->configure) {
+            $mMarksArr = UserConstant::marksArr($mObj->configMarks, UserConstant::TYPE_MARKS_HIDE);
+            $mUMC = UserMarksCustom::find()->where(['user_id' => $obj_id, 'user_type' => $obj_type])->asArray()->all();
+            foreach ($mUMC as $item) {
+                $mUmcArr[$item['mark_id']] = 1;
+            }
+            echo Json::encode([
+                'code' => 1,
+                'data' => $this->renderPartial("modal/customconfigmarks", [
+                    'model' => $mMarksArr,
+                    'id' => $id,
+                    'mUMC' => $mUmcArr,
+                ])
+            ]);
+        } else {
+            echo Json::encode(['code' => 0]);
+        }
+    }
+
+    public function actionCustomConfigMarksSave($id) {
+        $mObj = UserConstant::getProfile();
+        $post = \Yii::$app->request->post('UserMarksCustom');
+
+        UserMarksCustom::deleteAll(['user_id' => $mObj->id, 'user_type' => $mObj->objType]);
+
+        foreach ($post['marks'] as $item) {
+            $mUMC = new UserMarksCustom();
+            $mUMC->user_id = $mObj->objId;
+            $mUMC->user_type = $mObj->objType;
+            $mUMC->parent_id = $id;
+            $mUMC->mark_id = $item;
+            $mUMC->save();
+        }
+
+        echo Json::encode(['code' => 1]);
     }
 
     /**
@@ -206,14 +256,20 @@ class UsersController extends Controller {
     public function actionSendclaim() {
         $post = \Yii::$app->request->post();
         if (isset($post['param'])) {
-            $mClaim = UserClaim::findOne($post['id']);
+            $mObj = UserConstant::getProfile();
+            $mClaim = UserClaim::findOne(['obj_id' => $post['param'], 'obj' => UserClaim::OBJ_TYPE_TESTIMONIALS]);
             if (!isset($mClaim->id)) {
                 $mClaim = new UserClaim();
-                $mClaim->attributes = [
-                ];
             }
+            $mClaim->attributes = [
+                'obj' => UserClaim::OBJ_TYPE_TESTIMONIALS,
+                'obj_id' => $post['param'],
+                'user_id' => $mObj->objId,
+                'user_type' => $mObj->objType,
+            ];
+            $code = $mClaim->save() ? 1 : 0;
         }
-        echo Json::encode(['code' => 1]);
+        echo Json::encode(['code' => $code]);
     }
 
     // Edit profile

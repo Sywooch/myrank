@@ -11,20 +11,17 @@ use yii\widgets\ActiveForm;
 <div class="testimonials-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
+    <table style="font-size: 20px;">
+        <tr>
+            <td>От: </td>
+            <td><?= Html::a($model->userFrom->fullName, ['users/view', 'id' => $model->userFrom->id]) ?></td>
+        </tr>
+        <tr>
+            <td>Кому: </td>
+            <td><?= Html::a($model->userTo->fullName, ['users/view', 'id' => $model->userTo->id]) ?></td>
+        </tr>
+    </table>
     <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'user_from')->textInput() ?>
-
-    <?= $form->field($model, 'usert_to')->textInput() ?>
-
-    <?= $form->field($model, 'smile')->textInput() ?>
-
-    <?= $form->field($model, 'parent_id')->textInput() ?>
-
-    <?= $form->field($model, 'created')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

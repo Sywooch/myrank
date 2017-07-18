@@ -26,6 +26,9 @@ class UserConstant extends \yii\db\ActiveRecord {
     const SAVE_FOLDER_USER = 'user';
     const SAVE_FOLDER_COMPANY = 'company';
     
+    const TYPE_MARKS_HIDE = 1;
+    const TYPE_MARKS_SHOW = 2;
+    
     public $noPhoto = "/images/no_photo.png";
     
     public static function findModel($cond) {
@@ -136,20 +139,32 @@ class UserConstant extends \yii\db\ActiveRecord {
     }
 
     public function getMarks() {
-        $configMarksArr = $this->configMarks;
+        return static::marksArr($this->configMarks);
+    }
+    
+    /**
+     * 
+     * @param array $configMarksArr default []
+     * @param array $query default NULL
+     * @return array
+     */
+    public static function marksArr ($configMarksArr = [], $typeMarks = self::TYPE_MARKS_SHOW) {
         $arr = [];
 
-        $model = Marks::find()->all();
-        foreach ($model as $item) {
+        $mMarks = Marks::find()->all();
+        foreach ($mMarks as $item) {
             if (isset($configMarksArr[$item->parent_id])) {
                 if ($configMarksArr[$item->parent_id] == Marks::MARKS_ACCESS_FRONT_ALL) {
-                    $arr[$item->parent_id][$item->id] = $item->name;
+                    $arr[self::TYPE_MARKS_SHOW][$item->parent_id][$item->id] = $item->name;
+                } else {
+                    $arr[self::TYPE_MARKS_HIDE][$item->parent_id][$item->id] = $item->name;
                 }
-            } else {
-                $arr[$item->parent_id][$item->id] = $item->name;
+            } else if ($item->parent_id == 0) {
+                $arr[self::TYPE_MARKS_SHOW][$item->parent_id][$item->id] = $item->name;
+                $arr[self::TYPE_MARKS_HIDE][$item->parent_id][$item->id] = $item->name;
             }
         }
-        return $arr;
+        return isset($arr[$typeMarks]) ? $arr[$typeMarks] : [];
     }
 
     // FIXME: Сделать через связ таблицу

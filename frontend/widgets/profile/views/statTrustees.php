@@ -17,91 +17,23 @@ use yii\helpers\Html;
                     <div class="b-small-date">
                         <?= Yii::$app->formatter->asDate($item->created, 'dd.MM.yyyy H:m:s') ?>
                     </div>
-                    <div class="b-card b-card_new b-company-trusted__item">
-                        <img class="b-card__logo" src="<?= $item->user->imageName ?>" alt="logo">
-                        <div class="b-card__name">
+                    <div class="b-card b-company-trusted__item <?= 'b-card_new' ?>">
+                        <div class="b-card__logo-block">
+                            <img class="b-card__logo" src="<?= $item->user->imageName ?>" alt="logo">
+                        </div>
+                        <div class="b-card__name" style="height: 40px;">
                             <?= Html::a($item->user->fullName, $item->user->profileLink) ?>
                         </div>
                         <!-- div class="b-card__post">Проект-менеджер</div -->
-                        <a class="button-small b-card__button" href="#">Подтвердить</a>
-                        <div><a href="#" class="b-link">Отказать</a></div>
+                        <?php if(1) { ?>
+                            <a class="button-small b-card__button" href="#">Подтвердить</a>
+                            <div><a href="#" class="b-link">Отказать</a></div>
+                        <?php } else { ?>
+                            <div><a href="#" class="b-link b-link_red">Удалить</a></div>
+                        <?php } ?>
                     </div>
                 </div>
             <?php } ?>
-            <!-- div class="col-lg-3 col-sm-6">
-                <div class="b-small-date">23.05.2017  12:32</div>
-                <div class="b-card b-card_new b-company-trusted__item">
-                    <img class="b-card__logo" src="images/b-card/1.jpg" alt="logo">
-                    <div class="b-card__name">Анастасия Константинова</div>
-                    <div class="b-card__post">Проект-менеджер</div>
-                    <a class="button-small b-card__button" href="#">Подтвердить</a>
-                    <div><a href="#" class="b-link">Отказать</a></div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="b-small-date">23.05.2017  12:32</div>
-                <div class="b-card b-card_new b-company-trusted__item">
-                    <img class="b-card__logo" src="images/b-card/1.jpg" alt="logo">
-                    <div class="b-card__name">Анастасия Константинова</div>
-                    <div class="b-card__post">Проект-менеджер</div>
-                    <a class="button-small b-card__button" href="#">Подтвердить</a>
-                    <div><a href="#" class="b-link">Отказать</a></div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="b-small-date">23.05.2017  12:32</div>
-                <div class="b-card b-card_new b-company-trusted__item">
-                    <img class="b-card__logo" src="images/b-card/1.jpg" alt="logo">
-                    <div class="b-card__name">Анастасия Константинова</div>
-                    <div class="b-card__post">Проект-менеджер</div>
-                    <a class="button-small b-card__button" href="#">Подтвердить</a>
-                    <div><a href="#" class="b-link">Отказать</a></div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="b-small-date">23.05.2017  12:32</div>
-                <div class="b-card b-card_new b-company-trusted__item">
-                    <img class="b-card__logo" src="images/b-card/1.jpg" alt="logo">
-                    <div class="b-card__name">Анастасия Константинова</div>
-                    <div class="b-card__post">Проект-менеджер</div>
-                    <a class="button-small b-card__button" href="#">Подтвердить</a>
-                    <div><a href="#" class="b-link">Отказать</a></div>
-                </div>
-            </div>
-        
-            <div class="col-lg-3 col-sm-6">
-                <div class="b-small-date">23.05.2017  12:32</div>
-                <div class="b-card b-company-trusted__item">
-                    <img class="b-card__logo" src="images/b-card/1.jpg" alt="logo">
-                    <div class="b-card__name">Анастасия Константинова</div>
-                    <div class="b-card__post">Проект-менеджер</div>
-                    <div><a href="#" class="b-link b-link_red">Удалить</a></div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="b-card b-company-trusted__item">
-                    <img class="b-card__logo" src="images/b-card/1.jpg" alt="logo">
-                    <div class="b-card__name">Анастасия Константинова</div>
-                    <div class="b-card__post">Проект-менеджер</div>
-                    <div><a href="#" class="b-link b-link_red">Удалить</a></div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="b-card b-company-trusted__item">
-                    <img class="b-card__logo" src="images/b-card/1.jpg" alt="logo">
-                    <div class="b-card__name">Анастасия Константинова</div>
-                    <div class="b-card__post">Проект-менеджер</div>
-                    <div><a href="#" class="b-link b-link_red">Удалить</a></div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="b-card b-company-trusted__item">
-                    <img class="b-card__logo" src="images/b-card/1.jpg" alt="logo">
-                    <div class="b-card__name">Анастасия Константинова</div>
-                    <div class="b-card__post">Проект-менеджер</div>
-                    <div><a href="#" class="b-link b-link_red">Удалить</a></div>
-                </div>
-            </div -->
         </div>
 
         <div class="b-company-trusted__container">

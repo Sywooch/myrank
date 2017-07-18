@@ -311,7 +311,7 @@ function sendPost(url, param) {
             return data;
         }
     });
-    return out;
+    //return out;
 }
 
 function alertGreen() {

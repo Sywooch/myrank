@@ -7,8 +7,6 @@ use yii\helpers\Html;
 /* @var $model frontend\models\Testimonials */
 
 $this->title = Yii::t('app', 'Create Testimonials');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Testimonials'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="testimonials-create">
 

@@ -93,11 +93,11 @@ return [
     'modules' => [
 	'debug' => [
 	    'class' => 'yii\debug\Module',
-	    'allowedIPs' => ['127.0.0.1', '::1', '193.34.94.25'] 
+	    'allowedIPs' => ['127.0.0.1', '::1', '193.34.94.25', '188.163.34.95'] 
 	],
         'gii' => [
             'class' => 'yii\gii\Module',
-            'allowedIPs' => ['193.34.94.25']
+            'allowedIPs' => ['193.34.94.25', '188.163.34.95']
         ]
     ],
     'params' => $params,

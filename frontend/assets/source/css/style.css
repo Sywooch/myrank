@@ -4375,6 +4375,8 @@ body.gray-bg .b-header__user:after{
   margin-bottom: 12px;
 }
 
+.b-card__logo-block {height: 165px; overflow: hidden; border-radius: 10px;}
+
 .b-card__name {
   color: #226377;
   font-size: 14px;

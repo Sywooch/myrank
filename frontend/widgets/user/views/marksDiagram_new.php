@@ -3,7 +3,9 @@
  * @author Shilo Dmitry
  * @email dmitrywp@gmail.com
  */
-
+$outItems = [];
+$outVal = [];
+$userVal = [];
 foreach (isset($allList[0]) ? $allList[0] : [] as $key => $item) {
     if(isset($allList[$key]) && count($allList[$key]) > 0) {
         $outItems[] = $item;
@@ -24,7 +26,7 @@ $this->registerJs("var ctx = document.getElementById('myChart').getContext('2d')
     var myRadarChart = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: [" . "'" . implode("','", $outItems) . "'" . "],
+            labels: [" . "\"" . implode("\",\"", $outItems) . "\"" . "],
             datasets: [{
                     label: 'Другие',
                     backgroundColor: color('rgb(54, 162, 235)').alpha(0.4).rgbString(),
