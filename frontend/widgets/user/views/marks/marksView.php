@@ -3,13 +3,19 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\models\UserConstant;
+use frontend\models\Testimonials;
 
 //var_dump($allList);
 ?>
 <div class="b-marks b-block">
-    <div class="b-title"><?= $title ?></div> 
-    <div class="b-marks__content">
-        <form id="markFields" method="POST" action="#">
+    <form id="markFields" method="POST" action="#">
+        <div class="b-title">
+            <?= $title ?>
+            <?php if(!$model->owner) { ?>
+                <?= Html::dropDownList("whoFromTo", $list['whofromto'], Testimonials::whoFromTo(), ['style' => 'float:right; width: auto', 'class' => 'form-control']); ?>
+            <?php } ?>
+        </div> 
+        <div class="b-marks__content">
             <?php foreach (isset($allList[0]) ? $allList[0] : [] as $key => $el) { ?>
                 <?php if (isset($allList[$key]) && count($allList[$key]) > 0) { ?>
                     <div class="b-marks__item">
@@ -33,15 +39,15 @@ use frontend\models\UserConstant;
             }
             ?>
             <?= Html::hiddenInput(\Yii :: $app->getRequest()->csrfParam, \Yii :: $app->getRequest()->getCsrfToken(), []); ?>
-        </form>
-    </div>
+        </div>
+    </form>
     <div class="b-marks__button">
         <?php if ($model->owner) { ?>
             <a class="button-small showModal" 
                data-url="<?= Url::toRoute(['users/configmarks']) ?>" 
                href="#"><?= \Yii::t('app', 'CONFIGURE'); ?></a>
            <?php } ?>
-        <?php if(Yii::$app->user->id !== NULL) { ?>
+           <?php if (Yii::$app->user->id !== NULL) { ?>
             <a id="saveMarks" class="button-small" href="#"><?= \Yii::t('app', 'RATING_SAVE'); ?></a>
         <?php } ?>
     </div>

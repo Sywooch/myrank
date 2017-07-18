@@ -39,11 +39,13 @@ class MarksWidget extends Widget {
 
     public function getMarks() {
         $arr = [];
-        $mUser = $this->model->profileProfession;
-        foreach ($mUser as $item) {
-            $arr[0]['p'.$item->id] = $item->title;
-            foreach ($item->professionMarksValue as $item2) {
-                $arr['p' . $item->id][$item2->id] = $item2->name;
+        if($this->model->isCompany) {
+            $mUser = $this->model->profileProfession;
+            foreach ($mUser as $item) {
+                $arr[0]['p'.$item->id] = $item->title;
+                foreach ($item->professionMarksValue as $item2) {
+                    $arr['p' . $item->id][$item2->id] = $item2->name;
+                }
             }
         }
         //echo "<pre>"; var_dump($arr); echo "</pre>";

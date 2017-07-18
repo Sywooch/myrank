@@ -128,7 +128,9 @@ class UserConstant extends \yii\db\ActiveRecord {
                         'from_id' => $mUserFrom->isCompany ? $mUserFrom->company_id : $mUserFrom->id,
                     ])
                     ->one();
-            return isset($model->description) ? Json::decode($model->description, true) : [];
+            $out = isset($model->description) ? Json::decode($model->description, true) : [];
+            $out['whofromto'] = isset($model->who_from_to) ? $model->who_from_to : 0;
+            return $out;
         } else {
             return [];
         }

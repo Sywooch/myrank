@@ -40,8 +40,12 @@ use yii\helpers\Url;
 	    </div>
 	<?php } ?>
 	</div>
-        <div class="row"></div>
-
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <?= Html::checkbox("Marks[myview]", isset($configArr['myview']) && ($configArr['myview'] == 1)) ?>
+                <span>Показывать мою оценку другим</span>
+            </div>
+        </div>
 	<div class="row">
 	    <div class="col-xs-12 col-sm-12" id="configMarksError" style="display: none; color:red;"></div>
 	</div>

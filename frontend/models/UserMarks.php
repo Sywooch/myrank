@@ -33,7 +33,8 @@ class UserMarks extends UserConstant {
     public function rules() {
         return [
             [['to_id', 'from_id', 'type_from', 'type_to'], 'integer'],
-            [['description'], 'string']
+            [['description'], 'string'],
+            [['who_from_to'], 'safe']
         ];
     }
 

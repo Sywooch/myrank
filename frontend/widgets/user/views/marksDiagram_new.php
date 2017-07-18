@@ -21,6 +21,13 @@ foreach (isset($allList[0]) ? $allList[0] : [] as $key => $item) {
     </div>
 </div>
 <?php
+$myViewDiagram = $myView ? "{
+                    label: 'Самооценка',
+                    backgroundColor: color('rgb(255, 0, 0)').alpha(0.4).rgbString(),
+                    borderColor: 'rgb(255, 0, 0)',
+                    pointBackgroundColor: 'rgb(255, 0, 0)',
+                    data: [". implode(",", $userVal)."]
+                }" : "";
 $this->registerJs("var ctx = document.getElementById('myChart').getContext('2d');
     var color = Chart.helpers.color;
     var myRadarChart = new Chart(ctx, {
@@ -33,13 +40,7 @@ $this->registerJs("var ctx = document.getElementById('myChart').getContext('2d')
                     borderColor: 'rgb(54, 162, 235)',
                     pointBackgroundColor: 'rgb(54, 162, 235)',
                     data: [". implode(",", $outVal)."]
-                },{
-                    label: 'Самооценка',
-                    backgroundColor: color('rgb(255, 0, 0)').alpha(0.4).rgbString(),
-                    borderColor: 'rgb(255, 0, 0)',
-                    pointBackgroundColor: 'rgb(255, 0, 0)',
-                    data: [". implode(",", $userVal)."]
-                }
+                },$myViewDiagram
             ]
         },
         //options: options

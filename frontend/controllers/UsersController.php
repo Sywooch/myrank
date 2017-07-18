@@ -84,9 +84,9 @@ class UsersController extends Controller {
 
             $attrs = [
                 'to_id' => $id,
-                'from_id' => !$mUserFrom->isCompany ? $mUserFrom->id : $mUserFrom->company_id,
+                'from_id' => $mUserFrom->objId,
                 'type_to' => $typeTo,
-                'type_from' => $mUserFrom->isCompany ? UserConstant::TYPE_USER_COMPANY : UserConstant::TYPE_USER_USER
+                'type_from' => $mUserFrom->objType,
             ];
 
             $mMarks = UserMarks::find()->where($attrs)->one();
@@ -95,7 +95,8 @@ class UsersController extends Controller {
             }
 
             $mMarks->attributes = array_merge($attrs, [
-                'description' => Json::encode($req)
+                'description' => Json::encode($req),
+                'who_from_to' => \Yii::$app->request->post('whoFromTo')
             ]);
 
             if (isset($req[0])) {
@@ -150,7 +151,7 @@ class UsersController extends Controller {
 
     public function actionConfigmarkssave() {
         $post = \Yii::$app->request->post('Marks');
-        $mUser = User::getProfile();
+        $mUser = UserConstant::getProfile();
         $mUser->marks_config = Json::encode($post);
         echo Json::encode(['code' => $mUser->save() ? 1 : 0]);
     }

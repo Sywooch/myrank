@@ -2,7 +2,6 @@
 
 namespace frontend\widgets\user;
 
-use frontend\models\Marks;
 use yii\helpers\Json;
 
 class MarksDiagramWidget extends MarksWidget {
@@ -13,6 +12,7 @@ class MarksDiagramWidget extends MarksWidget {
     public $list;
     public $userList;
 
+    private $myView = true;
 
     public function init() {
 	parent::init();
@@ -31,7 +31,9 @@ class MarksDiagramWidget extends MarksWidget {
 		}
 	    }
 	}
-        $this->userList = isset($this->model->mark) ? Json::decode($this->model->mark, TRUE) : [];
+        $marksConfig = Json::decode($this->model->marks_config, true);
+        $this->myView = (isset($marksConfig['myview']) && ($marksConfig['myview'] == 1));
+        $this->userList = (isset($this->model->mark) && $this->myView) ? Json::decode($this->model->mark, TRUE) : [];
 	$this->list = $out;
     }
     
@@ -39,7 +41,8 @@ class MarksDiagramWidget extends MarksWidget {
 	return $this->render($this->view, [
             'allList' => $this->allList,
             'list' => $this->list,
-            'userList' => isset($this->userList[0]) ? $this->userList[0] : []
+            'userList' => isset($this->userList[0]) ? $this->userList[0] : [],
+            'myView' => $this->myView
         ]);
     }
 }
