@@ -6,10 +6,10 @@ use frontend\widgets\user\UserInfoWidget;
 use frontend\widgets\user\TestimonialsWidget;
 use frontend\widgets\user\ProfileStatWidget;
 use yii\helpers\Url;
+use yii\helpers\Html;
 use frontend\widgets\user\LatestMarksWidget;
 use frontend\widgets\user\UserTrusteesWidget;
 use frontend\widgets\image\FileUploadWidget;
-use frontend\models\UserNotification;
 use frontend\models\UserConstant;
 
 $this->title = \Yii::t('app', 'USER_PROFILE');
@@ -142,41 +142,27 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profi
                                         </div>
                                     <?php } ?>
                                 </div>
-                                <div class="b-user__portfolio__carousel__nav">
+                                <!-- FIXME div class="b-user__portfolio__carousel__nav">
                                     <div class="b-user__portfolio__carousel__prev"></div>
                                     <div class="b-user__portfolio__carousel__next"></div>
-                                </div>
+                                </div -->
                             </div>
 
-                            <!-- div class="b-title">Специалисты</div>
+                            <div class="b-title">Специалисты</div>
 
                             <div class="b-user__portfolio__carousel js-portfolio-slider">
                                 <div class="owl-carousel">
+                                    <?php foreach($model->usersCompanyList as $item) { ?>
                                     <div class="b-user__portfolio__item">
-                                        <img class="b-user__portfolio__item__image" src="images/b-portfolio/1.jpg" alt="image">
-                                        <div class="b-user__portfolio__item__name">Анастасия Константинова</div>
-                                        <div class="b-user__portfolio__item__post">Веб-дизайнер</div>
+                                        <img class="b-user__portfolio__item__image" src="<?= $item->imageName ?>" alt="image">
+                                        <div class="b-user__portfolio__item__name">
+                                            <?= Html::a($item->fullName, $item->profileLink) ?>
+                                        </div>
+                                        <div class="b-user__portfolio__item__post">
+                                            <?= $item->userCompany->company_post ?>
+                                        </div>
                                     </div>
-                                    <div class="b-user__portfolio__item">
-                                        <img class="b-user__portfolio__item__image" src="images/b-portfolio/2.jpg" alt="image">
-                                        <div class="b-user__portfolio__item__name">Анастасия Константинова</div>
-                                        <div class="b-user__portfolio__item__post">Веб-дизайнер</div>
-                                    </div>
-                                    <div class="b-user__portfolio__item">
-                                        <img class="b-user__portfolio__item__image" src="images/b-portfolio/3.jpg" alt="image">
-                                        <div class="b-user__portfolio__item__name">Анастасия Константинова</div>
-                                        <div class="b-user__portfolio__item__post">Веб-дизайнер</div>
-                                    </div>
-                                    <div class="b-user__portfolio__item">
-                                        <img class="b-user__portfolio__item__image" src="images/b-portfolio/4.jpg" alt="image">
-                                        <div class="b-user__portfolio__item__name">Анастасия Константинова</div>
-                                        <div class="b-user__portfolio__item__post">Веб-дизайнер</div>
-                                    </div>
-                                    <div class="b-user__portfolio__item">
-                                        <img class="b-user__portfolio__item__image" src="images/b-portfolio/5.jpg" alt="image">
-                                        <div class="b-user__portfolio__item__name">Анастасия Константинова</div>
-                                        <div class="b-user__portfolio__item__post">Веб-дизайнер</div>
-                                    </div>
+                                    <?php } ?>
                                 </div>
                                 <div class="b-user__portfolio__carousel__nav">
                                     <div class="b-user__portfolio__carousel__prev"></div>
@@ -184,7 +170,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profi
                                 </div>
                             </div>
 
-                            <div class="b-user__portfolio__more-link">
+                            <!-- FIXME div class="b-user__portfolio__more-link">
                                 <span class="b-user__portfolio__edit"></span>
                                 <a href="#" class="b-more b-more_icon-right">
                                     <span class="b-more__text">Все специалисты</span>
@@ -197,14 +183,16 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profi
             <!-- end b-user -->
 
             <!-- begin b-marks -->
-            <?= MarksWidget::widget(['model' => $model]); ?>
+            <?php if($model->isCompany && !$model->hide_marks || !$model->isCompany) { ?>
+                <?= MarksWidget::widget(['model' => $model]); ?>
+            <?php } ?>
             <!-- end b-marks -->
 
 
             <!-- begin b-comments -->
-            <?=
-            TestimonialsWidget::widget(['model' => $model]);
-            ?>
+            <?php if($model->isCompany && !$model->hide_testimonials || !$model->isCompany) { ?>
+                <?= TestimonialsWidget::widget(['model' => $model]); ?>
+            <?php } ?>
             <!-- end b-comments -->
 
         </div>

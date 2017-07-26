@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'title_ua')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'title_en')->textInput(['maxlength' => true]) ?>
-    <?php // $form->field($model, 'listProf')->textarea() ?>
+    <?= $form->field($model, 'hide_main_page')->checkbox() ?>
     
 
     <div class="form-group">

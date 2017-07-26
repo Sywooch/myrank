@@ -81,7 +81,19 @@ echo ModalWidget::widget([
 	    'label' => "",
 	    'type' => "hiddenInput",
 	    'options' => []
-	]
+	],
+        [
+            'hide_testimonials' => [
+		'label' => '',
+		'type' => 'dropDownList',
+		'options' => ['Включить отзывы', 'Отключить отзывы'],
+	    ],
+	    'hide_marks' => [
+		'label' => '',
+		'type' => 'dropDownList',
+                'options' => ['Включить оценки', 'Отключить оценки']
+	    ]
+        ]
     ],
     'success' => 'location.reload(true)',
     'script' => '$( function() {

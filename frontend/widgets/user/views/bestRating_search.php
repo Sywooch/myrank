@@ -7,16 +7,16 @@ use yii\helpers\Html;
 	<?php foreach ($model as $item) { ?>
 	<div class="b-trusted-users__item" style="min-height: 110px">
     	    <div class="b-trusted-users__item__image" style="position: relative;">
-		<img src="<?= $item->imageName ?>" alt="">
-		<div class="b-rating__item__number" style="padding: 0 6px; line-height: 25px;"><?= $item->rating ?></div>
+		<img src="<?= $item->obj->imageName ?>" alt="">
+		<div class="b-rating__item__number" style="padding: 0 6px; line-height: 25px;"><?= $item->obj->rating ?></div>
 	    </div>
     	    <div class="b-trusted-users__item__content">
     		<div class="b-trusted-users__item__name">
-                    <?= Html::a($item->fullName, $item->profileLink) ?>
+                    <?= Html::a($item->obj->fullName, $item->obj->profileLink) ?>
 		</div>
-    		<div class="b-trusted-users__item__place"><?= $item->position ?></div>
+    		<div class="b-trusted-users__item__place"><?= $item->obj->position ?></div>
     		<div class="b-tags">
-			<?php foreach ($item->profileProfession as $item2) { ?>
+			<?php foreach ($item->obj->profileProfession as $item2) { ?>
 			    <span><?= $item2->title ?></span>
 			<?php } ?>
     		</div>

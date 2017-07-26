@@ -17,10 +17,10 @@ use yii\helpers\Html;
 		<div class="b-rating__item">
 		    <div class="b-rating__item__header">
 			<div class="b-rating__item__image">
-			    <img src="<?= $item->imageName ?>" alt="">
+			    <img src="<?= $item->user->imageName ?>" alt="">
 			    <div class="b-rating__item__info">
 				<ul>
-				    <?php foreach ($item->getProfileProfession()->limit(3)->all() as $item2) { ?>
+				    <?php foreach ($item->user->getProfileProfession()->limit(3)->all() as $item2) { ?>
 				    <li><?= $item2->title ?></li>
 				    <?php } ?>
 				</ul>
@@ -31,12 +31,12 @@ use yii\helpers\Html;
 				    12
 				</div -->
 			    </div>
-			    <div class="b-rating__item__number"><?= $item->rating ?></div>
+			    <div class="b-rating__item__number"><?= $item->user->rating ?></div>
 			</div>
 		    </div>
 		    <div class="b-rating__item__content">
 			<div class="b-rating__item__title">
-                            <?= Html::a($item->fullName, $item->profileLink) ?>
+                            <?= Html::a($item->user->fullName, $item->user->profileLink) ?>
 			</div>
 			<div class="b-rating__item__text"><?= $item->company_post ?></div>
 		    </div>

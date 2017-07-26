@@ -48,11 +48,10 @@ class MarksWidget extends Widget {
                 }
             }
         }
-        //echo "<pre>"; var_dump($arr); echo "</pre>";
         
         $configMarksArr = $this->model->configMarks;
 
-        $mMarks = Marks::find(true)->where(['type' => $this->model->objType, 'prof_only' => 0])->all();
+        $mMarks = Marks::find()->where(['type' => $this->model->objType, 'prof_only' => 0])->all();
         $mUMC = UserMarksCustom::find()
                 ->where([
                     'user_id' => $this->model->objId, 

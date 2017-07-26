@@ -36,7 +36,7 @@ class Profession extends \yii\db\ActiveRecord {
     public function rules() {
 	return [
 	    [['title', 'title_en', 'title_ua'], 'string', 'max' => 255],
-	    [['listProf'], 'safe']
+	    [['listProf', 'hide_main_page'], 'safe']
 	];
     }
 
@@ -50,6 +50,7 @@ class Profession extends \yii\db\ActiveRecord {
 	    'title_ua' => \Yii::t('app', 'PROFESSION_TITLE'). " UA",
 	    'title_en' => \Yii::t('app', 'PROFESSION_TITLE'). " EN",
 	    'listProf' => Yii::t('app', 'LIST'),
+	    'hide_main_page' => "Скрыть на главной странице",
 	];
     }
     

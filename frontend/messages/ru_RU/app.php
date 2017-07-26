@@ -312,5 +312,9 @@ return [
     'PROFESSION_NO' => 'Нет профессии',
 
     // Models End
+    
+    // 
+    'CREATE_STRUCT' => 'Создание структуры',
+    'COMPANY_STRUCT' => 'Структура компании',
 
 ];

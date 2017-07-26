@@ -16,6 +16,7 @@ if($field != "") {
 }
 $mProf = Profession::find()
 	->select($select)
+        ->where(['hide_main_page' => 0])
 	->asArray()
 	->all(); 
 ?>

@@ -17,7 +17,9 @@ use yii\helpers\Html;
             <div class="col-md-6 b-company-evaluation__item">
                 <div class="b-text-rows">
                     <div class="b-text-rows__aside-left b-company-evaluation__img">
-                        <img src="<?= $item->user->imageName ?>" alt="img">
+                        <div style="width: 92px; height: 92px; overflow: hidden;">
+                            <img src="<?= $item->user->imageName ?>" alt="img">
+                        </div>
                     </div>
                     <div class="b-text-rows__main b-company-evaluation__main">
                         <div class="b-company-evaluation__name">

@@ -4,6 +4,7 @@ namespace frontend\widgets\user;
 
 use yii\base\Widget;
 use frontend\models\User;
+use frontend\models\UserCompany;
 
 class BestRatingWidget extends Widget {
     
@@ -18,7 +19,7 @@ class BestRatingWidget extends Widget {
     
     public function run() {
 	parent::run();
-	$model = User::find()->joinWith('company')->where(['step' => 0])->orderBy("rating DESC")->limit(10)->all();
+	$model = UserCompany::find()->joinWith(['company', 'user'])->where(['user.step' => 0])->orderBy("user.rating DESC")->limit(10)->all();
 	return $this->render($this->view, ['model' => $model]);
     }
 }

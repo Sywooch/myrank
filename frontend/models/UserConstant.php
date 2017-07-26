@@ -73,7 +73,7 @@ class UserConstant extends \yii\db\ActiveRecord {
     public function getTestimonial() {
         $mObj = \Yii::$app->user->identity;
         return $this->getTestimonialsTo()->andWhere([
-                    'from_id' => $mObj->isCompany ? $mObj->company_id : $mObj->id,
+                    'from_id' => $mObj->objId,
                     'type_from' => $mObj->objType,
         ]);
     }
@@ -125,7 +125,7 @@ class UserConstant extends \yii\db\ActiveRecord {
             $mUserFrom = \Yii::$app->user->identity;
             $model = $this->getUserMarksTo()
                     ->andWhere([
-                        'from_id' => $mUserFrom->isCompany ? $mUserFrom->company_id : $mUserFrom->id,
+                        'from_id' => $mUserFrom->objId,
                     ])
                     ->one();
             $out = isset($model->description) ? Json::decode($model->description, true) : [];
@@ -172,7 +172,7 @@ class UserConstant extends \yii\db\ActiveRecord {
     // FIXME: Сделать через связ таблицу
     public function getTrustUser() {
         $mObj = \Yii::$app->user->identity;
-        $id = ($mObj->isCompany) ? $mObj->company_id : $mObj->id;
+        $id = $mObj->objId;
         return $this->getUserTrusteesTo()->andWhere(['from_id' => $id, 'type_from' => $mObj->objType])->count() > 0 ? TRUE : FALSE;
     }
 
@@ -196,7 +196,7 @@ class UserConstant extends \yii\db\ActiveRecord {
     public function getProfileLink() {
         return $this->isCompany ? [
             'company/profile',
-            'id' => isset($this->company_id) ? $this->company_id : $this->id
+            'id' => $this->objId
                 ] : ['users/profile', 'id' => $this->id];
     }
 
@@ -207,7 +207,7 @@ class UserConstant extends \yii\db\ActiveRecord {
     public function getOwner() {
         if (\Yii::$app->user->id !== NULL) {
             $mObj = \Yii::$app->user->identity;
-            return $this->isCompany ? $mObj->company_id == $this->id : $this->id == $mObj->id;
+            return $this->isCompany ? $mObj->objId == $this->id : $this->id == $mObj->id;
         }
         return false;
     }
@@ -223,11 +223,23 @@ class UserConstant extends \yii\db\ActiveRecord {
             return $this->getUserProfession();
         }
     }
+    
+    public function getCompanyUserCompany () {
+        return $this->hasOne(UserCompany::className(), ['user_id' => 'id']);
+    }
+    
+    public function getUserUserCompany () {
+        return $this->hasOne(UserCompany::className(), ['company_id' => 'id']);
+    }
 
     // FIXME: Сделать через связующую таблицу
     public static function getProfile() {
         $model = \Yii::$app->user->identity;
-        return $model->isCompany ? Company::findOne($model->company_id) : User::findOne($model->id);
+        return $model->isCompany ? Company::findOne($model->objId) : User::findOne($model->objId);
+    }
+    
+    public function getObj () {
+        return $this;
     }
     
     public function getObjType () {
@@ -238,14 +250,16 @@ class UserConstant extends \yii\db\ActiveRecord {
         return $this->isCompany ? Company::className() : User::className();
     }
     
-    // FIXME: Сделать через связующую таблицу
     public function getObjId () {
-        return isset($this->type) && $this->isCompany ? $this->company_id : $this->id;
+        return (isset($this->type) && $this->isCompany) ? $this->companyUserCompany->company_id : $this->id;
     }
     
-    // FIXME: Сделать через связующую таблицу
     public function getObjImage () {
         return isset($this->type) && $this->isCompany ? isset($this->company->image) ? $this->company->image : "" : $this->image;
+    }
+    
+    public function getObjUserCompany () {
+        return $this->isCompany ? $this->getUserUserCompany() : $this->getCompanyUserCompany();
     }
 
 }

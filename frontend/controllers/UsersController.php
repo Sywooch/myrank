@@ -312,7 +312,7 @@ class UsersController extends Controller {
                 $out['code'] = $mObj->save();
                 \Yii::$app->rating->process($mObj);
             } else {
-                $out['errors'] = ['password' => [\Yii::t('app', 'PASSWORD_AND_REPEAT_DO_NOT_MATCH')]];
+                $out['errors'] = $mObj->errors;//['password' => [\Yii::t('app', 'PASSWORD_AND_REPEAT_DO_NOT_MATCH')]];
             }
         } else {
             $out['errors'] = $mObj->errors;
@@ -400,8 +400,8 @@ class UsersController extends Controller {
         $post = \Yii::$app->request->post();
         $userFrom = \Yii::$app->user->identity;
         $params = [
-            'type_from' => $userFrom->isCompany ? UserConstant::TYPE_USER_COMPANY : UserConstant::TYPE_USER_USER,
-            'from_id' => $userFrom->isCompany ? $userFrom->company_id : $userFrom->id, // FIXME: Сделать через связующую таблицу
+            'type_from' => $userFrom->objType,
+            'from_id' => $userFrom->objId, // FIXME: Сделать через связующую таблицу
             'type_to' => $typeTo,
             'to_id' => $id,
         ];
@@ -431,7 +431,7 @@ class UsersController extends Controller {
         }
 
         $model = new UsersSearch();
-        $modelSearch = $model->search($req);
+        $modelSearch = $model->search($req['UsersSearch']);
         $query = clone $modelSearch;
 
         $pagin['count'] = $query->count();

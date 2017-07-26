@@ -21,7 +21,7 @@ $data = [1 => 'red', 2 => 'green'];
     </div>
 
     <?= $form->field($model, 'type')->dropDownList(User::$typeUser) ?>
-    <?= $form->field($model, 'parent_id')->dropDownList([]) ?>
+    <?= $form->field($model, 'parent_id')->dropDownList($model->isNewRecord ? [] : $model->getList(0, $model->type)) ?>
     <div class="row">
         <div class="col-md-4"><?= $form->field($model, 'configure')->checkbox() ?></div>
         <div class="col-md-4"><?= $form->field($model, 'required')->checkbox() ?></div>
@@ -48,9 +48,8 @@ $data = [1 => 'red', 2 => 'green'];
 </div>
 <?php
 $url = Url::toRoute(['marks/getparents']);
-$this->registerJs("
-    changeType();
-    $(document).on('change', '#marks-type', function () {
+$script = $model->isNewRecord ? "changeType();" : "";
+$script .= "$(document).on('change', '#marks-type', function () {
         changeType();
     });
     
@@ -59,6 +58,6 @@ $this->registerJs("
         $.get('$url', {type:id}, function (out) {
             $('#marks-parent_id').html(out);
         });
-    }
-        ", yii\web\View::POS_END);
+    }";
+$this->registerJs($script, yii\web\View::POS_END);
 ?>

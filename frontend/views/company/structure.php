@@ -3,6 +3,8 @@
  * @author Shilo Dmitry
  * @email dmitrywp@gmail.com
  */
+use yii\helpers\Url;
+use yii\helpers\Html;
 
 $this->title = "Структура компании";
 $this->params['breadcrumbs'][] = ['label' => 'Компания', 'url' => ['user/profile']];
@@ -17,7 +19,11 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['#']];
             <!--begin b-user -->
             <div class = "b-user b-block">
                 <div class = "b-title">
-                    Структура компании
+                    <?= Yii::t('app', 'COMPANY_STRUCT') ?>
+                    <?= Html::button(Yii::t("app", "CREATE_STRUCT"), [
+                        'class' => 'button-small showModal', 
+                        'data-url' => Url::toRoute(['company/createstruct']),
+                    ]); ?>
                 </div>
 
                 <div class = "b-collapse">

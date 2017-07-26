@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use frontend\models\User;
+use backend\models\User;
 use yii\data\ActiveDataProvider;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
@@ -98,6 +98,15 @@ class UsersController extends Controller {
 	} else {
 	    throw new NotFoundHttpException(((string) \Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND')));
 	}
+    }
+    
+    public function actionCleanmarks () {
+        $mUser = User::find()->all();
+        foreach ($mUser as $item) {
+            $item->mark = "";
+            $item->marks_config = "";
+            //$item->save();
+        }
     }
 
 }

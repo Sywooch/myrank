@@ -37,6 +37,33 @@ echo ModalWidget::widget([
 	]
     ],
     'success' => "document.location.href = out.link;",
-    //'script' => "$('.input-phone').inputmask('+38 ( 999 ) 999 - 99 - 99');",
+    'script' => "$('#regstep2-company_name, #regstep1-company_name').autocomplete({
+        source: function(request, response){
+        	$.ajax({
+                url: '".Url::toRoute(['registration/get-list-companies'])."',
+                dataType: 'json',
+                data:{
+                    startsWith: request.term
+                },
+                success: function(data){
+                    console.log(data);
+                    response($.map(data.users, function(item){
+                      return{
+                        label: item.name,
+                        value: item.name
+                      }
+                    }));
+                }
+        	});
+        },
+        minLength: 2
+    });
+    jQuery.ui.autocomplete.prototype._resizeMenu = function () {
+      var ul = this.menu.element;
+      ul.outerWidth(this.element.outerWidth());
+    }",
 ]);
 ?>
+<style type="text/css">
+    .ui-autocomplete {z-index: 11111;}
+</style>

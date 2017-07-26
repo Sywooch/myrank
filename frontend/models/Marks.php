@@ -102,11 +102,11 @@ class Marks extends \yii\db\ActiveRecord {
         return $this->hasMany(Marks::className(), ['parent_id' => 'id']);
     }
 
-    public static function getList($parent_id = 0, &$arr = [], $pref = "") {
+    public static function getList($parent_id = 0, $type = 0, &$arr = [], $pref = "") {
         $mMarks = Marks::find()
                 ->with('child')
                 ->select(['id', 'name'])->where(['parent_id' => 0])
-                ->where(['parent_id' => $parent_id])
+                ->where(['parent_id' => $parent_id,/* 'type' => $type */])
                 ->all();
         empty($arr) ? $arr[0] = (string) \Yii::t('app', 'WITHOUT_PARENT') : NULL;
 

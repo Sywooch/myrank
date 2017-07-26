@@ -17,7 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-	<?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
+	<?php // Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
+	<?php // Html::a(Yii::t('app', 'Clean Marks'), ['cleanmarks'], ['class' => 'btn btn-danger']) ?>
     </p>
     <?php Pjax::begin(); ?>    
     <?=
@@ -46,7 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		    return User::$typeUser[$data->type];
 		}
 	    ],
-                    'company_id',
 
 	    ['class' => 'yii\grid\ActionColumn'],
 	],

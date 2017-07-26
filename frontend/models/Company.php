@@ -34,6 +34,8 @@ class Company extends UserConstant {
     const CASH_SMALL = 1;
     const CASH_MEDIUM = 2;
     const CASH_BIG = 3;
+    
+    const COUNT_VIEW_ACTIVE_USERS_COMPANY = 10;
 
     public $countPersonsList = [
         self::COUNT_PERSONS_SMALL => "100 - 500",
@@ -61,10 +63,11 @@ class Company extends UserConstant {
      */
     public function rules() {
         return [
-            [['name', 'reg_date'], 'required'],
+            [['name', 'reg_date', 'professionField'], 'required'],
             [['professionField'], 'required', 'on' => 'editmaininfo'],
             [['count_persons', 'cash'], 'integer'],
-            [['reg_date', 'user_id', 'city_id', 'professionField', 'image', 'marks_config', 'mark', 'rating'], 'safe'],
+            [['reg_date', 'user_id', 'city_id', 'professionField', 
+                'image', 'marks_config', 'mark', 'rating', 'hide_testimonials', 'hide_marks'], 'safe'],
             [['about'], 'string'],
             [['phone', 'director', 'contact_face'], 'string', 'max' => 255],
         ];
@@ -84,7 +87,23 @@ class Company extends UserConstant {
             'director' => Yii::t('app', 'DIRECTOR_FULLNAME'),
             'contact_face' => Yii::t('app', 'CONTACT_PERSON'),
             'about' => Yii::t('app', 'COMPANY_ABOUT '),
+            'professionField' => \Yii::t('app', 'PROFESSION_FIELD'),
         ];
+    }
+    
+    public function getUsersCompany () {
+        return $this->hasMany(UserCompany::className(), ['company_id' => 'id']);
+    }
+    
+    public function getActiveUsersCompany () {
+        return $this->getUsersCompany()
+                ->andWhere(['status' => UserCompany::STATUS_CONFIRM])
+                ->limit(self::COUNT_VIEW_ACTIVE_USERS_COMPANY);
+    }
+    
+    public function getUsersCompanyList() {
+        return $this->hasMany(User::className(), ['id' => 'user_id'])
+                ->via('activeUsersCompany');
     }
 
     public function getCity() {

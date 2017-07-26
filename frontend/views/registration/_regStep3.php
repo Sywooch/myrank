@@ -9,13 +9,13 @@ echo ModalWidget::widget([
     'formOptions' => ['id' => 'regFormStep3', 'data-url' => Url::toRoute("registration/step3save")],
     'content' => [
 	'name' => [
-	    'label' => \Yii::t('app','COMPANY_NAME').' *:',
+	    'label' => \Yii::t('app','COMPANY_NAME').'* :',
 	    'type' => 'textInput',
 	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_COMPANY_NAME')],
 	],
 	[
 	    'phone' => [
-		'label' => \Yii::t('app','PHONE_NUMBER').':',
+		'label' => \Yii::t('app','PHONE_NUMBER').'* :',
 		'type' => 'textInput',
 		'options' => ['class' => 'input-text input-phone-company', 'placeholder' => \Yii::t('app','EXAMPLE_PHONE')],
 	    ],
@@ -28,7 +28,7 @@ echo ModalWidget::widget([
 	],
 	[
 	    'reg_date' => [
-		'label' => \Yii::t('app','DATE_OF_REGISTRATION_OF_THE_COMPANY').' *:',
+		'label' => \Yii::t('app','DATE_OF_REGISTRATION_OF_THE_COMPANY').'* :',
 		'type' => 'textInput',
 		'options' => ['class' => 'input-text', 'id' => 'regDate', 'placeholder' => \Yii::t('app','EXAMPLE_DATE')],
 	    ],

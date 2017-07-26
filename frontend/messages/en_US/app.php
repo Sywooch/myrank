@@ -309,6 +309,9 @@ return [
     'PROFESSION_NO' => 'No profession',
 
     // Models End
+    
+    'CREATE_STRUCT' => 'Create structure',
+    'COMPANY_STRUCT' => 'Company structure',
 
 
 ];

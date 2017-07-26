@@ -5,16 +5,20 @@ namespace frontend\controllers;
 use frontend\components\Controller;
 use frontend\models\User;
 use frontend\models\Registration;
-use yii\helpers\Json;
 use frontend\models\Company;
+use frontend\models\UserCompany;
+use frontend\models\registration\RegStep1;
+use frontend\models\registration\RegStep2;
+use frontend\models\registration\RegStep3;
+use yii\helpers\Json;
 
 class RegistrationController extends Controller {
 
     public function actionStep1($type) {
 	if (\Yii::$app->user->id !== NULL) {
-	    $model = Registration::findOne(\Yii::$app->user->id);
+	    $model = RegStep1::findOne(\Yii::$app->user->id);
 	} else {
-	    $model = new Registration();
+	    $model = new RegStep1();
 	    $model->type = $type;
 	}
 	echo Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep1", ['model' => $model])]);
@@ -23,38 +27,41 @@ class RegistrationController extends Controller {
 
     public function actionStep1save() {
 	$out['code'] = 0;
-	$post = \Yii::$app->request->post();
-	if ($post['Registration']['password'] != $post['Registration']['rePassword']) {
+	$post = \Yii::$app->request->post('RegStep1');
+	if ($post['password'] != $post['rePassword']) {
 	    $out['errors'] = [
 		'password' => [\Yii::t('app','PASSWORD_AND_REPEAT_DO_NOT_MATCH')]
 	    ];
-	} /*else if(isset(User::find()->where(['email' => $post['Registration']['email']])->id)) {
-	    $out['errors'] = [
-		'email' => ['Пользователь с таким адресом почты уже существует!'],
-	    ];
-	}*/ else {
-	    //if(Registration::find()->where(['email' => $post['Registration']['email']]))
+	}  else {
 	    if(\Yii::$app->user->id === null) {
-		$model = new Registration();
+		$model = new RegStep1();
 	    } else {
-		$model = Registration::findOne(\Yii::$app->user->id);
+		$model = RegStep1::findOne(\Yii::$app->user->id);
 	    }
-	    $model->step = $post['Registration']['type'] == User::TYPE_USER_USER ? User::STEP_NEXT_USER : User::STEP_NEXT_COMPANY;
-	    if ($model->load($post) && $model->validate()) {
-		$model->setPassword($post['Registration']['password']);
+	    $model->step = $post['type'] == User::TYPE_USER_USER ? User::STEP_NEXT_USER : User::STEP_NEXT_COMPANY;
+	    if ($model->load($post, '') && $model->validate()) {
+		$model->setPassword($post['password']);
 		$model->generateAuthKey();
 		if ($model->save()) {
                     
-		    \Yii::$app->rating->process($model);
+		    //\Yii::$app->rating->process($model);
 		    $model->saveProfession();
 		    $out['code'] = 1;
-		    //$out['id'] = $model->id;
+                    
+                    switch ($model->step) {
+                        case User::STEP_NEXT_USER:
+                            $mRegStep = RegStep2::findOne($model->id);
+                            break;
+                        case User::STEP_NEXT_COMPANY:
+                            $mRegStep = RegStep3::findOne($model->id);
+                            break;
+                    }
 
 		    $mCompany = new Company();
 		    $mCompany->user_id = $model->id;
                     $mCompany->city_id = $model->city_id;
 		    $out['data'] = $this->renderPartial("_regStep" . $model->step, [
-			'model' => $model,
+			'model' => $mRegStep,
 			'mCompany' => $mCompany,
 			'title' => $model->regStep($model->step)
 		    ]);
@@ -70,24 +77,40 @@ class RegistrationController extends Controller {
     }
 
     public function actionStep2() {
-	$model = new Registration();
+	$model = new RegStep2();
 	echo Json::encode(['code' => 1, 'data' => $this->renderPartial("_regStep2", ['model' => $model])]);
 	\Yii::$app->end();
     }
 
     public function actionStep2save() {
 	$out = ['code' => 0, 'link' => '#'];
-
-	$post = \Yii::$app->request->post();
-	$post['Registration']['step'] = 0;
+	$post = \Yii::$app->request->post('RegStep2');
+	$post['step'] = 0;
 
 	if (\Yii::$app->user->id !== NULL) {
-	    $post['Registration']['id'] = \Yii::$app->user->id;
+	    $post['id'] = \Yii::$app->user->id;
 	}
+        
+        $mCompany = Company::findOne(['name' => $post['company_name']]);
+        if(isset($mCompany->id)) {
+            $mUserCompany = new UserCompany();
+            
+        }
 
-	$model = User::findOne($post['Registration']['id']);
-	unset($post['Registration']['id']);
-	if ($model->load($post, 'Registration') && $model->save()) {
+	$model = RegStep2::findOne($post['id']);
+	unset($post['id']);
+	if ($model->load($post, '') && $model->save()) {
+            $mCompany = Company::findOne(['name' => $post['company_name']]);
+            $mUserCompany = new UserCompany();
+            $mUserCompany->user_id = $model->id;
+            $mUserCompany->company_post = $post['company_post'];
+            if(isset($mCompany->id)) {
+                $mUserCompany->company_id = $mCompany->id;
+            } else {
+                $mUserCompany->company_name = $post['company_name'];
+            }
+            $mUserCompany->save();
+            
 	    $out['code'] = 1;
 	    $out['link'] = \yii\helpers\Url::toRoute(["users/profile", "id" => $model->id]);
 	    \Yii::$app->user->login($model);
@@ -101,11 +124,11 @@ class RegistrationController extends Controller {
     }
 
     public function actionStep3() {
-	$model = new Company();
+	$model = new RegStep3();
 	if (\Yii::$app->user->id !== null) {
 	    $mUser = User::getProfile();
 	    if($mUser->company_id != 0) {
-		$model = Company::findOne($mUser->company_id);
+		$model = RegStep3::findOne($mUser->company_id);
 	    }
 	}
 	echo Json::encode([
@@ -116,25 +139,35 @@ class RegistrationController extends Controller {
     }
 
     public function actionStep3save() {
-	$post = \Yii::$app->request->post();
+	$post = \Yii::$app->request->post('Company');
 	$out['code'] = 0;
 
-	$model = new Company();
+	$model = new RegStep3();
 	if (\Yii::$app->user->id !== null) {
 	    $mUser = User::getProfile();
 	    if($mUser->company_id > 0) {
-		$model = Company::findOne($mUser->company_id);
+		$model = RegStep3::findOne($mUser->company_id);
 	    }
 	}
 
-	if ($model->load($post) && $model->save()) {
+	if ($model->load($post, '') && $model->save()) {
 	    if (\Yii::$app->user->id !== NULL) {
 		$model->user_id = \Yii::$app->user->id;
 	    }
+            
+            $mUserCompany = UserCompany::findOne(['user_id' => $model->user_id]);
+            if(!isset($mUserCompany->id)) {
+                $mUserCompany = new UserCompany();
+            }
+            $mUserCompany->user_id = $model->user_id;
+            $mUserCompany->company_id = $model->id;
+            $mUserCompany->admin = 1;
+            $mUserCompany->save();
+            
 	    $mUser = User::findOne($model->user_id);
-	    $mUser->company_id = $model->id;
-	    $mUser->company_name = $model->name;
 	    $mUser->step = 0;
+	    //$mUser->company_id = $model->id;
+	    //$mUser->company_name = $model->name;
             
 	    if ($mUser->save()) {
 		\Yii::$app->rating->process($model);
@@ -153,6 +186,24 @@ class RegistrationController extends Controller {
 
     public function actionTest() {
 	return $this->render("test");
+    }
+    
+    public function actionGetListCompanies ($startsWith) {
+        $out = [];
+        $mCompanyArr = Company::find()
+                ->select(['name'])
+                ->where(['like', 'name', $startsWith])
+                ->asArray()
+                ->all();
+        $arr = $mCompanyArr;
+        foreach ($arr as $item) {
+            if (isset($item['name'])) {
+                $out['users'][]['name'] = $item['name'];
+            } else if (isset($item['type']) && ($item['type'] != User::TYPE_USER_COMPANY)) {
+                $out['users'][]['name'] = $item['last_name'] . " " . $item['first_name'];
+            }
+        }
+        return Json::encode($out);
     }
 
 }

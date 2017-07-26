@@ -310,4 +310,6 @@ return [
 
     // Models End
 
+    'CREATE_STRUCT' => 'Створити структуру',
+    'COMPANY_STRUCT' => 'Структура компанii',
 ];

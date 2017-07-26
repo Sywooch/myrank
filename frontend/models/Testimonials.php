@@ -31,6 +31,12 @@ class Testimonials extends \yii\db\ActiveRecord {
         self::SMILE_CLASS_NEGATIVE => 'b-comments__item__smile_negative',
         self::SMILE_CLASS_NEUTRAL => 'b-comments__item__smile_neutral',
     ];
+    
+    public static $smilesSmall = [
+        self::SMILE_CLASS_POSITIVE  => 'b-small-message__smile_positive',
+        self::SMILE_CLASS_NEGATIVE  => 'b-small-message__smile_negative',
+        self::SMILE_CLASS_NEUTRAL   => 'b-small-message__smile_neutral',
+    ];
 
     const WHO_FROM_TO_ANONIM = 0;
     const WHO_FROM_TO_DIRECTOR = 1;

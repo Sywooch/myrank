@@ -50,12 +50,20 @@ class UserTrustees extends \yii\db\ActiveRecord {
 	];
     }
     
+    public function getObjFrom () {
+        return $this->type_from == UserConstant::TYPE_USER_COMPANY ? Company::className() : User::className();
+    }
+    
     public function getObjTo () {
         return $this->type_to == UserConstant::TYPE_USER_COMPANY ? Company::className() : User::className();
     }
     
     public function getUser () {
 	return $this->hasOne($this->objTo, ['id' => 'to_id']);
+    }
+    
+    public function getUserFrom () {
+        return $this->hasOne($this->objFrom, ['id' => 'from_id']);
     }
 
 }
