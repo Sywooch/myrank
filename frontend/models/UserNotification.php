@@ -18,6 +18,9 @@ class UserNotification extends \yii\db\ActiveRecord {
     const NOTIF_TYPE_TRUSTEES = 1;
     const NOTIF_TYPE_MARKS = 2;
     const NOTIF_TYPE_TESTIMONIALS = 3;
+    
+    const NOTIF_SEEN = 1;
+    const NOTIF_NOSEEN = 0;
 
     /**
      * @inheritdoc

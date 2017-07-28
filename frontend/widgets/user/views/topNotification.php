@@ -3,138 +3,129 @@
  * @author Shilo Dmitry
  * @email dmitrywp@gmail.com
  */
+use yii\helpers\Url;
+use frontend\models\UserNotification;
+?>
+<?php 
+$trustClone = clone $trust; 
+$count = $trustClone->andWhere(['seen' => 0])->count();
 ?>
 <div class="b-header__user__stats clearfix">
-    <div class="b-header__user__stats__item b-header__user__stats__item_trusted clearfix active" id="notifTrustees">
+    <div 
+        class="b-header__user__stats__item b-header__user__stats__item_trusted clearfix <?= $count > 0 ? "active" : "" ?>" 
+        id="notifTrustees">
         <div class="b-header__user__stats__item__icon b-header__user__stats__item__icon_1"></div>
-        <?php $trustClone = clone $trust; ?>
-        <span class="notifCount"><?= $trustClone->andWhere(['seen' => 0])->count(); ?></span>
+        <span class="notifCount"><?= $count ?></span>
 
         <div class="b-tooltip">
             <div class="b-tooltip__inner">
-                <?php foreach ($trust->all() as $item) { ?>
-                <div class="b-text-image b-small-message b-tooltip__item <?= $item->seen ?: 'b-tooltip__item_unread' ?>">
-                    <div class="b-text-image__img">
-                        <div class="b-small-message__img">
-                            <img src="<?= $item->userFrom->imageName ?>" alt="">
-                        </div>
-                    </div>
-                    <div class="b-text-image__text">
-                        <div class="b-small-message__content">
-                            <div class="b-small-message__name"><?= $item->userFrom->fullName ?></div>
-                            <div class="b-small-message__post">
-                                <?= isset($item->userFrom->objUserCompany->company_post) ? $item->user->objUserCompany->company_post : "" ?>
-                            </div>
-                            <div class="b-small-message__date">
-                                <?= date("Y.m.d H:i:s", strtotime($item->created)); ?>
-                            </div>
-                        </div>
-                    </div>
-                    <?php if($item->seen) { ?><div class="b-small-message__member-status b-small-message__member-status_online"></div><?php } ?>
-                </div>
-                <?php } ?>
-
-                <!-- a class="b-tooltip__more-link" href="#">
-                    <span class="b-more b-more_icon-down">
-                        <span class="b-more__text">Больше</span>
-                    </span>
-                </a -->
+                <?= $this->render('topNotification/trustees', ['model' => $trust->all()]) ?>
             </div>
         </div>
     </div>
 
-    <div class="b-header__user__stats__item b-header__user__stats__item_evaluation clearfix active" id="notifMarks">
+    <?php 
+    $marksClone = clone $marks; 
+    $count = $marksClone->andWhere(['seen' => 0])->count();
+    ?>
+    <div class="b-header__user__stats__item b-header__user__stats__item_evaluation clearfix <?= $count > 0 ? "active" : "" ?>" id="notifMarks">
         <div class="b-header__user__stats__item__icon b-header__user__stats__item__icon_2"></div>
-        <?php $marksClone = clone $marks; ?>
-        <span class="notifCount"><?= $marksClone->andWhere(['seen' => 0])->count() ?></span>
+        <span class="notifCount"><?= $count ?></span>
         <div class="b-tooltip">
             <div class="b-tooltip__inner">
-                <?php foreach ($marks->all() as $item) { ?>
-                <div class="b-text-image b-small-message b-tooltip__item <?= $item->seen ?: 'b-tooltip__item_unread' ?>">
-                    <div class="b-text-image__img">
-                        <div class="b-small-message__img">
-                            <img src="<?= $item->user->imageName ?>" alt="women">
-                        </div>
-                    </div>
-                    <div class="b-text-image__text">
-                        <div class="b-small-message__content">
-                            <div class="b-small-message__name"><?= $item->user->fullName ?></div>
-                            <div class="b-small-message__post"><?= isset($item->userFrom->objUserCompany->company_post) ? $item->user->objUserCompany->company_post : "" ?></div>
-                            <div class="b-small-message__date"><?= date("Y.m.d H:i:s", strtotime($item->created)); ?></div>
-                        </div>
-                    </div>
-                    <div class="b-text-image__text">
-                        <div class="b-small-message__rating">
-                            <div class="b-small-message__rating-caption">Оценка:</div>
-                            <div class="b-small-message__rating-numbs">0</div>
-                        </div>
-                    </div>
-                    <?php if($item->seen) { ?><div class="b-small-message__member-status b-small-message__member-status_online"></div><?php } ?>
-                </div>
-                <?php } ?>
-                <!-- a class="b-tooltip__more-link" href="#">
-                    <span class="b-more b-more_icon-down">
-                        <span class="b-more__text">Больше</span>
-                    </span>
-                </a -->
+                <?= $this->render('topNotification/marks', ['model' => $marks->all()]); ?>
             </div>
         </div>
     </div>
 
-    <div class="b-header__user__stats__item clearfix active" id="notifTestimonials">
+    <?php 
+    $testimonialsClone = clone $testimonials; 
+    $count = $testimonialsClone->andWhere(['seen' => 0])->count();
+    ?>
+    <div class="b-header__user__stats__item clearfix <?= $count > 0 ? "active" : "" ?>" id="notifTestimonials">
         <div class="b-header__user__stats__item__icon b-header__user__stats__item__icon_3"></div>
-        <?php $testimonialsClone = clone $testimonials; ?>
-        <span class="notifCount"><?= $testimonialsClone->andWhere(['seen' => 0])->count() ?></span>
+        <span class="notifCount"><?= $count ?></span>
         <div class="b-tooltip">
             <div class="b-tooltip__inner">
-                <?php foreach ($testimonials->all() as $item) { 
-                    $string = substr($item->text, 0, 200);
-                    ?>
-                <div class="b-text-image b-small-message b-tooltip__item <?= $item->seen ?: 'b-tooltip__item_unread' ?>">
-                    <div class="b-text-image__img">
-                        <div class="b-small-message__img">
-                            <img src="<?= $item->userFrom->imageName ?>" alt="">
-                            <div class="b-small-message__number"><?= $item->userFrom->rating ?></div>
-                        </div>
-                    </div>
-                    <div class="b-text-image__text">
-                        <div class="b-small-message__content">
-                            <div class="b-small-message__header">
-                                <div class="b-small-message__name"><?= $item->userFrom->fullName ?></div>
-                                <div class="b-small-message__date"><?= date("Y.m.d H:i:s", strtotime($item->created)); ?></div>
-                                <div class="b-small-message__smile <?= $item::$smilesSmall[$item->smile] ?>"></div>
-                            </div>
-                            <div class="b-small-message__body">
-                                <!-- div class="b-small-message__caption">Отличный работник!</div -->
-                                <div class="b-small-message__text"><?= $string//substr($string, 0, strrpos($string, ' ')); ?></div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php if($item->seen) { ?><div class="b-small-message__member-status b-small-message__member-status_online"></div><?php } ?>
-                </div>
-                <?php } ?>
-
-                <!-- a class="b-tooltip__more-link" href="#">
-                    <span class="b-more b-more_icon-down">
-                        <span class="b-more__text">Больше</span>
-                    </span>
-                </a -->
+                <?= $this->render('topNotification/testimonials', ['model' => $testimonials->all()]) ?>
             </div>
         </div>
     </div>
 </div>
 <?php
+$url = Url::toRoute(['site/notifseen']);
+$urlCheck = Url::toRoute(['site/notifcheck']);
 $this->registerJs("
+    var notifTrust = '#notifTrustees';
+    var notifMarks = '#notifMarks';
+    var notifTestim = '#notifTestimonials';
+
     $('body').on('mouseover', '.b-tooltip__item_unread', function() {
+        id = $(this).attr('data-id');
+        type = $(this).attr('data-type');
+        
+        getQuery(id, type);
+        
         $(this).removeClass('b-tooltip__item_unread');
         $(this).find('.b-small-message__member-status_online').remove();
     });
     
     setInterval(function() {
-        checkNotifAct($('#notifTrustees'));
-        checkNotifAct($('#notifMarks'));
-        checkNotifAct($('#notifTestimonials'));
+        checkNotifAct($(notifTrust));
+        checkNotifAct($(notifMarks));
+        checkNotifAct($(notifTestim));
     }, 500);
+    
+    setInterval(function () {
+        obj = getViewNotif();
+        obj['_csrf-frontend'] = $('[name=\"csrf-token\"]').attr('content')
+        $.post('$urlCheck', obj, function (out) {
+            if(out.code == 1) {
+                $.each(out.data, function(i, val) {
+                    switch (i) {
+                        case 'trustees':
+                            count = parseInt($('#notifTrustees .notifCount').text());
+                            if(count < val.count) {
+                                $('#notifTrustees .b-tooltip__inner').prepend(val.data);
+                            }
+                            break;
+                        case 'marks':
+                            count = parseInt($('#notifMarks .notifCount').text());
+                            if(count < val.count) {
+                                $('#notifMarks .b-tooltip__inner').prepend(val.data);
+                            }
+                            break;
+                        case 'testimonials':
+                            count = parseInt($('#notifTestimonials .notifCount').text());
+                            if(count < val.count) {
+                                $('#notifTestimonials .b-tooltip__inner').prepend(val.data);
+                            }
+                            break;
+                    }
+                    //console.log(i);
+                });
+                //console.log(out.data);
+            }
+        }, 'json');
+    }, 5000);
+    
+    function getViewNotif () {
+        var obj = {}; 
+        $(notifTrust).find('.b-tooltip__item').each(function(i, val) {
+            obj['trust[' + i + ']'] = $(val).attr('data-id');
+        });
+        $(notifMarks).find('.b-tooltip__item').each(function(i, val) {
+            obj['marks[' + i + ']'] = $(val).attr('data-id');
+        });
+        $(notifTestim).find('.b-tooltip__item').each(function(i, val) {
+            obj['testim[' + i + ']'] = $(val).attr('data-id');
+        });
+        return obj;
+    }
+    
+    function getQuery (id, type) {
+        $.get('$url', {id:id, type:type});
+    }
 
     function checkNotifAct (that) {
         count = that.find('.b-tooltip__item_unread').length;
@@ -142,6 +133,7 @@ $this->registerJs("
         
         if(count != countPres) {
             that.find('.notifCount').text(count);
+            that.addClass('active');
         }
         if(count == 0) {
             $(that).removeClass('active');

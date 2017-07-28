@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     );
                 },
             ],
+            'email',
             [
 		'label' => "Тип",
 		'content' => function ($data) {

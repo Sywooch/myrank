@@ -25,36 +25,6 @@ class SiteController extends Controller {
 
     /**
      * @inheritdoc
-     *
-      public function behaviors() {
-      return [
-      'access' => [
-      'class' => AccessControl::className(),
-      'only' => ['logout', 'signup'],
-      'rules' => [
-      [
-      'actions' => ['signup'],
-      'allow' => true,
-      'roles' => ['?'],
-      ],
-      [
-      'actions' => ['logout'],
-      'allow' => true,
-      'roles' => ['@'],
-      ],
-      ],
-      ],
-      'verbs' => [
-      'class' => VerbFilter::className(),
-      'actions' => [
-      //'logout' => ['post'],
-      ],
-      ],
-      ];
-      }
-
-      /**
-     * @inheritdoc
      */
     public function actions() {
         return [
@@ -69,6 +39,17 @@ class SiteController extends Controller {
                 'class' => 'yii\authclient\AuthAction',
                 'successCallback' => [$this, 'onAuthSuccessCompany'],
             ],
+            'notifseen' => [
+                'class' => 'frontend\actions\NotificationSeenAction',
+                'act' => 'seen',
+                'id' => Yii::$app->request->get('id'),
+                'type' => Yii::$app->request->get('type')
+            ],
+            'notifcheck' => [
+                'class' => 'frontend\actions\NotificationSeenAction',
+                'act' => 'check',
+                'post' => Yii::$app->request->post(),
+            ]
         ];
     }
 
