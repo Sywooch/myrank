@@ -13,7 +13,7 @@ use frontend\models\UserNotification;
                 <?= \Yii::t('app', 'TRUSTED_WHOM'); ?>:
             </div>
             <div class="b-user__stats__item__number">
-                <?= $model->getUserTrusteesFrom()->count() ?>
+                <?= $model->getUserTrusteesBack()->count() ?>
             </div>
             <?php $count = !$model->owner ? 0 : Yii::$app->notification->getNotif(UserNotification::NOTIF_TYPE_TRUSTEES); ?>
             <?php if ($count > 0) { ?>

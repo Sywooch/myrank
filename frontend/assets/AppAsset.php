@@ -25,24 +25,25 @@ class AppAsset extends AssetBundle {
     ];
     public $js = [
 	//'/js/jquery2.2.4.js',
-	//'bootstrap/js/bootstrap.min.js',
-	//'js/owlcarousel/owl.carousel.min.js',
+	'bootstrap/js/bootstrap.min.js',
+	'js/owlcarousel/owl.carousel.min.js',
 	//'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
-	//'js/jquery-ui/jquery-ui.min.js',
-	//'js/jquery.ui.touch-punch.min.js',
-	//'js/inputmask/inputmask.min.js',
-	//'js/inputmask/inputmask.phone.extensions.min.js',
-	//'js/inputmask/jquery.inputmask.min.js',
-	//'//cloud.tinymce.com/stable/tinymce.min.js',
-	//'js/select2/select2.full.min.js',
-	//'js/script.js'
+	'js/jquery-ui/jquery-ui.min.js',
+	'js/jquery.ui.touch-punch.min.js',
+	'js/inputmask/inputmask.min.js',
+	'js/inputmask/inputmask.phone.extensions.min.js',
+	'js/inputmask/jquery.inputmask.min.js',
+	'//cloud.tinymce.com/stable/tinymce.min.js',
+	'js/select2/select2.full.min.js',
+        'chart/Chart.bundle.min.js',
+	'js/script.js'
     ];
     public $depends = [
 	    //'yii\web\YiiAsset',
     ];
     //public $jsOptions = ['position' => \yii\web\View::POS_END];
-    
     public function init() {
+    /*
         $path = \Yii::getAlias("@frontend/assets/source");
         $files = FileHelper::findFiles($path, ['recursive' => true]);
         foreach ($files as $item) {
@@ -55,10 +56,10 @@ class AppAsset extends AssetBundle {
                 case 'css':/*
                     if($fileName != 'css/style.css') {
                         $this->css[] = $fileName;
-                    }*/
+                    }*
                     break;
             }
-        }
+        }*/
         $this->css[] = 'css/style.css';
         parent::init();
     }

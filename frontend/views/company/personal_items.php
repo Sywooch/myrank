@@ -5,7 +5,6 @@
  */
 
 use frontend\models\UserCompany;
-use yii\helpers\Url;
 ?>
 
 <div class="b-title b-title_grey">

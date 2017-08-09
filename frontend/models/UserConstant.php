@@ -54,6 +54,27 @@ class UserConstant extends \yii\db\ActiveRecord {
         return $this->hasMany(UserTrustees::className(), ['from_id' => 'id'])
                         ->andWhere(['type_from' => $this->objType]);
     }
+    
+    // View ALL trustess
+    public function getUserTrusteesList () {
+        return UserTrustees::find()
+                ->onCondition("((to_id = :id AND type_to = :type AND status != :st_to) "
+                        . "OR (from_id = :id AND type_from = :type AND status = :st_from)) ", [
+                    ':id' => $this->objId,
+                    ':type' => $this->objType,
+                    ':st_to' => UserTrustees::STATUS_REMOVE,
+                    ':st_from' => UserTrustees::STATUS_CONFIRM
+                ])->orderBy('status DESC, id DESC');
+    }
+    
+    public function getUserTrusteesBack () {
+        return UserTrustees::find()
+                ->onCondition("((to_id = :id AND type_to = :type) OR (from_id = :id AND type_from = :type)) AND status = :st", [
+                    ':id' => $this->objId,
+                    ':type' => $this->objType,
+                    ':st' => UserTrustees::STATUS_CONFIRM
+                ])->orderBy('status DESC, id DESC');
+    }
 
     public function getUserMarksTo() {
         return $this->hasMany(UserMarks::className(), ['to_id' => 'id'])
@@ -173,7 +194,22 @@ class UserConstant extends \yii\db\ActiveRecord {
     public function getTrustUser() {
         $mObj = \Yii::$app->user->identity;
         $id = $mObj->objId;
-        return $this->getUserTrusteesTo()->andWhere(['from_id' => $id, 'type_from' => $mObj->objType])->count() > 0 ? TRUE : FALSE;
+        return UserTrustees::find()
+                ->andWhere([
+                    'from_id' => $id, 
+                    'type_from' => $mObj->objType,
+                    'to_id' => $this->objId,
+                    'type_to' => $this->objType,
+                    'status' => UserTrustees::STATUS_CONFIRM
+                ])
+                ->orWhere([
+                    'from_id' => $this->objId,
+                    'type_from' => $this->objType,
+                    'to_id' => $id, 
+                    'type_to' => $mObj->objType,
+                    'status' => UserTrustees::STATUS_CONFIRM
+                ])
+                ->count() > 0 ? TRUE : FALSE;
     }
 
     public function getAboutProfile() {

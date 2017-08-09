@@ -25,6 +25,7 @@ use frontend\models\UserMarksCustom;
 use yii\web\NotFoundHttpException;
 use yii\helpers\Json;
 use frontend\models\UserConstant;
+use yii\helpers\Html;
 
 /**
  * Description of UserController
@@ -46,6 +47,11 @@ class UsersController extends Controller {
         } else {
             throw new NotFoundHttpException(\Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND'));
         }
+    }
+    
+    public function actionInfo () {
+        $mUser = \Yii::$app->user->identity;
+        return $this->render('/company/info', ['model' => $mUser]);
     }
 
     public function actionPhotouserupload() {
@@ -501,6 +507,33 @@ class UsersController extends Controller {
             ])
         ]);
         \Yii::$app->end();
+    }
+    
+    public function actionChangeTrusteesStatus () {
+        $out = "";
+        $post = \Yii::$app->request->post();
+        $mUserTrustees = UserTrustees::findOne($post['id']);
+        $mUserTrustees->status = $post['actid'];
+        $code = $mUserTrustees->save() ? 1 : 0;
+        
+        switch ($post['actid']) {
+            case UserTrustees::STATUS_CONFIRM:
+                $out = Html::tag("div", Html::a("Удалить", "#", [
+                    'class' => "b-link b-link_red action_but",
+                    'data-id' => UserCompany::ACTION_BUT_REMOVE
+                ]));
+                break;
+            case UserTrustees::STATUS_REFUSE:
+                break;
+            case UserTrustees::STATUS_REMOVE:
+                break;
+        }
+        echo Json::encode(['code' => $code, 'data' => $out]);
+    }
+    
+    public function actionShowDetailMarks ($id) {
+        $mUserMarks = UserMarks::findOne($id);
+        echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/showDetailMarks', ['model' => $mUserMarks])]);
     }
 
 }

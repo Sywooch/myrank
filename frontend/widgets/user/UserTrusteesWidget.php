@@ -13,7 +13,7 @@ class UserTrusteesWidget extends \yii\base\Widget {
 
     public function init() {
 	parent::init();
-	$query = $this->model->getUserTrusteesFrom();
+	$query = $this->model->getUserTrusteesList();
 	$model = clone $query;
 	$this->list = $query->limit($this->countListView)->all();
 	$this->count = $model->count();

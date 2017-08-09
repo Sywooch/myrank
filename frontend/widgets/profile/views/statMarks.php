@@ -5,16 +5,24 @@
  * @email dmitrywp@gmail.com
  */
 use yii\helpers\Html;
+use frontend\models\Testimonials;
+use yii\helpers\Url;
 ?>
 <!-- begin b-company-evaluation -->
 <div class="b-company-evaluation b-block">
     <div class="b-title">
         Оценки компании
+        <?= Html::dropDownList("selectRole", NULL, Testimonials::whoFromTo(), [
+            'prompt' => 'Все',
+            'id' => 'selectRole',
+            'class' => 'form-control',
+            'style' => 'float: right; width: auto;'
+        ]); ?>
     </div>
 
     <div class="b-company-evaluation__container clearfix">
         <?php foreach ($list as $item) { ?>
-            <div class="col-md-6 b-company-evaluation__item">
+        <div class="col-md-6 b-company-evaluation__item" data-id="<?= $item->id ?>" data-role="<?= $item->who_from_to ?>">
                 <div class="b-text-rows">
                     <div class="b-text-rows__aside-left b-company-evaluation__img">
                         <div style="width: 92px; height: 92px; overflow: hidden;">
@@ -36,7 +44,7 @@ use yii\helpers\Html;
 			    }
 			}
 			?>
-                        <div class="b-company-evaluation__score">
+                        <div class="b-company-evaluation__score showModal" style="cursor: pointer" data-url="<?= Url::toRoute(['users/show-detail-marks', 'id' => $item->id]) ?>">
                             <span class="b-company-evaluation__label">Средняя<br> оценка:</span>
                             <span class="b-company-evaluation__numbs"><?php
                             if (($count != 0) && ($summMarks != 0)) {
@@ -62,5 +70,23 @@ use yii\helpers\Html;
     </div>
 </div>
 <!-- end b-company-trusted -->
+<?php
+$this->registerJs("
+    $('#selectRole').on('change', function () {
+        var roleId = $(this).val();
+        console.log(roleId);
+        $('.b-company-evaluation__container').find('.b-company-evaluation__item').each(function (i, val) {
+            itemRoleId = $(val).attr('data-role');
+            if(itemRoleId != roleId) {
+                $(val).hide('slow');
+            } else {
+                $(val).show('slow');
+            }
+            if (roleId == '') {
+                $(val).show('slow');
+            }
+        });
+    })", \yii\web\View::POS_END);
+?>
 
 

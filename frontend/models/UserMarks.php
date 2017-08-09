@@ -68,5 +68,14 @@ class UserMarks extends UserConstant {
         }
         return $out;
     }
+    
+    public function getAllMarkName () {
+        $out = [];
+        $model = Marks::find()->all();
+        foreach ($model as $item) {
+            $out[$item->parent_id][$item->id] = $item->name;
+        }
+        return $out;
+    }
 
 }

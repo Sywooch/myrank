@@ -226,9 +226,9 @@ $this->registerJs("
 	$.post(url, {'_csrf-frontend':$('[name=\"csrf-token\"]').attr('content')}, function(out) {
 	    if(out.code) {
 		if(out.addClass) {
-		    that.addClass('minus');
+		    that.addClass('waiting');
 		} else {
-		    that.removeClass('minus');
+		    that.removeClass('waiting');
 		}
 		that.text(out.data);
 		alertInfo('" . \Yii::t('app', 'YOUR_REQUEST_HAS_BEEN_SENT_AND_IS_WAITING_FOR_CONFIRMATION_BY_THE_USER') . "');
@@ -242,4 +242,4 @@ echo FileUploadWidget::widget([
     'attribute' => 'name' . $i,
     'url' => ['media/imageupload', 'id' => $i],
 ]);
-?>
+?> 

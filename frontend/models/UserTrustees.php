@@ -18,6 +18,11 @@ class UserTrustees extends \yii\db\ActiveRecord {
     const BACK_TRUSTEES_YES = 1;
     const BACK_TRUSTEES_NO = 0;
     
+    const STATUS_REQUEST = 0;
+    const STATUS_CONFIRM = 1;
+    const STATUS_REFUSE = 2;
+    const STATUS_REMOVE = 3;
+    
     const COUNT_LIST_USER_PROFILE = 5;
 
     /**
@@ -34,7 +39,7 @@ class UserTrustees extends \yii\db\ActiveRecord {
 	return [
 	    [['to_id', 'from_id'], 'required'],
 	    [['to_id', 'from_id', 'type_from', 'type_to'], 'integer'],
-            [['type_from', 'type_to'], 'safe']
+            [['type_from', 'type_to', 'status'], 'safe']
 	];
     }
 
@@ -64,6 +69,10 @@ class UserTrustees extends \yii\db\ActiveRecord {
     
     public function getUserFrom () {
         return $this->hasOne($this->objFrom, ['id' => 'from_id']);
+    }
+    
+    public function getObj () {
+        return $this->from_id == Yii::$app->user->id ? $this->getUser() : $this->getUserFrom();
     }
 
 }
