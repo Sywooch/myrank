@@ -20,8 +20,9 @@ if (Yii::$app->user->id === null) {
     <?php
 } else {
     $model = UserConstant::getProfile();
-    $link['info'] = $model->isCompany ? ['company/info', 'id' => $model->id] : ['users/info'];
-    $link['profile'] = $model->isCompany ? ['company/profile', 'id' => $model->id] : ['users/profile', 'id' => $model->id];
+    $objUrl = $model->isCompany ? 'company' : 'users';
+    $link['info'] = $model->isCompany ? ["$objUrl/info", 'id' => $model->id] : ["$objUrl/info"];
+    $link['profile'] = ["$objUrl/profile", 'id' => $model->id];
     ?>
     <div class="col-xs-12 col-sm-6">
         <div class="b-header__user">
@@ -37,11 +38,17 @@ if (Yii::$app->user->id === null) {
                 </div>
                 <div class="b-header__user__info__dropdown">
                     <?php
+                    
                     echo Menu::widget([
                         'items' => [
                             // Important: you need to specify url as 'controller/action',
                             // not just as 'controller' even if default action is used.
                             ['label' => 'Информация', 'url' => $link['info']],
+                            ['label' => 'Мои оценки' , 'url' => ["$objUrl/allmarks"]],
+                            ['label' => 'Мои отзывы' , 'url' => ["$objUrl/alltestimonials"]],
+                            //['label' => 'Количество просмотров профиля', 'url' => ['#']],
+                            //['label' => 'Мои избранные' , 'url' => ['#']],
+                            ['label' => 'Мои доверенные' , 'url' => ["$objUrl/alltrustees"]],
                             ['label' => 'Структура', 'url' => ['company/structure'], 'visible' => $model->isCompany],
                             ['label' => 'Сотрудники', 'url' => ['company/personal'], 'visible' => $model->isCompany],
                             ['label' => \Yii::t('app', 'EXIT'), 'url' => ['site/logout']],

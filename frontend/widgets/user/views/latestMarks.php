@@ -24,7 +24,7 @@ if (count($list) > 0) {
                         <?php
                         $summMarks = 0;
                         $count = 0;
-                        foreach ($item->descrArr as $item2) {
+                        foreach (isset($item->descrArr) ? $item->descrArr : [] as $item2) {
                             if ($item2 != 0.0) {
                                 $count++;
                                 $summMarks += $item2;

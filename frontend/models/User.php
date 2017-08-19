@@ -142,8 +142,8 @@ class User extends UserConstant implements IdentityInterface {
     public function getUserCompanies() {
         return $this->hasMany(UserCompany::className(), ['user_id' => 'id']);
     }
-    
-    public function getUserCompany () {
+
+    public function getUserCompany() {
         return $this->hasOne(UserCompany::className(), ['user_id' => 'id']);
     }
 
@@ -227,17 +227,6 @@ class User extends UserConstant implements IdentityInterface {
     public function getIsAdmin() {
         return $this->type == self::TYPE_USER_ADMIN;
     }
-
-    /*
-      public function getQueryRangeDate ($query) {
-      return $query->andWhere([
-      'between',
-      'created',
-      new \yii\db\Expression('(NOW() - INTERVAL 1 DAY)'),
-      new \yii\db\Expression('NOW()')
-      ])->count();
-      }
-     */
 
     public function beforeSave($insert) {
         isset($this->id) ? $this->saveProfession() : NULL;

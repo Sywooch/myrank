@@ -24,6 +24,7 @@ class UserTrustees extends \yii\db\ActiveRecord {
     const STATUS_REMOVE = 3;
     
     const COUNT_LIST_USER_PROFILE = 5;
+    const COUNT_LIST_INFO = 8;
 
     /**
      * @inheritdoc

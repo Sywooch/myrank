@@ -1077,8 +1077,9 @@ body.gray-bg .b-header__user:after{
 .b-category__content ul li a:focus{
     text-decoration: underline;
 }
-
-
+.b-category__content > .row > div:first-child > ul li.viewAll{
+    display: none;
+}
 
 
 
@@ -2023,6 +2024,10 @@ body.gray-bg .b-header__user:after{
 
 .b-marks__item .b-marks__item__content{
     display: none;
+}
+
+.b-marks__item.open .b-marks__item__content {
+    display: block;
 }
 .b-marks__item__with-sub-content{
     margin: 10px 0 10px 20px;

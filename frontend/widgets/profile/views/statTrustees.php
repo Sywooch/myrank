@@ -6,14 +6,13 @@
  */
 //use frontend\models\UserCompany;
 use frontend\models\UserTrustees;
+use yii\helpers\Url;
 
-$url = yii\helpers\Url::toRoute(['users/change-trustees-status']);
+$url = Url::toRoute(['users/change-trustees-status']);
 ?>
 <div class="b-user b-block">
     <div class="b-company-trusted">
-        <div class="b-title b-title_grey">
-            Доверенные компании
-        </div>
+        <div class="b-title b-title_grey"><?= $title ?></div>
 
         <div class="b-company-trusted__container clearfix">
             <?php foreach ($list as $item) { ?>
@@ -50,13 +49,15 @@ $url = yii\helpers\Url::toRoute(['users/change-trustees-status']);
             <?php } ?>
         </div>
 
+        <?php if($count == UserTrustees::COUNT_LIST_INFO) { ?>
         <div class="b-company-trusted__container">
-            <a href="#" class="b-company-trusted__link-more">
+            <a href="<?= Url::toRoute(['alltrustees']) ?>" class="b-company-trusted__link-more">
                 <span class="b-more b-more_icon-right">
                     <span class="b-more__text">Все доверенные</span>
                 </span>
             </a>
         </div>
+        <?php } ?>
     </div>
     <!-- end b-company-trusted -->
 </div>

@@ -16,6 +16,11 @@ if(isset($allList[0]) && (count($allList[0]) > 0)) {
                     <?= Html::dropDownList("whoFromTo", isset($list['whofromto']) ? $list['whofromto'] : 0, Testimonials::whoFromTo(), ['style' => 'float:right; width: auto', 'class' => 'form-control']); ?>
                 <?php } ?>
             </div> 
+            <?php if(Yii::$app->user->id === NULL) { ?>
+            <div class="row">
+                <div class="col-md-12">Для того чтоб сохранить оценку, войдите или зарегистрируйтесь</div>
+            </div>
+            <?php } ?>
             <div class="b-marks__content">
                 <?php foreach (isset($allList[0]) ? $allList[0] : [] as $key => $el) { ?>
                     <?php if (isset($allList[$key]) && count($allList[$key]) > 0) { ?>

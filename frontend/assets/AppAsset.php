@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle {
 	'css/responsive.css',
     ];
     public $js = [
+        /*
 	//'/js/jquery2.2.4.js',
 	'bootstrap/js/bootstrap.min.js',
 	'js/owlcarousel/owl.carousel.min.js',
@@ -35,8 +36,17 @@ class AppAsset extends AssetBundle {
 	'js/inputmask/jquery.inputmask.min.js',
 	'//cloud.tinymce.com/stable/tinymce.min.js',
 	'js/select2/select2.full.min.js',
+	'js/script.js' */
+        "bootstrap/js/bootstrap.min.js",
+        "js/owlcarousel/owl.carousel.min.js",
+        "js/jquery-ui/jquery-ui.min.js",
+        "js/jquery.ui.touch-punch.min.js",
+        "js/inputmask/inputmask.min.js",
+        "js/inputmask/inputmask.phone.extensions.min.js",
+        "js/inputmask/jquery.inputmask.min.js",
+        "js/select2/select2.full.min.js",
         'chart/Chart.bundle.min.js',
-	'js/script.js'
+        "js/script.js",
     ];
     public $depends = [
 	    //'yii\web\YiiAsset',

@@ -40,6 +40,10 @@ class UsersController extends Controller {
             $req['id'] = \Yii::$app->user->id;
         }
         $mUser = User::findOne($req['id']);
+        //var_dump($this->checkUserHits($mUser->id, User::TYPE_USER_USER));
+        if($this->checkUserHits($mUser->id, User::TYPE_USER_USER)) {
+            $mUser->saveUserHit();
+        }
         if (isset($mUser->id) && !$mUser->isCompany) {
             return $this->render("profile", [
                         'model' => $mUser,
@@ -48,8 +52,8 @@ class UsersController extends Controller {
             throw new NotFoundHttpException(\Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND'));
         }
     }
-    
-    public function actionInfo () {
+
+    public function actionInfo() {
         $mUser = \Yii::$app->user->identity;
         return $this->render('/company/info', ['model' => $mUser]);
     }
@@ -100,10 +104,12 @@ class UsersController extends Controller {
                 $mMarks = new UserMarks();
             }
 
+            $marks = Json::encode($req);
             $mMarks->attributes = array_merge($attrs, [
-                'description' => Json::encode($req),
+                'description' => $marks,
                 'who_from_to' => \Yii::$app->request->post('whoFromTo')
             ]);
+            $model->saveUserMarks($marks);
 
             if (isset($req[0])) {
                 foreach ($req[0] as $key => $item) {
@@ -135,9 +141,9 @@ class UsersController extends Controller {
     public function actionConfigmarks() {
         $mUser = UserConstant::getProfile();
         $model = Marks::findAll([
-            'parent_id' => 0, 
-            'required' => 0,
-            'type' => $mUser->objType
+                    'parent_id' => 0,
+                    'required' => 0,
+                    'type' => $mUser->objType
         ]);
         if (!is_null($mUser->marks_config)) {
             $configArr = Json::decode($mUser->marks_config, true);
@@ -318,7 +324,7 @@ class UsersController extends Controller {
                 $out['code'] = $mObj->save();
                 \Yii::$app->rating->process($mObj);
             } else {
-                $out['errors'] = $mObj->errors;//['password' => [\Yii::t('app', 'PASSWORD_AND_REPEAT_DO_NOT_MATCH')]];
+                $out['errors'] = $mObj->errors; //['password' => [\Yii::t('app', 'PASSWORD_AND_REPEAT_DO_NOT_MATCH')]];
             }
         } else {
             $out['errors'] = $mObj->errors;
@@ -367,19 +373,19 @@ class UsersController extends Controller {
             $userImages = $sess->get("userImages");
         }
 
-        $mUser = User::getProfile();
+        $mUser = UserConstant::getProfile();
 
         foreach ($req['title'] as $key => $item) {
             if (($item != "") && isset($userImages[$key])) {
                 if ($req['new'][$key] == 1) {
-                    $model = new \frontend\models\Images();
+                    $model = new Images();
                 } else {
                     $model = Images::findOne($req['new'][$key]);
                 }
 
                 $model->attributes = [
-                    'type' => $mUser->type,
-                    'type_id' => $mUser->type ? $mUser->company_id : $mUser->id,
+                    'type' => $mUser->objType,
+                    'type_id' => $mUser->objId,
                     'user_id' => $mUser->id,
                     'name' => $userImages[$key],
                     'title' => $item,
@@ -427,6 +433,23 @@ class UsersController extends Controller {
         \Yii::$app->rating->process(UserConstant::findModel(['id' => $id, 'type' => $typeTo]));
         echo Json::encode($out);
         \Yii::$app->end();
+    }
+
+    public function actionAlltrustees() {
+        $mObj = \Yii::$app->user->identity;
+
+        //$mTrust = $mObj->userTrusteesTo;
+        return $this->render("/profile/alltrustees", ['model' => $mObj]);
+    }
+
+    public function actionAllmarks() {
+        $mObj = \Yii::$app->user->identity;
+        return $this->render("/profile/allmarks", ['model' => $mObj]);
+    }
+
+    public function actionAlltestimonials() {
+        $mObj = \Yii::$app->user->identity;
+        return $this->render("/profile/alltestimonials", ['model' => $mObj]);
     }
 
     public function actionSearch() {
@@ -508,19 +531,19 @@ class UsersController extends Controller {
         ]);
         \Yii::$app->end();
     }
-    
-    public function actionChangeTrusteesStatus () {
+
+    public function actionChangeTrusteesStatus() {
         $out = "";
         $post = \Yii::$app->request->post();
         $mUserTrustees = UserTrustees::findOne($post['id']);
         $mUserTrustees->status = $post['actid'];
         $code = $mUserTrustees->save() ? 1 : 0;
-        
+
         switch ($post['actid']) {
             case UserTrustees::STATUS_CONFIRM:
                 $out = Html::tag("div", Html::a("Удалить", "#", [
-                    'class' => "b-link b-link_red action_but",
-                    'data-id' => UserCompany::ACTION_BUT_REMOVE
+                                    'class' => "b-link b-link_red action_but",
+                                    'data-id' => UserCompany::ACTION_BUT_REMOVE
                 ]));
                 break;
             case UserTrustees::STATUS_REFUSE:
@@ -530,8 +553,8 @@ class UsersController extends Controller {
         }
         echo Json::encode(['code' => $code, 'data' => $out]);
     }
-    
-    public function actionShowDetailMarks ($id) {
+
+    public function actionShowDetailMarks($id) {
         $mUserMarks = UserMarks::findOne($id);
         echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/showDetailMarks', ['model' => $mUserMarks])]);
     }

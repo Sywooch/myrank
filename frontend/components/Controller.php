@@ -4,6 +4,8 @@ namespace frontend\components;
 
 use Yii;
 use frontend\models\User;
+use yii\helpers\Json;
+use frontend\models\UserConstant;
 
 class Controller extends \yii\web\Controller {
 
@@ -62,8 +64,49 @@ class Controller extends \yii\web\Controller {
 	}
     }
     
-    public function beforeAction($action) {
+    public function checkUserHits ($objId, $type) {
+        return true; // Пока отключена
         
+        $session = Yii::$app->session;
+        $userViewArr = [];
+        $out = false;
+        
+        if(\Yii::$app->user->id !== NULL) {
+            $mObj = UserConstant::getProfile();
+            if(($mObj->objId == $objId) && ($mObj->objType == $type)) {
+                return false;
+            }
+        }
+        /*
+        switch ($type) {
+            case UserConstant::TYPE_USER_USER:
+                $prefix = 'user';
+                break;
+            case UserConstant::TYPE_USER_COMPANY:
+                $prefix = 'company';
+                break;
+        }*/
+        
+        $element = implode("-", [$objId, $type]);
+        //var_dump($element);
+        
+        if($session->has('userView')) {
+            $userViewArr = Json::decode($session->get('userView'), true);
+            if(array_search($element, $userViewArr) === FALSE) {
+                $userViewArr[] = $element;
+                $out = TRUE;
+            } else {
+                return $out;
+            }
+        } else {
+            $userViewArr[] = $element;
+            $out = TRUE;
+        }
+        $session->set("userView", Json::encode($userViewArr));
+        return $out;
+    }
+    
+    public function beforeAction($action) {
         return parent::beforeAction($action);
     }
 

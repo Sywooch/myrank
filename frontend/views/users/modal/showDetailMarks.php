@@ -71,7 +71,10 @@
                             <div class="b-marks__item__header__number"><?= isset($list[0][$key]) ? $list[0][$key] : '0.0' ?></div>
                         </div>
                         <div class="b-marks__item__content">
-                        <?php foreach ($listVals[$key] as $subKey => $subItem) { ?>
+                        <?php
+                        //echo "<pre>"; var_dump($listVals); echo "</pre>";
+                        
+                        foreach (isset($listVals[$key]) ? $listVals[$key] : [] as $subKey => $subItem) { ?>
                             <div class="b-marks__item__content__row">
                                 <div class="b-marks__item__content__text">
                                     <?= $subItem ?>

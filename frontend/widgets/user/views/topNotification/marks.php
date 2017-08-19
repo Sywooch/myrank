@@ -29,14 +29,19 @@ use frontend\models\UserNotification;
                 <?php
                 $summMarks = 0;
                 $count = 0;
-                foreach ($item->descrArr as $item2) {
+                foreach (isset($item->descrArr) ? $item->descrArr : [] as $item2) {
                     if ($item2 != 0.0) {
                         $count++;
                         $summMarks += $item2;
                     }
                 }
+                if(($summMarks == 0) || ($count == 0)) {
+                    $res = 0.0;
+                } else {
+                    $res = round($summMarks / $count, 1);
+                }
                 ?>
-                <div class="b-small-message__rating-numbs"><?= round($summMarks / $count, 1) ?></div>
+                <div class="b-small-message__rating-numbs"><?= $res ?></div>
             </div>
         </div>
             <div 

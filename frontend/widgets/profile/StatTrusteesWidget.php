@@ -7,6 +7,8 @@
 
 namespace frontend\widgets\profile;
 
+use frontend\models\UserConstant;
+
 class StatTrusteesWidget extends \frontend\widgets\user\UserTrusteesWidget {
     
     public $model;
@@ -19,8 +21,11 @@ class StatTrusteesWidget extends \frontend\widgets\user\UserTrusteesWidget {
     }
     
     public function run() {
+        $title = $this->model->isCompany ? "Доверенные компании" : "Мои доверенные";
         return $this->render("statTrustees", [
             'list' => $this->list,
+            'count' => $this->countListView,
+            'title' => $title
         ]);
         //parent::run();
     }

@@ -25,23 +25,22 @@ class UserConstant extends \yii\db\ActiveRecord {
     const TYPE_USER_ADMIN = 10;
     const SAVE_FOLDER_USER = 'user';
     const SAVE_FOLDER_COMPANY = 'company';
-    
     const TYPE_MARKS_HIDE = 1;
     const TYPE_MARKS_SHOW = 2;
-    
+
     public $noPhoto = "/images/no_photo.png";
-    
+
     public static function findModel($cond) {
         $type = $cond['type'];
         unset($cond['type']);
-        if($type == self::TYPE_USER_COMPANY) {
+        if ($type == self::TYPE_USER_COMPANY) {
             return Company::findOne($cond['id']);
         } else {
             return User::findOne($cond['id']);
         }
     }
-    
-    public function getUserTrusteesAll () {
+
+    public function getUserTrusteesAll() {
         return "";
     }
 
@@ -54,26 +53,26 @@ class UserConstant extends \yii\db\ActiveRecord {
         return $this->hasMany(UserTrustees::className(), ['from_id' => 'id'])
                         ->andWhere(['type_from' => $this->objType]);
     }
-    
+
     // View ALL trustess
-    public function getUserTrusteesList () {
+    public function getUserTrusteesList() {
         return UserTrustees::find()
-                ->onCondition("((to_id = :id AND type_to = :type AND status != :st_to) "
-                        . "OR (from_id = :id AND type_from = :type AND status = :st_from)) ", [
-                    ':id' => $this->objId,
-                    ':type' => $this->objType,
-                    ':st_to' => UserTrustees::STATUS_REMOVE,
-                    ':st_from' => UserTrustees::STATUS_CONFIRM
-                ])->orderBy('status DESC, id DESC');
+                        ->onCondition("((to_id = :id AND type_to = :type AND status != :st_to) "
+                                . "OR (from_id = :id AND type_from = :type AND status = :st_from)) ", [
+                            ':id' => $this->objId,
+                            ':type' => $this->objType,
+                            ':st_to' => UserTrustees::STATUS_REMOVE,
+                            ':st_from' => UserTrustees::STATUS_CONFIRM
+                        ])->orderBy('status DESC, id DESC');
     }
-    
-    public function getUserTrusteesBack () {
+
+    public function getUserTrusteesBack() {
         return UserTrustees::find()
-                ->onCondition("((to_id = :id AND type_to = :type) OR (from_id = :id AND type_from = :type)) AND status = :st", [
-                    ':id' => $this->objId,
-                    ':type' => $this->objType,
-                    ':st' => UserTrustees::STATUS_CONFIRM
-                ])->orderBy('status DESC, id DESC');
+                        ->onCondition("((to_id = :id AND type_to = :type) OR (from_id = :id AND type_from = :type)) AND status = :st", [
+                            ':id' => $this->objId,
+                            ':type' => $this->objType,
+                            ':st' => UserTrustees::STATUS_CONFIRM
+                        ])->orderBy('status DESC, id DESC');
     }
 
     public function getUserMarksTo() {
@@ -105,7 +104,7 @@ class UserConstant extends \yii\db\ActiveRecord {
     }
 
     public function getTestimonialsFrom() {
-        if(\Yii::$app->user->id !== null) {
+        if (\Yii::$app->user->id !== null) {
             $mObj = \Yii::$app->user->identity;
             return $this->hasMany(Testimonials::className(), ['from_id' => 'id'])
                             ->andWhere(['type_from' => $mObj->objType]);
@@ -142,7 +141,7 @@ class UserConstant extends \yii\db\ActiveRecord {
      * FIXME: Сделать через связующую таблицу
      */
     public function getUserMarksFromList() {
-        if(\Yii::$app->user->id !== null) {
+        if (\Yii::$app->user->id !== null) {
             $mUserFrom = \Yii::$app->user->identity;
             $model = $this->getUserMarksTo()
                     ->andWhere([
@@ -164,14 +163,14 @@ class UserConstant extends \yii\db\ActiveRecord {
     public function getMarks() {
         return static::marksArr($this->configMarks);
     }
-    
+
     /**
      * 
      * @param array $configMarksArr default []
      * @param array $query default NULL
      * @return array
      */
-    public static function marksArr ($configMarksArr = [], $typeMarks = self::TYPE_MARKS_SHOW) {
+    public static function marksArr($configMarksArr = [], $typeMarks = self::TYPE_MARKS_SHOW) {
         $arr = [];
 
         $mMarks = Marks::find()->all();
@@ -195,37 +194,37 @@ class UserConstant extends \yii\db\ActiveRecord {
         $mObj = \Yii::$app->user->identity;
         $id = $mObj->objId;
         return UserTrustees::find()
-                ->andWhere([
-                    'from_id' => $id, 
-                    'type_from' => $mObj->objType,
-                    'to_id' => $this->objId,
-                    'type_to' => $this->objType,
-                    'status' => UserTrustees::STATUS_CONFIRM
-                ])
-                ->orWhere([
-                    'from_id' => $this->objId,
-                    'type_from' => $this->objType,
-                    'to_id' => $id, 
-                    'type_to' => $mObj->objType,
-                    'status' => UserTrustees::STATUS_CONFIRM
-                ])
-                ->count() > 0 ? TRUE : FALSE;
+                        ->andWhere([
+                            'from_id' => $id,
+                            'type_from' => $mObj->objType,
+                            'to_id' => $this->objId,
+                            'type_to' => $this->objType,
+                            'status' => UserTrustees::STATUS_CONFIRM
+                        ])
+                        ->orWhere([
+                            'from_id' => $this->objId,
+                            'type_from' => $this->objType,
+                            'to_id' => $id,
+                            'type_to' => $mObj->objType,
+                            'status' => UserTrustees::STATUS_CONFIRM
+                        ])
+                        ->count() > 0 ? TRUE : FALSE;
     }
 
     public function getAboutProfile() {
         return $this->about;
     }
-    
-    public function getSaveFolder () {
+
+    public function getSaveFolder() {
         return $this->isCompany ? self::SAVE_FOLDER_COMPANY : self::SAVE_FOLDER_USER;
     }
 
     public function getImageName() {
         return $this->objImage == "" ? $this->noPhoto : DIRECTORY_SEPARATOR . implode("/", [
-            'files',
-            $this->saveFolder,
-            $this->objId,
-            $this->objImage
+                    'files',
+                    $this->saveFolder,
+                    $this->objId,
+                    $this->objImage
         ]);
     }
 
@@ -249,8 +248,8 @@ class UserConstant extends \yii\db\ActiveRecord {
     }
 
     public function getProfileProfession() {
-        if($this->isCompany) {
-            if(isset($this->type)) {
+        if ($this->isCompany) {
+            if (isset($this->type)) {
                 return $this->company->getCompanyProfession();
             } else {
                 return $this->getCompanyProfession();
@@ -259,12 +258,12 @@ class UserConstant extends \yii\db\ActiveRecord {
             return $this->getUserProfession();
         }
     }
-    
-    public function getCompanyUserCompany () {
+
+    public function getCompanyUserCompany() {
         return $this->hasOne(UserCompany::className(), ['user_id' => 'id']);
     }
-    
-    public function getUserUserCompany () {
+
+    public function getUserUserCompany() {
         return $this->hasOne(UserCompany::className(), ['company_id' => 'id']);
     }
 
@@ -273,28 +272,58 @@ class UserConstant extends \yii\db\ActiveRecord {
         $model = \Yii::$app->user->identity;
         return $model->isCompany ? Company::findOne($model->objId) : User::findOne($model->objId);
     }
-    
-    public function getObj () {
+
+    public function saveUserHit() {
+        $model = new UserHistory();
+        if (\Yii::$app->user->id !== null) {
+            $mObj = \Yii::$app->user->identity;
+            $model->from_id = $mObj->objId;
+            $model->from_type = $mObj->objType;
+        } else {
+            $model->from_id = 0;
+            $model->from_type = 0;
+        }
+        $model->to_id = $this->objId;
+        $model->to_type = $this->objType;
+        $model->type = UserHistory::TYPE_HITS;
+        $model->description = "1";
+        $model->save();
+    }
+
+    public function saveUserMarks($marks) {
+        $mObj = \Yii::$app->user->identity;
+        $model = new UserHistory();
+
+        $model->to_id = $this->objId;
+        $model->to_type = $this->objType;
+        $model->from_id = $mObj->objId;
+        $model->from_type = $mObj->objType;
+        $model->description = $marks;
+        $model->type = UserHistory::TYPE_MARKS;
+        $model->save();
+    }
+
+    public function getObj() {
         return $this;
     }
-    
-    public function getObjType () {
+
+    public function getObjType() {
         return $this->isCompany ? self::TYPE_USER_COMPANY : self::TYPE_USER_USER;
     }
-    
-    public function getObjModel () {
+
+    public function getObjModel() {
         return $this->isCompany ? Company::className() : User::className();
     }
-    
-    public function getObjId () {
+
+    public function getObjId() {
         return (isset($this->type) && $this->isCompany) ? $this->companyUserCompany->company_id : $this->id;
     }
-    
-    public function getObjImage () {
+
+    public function getObjImage() {
         return isset($this->type) && $this->isCompany ? isset($this->company->image) ? $this->company->image : "" : $this->image;
     }
-    
-    public function getObjUserCompany () {
+
+    public function getObjUserCompany() {
         return $this->isCompany ? $this->getUserUserCompany() : $this->getCompanyUserCompany();
     }
 

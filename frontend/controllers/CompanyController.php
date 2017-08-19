@@ -77,7 +77,21 @@ class CompanyController extends Controller {
         }
         echo Json::encode(['code' => $code, 'data' => $out]);
     }
-
+    
+    public function actionAlltrustees () {
+        $mObj = UserConstant::getProfile();
+        return $this->render("/profile/alltrustees", ['model' => $mObj]);
+    }
+    
+    public function actionAllmarks () {
+        $mObj = UserConstant::getProfile();
+        return $this->render("/profile/allmarks", ['model' => $mObj]);
+    }
+    
+    public function actionAlltestimonials () {
+        $mObj = UserConstant::getProfile();
+        return $this->render("/profile/alltestimonials", ['model' => $mObj]);
+    }
 
     public function findModel ($id) {
         $model = Company::findOne($id);

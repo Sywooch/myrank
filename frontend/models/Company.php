@@ -63,7 +63,7 @@ class Company extends UserConstant {
      */
     public function rules() {
         return [
-            [['name', 'reg_date', 'professionField'], 'required'],
+            [['name', 'reg_date'], 'required'],
             [['professionField'], 'required', 'on' => 'editmaininfo'],
             [['count_persons', 'cash'], 'integer'],
             [['reg_date', 'user_id', 'city_id', 'professionField', 

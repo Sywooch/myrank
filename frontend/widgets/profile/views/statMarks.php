@@ -11,7 +11,7 @@ use yii\helpers\Url;
 <!-- begin b-company-evaluation -->
 <div class="b-company-evaluation b-block">
     <div class="b-title">
-        Оценки компании
+        <?= $title ?>
         <?= Html::dropDownList("selectRole", NULL, Testimonials::whoFromTo(), [
             'prompt' => 'Все',
             'id' => 'selectRole',
@@ -22,7 +22,7 @@ use yii\helpers\Url;
 
     <div class="b-company-evaluation__container clearfix">
         <?php foreach ($list as $item) { ?>
-        <div class="col-md-6 b-company-evaluation__item" data-id="<?= $item->id ?>" data-role="<?= $item->who_from_to ?>">
+        <div class="col-md-<?= 12/$cols ?> b-company-evaluation__item" data-id="<?= $item->id ?>" data-role="<?= $item->who_from_to ?>">
                 <div class="b-text-rows">
                     <div class="b-text-rows__aside-left b-company-evaluation__img">
                         <div style="width: 92px; height: 92px; overflow: hidden;">
@@ -60,7 +60,7 @@ use yii\helpers\Url;
         <?php } ?>
     </div>
 
-
+    <?php if(count($list) > $countListView) { ?>
     <div class="b-company-evaluation__container">
         <a href="#" class="b-company-evaluation__link-more">
             <span class="b-more b-more_icon-right">
@@ -68,6 +68,7 @@ use yii\helpers\Url;
             </span>
         </a>
     </div>
+    <?php } ?>
 </div>
 <!-- end b-company-trusted -->
 <?php

@@ -34,11 +34,12 @@ $mProf = Profession::find()
 			<div class="col-xs-12 col-sm-6 col-md-3">
 			    <ul>
 			    <?php } ?>
-				<li>
+                                <li>
 				    <a href="<?= Url::toRoute(['users/search', 'UsersSearch' => ['professionField' => $item['id']]]) ?>">
 					<?= $item['title'] ?>
 				    </a>
 				</li>
+                                <?php if($key == 6) { ?><li class='viewAll'><a href="#">Показать все</a></li><?php } ?>
 			    <?php if ((($key + 1) % 13 == 0) || (count($mProf) == $key+1)) { ?>
 			    </ul>
 			</div>
@@ -119,7 +120,7 @@ echo ListView::widget([
 ?>
 <!-- end b-articles -->
 
-
+<?php if(Yii::$app->user->id === NULL) { ?>
 <!-- begin b-reg-now -->
 <div class="b-reg-now">
     <div class="container">
@@ -139,6 +140,7 @@ echo ListView::widget([
     </div>
 </div>
 <!-- end b-reg-now -->
+<?php } ?>
 
 <!-- begin b-last-users -->
 <?= LatestUsersAddWidget::widget(); ?>

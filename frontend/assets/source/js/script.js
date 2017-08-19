@@ -208,13 +208,16 @@ $(document).ready(function () {
 
 
 
-    $('.b-marks__item__header').on('click touchstart', function () {
+    $('.b-marks__item__header').on('click', function () {
         var that = $(this);
         var parent = that.parents('.b-marks__item');
 
-        parent
-                .toggleClass('open')
-                .find('.b-marks__item__content').stop().slideToggle();
+        parent.toggleClass('open');
+    });
+
+    $('.b-category__content .viewAll a').on('click', function(e){
+        e.preventDefault();
+        $('.b-category__content').addClass('open');
     });
 
     $('.input-phone').inputmask('+38 ( 999 ) 999 - 99 - 99');

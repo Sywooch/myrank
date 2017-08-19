@@ -97,7 +97,7 @@ return [
         ],
         'gii' => [
             'class' => 'yii\gii\Module',
-            'allowedIPs' => ['193.34.94.25', '188.163.34.95']
+            'allowedIPs' => ['193.34.94.25', '188.163.34.95', '134.249.155.162']
         ]
     ],
     'params' => $params,
