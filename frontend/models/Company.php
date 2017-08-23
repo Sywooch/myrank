@@ -95,6 +95,19 @@ class Company extends UserConstant {
         return $this->hasMany(UserCompany::className(), ['company_id' => 'id']);
     }
     
+    public function getCompanyStruct () {
+        return $this->hasMany(CompanyStruct::className(), ['company_id' => 'id'])
+                ->andWhere([
+                    'parent_id' => 0
+                ]);
+    }
+    
+    public function getUsers () {
+        return $this->hasMany(User::className(), ['id' => 'user_id'])
+                ->via('usersCompany')
+                ->andWhere(['admin' => 0]);
+    }
+    
     public function getActiveUsersCompany () {
         return $this->getUsersCompany()
                 ->andWhere(['status' => UserCompany::STATUS_CONFIRM])

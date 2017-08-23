@@ -8,6 +8,7 @@ use yii\helpers\Url;
 use frontend\models\User;
 
 $this->title = 'MyRank.com';
+//var_dump(\Yii::$app->language);
 $field = Profession::$locales[\Yii::$app->language];
 if($field != "") {
     $select = ["id" ,$field. " AS title"];

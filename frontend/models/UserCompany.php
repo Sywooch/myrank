@@ -11,6 +11,8 @@ use Yii;
  * @property integer $user_id
  * @property integer $admin
  * @property integer $company_id
+ * @property integer $struct_id
+ * @property integer $admin
  * @property string $company_post
  * @property string $company_name
  * @property integer $status
@@ -47,7 +49,7 @@ class UserCompany extends \yii\db\ActiveRecord {
         return [
             [['user_id', 'company_id', 'status'], 'integer'],
             [['company_post', 'company_name'], 'string', 'max' => 255],
-            [['admin'], 'safe']
+            [['admin', 'struct_id'], 'safe']
         ];
     }
 

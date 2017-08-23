@@ -2,7 +2,11 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
+use frontend\models\UserConstant;
 $i = 0;
+$mObj = UserConstant::getProfile();
+$folder = $mObj->isCompany ? 'company' : 'user';
+$imagePath = "/" . implode(DIRECTORY_SEPARATOR, ['files', $folder, $mObj->objId, $mObj->image]);
 ?>
 <div class="b-modal__header">
     <?= \Yii::t('app','UPLOAD_AVATAR'); ?>
@@ -14,7 +18,7 @@ $i = 0;
     		<div class="b-modal__content__portfolio__item__image">
     		    <div class="input-file-wrapper">
     			<span><?= \Yii::t('app','UPLOAD_A_NEW_PHOTO'); ?></span>
-    			<input id="images-name<?= $i ?>" name="Images[name<?= $i ?>]" data-url="<?= Url::toRoute(['media/imageupload', 'id' => $i]) ?>" type="file" accept="image/*" />
+    			<input id="images-name<?= $i ?>" name="Images[name<?= $i ?>]" data-url="<?= $imagePath ?>" type="file" accept="image/*" />
     		    </div>
     		</div>
     	    </div>

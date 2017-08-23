@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profi
             <!-- begin b-user -->
             <div class="b-user b-block">
                 <div class="b-user__data">
-                    <div class="b-user__data__left">
+                    <div class="b-user__data__left" style="text-align:-webkit-center">
                         <div class="b-user__data__image">
                             <img
                             <?php if ($model->owner) { ?>
@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profi
                                 <?php } ?>
                                 src="<?= $model->imageName ?>" alt="" >
                         </div>
+                        <?= $model->owner && ($model->image != "") ? Html::a("Удалить", ['users/remove-avatar'], ['id' => 'removeAvatar']) : NULL ?>
                     </div>
                     <div class="b-user__data__right">
                         <div class="b-user__data__header">
@@ -134,11 +135,12 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profi
                                 <div class="owl-carousel">
                                     <?php foreach ($model->images as $item) { ?>
                                         <div class="b-user__portfolio__item">
-                                            <img 
-                                                class="b-user__portfolio__item__image showModal" 
-                                                src="<?= Url::toRoute(['media/viewimage', 'id' => $item->id]) ?>" 
-                                                alt="image"
-                                                data-url="<?= Url::toRoute(['users/viewportfolio', 'id' => $item->id]) ?>"/>
+                                            <?php 
+                                            $url = "/".implode(DIRECTORY_SEPARATOR, ['files', 'company', $item->type_id, $item->name]);
+                                            echo Html::img($url, [
+                                                'class' => 'b-user__portfolio__item__image showModal',
+                                                'data-url' => Url::toRoute(['users/viewportfolio', 'id' => $item->id])
+                                            ]); ?>
                                         </div>
                                     <?php } ?>
                                 </div>
@@ -235,6 +237,20 @@ $this->registerJs("
 	    }
 	}, 'json');
     })", yii\web\View::POS_END);
+
+if($model->owner) {
+    $this->registerJs("
+        $('#removeAvatar').on('click', function () {
+            url = $(this).attr('href');
+            $.get(url, function (out) {
+                if(out.code == 1) {
+                    location.reload(true);
+                }
+            }, 'json');
+            return false;
+        });");
+}
+
 
 $i = 0;
 echo FileUploadWidget::widget([

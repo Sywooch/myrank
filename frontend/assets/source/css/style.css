@@ -916,7 +916,7 @@ body.gray-bg .b-header__user:after{
 .b-header__profile{
     position: relative;
     text-align: center;
-    padding: 35px 0 0 0;
+    padding: 35px 0;
 }
 .b-header__profile span{
     display: block;
@@ -4280,7 +4280,8 @@ body.gray-bg .b-header__user:after{
 .b-card .actions {height:65px;}
 .b-card .action_but.remove {position: absolute; left: 0; right: 0; bottom:45px;}
 
-.b-card__logo {display: block; max-width: 100%; margin-left: auto; margin-right: auto; margin-bottom: 12px;}
+.b-card__logo {display: block; max-width: 100%; margin-left: auto; margin-right: auto; margin-bottom: 12px; margin-top: 8px;}
+.b-card__logo__block {max-height: 162px; overflow: hidden;}
 .b-card__logo-block {height: 165px; overflow: hidden; border-radius: 10px;}
 .b-card__name {color: #226377; font-size: 14px; line-height: 1.2; font-weight: 700;}
 .b-card__post {color: #747474; font-size: 14px; line-height: 1.6; font-weight: 300;}
@@ -4471,7 +4472,7 @@ body.gray-bg .b-header__user:after{
   border-top: 1px solid #dcdcdc;
 }
 
-.b-company-structure__cards {padding: 0; margin-bottom: 15px;}
+.b-company-structure__cards {padding: 0; margin-bottom: 15px; min-height: 300px; overflow: hidden}
 
 .b-small-date {
   font-size: 10px;

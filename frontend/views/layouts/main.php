@@ -96,7 +96,7 @@ AppAsset::register($this);
                                 <div class="b-header__region">
                                     <div class="b-header__region__language">
                                         <div class="b-header__region__language__select">
-                                            <?= Html::dropDownList("lang", Yii::$app->request->cookies->get('lang'), $lang, ['id' => 'changeLang']) ?>
+                                            <?= Html::dropDownList("lang", Yii::$app->request->cookies->get('siteLang'), $lang, ['id' => 'changeLang']) ?>
                                         </div>
                                     </div>
                                     <div class="b-header__region__country">
@@ -172,8 +172,12 @@ AppAsset::register($this);
                 </div>
             </header>
             <!-- end b-header -->
-            <?=
-                isset($this->params['breadcrumbs']) ? Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) : NULL;
+            <?php
+                if(isset($this->params['breadcrumbs'])) { 
+                    echo Breadcrumbs::widget([
+                        'links' => $this->params['breadcrumbs']
+                    ]);
+                }
             ?>
             <?= $content ?>	
 

@@ -17,7 +17,7 @@ class Controller extends \yii\web\Controller {
 
     public function init() {
 	parent::init();
-	$this->checkLang();
+	$this->checkLangGeoIP();
 
         if(Yii::$app->user->id !== null) {
             $mObj = Yii::$app->user->identity;
@@ -30,8 +30,8 @@ class Controller extends \yii\web\Controller {
 
 	if ($session->has('country') && !$cookies->has('country')) {
 	    $country = $session->get('country');
-	    $cookies = Yii::$app->response->cookies;
-	    $cookies->add(new \yii\web\Cookie([
+	    $cookiesResponse = Yii::$app->response->cookies;
+	    $cookiesResponse->add(new \yii\web\Cookie([
 		'name' => 'country',
 		'value' => $country,
 		'path' => "/",
@@ -49,7 +49,44 @@ class Controller extends \yii\web\Controller {
 	  } */ 
     }
     
-    public function checkLang () {
+    private function checkLangGeoIP () {
+	$cookies = Yii::$app->request->cookies;
+        
+        if(!$cookies->has('siteLang')) {
+            $ip = Yii::$app->geoip->ip();
+            $ip->isoCode;
+            
+            switch ($ip->isoCode) {
+                case 'UA':
+                    $lang = 'ua_UA';
+                    break;
+                case 'RU':
+                    $lang = 'ru_RU';
+                    break;
+                case 'US':
+                default :
+                    $lang = 'en_US';
+                    break;
+            }
+            
+            $cookiesResponse = Yii::$app->response->cookies;
+	    $cookiesResponse->add(new \yii\web\Cookie([
+		'name' => 'siteLang',
+		'value' => $lang,
+		'path' => "/",
+		'domain' => 'myrank.com',
+		'expire' => time() + 365 * 24 * 60 * 60,
+	    ]));
+        } else {
+            $lang = $cookies->get('siteLang')->value;
+            //$lang = $cookieLang['value'];
+        }
+        Yii::$app->language = $lang;
+    }
+
+
+    /*
+    public function checkLangHeader () {
 	$this->fromRequestHeader = Yii::$app->request->headers->get('Accept-Language');
 	if ($this->fromRequestHeader !== null && isset($this->fromRequestHeader)) {
 	    $this->langFromRequest = str_replace("-", "_", substr($this->fromRequestHeader, 0, 5));
@@ -62,7 +99,7 @@ class Controller extends \yii\web\Controller {
 	} else {
 	    Yii::$app->language = 'en_US';
 	}
-    }
+    } */
     
     public function checkUserHits ($objId, $type) {
         return true; // Пока отключена

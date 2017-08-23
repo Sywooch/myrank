@@ -8,7 +8,7 @@ use frontend\widgets\article\ArticleSeeAlsoWidget;
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => \Yii::t('app','ARTICLES'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['#']];
 ?>
 
 <div class="container">

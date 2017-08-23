@@ -1,4 +1,29 @@
-<?= \frontend\widgets\profile\StatTestimonialsWidget::widget([
-    'model' => $model,
-    'countListView' => 100,
-]) ?>
+<?php
+
+use frontend\widgets\profile\RatingAmongCompaniesWidget;
+use frontend\widgets\user\ProfileStatWidget;
+use frontend\widgets\profile\StatTestimonialsWidget;
+?>
+<div class="container">
+    <div id="main">
+        <!-- begin b-content -->
+        <div class="b-content">
+            <!-- begin b-user -->
+            <div class="b-user b-block">
+                <div class="b-title">
+                    Рейтинг компании
+                </div>
+                <?= ProfileStatWidget::widget(['model' => $model]); ?>
+            </div>
+
+            <?=
+            StatTestimonialsWidget::widget([
+                'model' => $model,
+                'countListView' => 100,
+            ])
+            ?>
+        </div>
+        <!-- end b-content -->
+        <?= RatingAmongCompaniesWidget::widget() ?>
+    </div>
+</div>

@@ -14,7 +14,8 @@ use yii\widgets\Breadcrumbs;
         $out = [];
         foreach ($links as $key => $item) {
             //$out['class'] = 'b-breadcrumbs__link';
-            $out[] = $item;
+            $out[$key] = $item;
+            $out[$key]['class'] = "b-breadcrumbs__link";
         }
         
         echo yii\widgets\Breadcrumbs::widget([
@@ -26,6 +27,7 @@ use yii\widgets\Breadcrumbs;
                 'template' => "<li class='b-breadcrumbs__item'>{link}</li>\n",
                 'class' => 'b-breadcrumbs__link'
             ],
+            'itemTemplate' => "<li class='b-breadcrumbs__item'>{link}</li>\n",
             'links' => $out,
         ]);
         ?>

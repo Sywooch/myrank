@@ -58,7 +58,7 @@ class UserMarks extends UserConstant {
 
     public function getDescrArr() {
         $out = Json::decode($this->description, true);
-        return $out[0];
+        return isset($out[0]) ? $out[0] : [];
     }
 
     public function getMarkNames() {

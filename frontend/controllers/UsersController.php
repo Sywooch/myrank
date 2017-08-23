@@ -75,6 +75,12 @@ class UsersController extends Controller {
         echo Json::encode($out);
         \Yii::$app->end();
     }
+    
+    public function actionRemoveAvatar () {
+        $mObj = UserConstant::getProfile();
+        $mObj->image = "";
+        return ['code' => $mObj->save() ? 1 : 0];
+    }
 
     public function actionSavemarks($id, $typeTo) {
         $req = \Yii::$app->request->post('mark');

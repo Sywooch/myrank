@@ -4,7 +4,7 @@ use yii\widgets\ListView;
 use frontend\widgets\article\ArticleLastIssuesWidget;
 
 $this->title = \Yii::t('app', 'ARTICLES');
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['#']];
 ?>
 
 <div class="container">

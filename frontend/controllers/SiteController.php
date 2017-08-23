@@ -249,15 +249,16 @@ class SiteController extends Controller {
     public function actionChangelang() {
         $post = \Yii::$app->request->post();
         \Yii::$app->response->cookies->add(new \yii\web\Cookie([
-            'name' => 'lang',
+            'name' => 'siteLang',
             'value' => $post['id'],
-            //'path' => "/",
-            //'domain' => 'myrankf.site4ever.com',
+            'path' => "/",
+            'domain' => 'myrank.com',
             'expire' => time() + 365 * 24 * 60 * 60,
         ]));
     }
-/*
+
     public function actionTest() {
+        /*
         $model = User::find()->where(['type' => User::TYPE_USER_USER])->all();
         foreach ($model as $item) {
             if ($item->type == User::TYPE_USER_USER) {
@@ -270,7 +271,8 @@ class SiteController extends Controller {
                 $mUC->company_post = 'default';
                 $mUC->save();
             }
-        }
-    }*/
+        }*/
+        return $this->render('test');
+    }
 
 }
