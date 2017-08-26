@@ -8,7 +8,7 @@ $(document).ready(function () {
     });
 
     $('.b-user__portfolio__carousel').find('.owl-carousel').owlCarousel({
-        loop: true,
+        loop: false,
         dots: false,
         nav: false,
         margin: 8,

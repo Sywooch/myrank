@@ -10,7 +10,7 @@ use frontend\widgets\profile\StatMarksWidget;
             <!-- begin b-user -->
             <div class="b-user b-block">
                 <div class="b-title">
-                    Рейтинг компании
+                    <?= Yii::t('app', 'RATING_COMPANY') ?>
                 </div>
             <?= ProfileStatWidget::widget(['model' => $model]); ?>
             </div>

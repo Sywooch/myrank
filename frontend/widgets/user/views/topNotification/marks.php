@@ -25,7 +25,7 @@ use frontend\models\UserNotification;
         </div>
         <div class="b-text-image__text">
             <div class="b-small-message__rating">
-                <div class="b-small-message__rating-caption">Оценка:</div>
+                <div class="b-small-message__rating-caption"><?= Yii::t('app', 'MARK') ?>:</div>
                 <?php
                 $summMarks = 0;
                 $count = 0;

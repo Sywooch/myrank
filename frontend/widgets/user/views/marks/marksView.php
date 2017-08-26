@@ -18,7 +18,7 @@ if(isset($allList[0]) && (count($allList[0]) > 0)) {
             </div> 
             <?php if(Yii::$app->user->id === NULL) { ?>
             <div class="row">
-                <div class="col-md-12">Для того чтоб сохранить оценку, войдите или зарегистрируйтесь</div>
+                <div class="col-md-12"><?= Yii::t('app', 'MARKS_PRE_MESSAGE') ?></div>
             </div>
             <?php } ?>
             <div class="b-marks__content">

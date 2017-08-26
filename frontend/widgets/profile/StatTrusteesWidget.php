@@ -21,7 +21,7 @@ class StatTrusteesWidget extends \frontend\widgets\user\UserTrusteesWidget {
     }
     
     public function run() {
-        $title = $this->model->isCompany ? "Доверенные компании" : "Мои доверенные";
+        $title = $this->model->isCompany ? \Yii::t('app', 'TRUSTED_COMPANY') : \Yii::t('app', 'MY_TRUSTEES');
         return $this->render("statTrustees", [
             'list' => $this->list,
             'count' => $this->countListView,

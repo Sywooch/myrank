@@ -22,7 +22,7 @@ use yii\widgets\Breadcrumbs;
             'options' => ['class' => "b-breadcrumbs__container"],
             'itemTemplate' => "<li class='b-breadcrumbs__item'>{link}</li>\n", // template for all links
             'homeLink' => [
-                'label' => 'Главная',
+                'label' => Yii::t('app', 'MAIN_PAGE'),
                 'url' => ['site/index'],
                 'template' => "<li class='b-breadcrumbs__item'>{link}</li>\n",
                 'class' => 'b-breadcrumbs__link'

@@ -312,7 +312,37 @@ return [
     
     'CREATE_STRUCT' => 'Create structure',
     'COMPANY_STRUCT' => 'Company structure',
-
+    'PERS_NO_STRUCT' => 'Employees without a structure',
+    'STRUCT' => 'Structure',
+    'COMPANY_MARKS' => 'Company Ratings',
+    'RATING_PERS' => 'Staff rating',
+    'SPECIALISTS' => 'Specialists',
+    'RATING_COMP' => 'Company rating',
+    'RATING_COMPANY' => 'Company rating',
+    'MY_MARKS' => 'My marks',
+    'TRUSTED_COMPANY' => 'Trusted companies',
+    'MY_TRUSTEES' => 'My trusted',
+    'ALL_TRUSTEES' => 'All trusted',
+    'RATING_FROM_COMPANY' => 'Rating among companies',
+    'ALL_RATING' => 'Full rating',
+    'AVERAGE_RATING' => 'Average<br> rating',
+    'ALL_MARKS' => 'All ratings',
+    'TESTIMONIALS_COMPANY' => 'Company review',
+    'MAIN_PAGE' => 'Main page',
+    'MARKS_PRE_MESSAGE' => 'In order to save the rating, please login or register',
+    
+    // STATUSES
+    'CONFIRM' => 'Confirm',
+    'REFUSE' => 'Refuse',
+    'REMOVE' => 'Remove',
+    'SELF_ASSESSMENT' => 'Self-assessment',
+    'OTHER_ASSESSMENT' => 'Other',
+    
+    
+    // MENU
+    'INFORMATION' => 'Information',
+    'MY_TESTIMONIAL' => 'My feedback',
+    'PERSONALS' => 'Employees',
 
 ];
 

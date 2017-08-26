@@ -26,6 +26,7 @@ use yii\web\NotFoundHttpException;
 use yii\helpers\Json;
 use frontend\models\UserConstant;
 use yii\helpers\Html;
+use frontend\models\UserCompany;
 
 /**
  * Description of UserController
@@ -562,7 +563,10 @@ class UsersController extends Controller {
 
     public function actionShowDetailMarks($id) {
         $mUserMarks = UserMarks::findOne($id);
-        echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/showDetailMarks', ['model' => $mUserMarks])]);
+        return Json::encode([
+            'code' => 1, 
+            'data' => $this->renderPartial('modal/showDetailMarks', ['model' => $mUserMarks])
+        ]);
     }
 
 }

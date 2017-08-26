@@ -10,7 +10,7 @@ use yii\helpers\Html;
 <!-- begin b-comments -->
 <div class="b-comments b-block">
     <div class="b-title">
-        Отзывы компании
+        <?= Yii::t('app', 'TESTIMONIALS_COMPANY'); ?>
         <!-- a class="button-small" href="#">Оставить отзыв</a -->
     </div>
     <div class="b-comments__content">

@@ -45,7 +45,7 @@ use yii\helpers\Url;
 			}
 			?>
                         <div class="b-company-evaluation__score showModal" style="cursor: pointer" data-url="<?= Url::toRoute(['users/show-detail-marks', 'id' => $item->id]) ?>">
-                            <span class="b-company-evaluation__label">Средняя<br> оценка:</span>
+                            <span class="b-company-evaluation__label"><?= Yii::t('app', 'AVERAGE_RATING') ?>:</span>
                             <span class="b-company-evaluation__numbs"><?php
                             if (($count != 0) && ($summMarks != 0)) {
                                 echo round($summMarks / $count, 1);
@@ -64,7 +64,7 @@ use yii\helpers\Url;
     <div class="b-company-evaluation__container">
         <a href="#" class="b-company-evaluation__link-more">
             <span class="b-more b-more_icon-right">
-                <span class="b-more__text">Все оценки</span>
+                <span class="b-more__text"><?= Yii::t('app', 'ALL_MARKS') ?></span>
             </span>
         </a>
     </div>

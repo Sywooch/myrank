@@ -8,7 +8,7 @@ use frontend\models\Company;
 
     <!-- begin b-list-rating -->
     <div class="b-list-rating b-block">
-        <div class="b-title">Рейтинг среди компаний</div>
+        <div class="b-title"><?= Yii::t('app', 'RATING_FROM_COMPANY') ?></div>
         <div class="b-list-rating__container">
             <?php foreach ($model as $item) { 
                 $mObj = Company::findOne($item['id']);
@@ -42,7 +42,7 @@ use frontend\models\Company;
                         </div>
 
                         <div class="b-text-rows__aside-right b-list-rating__score">
-                            <div class="b-list-rating__label">Рейтинг:</div>
+                            <div class="b-list-rating__label"><?= Yii::t('app', 'RATING') ?>:</div>
                             <div class="b-list-rating__numbs"><?= $mObj->rating ?></div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@ use frontend\models\Company;
 
         <a href="#" class="b-list-rating__link-more">
             <span class="b-more b-more_icon-right">
-                <span class="b-more__text">Весь рейтинг</span>
+                <span class="b-more__text"><?= Yii::t('app', 'ALL_RATING') ?></span>
             </span>
         </a>
     </div>

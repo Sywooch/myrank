@@ -38,10 +38,19 @@ $url = Url::toRoute(['users/change-trustees-status']);
                         </div>
                         <div class="actions" data-id="<?= $item->id ?>">
                             <?php if ($item->status == UserTrustees::BACK_TRUSTEES_NO) { ?>
-                                <a class="button-small b-card__button action_but" href="#" data-id="<?= UserTrustees::STATUS_CONFIRM ?>">Подтвердить</a>
-                                <div><a href="#" class="b-link action_but" data-id="<?= UserTrustees::STATUS_REFUSE ?>">Отказать</a></div>
+                                <a href="#" 
+                                   class="button-small b-card__button action_but"
+                                   data-id="<?= UserTrustees::STATUS_CONFIRM ?>"><?= Yii::t('app', 'CONFIRM') ?></a>
+                                <div>
+                                    <a href="#" 
+                                        class="b-link action_but" 
+                                        data-id="<?= UserTrustees::STATUS_REFUSE ?>"><?= Yii::t('app', 'REFUSE') ?></a>
+                                </div>
                             <?php } else { ?>
-                                <div><a href="#" class="b-link b-link_red action_but remove" data-id="<?= UserTrustees::STATUS_REMOVE ?>">Удалить</a></div>
+                                <div>
+                                    <a href="#" 
+                                       class="b-link b-link_red action_but remove" 
+                                       data-id="<?= UserTrustees::STATUS_REMOVE ?>"><?= Yii::t('app', 'REMOVE') ?></a></div>
                             <?php } ?>
                         </div>
                     </div>
@@ -53,7 +62,7 @@ $url = Url::toRoute(['users/change-trustees-status']);
         <div class="b-company-trusted__container">
             <a href="<?= Url::toRoute(['alltrustees']) ?>" class="b-company-trusted__link-more">
                 <span class="b-more b-more_icon-right">
-                    <span class="b-more__text">Все доверенные</span>
+                    <span class="b-more__text"><?= Yii::t('app', 'ALL_TRUSTEES') ?></span>
                 </span>
             </a>
         </div>

@@ -12,6 +12,7 @@ use yii\helpers\ArrayHelper;
 class Marks extends \frontend\models\Marks {
     
     public $profsField;
+    public $parse;
     
     public function attributeLabels() {
         return array_merge(parent::attributeLabels(), [

@@ -6,8 +6,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 
-$this->title = "Структура компании";
-//$this->params['breadcrumbs'][] = ['label' => 'Компания', 'url' => ['user/profile']];
+$this->title = Yii::t('app', 'COMPANY_STRUCT');
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['company/structure']];
 ?>
 <div class = "container">
@@ -30,7 +29,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['company/st
                     <?= $this->render('structure_item', ['model' => $model]); ?>
                     <div class = "b-collapse__item">
                         <a href = "#personal" class = "b-collapse__nav collapsed" data-toggle = "collapse" aria-controls = "personal">
-                            <span class = "b-collapse__name">Сотрудники без структуры</span>
+                            <span class = "b-collapse__name"><?= Yii::t('app', 'PERS_NO_STRUCT') ?></span>
                             <ul class = "b-stats b-collapse__stats">
                                 <li class = "b-stats__item">
                                     <span class = "b-stats__numbs"><?= count($persNoStruct) ?></span>
@@ -67,7 +66,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['company/st
                                                                         'user_id' => $item->user_id
                                                                     ]) ?>" 
                                                                     style="margin-top: 10px; margin-bottom: 10px;">
-                                                                Структура
+                                                                <?= Yii::t('app', 'STRUCT') ?>
                                                             </button>
                                                         </div>
                                                     </div>
@@ -96,7 +95,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['company/st
             <!--begin b-company-evaluation -->
             <div class = "b-company-evaluation b-block">
                 <div class = "b-title">
-                    Оценки компании
+                    <?= Yii::t('app', 'COMPANY_MARKS') ?>
                 </div>
 
                 <div class = "b-company-evaluation__container clearfix">
@@ -145,17 +144,17 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['company/st
         <!--end b-content -->
 
         <!--begin b-sidebar -->
-        <aside class = "b-sidebar">
+        <aside class="b-sidebar">
 
             <!--begin b-last-marks -->
-            <div class = "b-list-rating b-block">
-                <div class = "b-title">Рейтинг сотрудников</div>
-                <div class = "b-list-rating__container">
+            <div class="b-list-rating b-block">
+                <div class="b-title"><?= Yii::t('app', 'RATING_PERS') ?></div>
+                <div class="b-list-rating__container">
                     <?php foreach ($persInComp as $item) { ?>
-                    <div class = "b-list-rating__item">
-                        <div class = "b-text-rows">
-                            <div class = "b-text-rows__aside-left b-list-rating__logo">
-                                <img src = "<?= $item->user->imageName ?>" alt = "Название">
+                    <div class="b-list-rating__item">
+                        <div class="b-text-rows">
+                            <div class="b-text-rows__aside-left b-list-rating__logo">
+                                <img src="<?= $item->user->imageName ?>" alt="">
                             </div>
 
                             <div class = "b-text-rows__main b-list-rating__main">
@@ -182,7 +181,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['company/st
                             </div>
 
                             <div class = "b-text-rows__aside-right b-list-rating__score">
-                                <div class = "b-list-rating__label">Рейтинг:</div>
+                                <div class = "b-list-rating__label"><?= Yii::t('app', 'RATING') ?>:</div>
                                 <div class = "b-list-rating__numbs"><?= $item->user->rating ?></div>
                             </div>
                         </div>

@@ -43,14 +43,14 @@ if (Yii::$app->user->id === null) {
                         'items' => [
                             // Important: you need to specify url as 'controller/action',
                             // not just as 'controller' even if default action is used.
-                            ['label' => 'Информация', 'url' => $link['info']],
-                            ['label' => 'Мои оценки' , 'url' => ["$objUrl/allmarks"]],
-                            ['label' => 'Мои отзывы' , 'url' => ["$objUrl/alltestimonials"]],
+                            ['label' => Yii::t('app', 'INFORMATION'), 'url' => $link['info']],
+                            ['label' => Yii::t('app', 'MY_MARKS'), 'url' => ["$objUrl/allmarks"]],
+                            ['label' => Yii::t('app', 'MY_TESTIMONIAL'), 'url' => ["$objUrl/alltestimonials"]],
                             //['label' => 'Количество просмотров профиля', 'url' => ['#']],
                             //['label' => 'Мои избранные' , 'url' => ['#']],
-                            ['label' => 'Мои доверенные' , 'url' => ["$objUrl/alltrustees"]],
-                            ['label' => 'Структура', 'url' => ['company/structure'], 'visible' => $model->isCompany],
-                            ['label' => 'Сотрудники', 'url' => ['company/personal'], 'visible' => $model->isCompany],
+                            ['label' => Yii::t('app', 'MY_TRUSTEES'), 'url' => ["$objUrl/alltrustees"]],
+                            ['label' => Yii::t('app', 'STRUCT'), 'url' => ['company/structure'], 'visible' => $model->isCompany],
+                            ['label' => Yii::t('app', 'PERSONALS'), 'url' => ['company/personal'], 'visible' => $model->isCompany],
                             ['label' => \Yii::t('app', 'EXIT'), 'url' => ['site/logout']],
                         ],
                     ]);

@@ -24,7 +24,7 @@ $imagePath = "/" . implode(DIRECTORY_SEPARATOR, ['files', $folder, $mObj->objId,
     	    </div>
     	    <script type="text/javascript">
     		;
-    		jQuery('#images-name<?= $i ?>').fileupload({"url": "/media/imageupload?id=<?= $i ?>"});
+    		jQuery('#images-name<?= $i ?>').fileupload({"url": "<?= Url::toRoute(['media/imageupload', 'id' => $i]) ?>"});
     		jQuery('#images-name<?= $i ?>').on('fileuploaddone', function (e, data) {
     		    res = (JSON.parse(data.result)).files[0];
     		    $("#uploadFile" + res.fieldId + " .b-modal__content__portfolio__item__image").html("<img src='" + res.url + "' />");

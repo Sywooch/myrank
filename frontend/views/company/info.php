@@ -13,7 +13,7 @@ use frontend\widgets\profile\StatTrusteesWidget;
             <!-- begin b-user -->
             <div class="b-user b-block">
                 <div class="b-title">
-                    Рейтинг компании
+                    <?= Yii::t('app', 'RATING_COMP') ?>
                 </div>
                 <?= ProfileStatWidget::widget(['model' => $model]); ?>
             </div>

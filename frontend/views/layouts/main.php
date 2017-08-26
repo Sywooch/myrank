@@ -54,7 +54,7 @@ if ($msg != FALSE) {
     $this->registerJs("alertInfo('" . $msg . "');", yii\web\View::POS_END);
 }
 
-$this->registerJsFile("/js/jquery-1.11.3.min.js", ['position' => \yii\web\View::POS_HEAD]);
+$this->registerJsFile("/js/jquery2.2.4.js", ['position' => \yii\web\View::POS_HEAD]);
 $session = Yii::$app->session;
 $country = $session->get("country", 9908);
 
@@ -96,7 +96,7 @@ AppAsset::register($this);
                                 <div class="b-header__region">
                                     <div class="b-header__region__language">
                                         <div class="b-header__region__language__select">
-                                            <?= Html::dropDownList("lang", Yii::$app->request->cookies->get('siteLang'), $lang, ['id' => 'changeLang']) ?>
+                                            <?= Html::dropDownList("lang", Yii::$app->language, $lang, ['id' => 'changeLang']) ?>
                                         </div>
                                     </div>
                                     <div class="b-header__region__country">

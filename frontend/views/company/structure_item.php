@@ -25,8 +25,8 @@
                     </div>
 
                     <div class = "b-tabs__content tab-content">
-                        <?php foreach ($item->children as $child) { ?>
-                            <div class = "tab-pane fade in active" role = "tabpanel" id = "order-<?= $child->id ?>">
+                        <?php foreach ($item->children as $key => $child) { ?>
+                            <div class = "tab-pane fade <?= $key == 0 ? "in active" : ""; ?>" role = "tabpanel" id = "order-<?= $child->id ?>">
                                 <div class = "row">
                                     <?php foreach ($child->users as $user) { ?>
                                         <div class = "col-lg-3 col-sm-6">

@@ -22,7 +22,7 @@ class StatMarksWidget extends MarksWidget {
     }
 
     public function run() {
-        $title = $this->model->isCompany ? "Оценки компании" : "Мои оценки";
+        $title = $this->model->isCompany ? \Yii::t('app', 'COMPANY_MARKS') : \Yii::t('app', 'MY_MARKS');
         return $this->render($this->view, [
                     'title' => $title,
                     'list' => $this->list,

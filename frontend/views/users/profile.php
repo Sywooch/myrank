@@ -150,7 +150,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profi
                                 </div -->
                             </div>
 
-                            <div class="b-title">Специалисты</div>
+                            <div class="b-title"><?= Yii::t('app', 'SPECIALISTS') ?></div>
 
                             <div class="b-user__portfolio__carousel js-portfolio-slider">
                                 <div class="owl-carousel">

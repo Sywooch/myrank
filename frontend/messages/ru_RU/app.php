@@ -316,5 +316,35 @@ return [
     // 
     'CREATE_STRUCT' => 'Создание структуры',
     'COMPANY_STRUCT' => 'Структура компании',
-
+    'PERS_NO_STRUCT' => 'Сотрудники без структуры',
+    'STRUCT' => 'Структура',
+    'COMPANY_MARKS' => 'Оценки компании',
+    'RATING_PERS' => 'Рейтинг сотрудников',
+    'SPECIALISTS' => 'Специалисты',
+    'RATING_COMP' => 'Рейтинг компании',
+    'RATING_COMPANY' => 'Рейтинг компании',
+    'MY_MARKS' => 'Мои оценки',
+    'TRUSTED_COMPANY' => 'Доверенные компании',
+    'MY_TRUSTEES' => 'Мои доверенные',
+    'ALL_TRUSTEES' => 'Все доверенные',
+    'RATING_FROM_COMPANY' => 'Рейтинг среди компаний',
+    'ALL_RATING' => 'Весь рейтинг',
+    'AVERAGE_RATING' => 'Средняя<br> оценка',
+    'ALL_MARKS' => 'Все оценки',
+    'TESTIMONIALS_COMPANY' => 'Отзывы компании',
+    'MAIN_PAGE' => 'Главная',
+    'MARKS_PRE_MESSAGE' => 'Для того чтоб сохранить оценку, войдите или зарегистрируйтесь',
+    
+    // STATUSES
+    'CONFIRM' => 'Подтвердить',
+    'REFUSE' => 'Отказать',
+    'REMOVE' => 'Удалить',
+    'SELF_ASSESSMENT' => 'Самооценка',
+    'OTHER_ASSESSMENT' => 'Другие',
+    
+    
+    // MENU
+    'INFORMATION' => 'Информация',
+    'MY_TESTIMONIAL' => 'Мои отзывы',
+    'PERSONALS' => 'Сотрудники',
 ];

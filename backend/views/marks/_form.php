@@ -38,6 +38,7 @@ $data = [1 => 'red', 2 => 'green'];
         ],
     ]);
     ?>
+    <?= $form->field($model, 'parse')->textarea() ?>
 
     <div class="form-group">
     <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

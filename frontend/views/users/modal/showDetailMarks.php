@@ -54,59 +54,64 @@
                     </div>
                 </div>
                 <div class="b-modal__content__user__content">
-                    <?php 
+                    <?php
                     $list = \yii\helpers\Json::decode($model->description, true);
                     $listVals = $model->allMarkName;
                     //echo "<pre>"; var_dump($listVals); echo "</pre>";
-                    foreach ($listVals[0] as $key => $item) { 
-                        if(1) {
-                        ?>
-                    <div class="b-marks__item">
-                        <div class="b-marks__item__header">
-                            <div class="b-marks__item__header__text">
-                                <div class="b-marks__item__header__icon"></div>
-                                <span><?= $listVals[0][$key] ?></span>
-                            </div>
-                            <div class="b-marks__item__header__line"></div>
-                            <div class="b-marks__item__header__number"><?= isset($list[0][$key]) ? $list[0][$key] : '0.0' ?></div>
-                        </div>
-                        <div class="b-marks__item__content">
-                        <?php
-                        //echo "<pre>"; var_dump($listVals); echo "</pre>";
-                        
-                        foreach (isset($listVals[$key]) ? $listVals[$key] : [] as $subKey => $subItem) { ?>
-                            <div class="b-marks__item__content__row">
-                                <div class="b-marks__item__content__text">
-                                    <?= $subItem ?>
-                                </div>
-                                <div class="b-marks__item__content__slider">
-                                    <div class="b-marks__item__content__slider__amount">
-                                        <input type="text" class="marks-slider-amount" value="<?= isset($list[$subKey]) ? $list[$subKey] : '0.0' ?>">
+                    foreach ($listVals[0] as $key => $item) {
+                        $mainVal = isset($list[0][$key]) ? $list[0][$key] : '0.0';
+                        if ($mainVal > 0) {
+                            ?>
+                            <div class="b-marks__item">
+                                <div class="b-marks__item__header">
+                                    <div class="b-marks__item__header__text">
+                                        <div class="b-marks__item__header__icon"></div>
+                                        <span><?= $listVals[0][$key] ?></span>
                                     </div>
-                                    <div class="b-marks__item__content__slider__content">
-                                        <div class="marks-slider"></div>
-                                    </div>
+                                    <div class="b-marks__item__header__line"></div>
+                                    <div class="b-marks__item__header__number"><?= $mainVal ?></div>
                                 </div>
-                                <div class="b-marks__item__content__like b-marks__item__content__like_down">
-                                    <span class="b-marks__item__content__like__image"></span>
+                                <div class="b-marks__item__content">
+                                    <?php
+                                    //echo "<pre>"; var_dump($listVals); echo "</pre>";
+
+                                    foreach (isset($listVals[$key]) ? $listVals[$key] : [] as $subKey => $subItem) {
+                                        $val = isset($list[$subKey]) ? $list[$subKey] : '0.0';
+                                        $like = $val < 5 ? 'like_down' : 'like_up';
+                                        if($val > 0) {
+                                        ?>
+                                        <div class="b-marks__item__content__row">
+                                            <div class="b-marks__item__content__text">
+                                                <?= $subItem ?>
+                                            </div>
+                                            <div class="b-marks__item__content__slider">
+                                                <div class="b-marks__item__content__slider__amount">
+                                                    <input type="text" class="marks-slider-amount" value="<?= $val ?>">
+                                                </div>
+                                                <div class="b-marks__item__content__slider__content">
+                                                    <div class="marks-slider"></div>
+                                                </div>
+                                            </div>
+                                            <div class="b-marks__item__content__like b-marks__item__content__<?= $like ?>">
+                                                <span class="b-marks__item__content__like__image"></span>
+                                            </div>
+                                        </div>
+                                    <?php }} ?>
                                 </div>
                             </div>
-                        <?php } ?>
-                        </div>
-                    </div>
-                    <?php }} ?>
+                        <?php }
+                    }
+                    ?>
                 </div>
             </div>
         </div>
     </form>
 </div>
 <script type="text/javascript">
-    $('body').on('click touchstart', '.b-marks__item__header', function () {
+    $('.b-marks__item__header').on('click', function () {
         var that = $(this);
         var parent = that.parents('.b-marks__item');
 
-        parent
-                .toggleClass('open')
-                .find('.b-marks__item__content').stop().slideToggle();
+        parent.toggleClass('open');
     });
 </script>

@@ -22,7 +22,7 @@ foreach (isset($allList[0]) ? $allList[0] : [] as $key => $item) {
 </div>
 <?php
 $myViewDiagram = $myView ? "{
-                    label: 'Самооценка',
+                    label: '" . Yii::t('app', 'SELF_ASSESSMENT') . "',
                     backgroundColor: color('rgb(255, 0, 0)').alpha(0.4).rgbString(),
                     borderColor: 'rgb(255, 0, 0)',
                     pointBackgroundColor: 'rgb(255, 0, 0)',
@@ -35,7 +35,7 @@ $this->registerJs("var ctx = document.getElementById('myChart').getContext('2d')
         data: {
             labels: [" . "\"" . implode("\",\"", $outItems) . "\"" . "],
             datasets: [{
-                    label: 'Другие',
+                    label: '" . Yii::t('app', 'OTHER_ASSESSMENT') . "',
                     backgroundColor: color('rgb(54, 162, 235)').alpha(0.4).rgbString(),
                     borderColor: 'rgb(54, 162, 235)',
                     pointBackgroundColor: 'rgb(54, 162, 235)',
