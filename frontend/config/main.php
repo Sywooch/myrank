@@ -32,6 +32,14 @@ return [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.zoho.eu',
+                'username' => 'info@myrank.com',
+                'password' => 'ANTpsk0192485-',
+                'port' => '587',
+                'encryption' => 'tls',
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -54,7 +62,7 @@ return [
             //'GET article' => 'article/index',
             //'GET article/category/<category:\d+>' => 'article/index',
             //'GET article/<id:\d+>' => 'article/view',
-            //'page/<page:[\w-]+>' => 'static-pages/index',
+                'page/<page:[\w-]+>' => 'static-pages/index',
             ],
         ],
         'assetManager' => [
@@ -93,11 +101,11 @@ return [
     'modules' => [
         'debug' => [
             'class' => 'yii\debug\Module',
-            'allowedIPs' => ['127.0.0.1', '::1', '134.249.155.162', '193.34.94.25']
+            'allowedIPs' => ['127.0.0.1', '::1', '134.249.155.162', '193.34.94.25', '178.93.42.52']
         ],
         'gii' => [
             'class' => 'yii\gii\Module',
-            'allowedIPs' => ['193.34.94.25', '188.163.34.95', '134.249.155.162']
+            'allowedIPs' => ['193.34.94.25', '188.163.34.95', '134.249.155.162', '178.93.42.52']
         ]
     ],
     'params' => $params,

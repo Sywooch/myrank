@@ -9,20 +9,26 @@ if (count($list) > 0) {
     <div class="b-trusted-users b-block">
         <div class="b-title"><?= \Yii::t('app','TRUSTED_PERSONS'); ?></div>
         <div class="b-trusted-users__content">
-	    <?php foreach ($list as $item) { ?>
+	    <?php foreach ($list as $item) { 
+                if($model->id == $item->user->id) {
+                    $obj = $item->userFrom;
+                } else {
+                    $obj = $item->user;
+                }
+                ?>
 		<div class="b-trusted-users__item">
 		    <div class="b-trusted-users__item__image">
-			<img src="<?= $item->user->imageName ?>" alt="">
+                        <?= Html::a(Html::img($obj->imageName), $obj->profileLink) ?>
 		    </div>
 		    <div class="b-trusted-users__item__content">
 			<div class="b-trusted-users__item__name">
-                            <?= Html::a($item->user->fullName, $item->user->profileLink) ?>
+                            <?= Html::a($obj->fullName, $obj->profileLink) ?>
 			</div>
 			<div class="b-trusted-users__item__place">
-			    <?= $item->user->position ?>
+			    <?= $obj->position ?>
 			</div>
 			<div class="b-tags">
-			    <?php foreach ($item->user->profileProfession as $item2) { ?>
+			    <?php foreach ($obj->profileProfession as $item2) { ?>
 	    		    <span><?= $item2->title ?></span>
 			    <?php } ?>
 			</div>

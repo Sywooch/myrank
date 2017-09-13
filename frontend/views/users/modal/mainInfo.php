@@ -17,12 +17,12 @@ echo ModalWidget::widget([
 	    'label' => \Yii::t('app','SURNAME').' *:',
 	    'type' => 'textInput',
 	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_SURNAME')]
-	],
+	],/*
 	'email' => [
 	    'label' => 'Email *:',
 	    'type' => 'textInput',
 	    'options' => ['class' => 'input-text', 'placeholder' => 'example@domain.com']
-	],
+	],*/
 	[
 	    'country_id' => [
 		'label' => \Yii::t('app','COUNTRY').':',
@@ -92,6 +92,32 @@ echo ModalWidget::widget([
 	    });
 	}
 	//setCityList($("#user-country_id").val());
+        
+        $("#registration-company_name").autocomplete({
+            source: function(request, response){
+                    $.ajax({
+                    url: "'.Url::toRoute(["registration/get-list-companies"]).'",
+                    dataType: "json",
+                    data:{
+                        startsWith: request.term
+                    },
+                    success: function(data){
+                        console.log(data);
+                        response($.map(data.users, function(item){
+                          return{
+                            label: item.name,
+                            value: item.name
+                          }
+                        }));
+                    }
+                    });
+            },
+            minLength: 2
+        });
+        jQuery.ui.autocomplete.prototype._resizeMenu = function () {
+          var ul = this.menu.element;
+          ul.outerWidth(this.element.outerWidth());
+        }
 	',
 ]);
 ?>

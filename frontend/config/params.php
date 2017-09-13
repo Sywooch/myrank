@@ -1,7 +1,7 @@
 <?php
 return [
     'adminEmail' => 'admin@example.com',
-    'supportEmail' => 'admin@myrank.com',
+    'supportEmail' => 'info@myrank.com',
 
     'googleMapsUrlOptions' => [
         'key' => 'AIzaSyD-7Bxn0dDHlmYd2iNRVHMTWC-5CqEnUp8',

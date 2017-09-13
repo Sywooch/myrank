@@ -30,11 +30,15 @@ use yii\helpers\Html;
             <?php foreach ($list as $key => $item) { ?>
                 <div class="b-comments__item" data-id="<?= $item->id ?>" id="testimonials<?= $item->id ?>">
                     <div class="b-comments__item__image">
-                        <img src="<?= $item->userFromImage ?>" alt="">
-                        <?php if(!$item->isAnonim) { ?>
+                        <?php 
+                        $img = Html::img($item->userFromImage);
+                        if(!$item->isAnonim) { ?>
+                        <?= Html::a($img, $item->userFrom->profileLink); ?>
                         <div class="b-comments__item__number">
                             <?= $item->userFrom->rating ?>
                         </div>
+                        <?php } else { ?>
+                            <?= $img ?>
                         <?php } ?>
                     </div>
                     <div class="b-comments__item__info">

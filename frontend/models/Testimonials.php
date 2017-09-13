@@ -125,7 +125,9 @@ class Testimonials extends \yii\db\ActiveRecord {
     }
     
     public function getUserFromImage () {
-        return $this->isAnonim ? $this->userFrom->noPhoto : $this->userFrom->imageName;
+        return $this->isAnonim ? 
+                $this->userFrom->noPhoto : 
+                $this->userFrom->imageName;
     }
 
     public function getAnswer() {

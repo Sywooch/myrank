@@ -16,6 +16,7 @@ class UrlRule extends Object implements UrlRuleInterface {
 
     public $urls;
     public $rules = Null;
+    public $model;
 
     public function __construct($config = array()) {
         parent::__construct($config);
@@ -27,31 +28,32 @@ class UrlRule extends Object implements UrlRuleInterface {
         if (isset($this->urls[$route][Json::encode($params)])) {
             return $this->urls[$route][Json::encode($params)];
         } else {
-            if (isset($this->rules[$route])) {
+            if (isset($this->rules[$route]['url'])) {
                 $mSeoUrl = new SeoUrl();
-                $out = $this->rules[$route];
+                $out = $this->rules[$route]['url'];
 
                 $routeArr = explode("/", $route);
                 switch ($routeArr[0]) {
                     case 'users':
-                        if($routeArr[1] == 'profile') { 
-                            $model = User::findOne($params['id']);
-                        }
+                        //if ($routeArr[1] == 'profile') {
+                            $this->model = User::findOne($params['id']);
+                        //}
                         break;
                     case 'company':
-                        $model = Company::findOne($params['id']);
+                        if (isset($params['id'])) {
+                            $this->model = Company::findOne($params['id']);
+                        }
                         break;
                     case 'article':
-                        $query = Article::find();
                         switch ($routeArr[1]) {
                             case 'cat-index':
                                 if (isset($params['category'])) {
                                     $mSeoUrl = ArticleCategory::findOne($params['category']);
-                                    $model->catName = "111";//->name;
+                                    $this->model->catName = "111";
                                 }
                                 break;
                             case 'view':
-                                $model = $query->where(['id' => $params['id']])->all();
+                                $this->model = Article::findOne($params['id']);
                                 break;
                             default :
                                 return false;
@@ -66,14 +68,16 @@ class UrlRule extends Object implements UrlRuleInterface {
                 $mSeoUrl->params = Json::encode($params);
                 unset($params['id']);
 
-                preg_match_all('|%(.+)%|isU', $out, $matches);
-
-                foreach ($matches[1] as $key => $item) {
-                    isset($model->$item) ? $out = str_replace($matches[0][$key], $model->$item, $out) : NULL;
+                if($this->rules[$route]['tag'] != "") {
+                    $mSeoUrl->meta_tags = $this->getReplaceParams($this->rules[$route]['tag']);
+                }
+                
+                if($this->rules[$route]['descr'] != "") {
+                    $mSeoUrl->meta_descr = $this->getReplaceParams($this->rules[$route]['descr']);
                 }
 
                 $getQuery = count($params) > 0 ? "?" . http_build_query($params) : "";
-                $mSeoUrl->link = mb_strtolower($this->_($out)) . $getQuery;
+                $mSeoUrl->link = mb_strtolower($this->_($this->getReplaceParams($out))) . $getQuery;
 
                 if ($mSeoUrl->save()) {
                     return $mSeoUrl->link;
@@ -83,6 +87,15 @@ class UrlRule extends Object implements UrlRuleInterface {
             }
         }
         return false;
+    }
+
+    public function getReplaceParams($out) {
+        preg_match_all('|%(.+)%|isU', $out, $matches);
+
+        foreach ($matches[1] as $key => $item) {
+            isset($this->model->$item) ? $out = str_replace($matches[0][$key], $this->model->$item, $out) : NULL;
+        }
+        return $out;
     }
 
     public function parseRequest($manager, $request) {
@@ -109,7 +122,11 @@ class UrlRule extends Object implements UrlRuleInterface {
         if (!isset($this->rules)) {
             $mUrlRules = UrlRules::find()->all();
             foreach ($mUrlRules as $item) {
-                $this->rules[$item->contr_act] = $item->rules;
+                $this->rules[$item->contr_act] = [
+                    'url' => $item->rules,
+                    'tag' => $item->meta_tag_rules,
+                    'descr' => $item->meta_descr_rules
+                ];
             }
         }
     }
@@ -138,6 +155,7 @@ class UrlRule extends Object implements UrlRuleInterface {
             'Ч' => 'Ch', 'Ш' => 'Sh', 'Щ' => 'Sch',
             'Ь' => '\'', 'Ы' => 'Y', 'Ъ' => '\'',
             'Э' => 'E', 'Ю' => 'Yu', 'Я' => 'Ya',
+            ' ' => '-'
         );
         return strtr($st, $converter);
     }

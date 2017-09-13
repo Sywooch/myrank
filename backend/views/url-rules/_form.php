@@ -13,6 +13,8 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'contr_act')->textInput() ?>
     <?= $form->field($model, 'rules')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'meta_tag_rules')->textInput() ?>
+    <?= $form->field($model, 'meta_descr_rules')->textInput() ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Добавить' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

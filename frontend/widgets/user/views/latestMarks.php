@@ -12,7 +12,7 @@ if (count($list) > 0) {
             <?php foreach ($list as $item) { ?>
                 <div class="b-last-marks__item">
                     <div class="b-last-marks__item__image">
-                        <img src="<?= $item->user->imageName ?>" alt="">
+                        <?= Html::a(Html::img($item->user->imageName), $item->user->profileLink) ?>
                     </div>
                     <div class="b-last-marks__item__content">
                         <div class="b-last-marks__item__name">

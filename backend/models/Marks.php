@@ -44,6 +44,16 @@ class Marks extends \frontend\models\Marks {
                 }
             }
         }
+        if(isset($this->parse) && ($this->parse != "")) {
+            $parseArr = explode("\n", $this->parse);
+            foreach ($parseArr as $item) {
+                $mMarks = new Marks();
+                $mMarks->name = $item;
+                $mMarks->parent_id = $this->id;
+                $mMarks->type = $this->type;
+                $mMarks->save();
+            }
+        }
         
         return parent::afterSave($insert, $changedAttributes);
     }

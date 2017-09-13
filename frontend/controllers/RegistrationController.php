@@ -11,6 +11,7 @@ use frontend\models\registration\RegStep1;
 use frontend\models\registration\RegStep2;
 use frontend\models\registration\RegStep3;
 use yii\helpers\Json;
+use frontend\models\UserConstant;
 
 class RegistrationController extends Controller {
 
@@ -90,12 +91,6 @@ class RegistrationController extends Controller {
 	if (\Yii::$app->user->id !== NULL) {
 	    $post['id'] = \Yii::$app->user->id;
 	}
-        
-        $mCompany = Company::findOne(['name' => $post['company_name']]);
-        if(isset($mCompany->id)) {
-            $mUserCompany = new UserCompany();
-            
-        }
 
 	$model = RegStep2::findOne($post['id']);
 	unset($post['id']);
@@ -144,10 +139,8 @@ class RegistrationController extends Controller {
 
 	$model = new RegStep3();
 	if (\Yii::$app->user->id !== null) {
-	    $mUser = User::getProfile();
-	    if($mUser->company_id > 0) {
-		$model = RegStep3::findOne($mUser->company_id);
-	    }
+	    $mObj = UserConstant::getProfile();
+            $model = RegStep3::findOne($mObj->id);
 	}
 
 	if ($model->load($post, '') && $model->save()) {

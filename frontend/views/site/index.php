@@ -53,7 +53,11 @@ $mProf = Profession::find()
 <!-- end b-category -->
 
 <!-- begin b-rating -->
-<?= BestRatingWidget::widget(); ?>
+<?= BestRatingWidget::widget(['type' => 'user']); ?>
+<!-- end b-rating -->
+
+<!-- begin b-rating -->
+<?= BestRatingWidget::widget(['type' => 'company']); ?>
 <!-- end b-rating -->
 
 

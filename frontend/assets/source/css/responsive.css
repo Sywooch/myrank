@@ -580,10 +580,6 @@
     .modal-dialog {
         width: auto;
     }
-    .modal-dialog .input-text,
-    .modal-dialog .select-wrapper{
-        max-width: inherit;
-    }
      .b-block {
     padding-left: 10px;
     padding-right: 10px;
@@ -804,6 +800,18 @@
   }
   .b-list-rating__name {
     font-size: 13px;
+  }
+  .b-marks__item__header__text{
+    white-space: normal;
+  }
+  .b-marks__item__header__text span{
+    display: inline;
+  }
+  .b-marks__item__header__line{
+    display: none;    
+  }
+  .b-marks__item__header__number{
+    width: 44px;
   }
 }
 

@@ -21,7 +21,7 @@ if (Yii::$app->user->id === null) {
 } else {
     $model = UserConstant::getProfile();
     $objUrl = $model->isCompany ? 'company' : 'users';
-    $link['info'] = $model->isCompany ? ["$objUrl/info", 'id' => $model->id] : ["$objUrl/info"];
+    $link['info'] = ["$objUrl/info", 'id' => $model->id];
     $link['profile'] = ["$objUrl/profile", 'id' => $model->id];
     ?>
     <div class="col-xs-12 col-sm-6">
@@ -44,11 +44,11 @@ if (Yii::$app->user->id === null) {
                             // Important: you need to specify url as 'controller/action',
                             // not just as 'controller' even if default action is used.
                             ['label' => Yii::t('app', 'INFORMATION'), 'url' => $link['info']],
-                            ['label' => Yii::t('app', 'MY_MARKS'), 'url' => ["$objUrl/allmarks"]],
-                            ['label' => Yii::t('app', 'MY_TESTIMONIAL'), 'url' => ["$objUrl/alltestimonials"]],
+                            ['label' => Yii::t('app', 'MY_MARKS'), 'url' => ["$objUrl/allmarks", 'id' => $model->id]],
+                            ['label' => Yii::t('app', 'MY_TESTIMONIAL'), 'url' => ["$objUrl/alltestimonials", 'id' => $model->id]],
                             //['label' => 'Количество просмотров профиля', 'url' => ['#']],
                             //['label' => 'Мои избранные' , 'url' => ['#']],
-                            ['label' => Yii::t('app', 'MY_TRUSTEES'), 'url' => ["$objUrl/alltrustees"]],
+                            ['label' => Yii::t('app', 'MY_TRUSTEES'), 'url' => ["$objUrl/alltrustees", 'id' => $model->id]],
                             ['label' => Yii::t('app', 'STRUCT'), 'url' => ['company/structure'], 'visible' => $model->isCompany],
                             ['label' => Yii::t('app', 'PERSONALS'), 'url' => ['company/personal'], 'visible' => $model->isCompany],
                             ['label' => \Yii::t('app', 'EXIT'), 'url' => ['site/logout']],

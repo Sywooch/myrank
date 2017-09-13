@@ -5,6 +5,18 @@
  * @email dmitrywp@gmail.com
  */
 use yii\helpers\Url;
+
+$mComp = \frontend\models\UserConstant::getProfile();
+
+$this->title = Yii::t('app', 'PERSONALS');
+
+$this->params['breadcrumbs'] = [
+    [
+        'label' => \Yii::t('app', 'COMPANY_PROFILE') . " " . $mComp->name,
+        'url' => ['company/profile', 'id' => $mComp->id]
+    ],
+    ['label' => $this->title, 'url' => ['company/personal', 'id' => $mComp->id]]
+];
 ?>
 <div class="container">
     <div id="main">
@@ -12,9 +24,7 @@ use yii\helpers\Url;
         <div class="b-content">
             <!-- begin b-user -->
             <div class="b-user b-block">
-                <div class="b-title">
-                    Сотрудники
-                </div>
+                <div class="b-title"><?= $this->title ?></div>
             </div>
             <div class="b-company-trusted b-block">
                 <?=

@@ -59,6 +59,12 @@ echo ModalWidget::widget([
 		'options' => ['class' => 'input-text'],
 	    ]
 	],
+        'legal' => [
+            'label' => '',
+            'type' => 'checkbox',
+            'options' => ['input-text'],
+            'posOpt' => true
+        ],
 	'type' => [
 	    'label' => 'Type',
 	    'type' => 'hiddenInput',
@@ -66,7 +72,13 @@ echo ModalWidget::widget([
 	]
     ],
     'success' => '$("#modalView .modal-content").html(out.data);',
-    'script' => '    
+    'script' => '
+        $("#formButtons").hide();
+        
+        $("#regstep1-legal").on("click", function () {
+            $("#formButtons").toggle("slow");
+        });
+        
 	$(".country-select select").select2({
 	    placeholder: "'.\Yii::t('app','COUNTRY').'"
 	});

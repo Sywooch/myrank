@@ -29,7 +29,9 @@ $this->title = "Поиск";
 			<div class="row">
 			    <div class="col-xs-12 col-sm-4">
 				<div class="b-filter__text">
-				    <?= \Yii::t('app', 'FOUND'); ?>: <span><?= $pagin['count'] ?></span> <?= \Yii::t('app', 'ITEMS'); ?>
+				    <?= \Yii::t('app', 'FOUND'); ?>: <span><?= $pagin['count'] ?></span> 
+                                            <?= "" // \Yii::t('app', 'ITEMS'); ?>
+                                    
 				</div>
 			    </div>
 			    <div class="col-xs-12 col-sm-8">

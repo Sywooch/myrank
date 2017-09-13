@@ -13,6 +13,7 @@ use yii\widgets\ActiveForm;
 		    ],
 		]
     ]);
+    //$form->field($model, $attribute)->checkbox();
     ?>
     <div class="b-modal__header">
 	<?= $title; ?>
@@ -56,7 +57,7 @@ use yii\widgets\ActiveForm;
 	<div class="row">
 	    <div class="col-xs-12 col-sm-12" id="<?= $formOptions['id'] ?>Error" style="display: none; color:red;"></div>
 	</div>
-	<div class="b-modal__content__buttons">
+	<div class="b-modal__content__buttons" id="formButtons">
 	    <div class="b-modal__content__buttons__item">
 		<a id="<?= $formOptions['id'] ?>_save" class="button-small" href="#"><?= \Yii::t('app','SAVE'); ?></a>
 	    </div>

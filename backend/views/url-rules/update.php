@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\UserEvent */
 
-$this->title = 'Обновить события пользователей: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'События пользователей', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->title = 'Редактировать';
+$this->params['breadcrumbs'][] = ['label' => 'Правила ссылкок', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Правило', 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Обновить';
 ?>
 <div class="user-event-update">

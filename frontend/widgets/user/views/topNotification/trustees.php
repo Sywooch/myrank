@@ -21,7 +21,7 @@ use frontend\models\UserNotification;
             <div class="b-small-message__content">
                 <div class="b-small-message__name"><?= $item->userFrom->fullName ?></div>
                 <div class="b-small-message__post">
-                    <?= isset($item->userFrom->objUserCompany->company_post) ? $item->user->objUserCompany->company_post : "" ?>
+                    <?= isset($item->userFrom->objUserCompany->company_post) ? $item->userFrom->objUserCompany->company_post : "" ?>
                 </div>
                 <div class="b-small-message__date">
                     <?= date("Y.m.d H:i:s", strtotime($item->created)); ?>

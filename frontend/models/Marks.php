@@ -76,7 +76,9 @@ class Marks extends \yii\db\ActiveRecord {
         return [
             [['parent_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['access', 'type', 'required', 'name_en', 'name_ua', 'configure', 'profsField', 'prof_only'], 'safe'],
+            [['access', 'type', 'required', 'name_en', 
+                'name_ua', 'configure', 'profsField', 
+                'prof_only', 'parse'], 'safe'],
         ];
     }
 

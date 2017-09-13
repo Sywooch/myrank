@@ -12,8 +12,10 @@ use frontend\widgets\user\UserTrusteesWidget;
 use frontend\widgets\image\FileUploadWidget;
 use frontend\models\UserConstant;
 
-$this->title = \Yii::t('app', 'USER_PROFILE');
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profile', 'id' => $model->id]];
+$this->title    = $model->isCompany ? \Yii::t('app', 'COMPANY_PROFILE') . " " . $model->name  : \Yii::t('app', 'USER_PROFILE') . " " . $model->fullName;
+$bUrl           = $model->isCompany ? 'company/profile' : 'users/profile';
+
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => [$bUrl, 'id' => $model->id]];
 ?>
 
 <div class="container">
@@ -104,12 +106,26 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profi
                                 <p><?= $model->aboutProfile ?></p>
                             </div>
                             <div class="b-user__info__list">
+                                <?php
+                                if($model->isCompany) {
+                                    $fields = [
+                                        'phone',
+                                        'countPersonName',
+                                        'reg_date',
+                                        'cashName',
+                                        'director',
+                                        'contact_face'
+                                    ];
+                                } else {
+                                    $fields = [
+                                        'phone'
+                                    ];
+                                }
+                                ?>
                                 <?=
                                 UserInfoWidget::widget([
                                     'model' => $model,
-                                    'fields' => [
-                                        'phone' => $model->phone,
-                                    ],
+                                    'fields' => $fields,
                                 ]);
                                 ?>
                             </div>
@@ -136,7 +152,12 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/profi
                                     <?php foreach ($model->images as $item) { ?>
                                         <div class="b-user__portfolio__item">
                                             <?php 
-                                            $url = "/".implode(DIRECTORY_SEPARATOR, ['files', 'company', $item->type_id, $item->name]);
+                                            $url = "/".implode(DIRECTORY_SEPARATOR, [
+                                                'files', 
+                                                'company', 
+                                                $item->type_id, 
+                                                $item->name
+                                            ]);
                                             echo Html::img($url, [
                                                 'class' => 'b-user__portfolio__item__image showModal',
                                                 'data-url' => Url::toRoute(['users/viewportfolio', 'id' => $item->id])

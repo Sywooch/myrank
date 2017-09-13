@@ -74,7 +74,9 @@ echo ModalWidget::widget([
 		   $("#regDate").datepicker({
 			altField: "#regDateAlter",
 			altFormat: "yy-mm-dd",
-			dateFormat: "dd-mm-yy"
+			dateFormat: "dd-mm-yy",
+                        changeMonth: true,
+                        changeYear: true
 		   });
 		 } );'
 ]);

@@ -15,9 +15,11 @@ use yii\helpers\Url;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
-
+    <div class="row">
+        <div class="col-lg-8"><?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?></div>
+        <div class="col-lg-4"><?= Html::button("Транслитерация", ['id' => 'translit']); ?></div>
+    
+    </div>
     <?= $form->field($model, 'published')->checkbox(); ?>
 
     <?php
@@ -71,8 +73,9 @@ use yii\helpers\Url;
 
 </div>
     <?php
-	$this->registerJs("$('#staticpages-title').keyup(function() {
-	$('#staticpages-alias').val(urlRusLat($(this).val()));
+	$this->registerJs("
+    $('#translit').on('click', function() {
+	$('#staticpages-alias').val(urlRusLat($('#staticpages-title').val()));
     });
 //Транслитерация кириллицы в URL
     function urlRusLat(str) {

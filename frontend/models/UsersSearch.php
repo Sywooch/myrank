@@ -68,6 +68,7 @@ class UsersSearch extends User {
                 ]);
                 break;
         }
+        $query->andFilterWhere(['city_id' => $this->city_id]);
         $query->andFilterWhere(['between', 'rating', $this->ratingStart, $this->ratingEnd]);
         $query->orderBy("rating DESC");
 

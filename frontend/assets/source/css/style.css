@@ -447,7 +447,8 @@ body.gray-bg .b-header__user:after{
     top: 100%;
     z-index: 50;
 }
-.b-header__user__info:hover .b-header__user__info__dropdown{
+.b-header__user__info:hover .b-header__user__info__dropdown,
+.b-header__user__info.open .b-header__user__info__dropdown{
     display: block;
 }
 .b-header__user__info__dropdown ul{
@@ -2854,7 +2855,8 @@ body.gray-bg .b-header__user:after{
 }
 .b-modal__content .select-wrapper{
     position: relative;
-    max-width: 440px;
+    width: 440px;
+    max-width: 100%;
 }
 .b-modal__content .select-wrapper > select{
     width: 100%;
@@ -3536,6 +3538,7 @@ body.gray-bg .b-header__user:after{
     background: #ffffff;
     color: #333333;
     padding: 10px;
+    z-index: 11111;
 }
 .ui-autocomplete.ui-menu .ui-menu-item {
     margin: 0;

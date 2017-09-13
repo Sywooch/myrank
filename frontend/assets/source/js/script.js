@@ -274,7 +274,29 @@ $(document).ready(function () {
         $('.alert-info').addClass('in').css('margin-bottom', '-' + $('.alert-warning').outerHeight() + 'px');
     });
 
+    if($(window).width() < 768){
+        $('.b-header__user__info__text > a').on('click', function(e){
+            var that = $(this);
+            var parent = that.parents('.b-header__user__info');
 
+            if(parent.is('.open')){
+                parent.removeClass('open');
+                return;
+            }
+            e.preventDefault();
+
+            parent.addClass('open');
+
+            var yourClick = true;
+            $(document).on('click.userMenuBind touchstart.userMenuBind', function (e) {
+                if (!yourClick && $(e.target).closest(parent).length == 0) {
+                    parent.removeClass('open');
+                    $(document).unbind('click.userMenuBind touchstart.userMenuBind');
+                }
+                yourClick = false;
+            });
+        });
+    }
 });
 
 /**
@@ -318,19 +340,31 @@ function sendPost(url, param) {
 }
 
 function alertGreen() {
+    obj = $('.alert-success');
     $('.alert').removeClass('in').css('margin-bottom', '0');
-    $('.alert-success').addClass('in').css('margin-bottom', '-' + $('.alert-warning').outerHeight() + 'px');
+    obj.addClass('in').css('margin-bottom', '-' + $('.alert-warning').outerHeight() + 'px');
+    hideAlert(obj);
 }
 
 function alertRed(text) {
     $('.alert').removeClass('in').css('margin-bottom', '0');
-    $('.alert-warning').addClass('in').css('margin-bottom', '-' + $('.alert-warning').outerHeight() + 'px');
+    obj = $('.alert-warning');
+    obj.addClass('in').css('margin-bottom', '-' + $('.alert-warning').outerHeight() + 'px');
+    hideAlert(obj);
     $('.alert-warning .alertText').html(text);
 }
 
 function alertInfo(text) {
     $('.alert').removeClass('in').css('margin-bottom', '0');
-    $('.alert-info').addClass('in').css('margin-bottom', '-' + $('.alert-warning').outerHeight() + 'px');
+    obj = $('.alert-info');
+    obj.addClass('in').css('margin-bottom', '-' + $('.alert-warning').outerHeight() + 'px');
+    hideAlert(obj);
     $('.alert-info .alertText').html(text);
+}
+
+function hideAlert (obj) {
+    setTimeout(function() {
+        obj.removeClass('in').css('margin-bottom', 0);
+    }, 3000);
 }
 

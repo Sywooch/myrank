@@ -17,7 +17,11 @@ class StatTrusteesWidget extends \frontend\widgets\user\UserTrusteesWidget {
     public $countListView = 8;
     
     public function init() {
-        return parent::init();
+        parent::init();
+        $query = $this->model->getUserTrusteesList();
+	$model = clone $query;
+	$this->list = $query->limit($this->countListView)->all();
+	$this->count = $model->count();
     }
     
     public function run() {

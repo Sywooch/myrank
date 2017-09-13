@@ -212,7 +212,12 @@ class UserConstant extends \yii\db\ActiveRecord {
     }
 
     public function getAboutProfile() {
-        return $this->about;
+        $string = strip_tags($this->about);
+        $string = substr($string, 0, 500);
+        $string = rtrim($string, "!,.-");
+        $string = substr($string, 0, strrpos($string, ' '));
+        
+        return $string;
     }
 
     public function getSaveFolder() {
@@ -316,7 +321,9 @@ class UserConstant extends \yii\db\ActiveRecord {
     }
 
     public function getObjId() {
-        return (isset($this->type) && $this->isCompany) ? $this->companyUserCompany->company_id : $this->id;
+        return (isset($this->type) && $this->isCompany) ?
+                $this->companyUserCompany->company_id :
+                $this->id;
     }
 
     public function getObjImage() {

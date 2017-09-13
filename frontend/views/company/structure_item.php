@@ -1,4 +1,7 @@
-<?php foreach ($model->companyStruct as $item) { ?>
+<?php 
+use yii\helpers\Url;
+
+foreach ($model->companyStruct as $item) { ?>
     <div class = "b-collapse__item">
         <a href = "#collapse<?= $item->id ?>" class = "b-collapse__nav collapsed" data-toggle = "collapse" aria-controls = "collapse<?= $item->id ?>">
             <span class = "b-collapse__name"><?= $item->name ?></span>
@@ -42,6 +45,17 @@
                                                     <?php } else { ?>
                                                         <a href="mailto:<?= $user->email ?>" class="b-card__email"><?= $user->email ?></a>
                                                     <?php } ?>
+                                                    <button type="button" 
+                                                            class="button-small showModal" 
+                                                            data-url="<?=
+                                                            Url::toRoute([
+                                                                'company/addusertostruct',
+                                                                'user_id' => $user->id
+                                                            ])
+                                                            ?>" 
+                                                            style="margin-top: 10px; margin-bottom: 10px;">
+                                                        <?= Yii::t('app', 'STRUCT') ?>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>

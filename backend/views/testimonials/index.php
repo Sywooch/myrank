@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    [
 		'label' => 'От',
 		'content' => function ($data) {
-		    return Html::a($data->userFrom->fullName, ['users/view', 'id' => $data->userFrom->id]);
+		    return $data->who_from_to == 0 ? "Аноним" : Html::a($data->userFrom->fullName, ['users/view', 'id' => $data->userFrom->id]);
 		}
 	    ],
 	    [

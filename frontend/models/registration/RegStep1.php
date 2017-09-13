@@ -22,5 +22,11 @@ class RegStep1 extends \frontend\models\Registration {
             [['first_name', 'last_name'], 'string', 'max' => 50],
         ];
     }
+    
+    public function attributeLabels() {
+        return array_merge(parent::attributeLabels(), [
+            'legal' => \Yii::t('app', 'ACCEPT_LEGAL'),
+        ]);
+    }
 
 }

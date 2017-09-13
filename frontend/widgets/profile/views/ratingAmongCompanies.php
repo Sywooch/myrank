@@ -16,15 +16,15 @@ use frontend\models\Company;
                 <div class="b-list-rating__item">
                     <div class="b-text-rows">
                         <div class="b-text-rows__aside-left b-list-rating__logo">
-                            <?= Html::img($mObj->imageName)//Html::img("/".implode("/", ['files', 'company', $item['id'], $item['image']])) ?>
+                            <?= Html::a(Html::img($mObj->imageName), ['company/profile', 'id' => $item['id']]) ?>
                         </div>
 
                         <div class="b-text-rows__main b-list-rating__main">
                             <div class="b-list-rating__name">
-                                <?= Html::a($item['name'], ['company', 'id' => $item['id']]) ?>
+                                <?= Html::a($item['name'], ['company/profile', 'id' => $item['id']]) ?>
                             </div>
-                            <!-- div class="b-list-rating__stats">
-                                <ul class="b-stats">
+                            <div class="b-list-rating__stats" style="width: 168px;">
+                                <!-- ul class="b-stats">
                                     <li class="b-stats__item">
                                         <i class="b-stats__icon b-stats__icon_users"></i>
                                         <span class="b-stats__numbs">1</span>
@@ -37,8 +37,8 @@ use frontend\models\Company;
                                         <i class="b-stats__icon b-stats__icon_comments"></i>
                                         <span class="b-stats__numbs">5</span>
                                     </li>
-                                </ul>
-                            </div -->
+                                </ul -->
+                            </div>
                         </div>
 
                         <div class="b-text-rows__aside-right b-list-rating__score">
@@ -50,7 +50,7 @@ use frontend\models\Company;
             <?php } ?>
         </div>
 
-        <a href="#" class="b-list-rating__link-more">
+        <a href="<?= \yii\helpers\Url::toRoute(['users/search']) ?>" class="b-list-rating__link-more">
             <span class="b-more b-more_icon-right">
                 <span class="b-more__text"><?= Yii::t('app', 'ALL_RATING') ?></span>
             </span>

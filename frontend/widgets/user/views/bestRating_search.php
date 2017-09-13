@@ -7,7 +7,7 @@ use yii\helpers\Html;
 	<?php foreach ($model as $item) { ?>
 	<div class="b-trusted-users__item" style="min-height: 110px">
     	    <div class="b-trusted-users__item__image" style="position: relative;">
-		<img src="<?= $item->obj->imageName ?>" alt="">
+                <?= Html::a(Html::img($item->obj->imageName), $item->obj->profileLink) ?>
 		<div class="b-rating__item__number" style="padding: 0 6px; line-height: 25px;"><?= $item->obj->rating ?></div>
 	    </div>
     	    <div class="b-trusted-users__item__content">

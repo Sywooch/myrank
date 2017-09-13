@@ -1,5 +1,5 @@
 <?php
-
+use yii\helpers\Url;
 /**
  * @author Shilo Dmitry
  * @email dmitrywp@gmail.com
@@ -10,13 +10,13 @@ use yii\helpers\Html;
 <!-- begin b-comments -->
 <div class="b-comments b-block">
     <div class="b-title">
-        <?= Yii::t('app', 'TESTIMONIALS_COMPANY'); ?>
+        <?= $title ?>
         <!-- a class="button-small" href="#">Оставить отзыв</a -->
     </div>
     <div class="b-comments__content">
         <?php if (count($list) > 0) { ?>
         <?php foreach ($list as $item) { ?>
-            <div class="b-comments__item">
+            <div class="b-comments__item" data-id="<?= $item->id ?>" id="testimonials<?= $item->id ?>">
                 <div class="b-comments__item__image">
                     <img src="<?= $item->userFromImage ?>" alt="">
                     <?php if(!$item->isAnonim) { ?>
@@ -79,5 +79,23 @@ use yii\helpers\Html;
     </div>
 </div>
 <!-- end b-comments -->
-
+<?php
+$this->registerJs("
+	$('.claimTestimonial').on('click', function() {
+	    id = $(this).closest('.b-comments__item').attr('data-id');
+	    url = '" . Url::toRoute(["users/sendclaim"]) . "';
+	    sendPost(url, id);
+	    alertInfo('" . \Yii::t('app', 'COMPLIANT_SUBMITTED') . "');
+	    return false;
+	});
+	$('.answerTestimonial').on('click', function() {
+	    id = $(this).closest('.b-comments__item').attr('data-id');
+	    url = '" . Url::toRoute(["users/writetestimonials", "id" => $mObj->id, 'typeTo' => $mObj->objType]) . "';
+	    showModal(url, {'parent':id}, 1);
+		
+	    return false;
+	});
+	
+	", \yii\web\View::POS_END);
+?>
 

@@ -19,7 +19,7 @@ class StatTestimonialsWidget extends \frontend\widgets\user\TestimonialsWidget {
     }
     
     public function run() {
-        $title = $this->model->isCompany ? "" : "";
+        $title =  \Yii::t('app', 'TESTIMONIALS');
         return $this->render("statTestimonials", [
             'list' => $this->list, 
             'mObj' => $this->model,

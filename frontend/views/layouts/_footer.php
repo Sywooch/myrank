@@ -54,20 +54,53 @@ use yii\helpers\Url;
                         <?=
                         \yii\widgets\Menu::widget([
                             'items' => [
-                                ['label' => \Yii::t('app', 'LOGOUT'), 'url' => ['site/logout'],
-                                    'visible' => (Yii::$app->user->id !== null)],
-                                ['label' => \Yii::t('app', 'ENTER'), 'url' => ['#'],
-                                    'options' => ['class' => 'signin'], 'visible' => (Yii::$app->user->id === null)],
-                                ['label' => \Yii::t('app', 'REGISTER'), 'url' => ['#'],
-                                    'options' => ['id' => 'registered'], 'visible' => 0], // ???
-                                ['label' => \Yii::t('app', 'RESTORE_ACCESS'), 'url' => ['#'],
-                                    'options' => ['class' => 'rememberPass'], 'visible' => (Yii::$app->user->id === null)],
-                                ['label' => \Yii::t('app', 'RECOMMENDATIONS_EXECUTOR'), 'url' => ['/page/recommendations_executor']],
-                                ['label' => \Yii::t('app', 'RECOMMENDATIONS_CUSTOMER'), 'url' => ['/page/recommendations_customer']],
-                                ['label' => \Yii::t('app', 'SITE_SEARCH'), 'url' => ['/users/search']],
-                                ['label' => \Yii::t('app', 'PAID_OPTIONS_IN_PROJECTS'), 'url' => ['/page/paid_options_in_projects']],
-                                ['label' => \Yii::t('app', 'SITE_ADS'), 'url' => ['/page/site_ads']],
-                                ['label' => \Yii::t('app', 'PRIVACY_POLICY'), 'url' => ['/page/privacy-policy']],
+                                [
+                                    'label' => \Yii::t('app', 'LOGOUT'), 
+                                    'url' => ['site/logout'],
+                                    'visible' => (Yii::$app->user->id !== null)
+                                ],
+                                [
+                                    'label' => \Yii::t('app', 'ENTER'), 
+                                    'url' => ['#'],
+                                    'options' => ['class' => 'signin'], 
+                                    'visible' => (Yii::$app->user->id === null)
+                                ],
+                                [
+                                    'label' => \Yii::t('app', 'REGISTER'), 
+                                    'url' => ['#'],
+                                    'options' => ['id' => 'registered'], 
+                                    'visible' => 0
+                                ], // ???
+                                [
+                                    'label' => \Yii::t('app', 'RESTORE_ACCESS'), 
+                                    'url' => ['#'],
+                                    'options' => ['class' => 'rememberPass'], 
+                                    'visible' => (Yii::$app->user->id === null)
+                                ],
+                                [
+                                    'label' => \Yii::t('app', 'RECOMMENDATIONS_EXECUTOR'), 
+                                    'url' => ['/page/recommendations_executor']
+                                ],
+                                [
+                                    'label' => \Yii::t('app', 'RECOMMENDATIONS_CUSTOMER'), 
+                                    'url' => ['/page/recommendations_customer']
+                                ],
+                                [
+                                    'label' => \Yii::t('app', 'SITE_SEARCH'), 
+                                    'url' => ['/users/search']
+                                ],
+                                [
+                                    'label' => \Yii::t('app', 'PAID_OPTIONS_IN_PROJECTS'), 
+                                    'url' => ['/page/paid_options_in_projects']
+                                ],
+                                [
+                                    'label' => \Yii::t('app', 'SITE_ADS'), 
+                                    'url' => ['/page/site_ads']
+                                ],
+                                [
+                                    'label' => \Yii::t('app', 'PRIVACY_POLICY'), 
+                                    'url' => ['/page/privacy-policy']
+                                ],
                             ],
                         ]);
                         ?>
@@ -99,12 +132,13 @@ use yii\helpers\Url;
 </footer>
 <!-- end b-footer -->
 <?php
+/*
 $this->registerJs("$('.signin').on('click', function () {
 	url = '" . Url::toRoute("site/login") . "';
 	var csrf = '" . Yii::$app->request->getCsrfToken() . "';
 	showModal(url, '', 1);
 	return false;
-    });", \yii\web\View::POS_END);
+    });", \yii\web\View::POS_END); */
 ?>
 <script type="text/javascript">
     $("#rememberPass").on('click', function () {

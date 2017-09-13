@@ -4,16 +4,18 @@
  * @email dmitrywp@gmail.com
  */
 use yii\helpers\Url;
-use frontend\models\UserNotification;
+//use frontend\models\UserNotification;
 ?>
 <?php 
 $trustClone = clone $trust; 
-$count = $trustClone->andWhere(['seen' => 0])->count();
+$count = $trustClone
+        //->andWhere(['seen' => 0])
+        ->count();
 ?>
 <div class="b-header__user__stats clearfix">
     <div 
-        class="b-header__user__stats__item b-header__user__stats__item_trusted clearfix <?= $count > 0 ? "active" : "" ?>" 
-        id="notifTrustees">
+        class="b-header__user__stats__item b-header__user__stats__item_trusted clearfix" 
+        id="notifTrustees" title="<?= Yii::t('app', 'TRUSTEES') ?>">
         <div class="b-header__user__stats__item__icon b-header__user__stats__item__icon_1"></div>
         <span class="notifCount"><?= $count ?></span>
 
@@ -26,9 +28,12 @@ $count = $trustClone->andWhere(['seen' => 0])->count();
 
     <?php 
     $marksClone = clone $marks; 
-    $count = $marksClone->andWhere(['seen' => 0])->count();
+    $count = $marksClone
+            //->andWhere(['seen' => 0])
+            ->count();
     ?>
-    <div class="b-header__user__stats__item b-header__user__stats__item_evaluation clearfix <?= $count > 0 ? "active" : "" ?>" id="notifMarks">
+    <div class="b-header__user__stats__item b-header__user__stats__item_evaluation clearfix" 
+         id="notifMarks" title="<?= Yii::t('app', 'MARKS') ?>">
         <div class="b-header__user__stats__item__icon b-header__user__stats__item__icon_2"></div>
         <span class="notifCount"><?= $count ?></span>
         <div class="b-tooltip">
@@ -40,9 +45,12 @@ $count = $trustClone->andWhere(['seen' => 0])->count();
 
     <?php 
     $testimonialsClone = clone $testimonials; 
-    $count = $testimonialsClone->andWhere(['seen' => 0])->count();
+    $count = $testimonialsClone
+            //->andWhere(['seen' => 0])
+            ->count();
     ?>
-    <div class="b-header__user__stats__item clearfix <?= $count > 0 ? "active" : "" ?>" id="notifTestimonials">
+    <div class="b-header__user__stats__item clearfix" 
+         id="notifTestimonials" title="<?= Yii::t('app', 'TESTIMONIALS') ?>">
         <div class="b-header__user__stats__item__icon b-header__user__stats__item__icon_3"></div>
         <span class="notifCount"><?= $count ?></span>
         <div class="b-tooltip">
@@ -132,7 +140,7 @@ $this->registerJs("
         countPres = parseInt(that.find('.notifCount').text());
         
         if(count != countPres) {
-            that.find('.notifCount').text(count);
+            //that.find('.notifCount').text(count);
             that.addClass('active');
         }
         if(count == 0) {

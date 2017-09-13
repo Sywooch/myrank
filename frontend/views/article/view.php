@@ -7,8 +7,10 @@ use frontend\widgets\article\ArticleLastIssuesWidget;
 use frontend\widgets\article\ArticleSeeAlsoWidget;
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => \Yii::t('app','ARTICLES'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['#']];
+$this->params['breadcrumbs'] = [
+    ['label' => \Yii::t('app','ARTICLES'), 'url' => ['index']],
+    ['label' => $this->title, 'url' => ['article/view', 'id' => $model->id_article]]
+];
 ?>
 
 <div class="container">

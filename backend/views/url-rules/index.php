@@ -28,6 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'contr_act',
             'rules',
+            'meta_tag_rules',
+            'meta_descr_rules',
             
             ['class' => 'yii\grid\ActionColumn'],
         ],

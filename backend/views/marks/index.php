@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'text',
                 'content' => function ($data) {
                     $list = Marks::getList();
-                    return $data->parent_id > 0 ? $list[$data->parent_id] . " - " . $data->name : $data->name;
+                    return $data->parent_id > 0 ? $list[$data->parent_id] . " - " . $data->name : $data->name . " (".$data->id.")";
                 }
             ],
             [
@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'text',
                 'content' => function ($data) {
                     $list = Marks::getList();
-                    return isset($list[$data->parent_id]) ? $list[$data->parent_id] : "";
+                    return isset($list[$data->parent_id]) ? $list[$data->parent_id] . "(".$data->parent_id.")" : "";
                 },
                 'filter' => Marks::getList()
             ], /*

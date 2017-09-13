@@ -16,12 +16,15 @@ use yii\helpers\Url;
     </div>
     <div class="b-modal__content">
 	<div class="row">
-	<?php foreach ($model as $item) { ?>
+	<?php foreach ($model as $item) { 
+            if(!$item->required || $item->configure) {
+                $disableSelect = $item->configure ? ['disabled' => 'disabled'] : NULL;
+            ?>
 	    <div class="col-xs-12 col-sm-12">
 		<span><?= $item->name ?></span>
                 <div>
                     <div style="display: inline-block; width: 400px;" class="select-wrapper">
-                        <?= Html::dropDownList('Marks['.$item->id.']', isset($configArr[$item->id]) ? $configArr[$item->id] : 1, Marks::marksAccessFront(), []) ?>
+                        <?= Html::dropDownList('Marks['.$item->id.']', isset($configArr[$item->id]) ? $configArr[$item->id] : 1, Marks::marksAccessFront(), $disableSelect) ?>
                     </div>
                     <?php if($item->configure) { ?>
                     <div style="display: inline-block;">
@@ -38,7 +41,7 @@ use yii\helpers\Url;
                     <?php } ?>
                 </div>
 	    </div>
-	<?php } ?>
+        <?php }} ?>
 	</div>
         <div class="row">
             <div class="col-xs-12 col-sm-12">

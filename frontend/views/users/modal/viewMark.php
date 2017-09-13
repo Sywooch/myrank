@@ -3,7 +3,8 @@
 use yii\helpers\Url;
 use yii\helpers\Json;
 
-$markNames = $item->markNames;
+$markNames = $marksProfArr + $item->markNames;
+//echo "<pre>";var_dump($markNames, $item->descrArr); echo "</pre>";
 ?>
 <div class="b-modal__header">
     <?= $title ?>

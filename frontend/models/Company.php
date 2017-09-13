@@ -28,19 +28,30 @@ class Company extends UserConstant {
     public $country_id;
     public $professionField;
 
-    const COUNT_PERSONS_SMALL = 1;
-    const COUNT_PERSONS_MEDIUM = 2;
-    const COUNT_PERSONS_BIG = 3;
+    const COUNT_PERSONS_110 = 1;
+    const COUNT_PERSONS_1020 = 2;
+    const COUNT_PERSONS_2050 = 3;
+    const COUNT_PERSONS_50150 = 4;
+    const COUNT_PERSONS_150400 = 5;
+    const COUNT_PERSONS_4001000 = 6;
+    const COUNT_PERSONS_1000 = 7;
     const CASH_SMALL = 1;
     const CASH_MEDIUM = 2;
     const CASH_BIG = 3;
     
-    const COUNT_VIEW_ACTIVE_USERS_COMPANY = 10;
+    const PUBLISH = 1;
+    const UNPUBLISH = 0;
 
+
+    const COUNT_VIEW_ACTIVE_USERS_COMPANY = 10;
     public $countPersonsList = [
-        self::COUNT_PERSONS_SMALL => "100 - 500",
-        self::COUNT_PERSONS_MEDIUM => "100 - 1000",
-        self::COUNT_PERSONS_BIG => "100 - 1500",
+        self::COUNT_PERSONS_110 => "1 - 10",
+        self::COUNT_PERSONS_1020 => "10 - 20",
+        self::COUNT_PERSONS_2050 => "20 - 50",
+        self::COUNT_PERSONS_50150 => "50 - 150",
+        self::COUNT_PERSONS_150400 => "150 - 400",
+        self::COUNT_PERSONS_4001000 => "400 - 1000",
+        self::COUNT_PERSONS_1000 => "> 1000",
     ];
     public $cashList = [
         self::CASH_SMALL => "1 000 000 руб - 5 000 000 руб",
@@ -63,11 +74,12 @@ class Company extends UserConstant {
      */
     public function rules() {
         return [
-            [['name', 'reg_date'], 'required'],
+            [['reg_date'], 'required'],
             [['professionField'], 'required', 'on' => 'editmaininfo'],
             [['count_persons', 'cash'], 'integer'],
             [['reg_date', 'user_id', 'city_id', 'professionField', 
-                'image', 'marks_config', 'mark', 'rating', 'hide_testimonials', 'hide_marks'], 'safe'],
+                'image', 'marks_config', 'mark', 'rating', 
+                'hide_testimonials', 'hide_marks', 'publish', 'name'], 'safe'],
             [['about'], 'string'],
             [['phone', 'director', 'contact_face'], 'string', 'max' => 255],
         ];
@@ -88,6 +100,8 @@ class Company extends UserConstant {
             'contact_face' => Yii::t('app', 'CONTACT_PERSON'),
             'about' => Yii::t('app', 'COMPANY_ABOUT '),
             'professionField' => \Yii::t('app', 'PROFESSION_FIELD'),
+            'countPersonName' => Yii::t('app', 'PERSONS_QUANTITY'),
+            'cashName' => Yii::t('app', 'COMPANY_ANNUAL_TURNOVER'),
         ];
     }
     
@@ -163,6 +177,14 @@ class Company extends UserConstant {
 
     public function getCompanyProfession() {
         return $this->hasMany(Profession::className(), ['id' => 'profession_id'])->via("profession");
+    }
+    
+    public function getCountPersonName () {
+        return $this->countPersonsList[$this->count_persons];
+    }
+    
+    public function getCashName () {
+        return $this->cashList[$this->cash];
     }
 
     public function beforeSave($insert) {

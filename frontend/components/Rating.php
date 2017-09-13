@@ -5,7 +5,6 @@ namespace frontend\components;
 use yii\base\Component;
 use frontend\models\Testimonials;
 use frontend\models\UserTrustees;
-use frontend\models\User;
 
 class Rating extends Component {
 

@@ -95,7 +95,8 @@ class User extends UserConstant implements IdentityInterface {
                     'image',
                     'marks_config',
                     'password',
-                    'rePassword'
+                    'rePassword',
+                    'legal'
                 ], 'safe'],
             [['image'], 'string', 'max' => 255],
             [['first_name', 'last_name', 'about'], 'string', 'max' => 50],

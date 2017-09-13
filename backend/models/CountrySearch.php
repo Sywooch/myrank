@@ -19,7 +19,7 @@ class CountrySearch extends Country
     public function rules()
     {
         return [
-            [['country_id', 'city_id'], 'integer'],
+            [['country_id'], 'integer'],
             [['name'], 'safe'],
         ];
     }
@@ -62,7 +62,6 @@ class CountrySearch extends Country
         // grid filtering conditions
         $query->andFilterWhere([
             'country_id' => $this->country_id,
-            'city_id' => $this->city_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);
