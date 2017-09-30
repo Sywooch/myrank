@@ -214,9 +214,9 @@ class UserConstant extends \yii\db\ActiveRecord {
 
     public function getAboutProfile() {
         $string = strip_tags($this->about);
-        $string = substr($string, 0, 500);
-        $string = rtrim($string, "!,.-");
-        $string = substr($string, 0, strrpos($string, '.'));
+        $string = mb_substr($string, 0, 500);
+        //$string = rtrim($string, "!,.-");
+        //$string = substr($string, 0, strrpos($string, '.'));
         
         return $string;
     }

@@ -81,7 +81,7 @@ class Company extends UserConstant {
                 'image', 'marks_config', 'mark', 'rating', 
                 'hide_testimonials', 'hide_marks', 'publish', 
                 'name', 'main_prof'], 'safe'],
-            [['about'], 'string'],
+            [['about'], 'string', 'max' => 500],
             [['phone', 'director', 'contact_face'], 'string', 'max' => 255],
         ];
     }
@@ -99,7 +99,7 @@ class Company extends UserConstant {
             'cash' => Yii::t('app', 'COMPANY_ANNUAL_TURNOVER'),
             'director' => Yii::t('app', 'DIRECTOR_FULLNAME'),
             'contact_face' => Yii::t('app', 'CONTACT_PERSON'),
-            'about' => Yii::t('app', 'COMPANY_ABOUT '),
+            'about' => Yii::t('app', 'COMPANY_ABOUT'),
             'professionField' => \Yii::t('app', 'PROFESSION_FIELD'),
             'countPersonName' => Yii::t('app', 'PERSONS_QUANTITY'),
             'cashName' => Yii::t('app', 'COMPANY_ANNUAL_TURNOVER'),
