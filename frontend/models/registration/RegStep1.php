@@ -7,6 +7,9 @@
 
 namespace frontend\models\registration;
 
+use yii\helpers\Url;
+use yii\helpers\Html;
+
 class RegStep1 extends \frontend\models\Registration {
 
     public function rules() {
