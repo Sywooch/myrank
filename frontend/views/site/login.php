@@ -33,6 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
 	    </div>
 	</div>
 	<div class="row">
+	    <div class="col-xs-12">
+		<?= $form->field($model, 'rememberMe')->checkbox([]); ?>
+	    </div>
+	</div>
+	<div class="row">
 	    <div class="col-xs-12 col-sm-12" id="LoginFormError" style="display: none; color:red;"></div>
 	</div>
 	<div class="b-modal__content__buttons">

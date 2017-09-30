@@ -39,7 +39,8 @@ class LoginForm extends Model {
         //parent::attributeLabels();
         return [
             'username' => \Yii::t('app', 'EMAIL'),
-            'password' => \Yii::t('app', 'PASSWORD')
+            'password' => \Yii::t('app', 'PASSWORD'),
+            'rememberMe' => \Yii::t('app', 'REMEMBER_ME'),
         ];
     }
 
@@ -69,8 +70,7 @@ class LoginForm extends Model {
     public function login() {
         if ($this->validate()) {
             $mUser = $this->getUser();
-            //\Yii::$app->rating->process($mUser);
-            return Yii::$app->user->login($mUser, 3600 * 24 * 30);
+            return Yii::$app->user->login($mUser, $this->rememberMe ? 3600*24*30 : 0);
         } else {
             return false;
         }

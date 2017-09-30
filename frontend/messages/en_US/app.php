@@ -18,7 +18,7 @@ return [
     'REGISTER_OR_SIGN_THROUGH_SOCIAL'=>'Register or sign in through social networks',
     'REGISTRATION'=>'Registration',
     'LOGIN'=>'Login',
-    'REMEMBER_PASSWORD' => 'Remember password?',
+    'REMEMBER_PASSWORD' => 'Forgot password?',
     'REQUEST_PASSWORD_RESET' => 'Request password reset',
     'RESET_PASSWORD' => 'Reset password',
     'PLEASE_CHOOSE_YOUR_NEW_PASSWORD' => 'Please choose your new password',
