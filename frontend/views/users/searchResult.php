@@ -11,10 +11,11 @@ $get = Yii::$app->request->get();
     	<div class="b-user__data">
     	    <div class="b-user__data__left">
     		<div class="b-user__data__image">
-    		    <img src="<?= $item->userImage ?>" alt="">
+    		    <img src="<?= $item->obj->imageName ?>" alt="">
     		    <div class="b-user__data__image__info">
     			<ul>
-				<?php foreach ($item->userProfession as $item2) { ?>
+				<?php 
+                                foreach ($item->obj->profileProfession as $item2) { ?>
 				    <li><?= $item2->title ?></li>
 				<?php } ?>
     			</ul>
@@ -30,17 +31,19 @@ $get = Yii::$app->request->get();
     	    <div class="b-user__data__right">
     		<div class="b-user__data__header">
     		    <div class="b-user__data__name">
-    			<div><a href="<?= Url::toRoute(['users/profile', 'id' => $item->id]) ?>"><?= $item->fullName ?></a></div>
+    			<div><a href="<?= Url::toRoute($item->obj->profileLink) ?>"><?= $item->obj->fullName ?></a></div>
     			<!-- span class="b-user__data__name__edit"></span -->
     		    </div>
     		    <div class="b-user__data__info">
-			    <?php if ((Yii::$app->user->id !== null) && !$item->owner) { ?>
-				<a class="b-user__data__info__add-trusted" href="#" data-url="<?= Url::toRoute(['users/trustees', 'id' => $item->id]) ?>">
-				    <?= $item->trustUser ? \Yii::t('app', 'TRUSTED_SMALL') : \Yii::t('app', 'IN_TRUSTED_SMALL') ?>
+			    <?php if ((Yii::$app->user->id !== null) && !$item->obj->owner) { ?>
+				<a class="b-user__data__info__add-trusted <?= $item->obj->trustUser ? "minus" : "" ?>" 
+                                   href="#" 
+                                   data-url="<?= Url::toRoute(['users/trustees', 'id' => $item->obj->id, 'typeTo' => $item->obj->objType]) ?>">
+				    <?= $item->obj->trustUser ? \Yii::t('app', 'TRUSTED_SMALL') : \Yii::t('app', 'IN_TRUSTED_SMALL') ?>
 				</a>
 			    <?php } ?>
     			<div class="b-user__data__info__rating">
-    			    <span><?= $item->rating ?></span>
+    			    <span><?= $item->obj->rating ?></span>
 				<?= \Yii::t('app', 'RATING'); ?>
     			</div>
     		    </div>
@@ -48,19 +51,19 @@ $get = Yii::$app->request->get();
     		<div class="b-user__data__content">
     		    <div class="b-user__data__content__item">
     			<div class="b-user__data__content__item__adress">
-				<?= $item->position ?>
+				<?= $item->obj->position ?>
     			</div>
     		    </div>
-			<?php if ($item->company_name != "") { ?>
+			<?php if (isset($item->obj->name) && ($item->obj->name != "")) { // FIXME ?>
 			    <div class="b-user__data__content__item">
 				<div class="b-user__data__content__item__work">
-				    <?= $item->company_name ?>
+				    <?= $item->obj->name ?>
 				</div>
 			    </div>
 			<?php } ?>
     		</div>
     		<div class="b-tags">
-			<?php foreach ($item->userProfession as $item2) { ?>
+			<?php foreach ($item->obj->profileProfession as $item2) { ?>
 			    <span><?= $item2->title ?></span>
 			<?php } ?>
     		</div>

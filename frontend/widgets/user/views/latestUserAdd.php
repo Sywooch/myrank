@@ -1,5 +1,6 @@
 <?php 
 use yii\helpers\Url;
+use yii\helpers\Html;
 ?>
 <div class="b-last-users">
     <div class="container">
@@ -13,12 +14,12 @@ use yii\helpers\Url;
 		<div class="b-last-users__item">
 		    <div class="b-last-users__item__header">
 			<div class="b-last-users__item__image">
-			    <img src="<?= $item->imageName ?>" alt="">
+                            <?= Html::a(Html::img($item->imageName), $item->profileLink) ?>
 			</div>
 		    </div>
 		    <div class="b-last-users__item__content">
 			<div class="b-last-users__item__title">
-			    <a href="<?= Url::toRoute(['users/profile', 'id' => $item->id]) ?>"><?= $item->fullName ?></a>
+			    <?= Html::a($item->fullName, $item->profileLink) ?>
 			</div>
 			<div class="b-last-users__item__text">
 			    <?= $item->position ?>

@@ -21,8 +21,22 @@ use yii\helpers\ArrayHelper;
  * @property integer $required
  */
 class Marks extends \yii\db\ActiveRecord {
+    
+    public static $locales = [
+	'ru_RU' => 'name',
+	'en_US' => 'name_en',
+	'ua_UA' => 'name_ua',
+    ];
+    
+    public static $shortLoc = [
+        'ru_RU' => 'short_name',
+        'en_US' => 'short_name_en',
+        'ua_UA' => 'short_name_ua',
+    ];
 
     static $lists = [];
+    
+    public $profsField;
 
     const MARKS_ACCESS_ALL = 0;
     const MARKS_ACCESS_USER = 1;
@@ -44,6 +58,15 @@ class Marks extends \yii\db\ActiveRecord {
             self::MARKS_ACCESS_FRONT_NONE => (string) \Yii::t('app', 'MARKS_ACCESS_FRONT_NONE'),
         ];
     }
+    
+    public static function find($default = false) {
+        if($default) {
+            return parent::find();
+        } else {
+            $lang = \Yii::$app->language;
+            return parent::find()->select(["*" , self::$locales[$lang]. " AS name", self::$shortLoc[$lang] . " AS short_name"]);
+        }
+    }
 
     /**
      * @inheritdoc
@@ -59,7 +82,9 @@ class Marks extends \yii\db\ActiveRecord {
         return [
             [['parent_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['access', 'type', 'required'], 'safe'],
+            [['access', 'type', 'required', 'name_en', 
+                'name_ua', 'configure', 'profsField', 
+                'prof_only', 'parse', 'short_name', 'short_name_en', 'short_name_ua'], 'safe'],
         ];
     }
 
@@ -72,22 +97,44 @@ class Marks extends \yii\db\ActiveRecord {
             'name' => Yii::t('app', 'MARKS_NAME'),
             'parent_id' => Yii::t('app', 'PARENT_ID'),
             'access' => Yii::t('app', 'MARKS_ACCESS'),
-            'type' => Yii::t('app', 'MARKS_TYPE'),
+            'type' => 'Для кого',
+            'name_en' => "EN",
+            'name_ua' => "UA",
+            'configure' => "Конфигурируемая",
+            'required' => 'Обязательная',
+            'prof_only' => 'Только для профессии',
+            'short_name' => 'Короткое обозначение RU',
+            'short_name_en' => 'Короткое обозначение EN',
+            'short_name_ua' => 'Короткое обозначение UA'
         ];
     }
 
-    public static function getList() {
-        if (empty(self::$lists)) {
-            $mMarks = Marks::find()
-                    ->select(['id', 'name'])->where(['parent_id' => 0])
-                    ->all();
-            self::$lists[0] = (string) \Yii::t('app', 'WITHOUT_PARENT');
+    public function getChild() {
+        return $this->hasMany(Marks::className(), ['parent_id' => 'id']);
+    }
 
-            foreach ($mMarks as $item) {
-                self::$lists[$item->id] = $item->name;
-            }
+    public static function getList($parent_id = 0, $type = 0, &$arr = [], $pref = "") {
+        $mMarks = Marks::find()
+                ->with('child')
+                ->select(['id', 'name'])->where(['parent_id' => 0])
+                ->where(['parent_id' => $parent_id,/* 'type' => $type */])
+                ->all();
+        empty($arr) ? $arr[0] = (string) \Yii::t('app', 'WITHOUT_PARENT') : NULL;
+
+        foreach ($mMarks as $item) {
+            $arr[$item->id] = $pref . $item->name;
+            //static::getList($item->id, $arr, $pref . " - ");
         }
-        return self::$lists;
+        return $arr;
+    }
+    
+    public function beforeDelete() {
+        static::deleteAll(['parent_id' => $this->id]);
+        return parent::beforeDelete();
+    }
+    
+    public function getProfessions () {
+        return ArrayHelper::map(Profession::find()->asArray()->all(), 'id', 'title');
     }
 
 }

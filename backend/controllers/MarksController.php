@@ -3,30 +3,15 @@
 namespace backend\controllers;
 
 use Yii;
-use frontend\models\Marks;
+use backend\models\Marks;
 use backend\models\MarksSearch;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * MarksController implements the CRUD actions for Marks model.
  */
 class MarksController extends Controller {
-
-    /**
-     * @inheritdoc
-     */
-    public function behaviors() {
-	return [
-	    'verbs' => [
-		'class' => VerbFilter::className(),
-		'actions' => [
-		    'delete' => ['POST'],
-		],
-	    ],
-	];
-    }
 
     /**
      * Lists all Marks models.
@@ -59,7 +44,9 @@ class MarksController extends Controller {
      * @return mixed
      */
     public function actionCreate() {
+        $get = Yii::$app->request->get();
 	$model = new Marks();
+        $model->parent_id = isset($get['parent_id']) ? $get['parent_id'] : 0;
 
 	if ($model->load(Yii::$app->request->post()) && $model->save()) {
 	    return $this->redirect(['index']);
@@ -78,6 +65,7 @@ class MarksController extends Controller {
      */
     public function actionUpdate($id) {
 	$model = $this->findModel($id);
+        $model->profsField = array_keys($model->professionMarksArr);
 
 	if ($model->load(Yii::$app->request->post()) && $model->save()) {
 	    return $this->redirect(['index']);
@@ -113,6 +101,15 @@ class MarksController extends Controller {
 	} else {
 	    throw new NotFoundHttpException(((string) \Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND') ));
 	}
+    }
+    
+    public function actionGetparents ($type) {
+        $out = "<option value='0'>Без родителя</option>\n";
+        $model = Marks::findAll(['type' => $type, 'parent_id' => 0]);
+        foreach ($model as $item) {
+            $out .= "<option value='" . $item->id . "'>" . $item->name . "</option>\n";
+        }
+        return $out;
     }
 
 }

@@ -3,10 +3,11 @@
 namespace backend\controllers;
 
 use Yii;
-use frontend\models\User;
+use backend\models\User;
 use yii\data\ActiveDataProvider;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
+use backend\models\UserSearch;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -18,12 +19,16 @@ class UsersController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
+        $searchModel = new UserSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        /*
 	$dataProvider = new ActiveDataProvider([
 	    'query' => User::find()->orderBy('type DESC, id ASC'),
-	]);
+	]);*/
 
 	return $this->render('index', [
-		    'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
 	]);
     }
 
@@ -98,6 +103,15 @@ class UsersController extends Controller {
 	} else {
 	    throw new NotFoundHttpException(((string) \Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND')));
 	}
+    }
+    
+    public function actionCleanmarks () {
+        $mUser = User::find()->all();
+        foreach ($mUser as $item) {
+            $item->mark = "";
+            $item->marks_config = "";
+            //$item->save();
+        }
     }
 
 }

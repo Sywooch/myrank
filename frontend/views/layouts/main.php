@@ -8,9 +8,24 @@ use frontend\models\Country;
 use frontend\models\User;
 use frontend\models\UserConstant;
 use frontend\widgets\site\Breadcrumbs;
+use frontend\models\GeoCountry;
 
 $contr = Yii::$app->controller->id;
 $act = Yii::$app->controller->action->id;
+
+$session = Yii::$app->session;
+if($session->has("country")) {
+    $country = $session->get("country");
+} else {
+    $ip = Yii::$app->geoip->ip();
+    $ip->isoCode;
+    $mGeoCountry = GeoCountry::findOne(['code' => $ip->isoCode]);
+    if(isset($mGeoCountry->id)) {
+        $country = $mGeoCountry->country_id;
+    } else {
+        $country = 0;
+    }
+}
 
 if (Yii::$app->user->id !== NULL) {
     $mUser = User::getProfile();
@@ -27,7 +42,7 @@ $this->registerJs('
 		location.reload(true);
 	    });
 	});
-	$(".showModal").on("click", function() {
+	$("body").on("click", ".showModal", function() {
 	    showModal($(this).attr("data-url"), 0, 1);
 	    return false;
 	});
@@ -39,6 +54,7 @@ $this->registerJs('
 	});
 	$("body").on("click", ".cancel", function () {
 	    $("#modalView").modal("hide");
+            return false;
 	});
 	function setCityList (id) {
 	    csrf = $("[name=\"csrf-token\"]").attr("content");
@@ -55,8 +71,7 @@ if ($msg != FALSE) {
 }
 
 $this->registerJsFile("/js/jquery2.2.4.js", ['position' => \yii\web\View::POS_HEAD]);
-$session = Yii::$app->session;
-$country = $session->get("country", 9908);
+
 
 $lang = Yii::$app->params['lang'];
 
@@ -96,13 +111,13 @@ AppAsset::register($this);
                                 <div class="b-header__region">
                                     <div class="b-header__region__language">
                                         <div class="b-header__region__language__select">
-                                            <?= Html::dropDownList("lang", Yii::$app->request->cookies->get('lang'), $lang, ['id' => 'changeLang']) ?>
+                                            <?= Html::dropDownList("lang", Yii::$app->language, $lang, ['id' => 'changeLang']) ?>
                                         </div>
                                     </div>
                                     <div class="b-header__region__country">
                                         <span><?= \Yii::t('app', 'YOUR_COUNTRY'); ?></span>
                                         <div class="b-header__region__country__select">
-                                            <?= Html::dropDownList("country", $country, Country::getList(), ['id' => 'countrySelect']) ?>
+                                            <?= Html::dropDownList("country", $country, Country::getList(Yii::$app->language), ['id' => 'countrySelect']) ?>
                                         </div>
                                     </div>
                                 </div>
@@ -135,12 +150,27 @@ AppAsset::register($this);
                                             \yii\widgets\Menu::widget([
                                                 'items' => [
                                                     ['label' => Yii::t('app', 'HOME'), 'url' => ['site/index']],
-                                                    ['label' => Yii::t('app', 'ABOUT'), 'url' => ['/page/aboutus']],
+                                                    [
+                                                        'label' => Yii::t('app', 'ABOUT'), 
+                                                        'url' => ['static-pages/aboutus']
+                                                    ],
                                                     ['label' => Yii::t('app', 'ARTICLES'), 'url' => ['article/index']],
-                                                    ['label' => Yii::t('app', 'BALANCE'), 'url' => ['/page/balance']],
-                                                    ['label' => Yii::t('app', 'HELP'), 'url' => ['/page/help']],
-                                                    ['label' => Yii::t('app', 'CONTACTS'), 'url' => ['/page/contacts']],
-                                                    ['label' => Yii::t('app', 'LEGALINFO'), 'url' => ['/page/legalinfo']],
+                                                    [
+                                                        'label' => Yii::t('app', 'BALANCE'), 
+                                                        'url' => ['static-pages/balance']
+                                                    ],
+                                                    [
+                                                        'label' => Yii::t('app', 'HELP'), 
+                                                        'url' => ['static-pages/help']
+                                                    ],
+                                                    [
+                                                        'label' => Yii::t('app', 'CONTACTS'), 
+                                                        'url' => ['static-pages/contacts']
+                                                    ],
+                                                    [
+                                                        'label' => Yii::t('app', 'LEGALINFO'), 
+                                                        'url' => ['static-pages/legalinfo']
+                                                    ],
                                                 ],
                                             ]);
                                             ?>
@@ -157,8 +187,12 @@ AppAsset::register($this);
                 </div>
             </header>
             <!-- end b-header -->
-            <?=
-                isset($this->params['breadcrumbs']) ? Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) : NULL;
+            <?php
+                if(isset($this->params['breadcrumbs'])) { 
+                    echo Breadcrumbs::widget([
+                        'links' => $this->params['breadcrumbs']
+                    ]);
+                }
             ?>
             <?= $content ?>	
 

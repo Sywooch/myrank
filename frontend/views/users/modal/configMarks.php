@@ -1,6 +1,5 @@
 <?php
 
-use frontend\models\User;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\models\Marks;
@@ -17,23 +16,46 @@ use yii\helpers\Url;
     </div>
     <div class="b-modal__content">
 	<div class="row">
-	<?php foreach ($model as $item) { ?>
+	<?php foreach ($model as $item) { 
+            if(!$item->required || $item->configure) {
+                $disableSelect = $item->configure ? ['disabled' => 'disabled'] : [];
+            ?>
 	    <div class="col-xs-12 col-sm-12">
 		<span><?= $item->name ?></span>
-		<div class="select-wrapper">
-		    <?= Html::dropDownList('Marks['.$item->id.']', isset($configArr[$item->id]) ? $configArr[$item->id] : 1, Marks::marksAccessFront(), []) ?>
-		</div>
+                <div>
+                    <div style="display: inline-block; width: 400px;" class="select-wrapper">
+                        <?= Html::dropDownList('Marks['.$item->id.']', isset($configArr[$item->id]) ? $configArr[$item->id] : 1, Marks::marksAccessFront(), array_merge($disableSelect, ['class' => 'selCh'])) ?>
+                    </div>
+                    <?php if($item->configure) { ?>
+                    <div style="display: inline-block;">
+                        <span 
+                            style="font-size: 25px; color: #f95200; cursor: pointer;" 
+                            class="glyphicon glyphicon-cog configMarks"
+                            data-url="<?= Url::toRoute([
+                                'users/custom-config-marks', 
+                                'id' => $item->id,
+                                'obj_id' => $mObj->objId,
+                                'obj_type' => $mObj->objType,
+                            ]) ?>"></span>
+                    </div>
+                    <?php } ?>
+                </div>
 	    </div>
-	<?php } ?>
+        <?php }} ?>
 	</div>
-
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <?= Html::checkbox("Marks[myview]", isset($configArr['myview']) && ($configArr['myview'] == 1)) ?>
+                <span>Показывать мою оценку другим</span>
+            </div>
+        </div>
 	<div class="row">
 	    <div class="col-xs-12 col-sm-12" id="configMarksError" style="display: none; color:red;"></div>
 	</div>
 	<div class="b-modal__content__buttons">
-	    <div class="b-modal__content__buttons__item">
-		<a id="configMarks_save" class="button-small" href="#"><?= \Yii::t('app','SAVE'); ?></a>
-	    </div>
+	    <!-- div class="b-modal__content__buttons__item">
+		<a id="configMarks_save" class="button-small" href="#"><?= \Yii::t('app','REFRESH'); ?></a>
+	    </div -->
 	    <div class="b-modal__content__buttons__item">
 		<span><a id="configMarks_cancel" class="cancel" href="#"><?= \Yii::t('app','CANCEL'); ?></a></span>
 	    </div>
@@ -51,9 +73,22 @@ use yii\helpers\Url;
 	    data: $("#configMarks").serialize(),
 	    success: function (out) {
 		$("#modalView").modal('hide');
-		location.reload(true);
+		location.reload(true); 
 	    }
 	});
 	return false;
+    });
+    
+    $(".selCh").on('change', function () {
+        var send = {};
+        send[$(this).attr('name')] = $(this).val();
+        send['_csrf-frontend'] = $('[name="csrf-token"]').attr("content");
+        $.post("<?= Url::toRoute(['users/configmarkschange']) ?>", send, function () {
+            //console.log(1);
+        });
+    });
+    
+    $(".configMarks").on("click", function () {
+        showModal($(this).attr('data-url'), 0, 0);
     });
 </script>

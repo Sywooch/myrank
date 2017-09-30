@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    data: $("#LoginForm").serialize(),
 	    success: function (out) {
 		if (out.code == 1) {
-		    document.location.href = "<?= Url::toRoute(["users/profile"]); ?>";
+                    location.reload();
 		} else {
 		    view = "";
 		    $.each(out.errors, function (i, val) {

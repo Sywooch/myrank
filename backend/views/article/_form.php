@@ -6,6 +6,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\View;
 use yii\widgets\ActiveForm;
 use vova07\imperavi\Widget;
+use dosamigos\ckeditor\CKEditor; 
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Article */
@@ -51,7 +52,7 @@ $this->registerJs("
 
     <?= $form->field($model, 'abridgment')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'content')->widget(Widget::className(), [
+    <?php /* $form->field($model, 'content')->widget(Widget::className(), [
         'settings' => [
             'lang' => strtolower(substr(Yii::$app->language,0,2)),// 'ru'
             'removeWithoutAttr' => [],
@@ -76,7 +77,11 @@ $this->registerJs("
             'fileManagerJson' => Yii::getAlias('@urlToImages'),
             'fileUpload' => Yii::getAlias('@urlToImages'),
         ]
-    ]);
+    ]); */
+    echo $form->field($model, 'content')->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'full'
+    ])
     ?>
 
     <?= $form->field($model, 'header_title')->textInput(['maxlength' => true]) ?>

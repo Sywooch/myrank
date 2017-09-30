@@ -4,7 +4,7 @@ use yii\helpers\Html;
 ?>
 <div class="b-rating">
     <div class="container">
-	<h2><?= \Yii::t('app','BEST_RATING'); ?></h2>
+	<h2><?= $title ?></h2>
 	<div class="b-rating__header">
 	    <div class="b-rating__header__text"><?= \Yii::t('app','BEST_RATING_TEXT'); ?></div>
 	    <div class="b-rating__header__link">
@@ -20,7 +20,7 @@ use yii\helpers\Html;
 			    <img src="<?= $item->imageName ?>" alt="">
 			    <div class="b-rating__item__info">
 				<ul>
-				    <?php foreach ($item->getUserProfession()->limit(3)->all() as $item2) { ?>
+				    <?php foreach ($item->getProfileProfession()->limit(3)->all() as $item2) { ?>
 				    <li><?= $item2->title ?></li>
 				    <?php } ?>
 				</ul>
@@ -38,7 +38,7 @@ use yii\helpers\Html;
 			<div class="b-rating__item__title">
                             <?= Html::a($item->fullName, $item->profileLink) ?>
 			</div>
-			<div class="b-rating__item__text"><?= $item->company_post ?></div>
+                        <div class="b-rating__item__text"><?= isset($item->objUserCompany->company_post) ? $item->objUserCompany->company_post : "" ?></div>
 		    </div>
 		</div>
 	    </div>

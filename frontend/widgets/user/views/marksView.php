@@ -39,7 +39,8 @@ use frontend\models\UserConstant;
                                             <div class="marks-slider"></div>
                                         </div>
                                     </div>
-                                    <div class="b-marks__item__content__like b-marks__item__content__like_down">
+                                    <div class="b-marks__item__content__like b-marks__item__content__like_down" 
+                                        <?= (isset($list[$key2]) && ($list[$key2] > 0)) ?: 'style="display:none"' ?>>
                                         <span class="b-marks__item__content__like__image"></span>
                                     </div>
                                 </div>
@@ -61,7 +62,9 @@ use frontend\models\UserConstant;
                data-url="<?= Url::toRoute(['users/configmarks']) ?>" 
                href="#"><?= \Yii::t('app', 'CONFIGURE'); ?></a>
            <?php } ?>
-        <a id="saveMarks" class="button-small" href="#"><?= \Yii::t('app', 'RATING_SAVE'); ?></a>
+        <?php if(Yii::$app->user->id !== NULL) { ?>
+            <a id="saveMarks" class="button-small" href="#"><?= \Yii::t('app', 'RATING_SAVE'); ?></a>
+        <?php } ?>
     </div>
 
 </div>
@@ -105,7 +108,24 @@ $script = "
 		    $(elem2).attr('data-def', $(elem2).val());
 		    if($(elem2).val() != '0.0') {
 			count++;
-			out += parseFloat($(elem2).val());
+                        val = parseFloat($(elem2).val());
+			out += val;
+                        
+                        block = $(elem2).closest('.b-marks__item__content__row').find('.b-marks__item__content__like');
+                        likeDown = block.hasClass('b-marks__item__content__like_down');
+                        if ((val < 5.0) && val > 0) {
+                            if (!likeDown) {
+                                block.removeClass('b-marks__item__content__like_up').addClass('b-marks__item__content__like_down');
+                            }
+                            block.show();
+                        } else if(val > 4.9) {
+                            if (likeDown) {
+                                block.removeClass('b-marks__item__content__like_down').addClass('b-marks__item__content__like_up');
+                            }
+                            block.show();
+                        } else {
+                            block.hide();
+                        }
 		    } else {
 			out += 0.0;
 		    }

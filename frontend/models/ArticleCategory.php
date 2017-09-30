@@ -12,16 +12,13 @@ use Yii;
  *
  * @property Article[] $articles
  */
-class ArticleCategory extends \yii\db\ActiveRecord
-{
+class ArticleCategory extends \yii\db\ActiveRecord {
 
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%article_category}}';
     }
 
-    public function rules()
-    {
+    public function rules() {
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 128],
@@ -29,30 +26,28 @@ class ArticleCategory extends \yii\db\ActiveRecord
         ];
     }
 
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
-            'id_article_category' => Yii::t('app','ARTICLE_CATEGORY_ID'),
-            'name' => Yii::t('app','ARTICLE_CATEGORY_NAME'),
+            'id_article_category' => Yii::t('app', 'ARTICLE_CATEGORY_ID'),
+            'name' => Yii::t('app', 'ARTICLE_CATEGORY_NAME'),
             'locale' => Yii::t('app', 'LOCALE'),
         ];
     }
 
-    public function getArticles()
-    {
+    public function getArticles() {
         return $this->hasMany(Article::className(), ['article_category_id' => 'id_article_category']);
     }
 
-    public static function getSubcategories($locale)
-    {
+    public static function getSubcategories($locale) {
         $subCategories = [];
         if ($locale) {
             $subCategories = self::find()
-                ->select(['id_article_category','name'])
-                ->where(['locale'=>$locale])
-                ->asArray()
-                ->all();
+                    ->select(['id_article_category', 'name'])
+                    ->where(['locale' => $locale])
+                    ->asArray()
+                    ->all();
         }
         return $subCategories;
     }
+
 }

@@ -3,7 +3,8 @@
 use yii\helpers\Url;
 use yii\helpers\Json;
 
-$markNames = $item->markNames;
+$markNames = $marksProfArr + $item->markNames;
+//echo "<pre>";var_dump($markNames, $item->descrArr); echo "</pre>";
 ?>
 <div class="b-modal__header">
     <?= $title ?>
@@ -26,7 +27,9 @@ $markNames = $item->markNames;
                             <?= Yii::$app->formatter->asDate($item->created, 'dd.MM.yyyy') ?>
                         </div>
                         <div class="row">
-			    <?php foreach ($item->descrArr as $key => $item2) { ?>
+			    <?php foreach ($item->descrArr as $key => $item2) {
+                                if(($item2 > 0) && isset($markNames[$key])) {
+                                ?>
                             <div class="col-md-3 col-sm-4 col-xs-6">
                                 <div class="b-last-marks__item__category">
                                     <?= $markNames[$key]; ?>:
@@ -35,7 +38,7 @@ $markNames = $item->markNames;
                                     <?= $item2 ?>
                                 </div>
                             </div>
-			    <?php } ?>
+                            <?php }} ?>
                         </div>
                     </div>
                 </div>

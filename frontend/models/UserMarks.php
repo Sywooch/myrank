@@ -33,7 +33,8 @@ class UserMarks extends UserConstant {
     public function rules() {
         return [
             [['to_id', 'from_id', 'type_from', 'type_to'], 'integer'],
-            [['description'], 'string']
+            [['description'], 'string'],
+            [['who_from_to'], 'safe']
         ];
     }
 
@@ -57,13 +58,22 @@ class UserMarks extends UserConstant {
 
     public function getDescrArr() {
         $out = Json::decode($this->description, true);
-        return $out[0];
+        return isset($out[0]) ? $out[0] : [];
     }
 
     public function getMarkNames() {
         $model = Marks::find()->where(['parent_id' => 0])->all();
         foreach ($model as $item) {
             $out[$item->id] = $item->name;
+        }
+        return $out;
+    }
+    
+    public function getAllMarkName () {
+        $out = [];
+        $model = Marks::find()->all();
+        foreach ($model as $item) {
+            $out[$item->parent_id][$item->id] = $item->name;
         }
         return $out;
     }

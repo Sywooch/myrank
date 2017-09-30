@@ -13,19 +13,21 @@ use yii\widgets\Breadcrumbs;
         <?php
         $out = [];
         foreach ($links as $key => $item) {
-            $item['class'] = 'b-breadcrumbs__link';
-            $out[] = $item;
+            //$out['class'] = 'b-breadcrumbs__link';
+            $out[$key] = $item;
+            $out[$key]['class'] = "b-breadcrumbs__link";
         }
         
         echo yii\widgets\Breadcrumbs::widget([
             'options' => ['class' => "b-breadcrumbs__container"],
             'itemTemplate' => "<li class='b-breadcrumbs__item'>{link}</li>\n", // template for all links
             'homeLink' => [
-                'label' => 'Главная',
+                'label' => Yii::t('app', 'MAIN_PAGE'),
                 'url' => ['site/index'],
                 'template' => "<li class='b-breadcrumbs__item'>{link}</li>\n",
                 'class' => 'b-breadcrumbs__link'
             ],
+            'itemTemplate' => "<li class='b-breadcrumbs__item'>{link}</li>\n",
             'links' => $out,
         ]);
         ?>

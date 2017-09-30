@@ -17,7 +17,7 @@ class MarksSearch extends Marks {
      */
     public function rules() {
 	return [
-	    [['id', 'parent_id'], 'integer'],
+	    [['id', 'parent_id', 'type'], 'integer'],
 	    [['name', 'access'], 'safe'],
 	];
     }
@@ -59,6 +59,7 @@ class MarksSearch extends Marks {
 	    'id' => $this->id,
 	    'parent_id' => $this->parent_id,
 	    'access' => $this->access,
+            'type' => $this->type
 	]);
 
 	$query->andFilterWhere(['like', 'name', $this->name]);

@@ -2,7 +2,11 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
+use frontend\models\UserConstant;
 $i = 0;
+$mObj = UserConstant::getProfile();
+$folder = $mObj->isCompany ? 'company' : 'user';
+$imagePath = "/" . implode(DIRECTORY_SEPARATOR, ['files', $folder, $mObj->objId, $mObj->image]);
 ?>
 <div class="b-modal__header">
     <?= \Yii::t('app','UPLOAD_AVATAR'); ?>
@@ -14,18 +18,19 @@ $i = 0;
     		<div class="b-modal__content__portfolio__item__image">
     		    <div class="input-file-wrapper">
     			<span><?= \Yii::t('app','UPLOAD_A_NEW_PHOTO'); ?></span>
-    			<input id="images-name<?= $i ?>" name="Images[name<?= $i ?>]" data-url="<?= Url::toRoute(['media/imageupload', 'id' => $i]) ?>" type="file" accept="image/*" />
+    			<input id="images-name<?= $i ?>" name="Images[name<?= $i ?>]" type="file" accept="image/*" />
     		    </div>
     		</div>
     	    </div>
     	    <script type="text/javascript">
     		;
-    		jQuery('#images-name<?= $i ?>').fileupload({"url": "/media/imageupload?id=<?= $i ?>"});
+    		jQuery('#images-name<?= $i ?>').fileupload({url: "<?= Url::toRoute(['media/imageupload', 'id' => $i]) ?>"});
     		jQuery('#images-name<?= $i ?>').on('fileuploaddone', function (e, data) {
     		    res = (JSON.parse(data.result)).files[0];
     		    $("#uploadFile" + res.fieldId + " .b-modal__content__portfolio__item__image").html("<img src='" + res.url + "' />");
     		});
     		jQuery('#images-name<?= $i ?>').on('fileuploadfail', function (e, data) {
+                    console.log(data.jqXHR.responseText);
     		    alert("<?= \Yii::t('app','PHOTO_DID_NOT_LOAD_PLEASE_CONSULT_ADMINISTRATOR'); ?>");
     		});
 

@@ -2,6 +2,7 @@
 
 use frontend\widgets\user\ModalWidget;
 use yii\helpers\Url;
+use frontend\models\UserConstant;
 
 echo ModalWidget::widget([
     'title' => \Yii::t('app','PROFILE_EDIT'),
@@ -17,12 +18,12 @@ echo ModalWidget::widget([
 	    'label' => \Yii::t('app','SURNAME').' *:',
 	    'type' => 'textInput',
 	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_SURNAME')]
-	],
+	],/*
 	'email' => [
 	    'label' => 'Email *:',
 	    'type' => 'textInput',
 	    'options' => ['class' => 'input-text', 'placeholder' => 'example@domain.com']
-	],
+	],*/
 	[
 	    'country_id' => [
 		'label' => \Yii::t('app','COUNTRY').':',
@@ -46,10 +47,25 @@ echo ModalWidget::widget([
 	    'posOpt' => ['multiple' => true],
 	    'posInfo' => \Yii::t('app','LET_PEOPLE_KNOW_WHAT_YOU_ARE_DOING'),
 	],
+	'company_name' => [
+	    'label' => \Yii::t('app','PLACE_OF_WORK_AT_THE_MOMENT'),
+	    'type' => 'textInput',
+	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_COMPANY_NAME')],
+	],
+	'company_post' => [
+	    'label' => \Yii::t('app','POSITION'),
+	    'type' => 'textInput',
+	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_COMPANY_POST')],
+	],
+	'phone' => [
+	    'label' => \Yii::t('app','PHONE_NUMBER'),
+	    'type' => 'textInput',
+	    'options' => ['class' => 'input-text input-phone'],
+	],
 	'about' => [
 	    'label' => \Yii::t('app','PERSONAL_INFORMATION'),
 	    'type' => 'textarea',
-	    'options' => ['placeholder' => \Yii::t('app','TELL_A_LITTLE_ABOUT_YOURSELF')]
+	    'options' => ['placeholder' => \Yii::t('app','TELL_A_LITTLE_ABOUT_YOURSELF'), 'maxlength' => UserConstant::LIMIT_INPUT_ABOUT]
 	],/*
 	[
 	    'password' => [
@@ -77,6 +93,32 @@ echo ModalWidget::widget([
 	    });
 	}
 	//setCityList($("#user-country_id").val());
+        
+        $("#registration-company_name").autocomplete({
+            source: function(request, response){
+                    $.ajax({
+                    url: "'.Url::toRoute(["registration/get-list-companies"]).'",
+                    dataType: "json",
+                    data:{
+                        startsWith: request.term
+                    },
+                    success: function(data){
+                        console.log(data);
+                        response($.map(data.users, function(item){
+                          return{
+                            label: item.name,
+                            value: item.name
+                          }
+                        }));
+                    }
+                    });
+            },
+            minLength: 2
+        });
+        jQuery.ui.autocomplete.prototype._resizeMenu = function () {
+          var ul = this.menu.element;
+          ul.outerWidth(this.element.outerWidth());
+        }
 	',
 ]);
 ?>

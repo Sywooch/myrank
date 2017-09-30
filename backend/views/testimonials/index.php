@@ -23,28 +23,34 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+            
             'text:ntext',
 	    [
 		'label' => 'От',
 		'content' => function ($data) {
-		    return $data->userFrom->fullName;
+		    return $data->who_from_to == 0 ? "Аноним" : Html::a($data->userFrom->fullName, ['users/view', 'id' => $data->userFrom->id]);
 		}
 	    ],
 	    [
 		'label' => 'Кому',
 		'content' => function ($data) {
-		    return $data->userTo->fullName;
+		    return isset($data->userTo) ? Html::a($data->userTo->fullName, ['users/view', 'id' => $data->userTo->id]) : 'Пользователя не существует';
 		}
 	    ],
 	    [
-		'label' => 'Ответ',
+		'label' => 'Отвечен',
 		'content' => function($data) {
-		    return $data->parent_id > 0 ? "Да" : "Нет";
+		    return "<span class='glyphicon " . (isset($data->answer->id) ? 'glyphicon-ok' : '') . "'></span>";
 		}
 	    ],
+                    [
+                        'label' => 'Жалоба',
+                        'content' => function ($data) {
+                            return "<span class='glyphicon " . (isset($data->claim->id) ? 'glyphicon-exclamation-sign' : '') . "'></span>";
+                        }
+                    ],
             // 'smile',
-            // 'parent_id',
+            //'parent_id',
             // 'created',
 
             ['class' => 'yii\grid\ActionColumn'],

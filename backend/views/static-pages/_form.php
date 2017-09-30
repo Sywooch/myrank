@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use vova07\imperavi\Widget;
 use yii\helpers\Url;
+use dosamigos\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\StaticPages */
@@ -15,13 +16,15 @@ use yii\helpers\Url;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
-
+    <div class="row">
+        <div class="col-lg-8"><?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?></div>
+        <div class="col-lg-4"><?= Html::button("Транслитерация", ['id' => 'translit']); ?></div>
+    
+    </div>
     <?= $form->field($model, 'published')->checkbox(); ?>
 
     <?php
-    /* echo $form->field($model, 'content')->textarea(['rows' => 6]) */
+    /* echo $form->field($model, 'content')->textarea(['rows' => 6]) 
     echo $form->field($model, 'content')->widget(Widget::className(), [
 	'settings' => [
 	    'lang' => strtolower(substr(Yii::$app->language, 0, 2)), // 'ru'
@@ -48,7 +51,11 @@ use yii\helpers\Url;
 	    'fileUpload' => Yii::getAlias('@urlToImages'),
 	//'selector' => 'staticpages-content',
 	]
-    ]);
+    ]);*/
+    echo $form->field($model, 'content')->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'full'
+    ])
     ?>
 
     <?= $form->field($model, 'locale')->dropDownList(Yii::$app->params['lang']) ?>
@@ -71,8 +78,9 @@ use yii\helpers\Url;
 
 </div>
     <?php
-	$this->registerJs("$('#staticpages-title').keyup(function() {
-	$('#staticpages-alias').val(urlRusLat($(this).val()));
+	$this->registerJs("
+    $('#translit').on('click', function() {
+	$('#staticpages-alias').val(urlRusLat($('#staticpages-title').val()));
     });
 //Транслитерация кириллицы в URL
     function urlRusLat(str) {

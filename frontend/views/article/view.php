@@ -7,8 +7,10 @@ use frontend\widgets\article\ArticleLastIssuesWidget;
 use frontend\widgets\article\ArticleSeeAlsoWidget;
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => \Yii::t('app','ARTICLES'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'] = [
+    ['label' => \Yii::t('app','ARTICLES'), 'url' => ['index']],
+    ['label' => $this->title, 'url' => ['article/view', 'id' => $model->id_article]]
+];
 ?>
 
 <div class="container">
@@ -27,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="b-article__header__info">
                         <div class="b-articles__item__tags">
-                            <a href="<?= Url::to(['article/index', 'category' => $model->article_category_id]); ?>"><?= Html::encode($model->articleCategoryName) ?></a>
+                            <a href="<?= Url::to(['article/cat-index', 'category' => $model->article_category_id]); ?>"><?= Html::encode($model->articleCategoryName) ?></a>
                         </div>
                         <div class="b-article__header__info__social">
                             <!--<a href="#"><img src="images/b-article__header__info__social/1.jpg" alt=""></a>-->

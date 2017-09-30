@@ -2,6 +2,7 @@
 
 use frontend\widgets\user\ModalWidget;
 use yii\helpers\Url;
+use frontend\models\UserConstant;
 
 echo ModalWidget::widget([
     'title' => $title,
@@ -9,13 +10,13 @@ echo ModalWidget::widget([
     'formOptions' => ['id' => 'regFormStep3', 'data-url' => Url::toRoute("registration/step3save")],
     'content' => [
 	'name' => [
-	    'label' => \Yii::t('app','COMPANY_NAME').' *:',
+	    'label' => \Yii::t('app','COMPANY_NAME').'* :',
 	    'type' => 'textInput',
 	    'options' => ['class' => 'input-text', 'placeholder' => \Yii::t('app','EXAMPLE_COMPANY_NAME')],
 	],
 	[
 	    'phone' => [
-		'label' => \Yii::t('app','PHONE_NUMBER').':',
+		'label' => \Yii::t('app','PHONE_NUMBER').'* :',
 		'type' => 'textInput',
 		'options' => ['class' => 'input-text input-phone-company', 'placeholder' => \Yii::t('app','EXAMPLE_PHONE')],
 	    ],
@@ -28,7 +29,7 @@ echo ModalWidget::widget([
 	],
 	[
 	    'reg_date' => [
-		'label' => \Yii::t('app','DATE_OF_REGISTRATION_OF_THE_COMPANY').' *:',
+		'label' => \Yii::t('app','DATE_OF_REGISTRATION_OF_THE_COMPANY').'* :',
 		'type' => 'textInput',
 		'options' => ['class' => 'input-text', 'id' => 'regDate', 'placeholder' => \Yii::t('app','EXAMPLE_DATE')],
 	    ],
@@ -37,6 +38,7 @@ echo ModalWidget::widget([
 		'divClass' => 'select-wrapper',
 		'type' => 'dropDownList',
 		'options' => $mCompany->cashList,
+                'posOpt' => ['prompt' => ""]
 	    ]
 	],
 	'director' => [
@@ -52,7 +54,7 @@ echo ModalWidget::widget([
 	'about' => [
 	    'label' => \Yii::t('app','INFORMATION_ABOUT_THE_COMPANY').':',
 	    'type' => 'textarea',
-	    'options' => ['placeholder' => \Yii::t('app','TELL_A_LITTLE_ABOUT_COMPANY')],
+	    'options' => ['placeholder' => \Yii::t('app','TELL_A_LITTLE_ABOUT_COMPANY'), 'maxlength' => UserConstant::LIMIT_INPUT_ABOUT],
 	    'posInfo' => \Yii::t('app','TELL_US_ABOUT_COMPANY_NO_MORE_THAN_500_CHARACTERS')
 	],
 	'user_id' => [
@@ -74,7 +76,10 @@ echo ModalWidget::widget([
 		   $("#regDate").datepicker({
 			altField: "#regDateAlter",
 			altFormat: "yy-mm-dd",
-			dateFormat: "dd-mm-yy"
+			dateFormat: "dd-mm-yy",
+                        changeMonth: true,
+                        changeYear: true,
+                        maxDate: "+0d"
 		   });
 		 } );'
 ]);

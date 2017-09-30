@@ -78,7 +78,7 @@ return [
     'NEW_PASSWORD_WAS_SAVED'=>'New password was saved.',
     'PASSWORD_AND_REPEAT_DO_NOT_MATCH'=>'Password and password repeat do not match',
     'IN_ORDER_TO_USE_ALL_SERVICES_YOU_MUST'=>'In order to use all the services of the site, you must',
-    'REGISTRATION_STEP_1_OF_2'=>'Registration user - Step 1<span> of 2</span>',
+    'REGISTRATION_STEP_1_OF_2'=>'Registration - Step 1<span> of 2</span>',
     'REGISTRATION_STEP_2_OF_2'=>'Registration - Step 2 <span> of 2 </span>',
     'YOUR_SCORE_HAS_BEEN_SAVED'=>'Your score has been saved',
     'GIVE_FEEDBACK'=>'Give feedback',
@@ -167,6 +167,7 @@ return [
     'VIEW_LIST_10'=>'Each 10 items',
     'VIEW_LIST_20'=>'Each 20 items',
     'USER_PROFILE'=>'User profile',
+    'COMPANY_PROFILE' => 'Company profile',
     'TRUSTED_WHOM'=>'Trusted',
     'MARKS_WHOM'=>'Marks',
     'REVIEWS_WHOM'=>'Reviews',
@@ -180,6 +181,7 @@ return [
     'CONFIGURE'=>'Configure',
     'TESTIMONIALS_EDIT'=>'Edit testimonial',
     'TESTIMONIALS'=>'Testimonials',
+    'TRUSTEES' => 'Trustees',
 
     // Models Begin
     'ID'=>'ID',
@@ -194,6 +196,8 @@ return [
     'ROLE_ACCESS_ID'=>'Role Access ID',
     'PAGE'=>'Page',
     'EMAIL'=>'Email',
+    'BODY' => 'Body',
+    'SUBMIT' => 'Submit',
     'PASSWORD_HASH'=>'Password Hash',
     'PASSWORD_SALT'=>'Password Salt',
     'PASSWORD_RESET_CODE'=>'Password Reset Code',
@@ -279,6 +283,8 @@ return [
     'WHO_FROM_TO_FRIEND' => 'Friend',
     'WHO_FROM_TO_FAMILIAR' => 'Familiar',
     'WHO_FROM_TO_SLAVE' => 'Subordinate',
+    'WHO_FROM_TO_UNKNOW' => 'Dont know',
+    'WHO_FROM_TO_ANONIM' => 'Anonymous',
     'USER_FROM' => 'User From',
     'USER_TO' => 'User To',
     'SMILE' =>  'Smile',
@@ -305,10 +311,56 @@ return [
     'DESCRIPTION' => 'Description',
     'NOTIFICATION_TYPE' => 'Тип уведомления',
     'PROFESSION_NO' => 'No profession',
+    'NO_DATA' => 'No data',
+    'ACCEPT_LEGAL' => 'Terms of use',
+    'MARKS' => 'Marks',
 
     // Models End
+    
+    'CREATE_STRUCT' => 'Create structure',
+    'COMPANY_STRUCT' => 'Company structure',
+    'PERS_NO_STRUCT' => 'Employees without a structure',
+    'STRUCT' => 'Structure',
+    'COMPANY_MARKS' => 'Company Ratings',
+    'RATING_PERS' => 'Staff rating',
+    'SPECIALISTS' => 'Specialists',
+    'RATING_COMP' => 'Company rating',
+    'RATING_COMPANY' => 'Company rating',
+    'MY_MARKS' => 'User marks',
+    'TRUSTED_COMPANY' => 'Trusted companies',
+    'MY_TRUSTEES' => 'My trusted',
+    'ALL_TRUSTEES' => 'All trusted',
+    'RATING_FROM_COMPANY' => 'Rating among companies',
+    'RATING_FROM_USERS' => 'Rating among users',
+    'ALL_RATING' => 'Full rating',
+    'AVERAGE_RATING' => 'Average<br> rating',
+    'ALL_MARKS' => 'All ratings',
+    'TESTIMONIALS_COMPANY' => 'Company review',
+    'MAIN_PAGE' => 'Main page',
+    'MARKS_PRE_MESSAGE' => 'In order to save the rating, please login or register',
+    'RATING_USER' => 'Rating user',
+    'CUSTOM_CONFIGURE_THE_DISPLAY_OF_MARKS' => 'Configure marks',
+    'SELECT_UP_TO_TEN_CRITERIA' => 'Select up to ten evaluation criteria',
+    'MAIN_PROFESSION' => 'Main profession',
+    
+    // STATUSES
+    'CONFIRM' => 'Confirm',
+    'REFUSE' => 'Refuse',
+    'REMOVE' => 'Remove',
+    'SELF_ASSESSMENT' => 'Self-assessment',
+    'OTHER_ASSESSMENT' => 'Other',
+    
+    
+    // MENU
+    'INFORMATION' => 'Information',
+    'MY_TESTIMONIAL' => 'My feedback',
+    'PERSONALS' => 'Employees',
 
-
+    
+    // HELP FORM
+    'PROBLEM' => 'Problem',
+    'PROBLEM_TYPE_VAL' => 'Type problem',
+    'QUESTION' => 'Question',
 ];
 
 /*

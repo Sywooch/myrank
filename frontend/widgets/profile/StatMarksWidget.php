@@ -14,34 +14,21 @@ class StatMarksWidget extends MarksWidget {
     
     public $model;
     public $view = "statMarks";
+    public $cols = 2;
+    public $countListView = 8;
 
     public function init() {
-        return parent::init();
+        $this->list = $this->model->getUserMarksTo()->orderBy('id DESC')->all();
     }
 
     public function run() {
+        $title = $this->model->isCompany ? \Yii::t('app', 'COMPANY_MARKS') : \Yii::t('app', 'MY_MARKS');
         return $this->render($this->view, [
-                    'allList' => $this->allList,
+                    'title' => $title,
                     'list' => $this->list,
                     'model' => $this->model,
-                    //'title' => $this->title,
+                    'cols' => $this->cols,
+                    'countListView' => $this->countListView
         ]);
     }
-/*
-    public function getMarks() {
-        $configMarksArr = $this->model->configMarks;
-        $arr = [];
-
-        $model = Marks::find()->all();
-        foreach ($model as $item) {
-            if (isset($configMarksArr[$item->parent_id])) {
-                if ($configMarksArr[$item->parent_id] == Marks::MARKS_ACCESS_FRONT_ALL) {
-                    $arr[$item->parent_id][$item->id] = $item->name;
-                }
-            } else {
-                $arr[$item->parent_id][$item->id] = $item->name;
-            }
-        }
-        return $arr;
-    }*/
 }

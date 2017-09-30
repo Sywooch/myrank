@@ -58,6 +58,7 @@ class m170117_090006_init_tables_user_block extends Migration {
 	    'city_id' => $this->bigInteger(20),
 	    'phone' => $this->string(20)->comment("Сохранение телефонов в формате json"),
 	    'site' => $this->string(255),
+            'legal' => $this->integer(2)->notNull()->defaultValue(0)->comment("Согласие с пользовательским соглашением"),
 	], $tableOptions);
 	
 	$this->createTable("{{access_category_rating}}", [

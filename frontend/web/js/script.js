@@ -137,7 +137,7 @@ $(document).ready(function () {
 
 
 
-    $('.b-marks__item__header').on('click touchstart', function () {
+    $('body').on('click touchstart', '.b-marks__item__header', function () {
 	var that = $(this);
 	var parent = that.parents('.b-marks__item');
 

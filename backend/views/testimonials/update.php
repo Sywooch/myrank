@@ -7,13 +7,10 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
     'modelClass' => 'Testimonials',
-]) . $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Testimonials'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+]); // . $model->title;
 ?>
 <div class="testimonials-update">
-
+    <a onclick="history.back(); return false;" href="#">Вернуться назад</a>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [

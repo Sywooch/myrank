@@ -21,7 +21,7 @@ class UserTrusteesSearch extends UserTrustees
     public function rules()
     {
         return [
-            [['id', 'user_to', 'user_from'], 'integer'],
+            [['id'], 'integer'],
             [['created','fullNameFrom', 'fullNameTo'], 'safe'],
         ];
     }
@@ -54,6 +54,7 @@ class UserTrusteesSearch extends UserTrustees
 
 
         // Настройка параметров сортировки
+        /*
         $dataProvider->setSort([
             'attributes' => [
                 'id',
@@ -102,6 +103,8 @@ class UserTrusteesSearch extends UserTrustees
                 .' OR userTo.last_name LIKE "%' . $this->fullNameTo . '%"'
             );
         }]);
+         * 
+         */
 
         return $dataProvider;
     }

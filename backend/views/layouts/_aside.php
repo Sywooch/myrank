@@ -43,6 +43,23 @@ use yii\helpers\Url;
 			<li><a href="<?= Url::toRoute(['profession/index']) ?>"><i class="fa fa-circle-o"></i> Направления</a></li>
 			<li><a href="<?= Url::toRoute(['testimonials/index']) ?>"><i class="fa fa-circle-o"></i> Отзывы</a></li>
 			<li><a href="<?= Url::toRoute(['user-trustees/index']) ?>"><i class="fa fa-circle-o"></i> Доверенные</a></li>
+			<li><a href="<?= Url::toRoute(['cursewords/index']) ?>"><i class="fa fa-circle-o"></i> Стоп-слова</a></li>
+		    </ul>
+	    </li>
+	    <li class="treeview">
+		    <a href="#">
+		        <i class="fa fa-dashboard"></i> <span>Компании</span>
+		        <span class="pull-right-container">
+			    <i class="fa fa-angle-left pull-right"></i>
+		        </span>
+		    </a>
+		    <ul class="treeview-menu">
+		        <li><a href="<?= Url::toRoute(['company/index']) ?>"><i class="fa fa-circle-o"></i> Управление</a></li>
+			<!-- li><a href="<?= Url::toRoute(['marks/index']) ?>"><i class="fa fa-circle-o"></i> Оценки</a></li>
+			<li><a href="<?= Url::toRoute(['profession/index']) ?>"><i class="fa fa-circle-o"></i> Направления</a></li>
+			<li><a href="<?= Url::toRoute(['testimonials/index']) ?>"><i class="fa fa-circle-o"></i> Отзывы</a></li>
+			<li><a href="<?= Url::toRoute(['user-trustees/index']) ?>"><i class="fa fa-circle-o"></i> Доверенные</a></li>
+			<li><a href="<?= Url::toRoute(['cursewords/index']) ?>"><i class="fa fa-circle-o"></i> Стоп-слова</a></li -->
 		    </ul>
 	    </li>
         <li class="treeview">
@@ -97,7 +114,7 @@ use yii\helpers\Url;
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-building"></i>
-                <span>Журналы</span>
+                <span>Настройки</span>
                 <span class="pull-right-container">
 			<i class="fa fa-angle-left pull-right"></i>
 		    </span>
@@ -105,6 +122,8 @@ use yii\helpers\Url;
             <ul class="treeview-menu">
                 <li><a href="<?= Url::toRoute(['logs/index']) ?>"><i class="fa fa-circle-o"></i> Журналы</a></li>
                 <li><a href="<?= Url::toRoute(['migration/index']) ?>"><i class="fa fa-circle-o"></i> Миграции</a></li>
+                <li><a href="<?= Url::toRoute(['url-rules/index']) ?>"><i class="fa fa-circle-o"></i> SEO Rules</a></li>
+                <li><a href="<?= Url::toRoute(['geo-country/index']) ?>"><i class="fa fa-circle-o"></i> GEO Страны</a></li>
             </ul>
         </li>
 

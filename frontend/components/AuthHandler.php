@@ -8,12 +8,11 @@ use Yii;
 use yii\authclient\ClientInterface;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
+use frontend\models\UserConstant;
+use frontend\models\Company;
+use frontend\models\UserCompany;
 
-//use yii\web\User;
 
-/**
- * AuthHandler handles successful authentication via Yii auth component
- */
 class AuthHandler {
 
     /**
@@ -63,7 +62,7 @@ class AuthHandler {
 		/* @var User $user */
 		$user = $auth->user;
 		$this->updateUserInfo($user);
-		\Yii::$app->rating->process($user);
+		//\Yii::$app->rating->process($user);
 		Yii::$app->user->login($user, Yii::$app->params['user']['rememberMe']);
 	    } else { // signup
 		if ($email !== null && User::find()->where(['email' => $email])->exists()) {
@@ -90,7 +89,20 @@ class AuthHandler {
 		    Yii::$app->session->remove("typeUser");
 		    
 		    if ($user->save()) {
-			\Yii::$app->rating->process($user);
+                        if($user->type == UserConstant::TYPE_USER_COMPANY) {
+                            $mCompany = new Company();
+                            $mCompany->reg_date = date("Y-m-d");
+                            $mCompany->publish = Company::UNPUBLISH;
+                            if($mCompany->save()) {
+                                $mUC = new UserCompany();
+                                $mUC->user_id = $user->id;
+                                $mUC->company_id = $mCompany->id;
+                                $mUC->status = 0;
+                                $mUC->admin = 1;
+                                $mUC->save();
+                            }
+                        }
+                        
 			if (isset($avatar)) {
 			    $imgPath = Yii::getAlias('@frontend/web/files/') . $user->id;
 			    $user->image = $this->saveImageFrom($avatar, $imgPath);

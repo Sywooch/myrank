@@ -51,6 +51,7 @@ echo ModalWidget::widget([
 		'divClass' => 'select-wrapper',
 		'type' => 'dropDownList',
 		'options' => $mCompany->cashList,
+                'posOpt' => ['prompt' => " "]
 	    ]
 	],
 	'professionField' => [
@@ -61,6 +62,13 @@ echo ModalWidget::widget([
 	    'posOpt' => ['multiple' => true],
 	    'posInfo' => \Yii::t('app','LET_PEOPLE_KNOW_WHAT_YOU_ARE_DOING'),
 	],
+        'main_prof' => [
+            'label' => Yii::t('app', 'MAIN_PROFESSION'),
+            'divClass' => 'select-wrapper',
+            'type' => 'dropDownList',
+            'options' => $mainProfList,
+            'posOpt' => ['prompt' => " "]
+        ],
 	'director' => [
 	    'label' => \Yii::t('app','DIRECTOR').':',
 	    'type' => 'textInput',
@@ -81,19 +89,34 @@ echo ModalWidget::widget([
 	    'label' => "",
 	    'type' => "hiddenInput",
 	    'options' => []
-	]
+	],
+        [
+            'hide_testimonials' => [
+		'label' => '',
+		'type' => 'dropDownList',
+		'options' => ['Включить отзывы', 'Отключить отзывы'],
+	    ],
+	    'hide_marks' => [
+		'label' => '',
+		'type' => 'dropDownList',
+                'options' => ['Включить оценки', 'Отключить оценки']
+	    ]
+        ]
     ],
     'success' => 'location.reload(true)',
     'script' => '$( function() {
-		   $("#regDate").after("<input type=\"hidden\" id=\"regDateAlter\" name=\"Company[reg_date]\" />");
-		   $("#regDateAlter").val($("#regDate").val());
-		   $("#regDate").attr("name", "");
-		   $("#regDate").datepicker({
-			altField: "#regDateAlter",
-			altFormat: "yy-mm-dd",
-			dateFormat: "dd-mm-yy"
-		   });
-		 } );
+                    $("#regDate").after("<input type=\"hidden\" id=\"regDateAlter\" name=\"Company[reg_date]\" />");
+                    $("#regDateAlter").val($("#regDate").val());
+                    $("#regDate").attr("name", "");
+                    $("#regDate").datepicker({
+                        altField: "#regDateAlter",
+                        altFormat: "yy-mm-dd",
+                        dateFormat: "dd-mm-yy",
+                        changeMonth: true,
+                        changeYear: true,
+                        maxDate: "+0d"
+                    });
+		});
 		 
 		$("#company-country_id").on("change", function () {
 		    setCityList($(this).val());
@@ -103,6 +126,20 @@ echo ModalWidget::widget([
 		$(".specialization-select select").select2({
 		    placeholder: "'.\Yii::t('app','SPECIALIZATION').'"
 		});
+                
+		$(".specialization-select select").on("select2:select", function (e) {
+                    var data = e.params.data;
+                    $("#company-main_prof").append($("<option></option>").attr("value", data.id).text(data.text));
+                    //console.log(data);
+                });
+                
+		$(".specialization-select select").on("select2:unselect", function (e) {
+                    var data = e.params.data;
+                    $("#company-main_prof").find("[value=\'" + data.id + "\']").remove();
+                    //console.log(data);
+                });
+                
+
 
 		function setCityList (id) {
 		    csrf = $("[name=\"csrf-token\"]").attr("content");

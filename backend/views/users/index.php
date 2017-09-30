@@ -16,17 +16,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    
     <p>
-	<?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
+	<?= Html::a('Сбросить', ['index'], ['class' => 'btn btn-success']) ?>
+	<?php // Html::a(Yii::t('app', 'Clean Marks'), ['cleanmarks'], ['class' => 'btn btn-danger']) ?>
     </p>
     <?php Pjax::begin(); ?>    
     <?=
     GridView::widget([
 	'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
 	'columns' => [
 	    ['class' => 'yii\grid\SerialColumn'],
 	    
 	    [
+                'attribute' => 'username',
                 'label' => 'Имя',
                 'format' => 'raw',
                 'value' => function ($data) {
@@ -40,13 +44,29 @@ $this->params['breadcrumbs'][] = $this->title;
                     );
                 },
             ],
+            'email',
             [
+                'attribute' => 'type',
 		'label' => "Тип",
 		'content' => function ($data) {
 		    return User::$typeUser[$data->type];
-		}
+		},
+                'filter' => User::$typeUser
 	    ],
-                    'company_id',
+            [
+                'label' => 'Social',
+                'content' => function ($data) {
+                    $models = \frontend\models\Auth::find()->where(['user_id' => $data->id])->all();
+                    if(count($models) > 0) {
+                        foreach ($models as $item) {
+                            $out[] = $item->source;
+                        }
+                        return implode(", ", $out);
+                    } else {
+                        return "-";
+                    }
+                }
+            ],
 
 	    ['class' => 'yii\grid\ActionColumn'],
 	],

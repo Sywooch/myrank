@@ -36,7 +36,7 @@ class Profession extends \yii\db\ActiveRecord {
     public function rules() {
 	return [
 	    [['title', 'title_en', 'title_ua'], 'string', 'max' => 255],
-	    [['listProf'], 'safe']
+	    [['listProf', 'hide_main_page', 'user_type'], 'safe']
 	];
     }
 
@@ -50,6 +50,8 @@ class Profession extends \yii\db\ActiveRecord {
 	    'title_ua' => \Yii::t('app', 'PROFESSION_TITLE'). " UA",
 	    'title_en' => \Yii::t('app', 'PROFESSION_TITLE'). " EN",
 	    'listProf' => Yii::t('app', 'LIST'),
+	    'hide_main_page' => "Скрыть на главной странице",
+            'user_type' => 'Тип аккаунта'
 	];
     }
     
@@ -67,6 +69,14 @@ class Profession extends \yii\db\ActiveRecord {
 	    }
 	}
 	return parent::beforeSave($insert);
+    }
+    
+    public function getProfessionMarks () {
+        return $this->hasMany(ProfessionMarks::className(), ['profession_id' => 'id']);
+    }
+    
+    public function getProfessionMarksValue () {
+        return $this->hasMany(Marks::className(), ['id' => 'mark_id'])->via('professionMarks');
     }
 
 }

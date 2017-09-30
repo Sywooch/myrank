@@ -21,7 +21,6 @@ class ProfileStatWidget extends Widget {
 
     public function run() {
         parent::run();
-        
         return $this->render($this->view, ['model' => $this->model]);
     }
 

@@ -17,6 +17,7 @@ use frontend\models\ContactForm;
 use frontend\models\Article;
 use frontend\components\AuthHandler;
 use frontend\models\User;
+
 /**
  * Site controller
  */
@@ -24,61 +25,42 @@ class SiteController extends Controller {
 
     /**
      * @inheritdoc
-     *
-    public function behaviors() {
-	return [
-	    'access' => [
-		'class' => AccessControl::className(),
-		'only' => ['logout', 'signup'],
-		'rules' => [
-		    [
-			'actions' => ['signup'],
-			'allow' => true,
-			'roles' => ['?'],
-		    ],
-		    [
-			'actions' => ['logout'],
-			'allow' => true,
-			'roles' => ['@'],
-		    ],
-		],
-	    ],
-	    'verbs' => [
-		'class' => VerbFilter::className(),
-		'actions' => [
-		//'logout' => ['post'],
-		],
-	    ],
-	];
-    }
-
-    /**
-     * @inheritdoc
      */
     public function actions() {
-	return [
-	    'error' => [
-		'class' => 'yii\web\ErrorAction',
-	    ],
-	    'authuser' => [
-		'class' => 'yii\authclient\AuthAction',
-		'successCallback' => [$this, 'onAuthSuccessUser'],
-	    ],
-	    'authcompany' => [
-		'class' => 'yii\authclient\AuthAction',
-		'successCallback' => [$this, 'onAuthSuccessCompany'],
-	    ],
-	];
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'authuser' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'onAuthSuccessUser'],
+            ],
+            'authcompany' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'onAuthSuccessCompany'],
+            ],
+            'notifseen' => [
+                'class' => 'frontend\actions\NotificationSeenAction',
+                'act' => 'seen',
+                'id' => Yii::$app->request->get('id'),
+                'type' => Yii::$app->request->get('type')
+            ],
+            'notifcheck' => [
+                'class' => 'frontend\actions\NotificationSeenAction',
+                'act' => 'check',
+                'post' => Yii::$app->request->post(),
+            ]
+        ];
     }
 
     public function onAuthSuccessUser($client) {
-	Yii::$app->session->set("typeUser", User::TYPE_USER_USER);
-	(new AuthHandler($client))->handle();
+        Yii::$app->session->set("typeUser", User::TYPE_USER_USER);
+        (new AuthHandler($client))->handle();
     }
-    
-    public function onAuthSuccessCompany ($client) {
-	Yii::$app->session->set("typeUser", User::TYPE_USER_COMPANY);
-	(new AuthHandler($client))->handle();
+
+    public function onAuthSuccessCompany($client) {
+        Yii::$app->session->set("typeUser", User::TYPE_USER_COMPANY);
+        (new AuthHandler($client))->handle();
     }
 
     /**
@@ -87,24 +69,24 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
-	$dataProvider = new ActiveDataProvider([
-	    'query' => Article::find()
-            ->where(['status' => 10,'locale'=>\Yii::$app->language])
-            ->orderBy('create_time DESC')
-            ->limit(4),
-	    'totalCount' => 4,
-	    'pagination' => [
-		'pageSize' => 4,
-	    ]
-	]);
-	return $this->render(
-			'index', [
-		    'listDataProvider' => $dataProvider,
-	]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => Article::find()
+                    ->where(['status' => 10, 'locale' => \Yii::$app->language])
+                    ->orderBy('create_time DESC')
+                    ->limit(4),
+            'totalCount' => 4,
+            'pagination' => [
+                'pageSize' => 4,
+            ]
+        ]);
+        return $this->render(
+                        'index', [
+                    'listDataProvider' => $dataProvider,
+        ]);
     }
 
     public function successCallback($client) {
-	$attributes = $client->getUserAttributes();
+        $attributes = $client->getUserAttributes();
     }
 
     /**
@@ -113,18 +95,18 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionLogin() {
-	$model = new LoginForm();
-	echo \yii\helpers\Json::encode(['code' => 1, 'data' => $this->renderPartial("login", ['model' => $model])]);
-	\Yii::$app->end();
+        $model = new LoginForm();
+        echo \yii\helpers\Json::encode(['code' => 1, 'data' => $this->renderPartial("login", ['model' => $model])]);
+        \Yii::$app->end();
     }
 
     public function actionLoginval() {
-	$model = new LoginForm();
-	if ($model->load(Yii::$app->request->post()) && $model->login()) {
-	    echo \yii\helpers\Json::encode(['code' => 1]);
-	} else {
-	    echo \yii\helpers\Json::encode(['code' => 0, 'errors' => $model->errors]);
-	}
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            echo \yii\helpers\Json::encode(['code' => 1]);
+        } else {
+            echo \yii\helpers\Json::encode(['code' => 0, 'errors' => $model->errors]);
+        }
     }
 
     /**
@@ -133,9 +115,9 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionLogout() {
-	Yii::$app->user->logout();
+        Yii::$app->user->logout();
 
-	return $this->redirect(['site/index']);
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -144,20 +126,20 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionContact() {
-	$model = new ContactForm();
-	if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-	    if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-		Yii::$app->session->setFlash('success', \Yii::t('app','THANK_YOU_FOR_CONTACTING_US'));
-	    } else {
-		Yii::$app->session->setFlash('error', \Yii::t('app','THERE_WAS_ERROR_SENDING_EMAIL'));
-	    }
+        $model = new ContactForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
+                Yii::$app->session->setFlash('success', \Yii::t('app', 'THANK_YOU_FOR_CONTACTING_US'));
+            } else {
+                Yii::$app->session->setFlash('error', \Yii::t('app', 'THERE_WAS_ERROR_SENDING_EMAIL'));
+            }
 
-	    return $this->refresh();
-	} else {
-	    return $this->render('contact', [
-			'model' => $model,
-	    ]);
-	}
+            return $this->refresh();
+        } else {
+            return $this->render('contact', [
+                        'model' => $model,
+            ]);
+        }
     }
 
     /**
@@ -166,7 +148,7 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionAbout() {
-	return $this->render('about');
+        return $this->render('about');
     }
 
     /**
@@ -175,20 +157,19 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionSignup() {
-	$model = new SignupForm();
-	if ($model->load(Yii::$app->request->post())) {
-	    if ($user = $model->signup()) {
-		if (Yii::$app->getUser()->login($user)) {
-		    return $this->goHome();
-		}
-	    }
-	}
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        }
 
-	return $this->render('signup', [
-		    'model' => $model,
-	]);
+        return $this->render('signup', [
+                    'model' => $model,
+        ]);
     }
-    
 
     /**
      * Requests password reset.
@@ -196,25 +177,25 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionRequestpasswordreset() {
-	$model = new PasswordResetRequestForm();
-	$post = Yii::$app->request->post();
-	/* $mUser = User::find()->where(['email' => $post['PasswordResetRequestForm']['email']])->one();
-	if(isset($post['PasswordResetRequestForm'])) {
-	    
-	}*/
-	
-	if ($model->load($post) && $model->validate()) {
-	    if ($model->sendEmail()) {
-		\Yii::$app->notification->set('global', \Yii::t('app','CHECK_YOUR_EMAIL_FOR_FURTHER_INSTRUCTIONS'));
-		return $this->goHome();
-	    } else {
-		\Yii::$app->notification->set('global', \Yii::t('app','SORRY_WE_ARE_UNABLE_TO_RESET_PASSWORD_FOR_EMAIL_PROVIDED'));
-	    }
-	}
+        $model = new PasswordResetRequestForm();
+        $post = Yii::$app->request->post();
+        /* $mUser = User::find()->where(['email' => $post['PasswordResetRequestForm']['email']])->one();
+          if(isset($post['PasswordResetRequestForm'])) {
 
-	echo \yii\helpers\Json::encode(['code' => 1, 'data' => $this->renderPartial('requestPasswordResetToken', [
-		    'model' => $model,
-	])]);
+          } */
+
+        if ($model->load($post) && $model->validate()) {
+            if ($model->sendEmail()) {
+                \Yii::$app->notification->set('global', \Yii::t('app', 'CHECK_YOUR_EMAIL_FOR_FURTHER_INSTRUCTIONS'));
+                return $this->goHome();
+            } else {
+                \Yii::$app->notification->set('global', \Yii::t('app', 'SORRY_WE_ARE_UNABLE_TO_RESET_PASSWORD_FOR_EMAIL_PROVIDED'));
+            }
+        }
+
+        echo \yii\helpers\Json::encode(['code' => 1, 'data' => $this->renderPartial('requestPasswordResetToken', [
+                'model' => $model,
+        ])]);
     }
 
     /**
@@ -225,59 +206,73 @@ class SiteController extends Controller {
      * @throws BadRequestHttpException 
      */
     public function actionResetpassword($token) {
-	try {
-	    $model = new ResetPasswordForm($token);
-	} catch (InvalidParamException $e) {
-	    throw new BadRequestHttpException($e->getMessage());
-	}
+        try {
+            $model = new ResetPasswordForm($token);
+        } catch (InvalidParamException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
 
-	if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-	    \Yii::$app->notification->set('global', \Yii::t('app','NEW_PASSWORD_WAS_SAVED'));
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            \Yii::$app->notification->set('global', \Yii::t('app', 'NEW_PASSWORD_WAS_SAVED'));
 
-	    return $this->goHome();
-	}
+            return $this->goHome();
+        }
 
-	return $this->render('resetPassword', [
-		    'model' => $model,
-	]);
+        return $this->render('resetPassword', [
+                    'model' => $model,
+        ]);
     }
 
     public function actionChange() {
-	$model = \frontend\models\UserMarks::find()->all();
-	foreach ($model as $item) {
-	    $params = \yii\helpers\Json::decode($item->description, true);
-	    foreach ($params[0] as $key => $el) {
-		$mUMR = new \frontend\models\UserMarkRating();
-		$mUMR->attributes = [
-		    'user_from' => $item->user_from,
-		    'user_to' => $item->user_to,
-		    'mark_id' => $key,
-		    'mark_val' => $el
-		];
-		$mUMR->save();
-	    }
-	}
+        $model = \frontend\models\UserMarks::find()->all();
+        foreach ($model as $item) {
+            $params = \yii\helpers\Json::decode($item->description, true);
+            foreach ($params[0] as $key => $el) {
+                $mUMR = new \frontend\models\UserMarkRating();
+                $mUMR->attributes = [
+                    'user_from' => $item->user_from,
+                    'user_to' => $item->user_to,
+                    'mark_id' => $key,
+                    'mark_val' => $el
+                ];
+                $mUMR->save();
+            }
+        }
     }
 
     public function actionSetcountry($id) {
-	$session = Yii::$app->session;
-	$session->set('country', $id);
-	Yii::$app->end();
+        $session = Yii::$app->session;
+        $session->set('country', $id);
+        Yii::$app->end();
     }
-    
-    public function actionChangelang () {
-	$post = \Yii::$app->request->post();
-	\Yii::$app->response->cookies->add(new \yii\web\Cookie([
-		'name' => 'lang',
-		'value' => $post['id'],
-		//'path' => "/",
-		//'domain' => 'myrankf.site4ever.com',
-		'expire' => time() + 365 * 24 * 60 * 60,
-	    ]));
+
+    public function actionChangelang() {
+        $post = \Yii::$app->request->post();
+        \Yii::$app->response->cookies->add(new \yii\web\Cookie([
+            'name' => 'siteLang',
+            'value' => $post['id'],
+            'path' => "/",
+            'domain' => 'myrank.com',
+            'expire' => time() + 365 * 24 * 60 * 60,
+        ]));
     }
 
     public function actionTest() {
-	return $this->render('test');
+        /*
+        $model = User::find()->where(['type' => User::TYPE_USER_USER])->all();
+        foreach ($model as $item) {
+            if ($item->type == User::TYPE_USER_USER) {
+                $mUC = \frontend\models\UserCompany::findOne(['user_id' => $item->id]);
+                if (!isset($mUC->id)) {
+                    $mUC = new \frontend\models\UserCompany();
+                }
+                $mUC->user_id = $item->id;
+                $mUC->company_id = 6;
+                $mUC->company_post = 'default';
+                $mUC->save();
+            }
+        }*/
+        return $this->render('test');
     }
 
 }

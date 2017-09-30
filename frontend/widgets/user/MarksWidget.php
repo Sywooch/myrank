@@ -4,7 +4,8 @@ namespace frontend\widgets\user;
 
 use yii\base\Widget;
 use yii\helpers\Json;
-use frontend\models\Marks;
+use backend\models\Marks;
+use frontend\models\UserMarksCustom;
 
 class MarksWidget extends Widget {
 
@@ -16,7 +17,7 @@ class MarksWidget extends Widget {
 
     public function init() {
         parent::init();
-        
+
         $this->allList = $this->getMarks();
         if ($this->model->owner) {
             $this->title = \Yii::t('app', 'MARK_MINE');
@@ -28,8 +29,8 @@ class MarksWidget extends Widget {
     }
 
     public function run() {
-        return $this->render($this->view, [
-                    'allList' => $this->allList,
+        return $this->render("marks/" . $this->view, [
+                    'allList' => $this->allList['full'],
                     'list' => $this->list,
                     'model' => $this->model,
                     'title' => $this->title,
@@ -37,18 +38,45 @@ class MarksWidget extends Widget {
     }
 
     public function getMarks() {
-        $configMarksArr = $this->model->configMarks;
         $arr = [];
+        if($this->model->isCompany) {
+            $mUser = $this->model->profileProfession;
+            foreach ($mUser as $item) {
+                $arr['full'][0]['p'.$item->id] = $item->title;
+                foreach ($item->professionMarksValue as $item2) {
+                    $arr['full']['p' . $item->id][$item2->id] = $item2->name;
+                }
+            }
+        }
+        
+        $configMarksArr = $this->model->configMarks;
 
-        $model = Marks::find()->all();
-        foreach ($model as $item) {
+        $mMarks = Marks::find()->where(['type' => $this->model->objType, 'prof_only' => 0])->all();
+        $mUMC = UserMarksCustom::find()
+                ->where([
+                    'user_id' => $this->model->objId, 
+                    'user_type' => $this->model->objType
+                ])
+                ->asArray()
+                ->all();
+        foreach ($mMarks as $item) {
             if (isset($configMarksArr[$item->parent_id])) {
                 if ($configMarksArr[$item->parent_id] == Marks::MARKS_ACCESS_FRONT_ALL) {
-                    $arr[$item->parent_id][$item->id] = $item->name;
+                    $arr['full'][$item->parent_id][$item->id] = $item->name;
+                    $arr['short'][$item->parent_id][$item->id] = $item->short_name;
                 }
             } else {
-                $arr[$item->parent_id][$item->id] = $item->name;
+                $arr['full'][$item->parent_id][$item->id] = $item->name;
+                $arr['short'][$item->parent_id][$item->id] = $item->short_name;
             }
+            
+            $names[$item->id] = $item->name;
+            $sNames[$item->id] = $item->short_name;
+        }
+        
+        foreach ($mUMC as $item) {
+            $arr['full'][$item['parent_id']][$item['mark_id']] = $names[$item['mark_id']];
+            $arr['short'][$item['parent_id']][$item['mark_id']] = $sNames[$item['mark_id']];
         }
         return $arr;
     }

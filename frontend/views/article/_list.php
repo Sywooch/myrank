@@ -27,7 +27,7 @@ use yii\helpers\Url;
 
                                                 </div>
                                                 <div class="b-articles__item__tags">
-                                                    <a href="<?= Url::to(['article/index', 'category' => $model->article_category_id]); ?>"><?= $model->articleCategoryName ?></a>
+                                                    <a href="<?= Url::to(['article/cat-index', 'category' => $model->article_category_id]); ?>"><?= $model->articleCategoryName ?></a>
                                                 </div>
                                             </div>
                                         </div>

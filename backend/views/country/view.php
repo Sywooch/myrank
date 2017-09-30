@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'country_id',
-            'city_id',
             'name',
         ],
     ]) ?>

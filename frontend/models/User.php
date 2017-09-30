@@ -5,15 +5,14 @@ namespace frontend\models;
 use Yii;
 use yii\web\IdentityInterface;
 use yii\helpers\Json;
-use frontend\models\UserTrustees;
-use frontend\models\Testimonials;
+
+//use frontend\models\UserTrustees;
+//use frontend\models\Testimonials;
 
 /**
  * This is the model class for table "user".
  *
  * @property integer $id
- * @property integer $contact_id
- * @property integer $company_id
  * @property integer $profileviews
  * @property integer $type
  * @property string $image
@@ -80,7 +79,7 @@ class User extends UserConstant implements IdentityInterface {
     public function rules() {
         return [
             //[['first_name', 'last_name', 'city_id'], 'required'],
-            [['company_id', 'profileviews', 'rating'], 'integer'],
+            [['profileviews', 'rating'], 'integer'],
             [
                 [
                     'last_login',
@@ -94,10 +93,10 @@ class User extends UserConstant implements IdentityInterface {
                     'type',
                     'step',
                     'image',
-                    'company_name',
                     'marks_config',
                     'password',
-                    'rePassword'
+                    'rePassword',
+                    'legal'
                 ], 'safe'],
             [['image'], 'string', 'max' => 255],
             [['first_name', 'last_name', 'about'], 'string', 'max' => 50],
@@ -111,7 +110,6 @@ class User extends UserConstant implements IdentityInterface {
         return [
             'id' => Yii::t('app', 'ID'),
             'contact_id' => Yii::t('app', 'CONTACT_ID'),
-            'company_id' => Yii::t('app', 'COMPANY_ID'),
             'profileviews' => Yii::t('app', 'PROFILE_VIEWS'),
             'profile_company' => Yii::t('app', 'PROFILE_COMPANY'),
             'image' => Yii::t('app', 'IMAGE'),
@@ -138,17 +136,23 @@ class User extends UserConstant implements IdentityInterface {
         return $this->hasOne(City::className(), ['city_id' => 'city_id']);
     }
 
-    public function getProfession() {
-        return $this->hasMany(UserProfession::className(), ['user_id' => 'id']);
-    }
-
-    public function getUserProfession() {
-        return $this->hasMany(Profession::className(), ['id' => 'profession_id'])->via("profession");
-    }
-
     public function getCompany() {
-        return $this->hasOne(Company::className(), ['id' => 'company_id']);
+        return $this->hasOne(Company::className(), ['id' => 'company_id'])->via("userCompanies");
     }
+
+    public function getUserCompanies() {
+        return $this->hasMany(UserCompany::className(), ['user_id' => 'id']);
+    }
+
+    public function getUserCompany() {
+        return $this->hasOne(UserCompany::className(), ['user_id' => 'id']);
+    }
+
+    /*
+      public function getProfileProfession() {
+      return $this->getUserProfession();
+      }
+     */
 
     public function getFullName() {
         if ($this->isCompany && isset($this->company->name)) {
@@ -199,10 +203,6 @@ class User extends UserConstant implements IdentityInterface {
         return $arr;
     }
 
-    public function getTestimonial() {
-        return $this->getTestimonialsTo()->andWhere(['user_from' => \Yii::$app->user->id]);
-    }
-
     public function saveProfession() {
         if (isset($this->professionField) && (count($this->professionField) > 0)) {
             UserProfession::deleteAll(['user_id' => $this->id]);
@@ -229,17 +229,6 @@ class User extends UserConstant implements IdentityInterface {
         return $this->type == self::TYPE_USER_ADMIN;
     }
 
-    /*
-      public function getQueryRangeDate ($query) {
-      return $query->andWhere([
-      'between',
-      'created',
-      new \yii\db\Expression('(NOW() - INTERVAL 1 DAY)'),
-      new \yii\db\Expression('NOW()')
-      ])->count();
-      }
-     */
-
     public function beforeSave($insert) {
         isset($this->id) ? $this->saveProfession() : NULL;
         if (isset($this->password) && ($this->password != "")) {
@@ -247,6 +236,36 @@ class User extends UserConstant implements IdentityInterface {
             $this->generateAuthKey();
         }
         return parent::beforeSave($insert);
+    }
+
+    public function beforeDelete() {
+        Images::deleteAll(['type' => $this->objType, 'type_id' => $this->objId]);
+
+        $condFrom = ['type_from' => $this->objType, 'from_id' => $this->objId];
+        $condTo = ['type_to' => $this->objType, 'to_id' => $this->objId];
+        
+        Auth::deleteAll(['user_id' => $this->id]);
+
+        Testimonials::deleteAll($condFrom);
+        Testimonials::deleteAll($condTo);
+
+        UserMarks::deleteAll($condFrom);
+        UserMarks::deleteAll($condTo);
+
+        UserMarkRating::deleteAll($condFrom);
+        UserMarkRating::deleteAll($condTo);
+
+        UserNotification::deleteAll(['user_id' => $this->objId, 'user_type' => $this->objType]);
+
+        UserProfession::deleteAll(['user_id' => $this->id]);
+        $this->isCompany ? CompanyProfession::deleteAll(['company_id' => $this->objId]) : NULL;
+
+        UserTrustees::deleteAll($condFrom);
+        UserTrustees::deleteAll($condTo);
+
+        UserCompany::deleteAll(['user_id' => $this->id]);
+
+        return parent::beforeDelete();
     }
 
     /**
