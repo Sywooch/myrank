@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+
 use Yii;
 use frontend\models\Article;
 use frontend\models\ArticleCategory;
@@ -11,11 +12,27 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 
+
 class ArticleController extends Controller
 {
-    /*public function behaviors()
+
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -23,24 +40,27 @@ class ArticleController extends Controller
                 ],
             ],
         ];
-    }*/
+    }
+
 
     public function actionIndex()
     {
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
         ]);
     }
+
 
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                'model' => $this->findModel($id),
         ]);
     }
+
 
     public function actionCreate()
     {
@@ -50,10 +70,11 @@ class ArticleController extends Controller
             return $this->redirect(['view', 'id' => $model->id_article]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                    'model' => $model,
             ]);
         }
     }
+
 
     public function actionUpdate($id)
     {
@@ -63,10 +84,11 @@ class ArticleController extends Controller
             return $this->redirect(['view', 'id' => $model->id_article]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                    'model' => $model,
             ]);
         }
     }
+
 
     public function actionDelete($id)
     {
@@ -75,14 +97,16 @@ class ArticleController extends Controller
         return $this->redirect(['index']);
     }
 
+
     protected function findModel($id)
     {
         if (($model = Article::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(((string) \Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND') ));
+            throw new NotFoundHttpException(((string) \Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND')));
         }
     }
+
 
     public function actionGetsubcategories($locale)
     {

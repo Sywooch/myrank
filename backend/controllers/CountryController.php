@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+
 use Yii;
 use frontend\models\Country;
 use backend\models\CountrySearch;
@@ -10,40 +11,76 @@ use yii\web\NotFoundHttpException;
 use frontend\models\GeoCountry;
 use yii\filters\VerbFilter;
 
+
 /**
  * CountryController implements the CRUD actions for Country model.
  */
-class CountryController extends Controller {
+class CountryController extends Controller
+{
 
-    public function actionIndex() {
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
+
+
+    public function actionIndex()
+    {
         $searchModel = new CountrySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
         ]);
     }
 
-    public function actionView($id) {
+
+    public function actionView($id)
+    {
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+                'model' => $this->findModel($id),
         ]);
     }
 
-    public function actionCreate() {
+
+    public function actionCreate()
+    {
         $model = new Country();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
-                        'model' => $model,
+                    'model' => $model,
             ]);
         }
     }
 
-    public function actionUpdate($id) {
+
+    public function actionUpdate($id)
+    {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -51,7 +88,7 @@ class CountryController extends Controller {
             return $this->redirect(['index']);
         } else {
             $mGeoC = GeoCountry::findOne(['country_id' => $id]);
-            if(isset($mGeoC->id)) {
+            if (isset($mGeoC->id)) {
                 $model->countryCode = $mGeoC->code;
             }
             $geoC = [];
@@ -64,24 +101,27 @@ class CountryController extends Controller {
             }
 
             return $this->render('update', [
-                        'model' => $model,
-                        'geoC' => $geoC,
+                    'model' => $model,
+                    'geoC' => $geoC,
             ]);
         }
     }
 
-    public function actionDelete($id) {
+
+    public function actionDelete($id)
+    {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
-    protected function findModel($id) {
+
+    protected function findModel($id)
+    {
         if (($model = Country::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException(((string) \Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND')));
         }
     }
-
 }

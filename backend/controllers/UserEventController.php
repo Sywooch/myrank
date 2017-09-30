@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+
 use Yii;
 use frontend\models\UserEvent;
 use backend\models\UserEventSearch;
@@ -9,17 +10,30 @@ use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+
 /**
  * UserEvent1Controller implements the CRUD actions for UserEvent1 model.
  */
 class UserEventController extends Controller
 {
+
+
     /**
      * @inheritdoc
      */
-    /*public function behaviors()
+    public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -27,7 +41,7 @@ class UserEventController extends Controller
                 ],
             ],
         ];
-    }*/
+    }
 
 
     public function actionIndex()
@@ -36,17 +50,19 @@ class UserEventController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
         ]);
     }
+
 
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                'model' => $this->findModel($id),
         ]);
     }
+
 
     public function actionCreate()
     {
@@ -56,10 +72,11 @@ class UserEventController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                    'model' => $model,
             ]);
         }
     }
+
 
     public function actionUpdate($id)
     {
@@ -69,10 +86,11 @@ class UserEventController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                    'model' => $model,
             ]);
         }
     }
+
 
     public function actionDelete($id)
     {
@@ -81,12 +99,13 @@ class UserEventController extends Controller
         return $this->redirect(['index']);
     }
 
+
     protected function findModel($id)
     {
         if (($model = UserEvent::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(((string) \Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND') ));
+            throw new NotFoundHttpException(((string) \Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND')));
         }
     }
 }

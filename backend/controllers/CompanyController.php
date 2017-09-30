@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+
 use Yii;
 use backend\models\Company;
 use yii\data\ActiveDataProvider;
@@ -9,17 +10,30 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+
 /**
  * CompanyController implements the CRUD actions for Company model.
  */
 class CompanyController extends Controller
 {
+
+
     /**
      * @inheritdoc
      */
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -28,6 +42,7 @@ class CompanyController extends Controller
             ],
         ];
     }
+
 
     /**
      * Lists all Company models.
@@ -40,9 +55,10 @@ class CompanyController extends Controller
         ]);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+                'dataProvider' => $dataProvider,
         ]);
     }
+
 
     /**
      * Displays a single Company model.
@@ -52,9 +68,10 @@ class CompanyController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                'model' => $this->findModel($id),
         ]);
     }
+
 
     /**
      * Creates a new Company model.
@@ -69,10 +86,11 @@ class CompanyController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                    'model' => $model,
             ]);
         }
     }
+
 
     /**
      * Updates an existing Company model.
@@ -88,10 +106,11 @@ class CompanyController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                    'model' => $model,
             ]);
         }
     }
+
 
     /**
      * Deletes an existing Company model.
@@ -105,6 +124,7 @@ class CompanyController extends Controller
 
         return $this->redirect(['index']);
     }
+
 
     /**
      * Finds the Company model based on its primary key value.

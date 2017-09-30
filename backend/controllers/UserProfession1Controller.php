@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+
 use Yii;
 use frontend\models\UserProfession1;
 use backend\models\UserProfession1Search;
@@ -9,17 +10,30 @@ use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+
 /**
  * UserProfession1Controller implements the CRUD actions for UserProfession1 model.
  */
 class UserProfession1Controller extends Controller
 {
+
+
     /**
      * @inheritdoc
      */
-    /*public function behaviors()
+    public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -27,7 +41,8 @@ class UserProfession1Controller extends Controller
                 ],
             ],
         ];
-    }*/
+    }
+
 
     public function actionIndex()
     {
@@ -35,17 +50,19 @@ class UserProfession1Controller extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
         ]);
     }
+
 
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                'model' => $this->findModel($id),
         ]);
     }
+
 
     public function actionCreate()
     {
@@ -55,10 +72,11 @@ class UserProfession1Controller extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                    'model' => $model,
             ]);
         }
     }
+
 
     public function actionUpdate($id)
     {
@@ -68,10 +86,11 @@ class UserProfession1Controller extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                    'model' => $model,
             ]);
         }
     }
+
 
     public function actionDelete($id)
     {
@@ -80,12 +99,13 @@ class UserProfession1Controller extends Controller
         return $this->redirect(['index']);
     }
 
+
     protected function findModel($id)
     {
         if (($model = UserProfession1::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(((string) \Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND') ));
+            throw new NotFoundHttpException(((string) \Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND')));
         }
     }
 }

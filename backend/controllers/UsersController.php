@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+
 use Yii;
 use backend\models\User;
 use yii\data\ActiveDataProvider;
@@ -9,54 +10,89 @@ use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use backend\models\UserSearch;
 
+
 /**
  * UserController implements the CRUD actions for User model.
  */
-class UsersController extends Controller {
+class UsersController extends Controller
+{
+
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'update', 'delete', 'create', 'cleanmarks'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
+
 
     /**
      * Lists all User models.
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         /*
-	$dataProvider = new ActiveDataProvider([
-	    'query' => User::find()->orderBy('type DESC, id ASC'),
-	]);*/
+          $dataProvider = new ActiveDataProvider([
+          'query' => User::find()->orderBy('type DESC, id ASC'),
+          ]); */
 
-	return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-	]);
+        return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+        ]);
     }
+
 
     /**
      * Displays a single User model.
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id) {
-	return $this->render('view', ['model' => $this->findModel($id)]);
+    public function actionView($id)
+    {
+        return $this->render('view', ['model' => $this->findModel($id)]);
     }
+
 
     /**
      * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate() {
-	$model = new User();
+    public function actionCreate()
+    {
+        $model = new User();
 
-	if ($model->load(Yii::$app->request->post()) && $model->save()) {
-	    return $this->redirect(['view', 'id' => $model->id]);
-	} else {
-	    return $this->render('create', [
-			'model' => $model,
-	    ]);
-	}
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                    'model' => $model,
+            ]);
+        }
     }
+
 
     /**
      * Updates an existing User model.
@@ -64,19 +100,21 @@ class UsersController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id) {
-	$model = $this->findModel($id);
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
 
-	if ($model->load(Yii::$app->request->post()) && ($model->password === $model->rePassword)) {
-	    if ($model->save()) {
-		return $this->redirect(['view', 'id' => $model->id]);
-	    }
-	}
+        if ($model->load(Yii::$app->request->post()) && ($model->password === $model->rePassword)) {
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
 
-	return $this->render('update', [
-		    'model' => $model,
-	]);
+        return $this->render('update', [
+                'model' => $model,
+        ]);
     }
+
 
     /**
      * Deletes an existing User model.
@@ -84,11 +122,13 @@ class UsersController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id) {
-	$this->findModel($id)->delete();
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
 
-	return $this->redirect(['index']);
+        return $this->redirect(['index']);
     }
+
 
     /**
      * Finds the User model based on its primary key value.
@@ -97,15 +137,18 @@ class UsersController extends Controller {
      * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id) {
-	if (($model = User::findOne($id)) !== null) {
-	    return $model;
-	} else {
-	    throw new NotFoundHttpException(((string) \Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND')));
-	}
+    protected function findModel($id)
+    {
+        if (($model = User::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException(((string) \Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND')));
+        }
     }
-    
-    public function actionCleanmarks () {
+
+
+    public function actionCleanmarks()
+    {
         $mUser = User::find()->all();
         foreach ($mUser as $item) {
             $item->mark = "";
@@ -113,5 +156,4 @@ class UsersController extends Controller {
             //$item->save();
         }
     }
-
 }

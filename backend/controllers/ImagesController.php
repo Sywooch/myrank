@@ -2,22 +2,38 @@
 
 namespace backend\controllers;
 
-use Yii;
 
+use Yii;
 use frontend\models\Images;
 use backend\models\ImagesSearch;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+
 /**
  * Images1Controller implements the CRUD actions for Images1 model.
  */
 class ImagesController extends Controller
 {
-    /*public function behaviors()
+
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -25,7 +41,8 @@ class ImagesController extends Controller
                 ],
             ],
         ];
-    }*/
+    }
+
 
     public function actionIndex()
     {
@@ -33,17 +50,19 @@ class ImagesController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
         ]);
     }
+
 
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                'model' => $this->findModel($id),
         ]);
     }
+
 
     public function actionCreate()
     {
@@ -53,10 +72,11 @@ class ImagesController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                    'model' => $model,
             ]);
         }
     }
+
 
     public function actionUpdate($id)
     {
@@ -66,10 +86,11 @@ class ImagesController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                    'model' => $model,
             ]);
         }
     }
+
 
     public function actionDelete($id)
     {
@@ -78,12 +99,13 @@ class ImagesController extends Controller
         return $this->redirect(['index']);
     }
 
+
     protected function findModel($id)
     {
         if (($model = Images::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(((string) \Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND') ));
+            throw new NotFoundHttpException(((string) \Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND')));
         }
     }
 }
