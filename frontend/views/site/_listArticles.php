@@ -27,6 +27,11 @@ if ($index == 0) {
                                 <div class="b-articles__item__tags">
                                     <a href="<?= Url::toRoute(['article/index', 'category' => $model->article_category_id]) ?>"><?= $model->articleCategoryName ?></a>
                                 </div>
+                                <?php if ($model->header_title) : ?>
+                                    <div class="b-article__header__title">
+                                        <span><?= Html::encode($model->header_title) ?></span>
+                                    </div>
+                                <?php endif; ?>                                
                             </div>
                         </div>
                     </div>
@@ -52,6 +57,11 @@ if ($index == 0) {
                                 <div class="b-articles__item__tags">
                                     <a href="<?= Url::toRoute(['article/index', 'category' => $model->article_category_id]) ?>"><?= $model->articleCategory->name ?></a>
                                 </div>
+                                <?php if ($model->header_title) : ?>
+                                    <div class="b-article__header__title">
+                                        <span><?= Html::encode($model->header_title) ?></span>
+                                    </div>
+                                <?php endif; ?>                                
                             </div>
                         </div>
                         <?php
