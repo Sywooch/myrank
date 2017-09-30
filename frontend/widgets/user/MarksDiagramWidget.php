@@ -31,7 +31,7 @@ class MarksDiagramWidget extends MarksWidget
         $markUsers = $this->model->getUserMarksTo()->select('description')->asArray()->all();
         foreach ($markUsers as $item) {
             $arr = Json::decode($item['description'], true);
-            
+
             if (isset($arr[0])) {
                 foreach ($arr[0] as $key => $el) {
                     if (isset($out[$key])) {
