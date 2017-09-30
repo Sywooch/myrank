@@ -9,6 +9,7 @@ use backend\models\StaticPagesSearch;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use yii\helpers\Url;
 use vova07\imperavi\Widget;
 use vova07\imperavi\actions\GetAction as GetAction;

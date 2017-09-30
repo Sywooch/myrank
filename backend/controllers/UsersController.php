@@ -9,6 +9,8 @@ use yii\data\ActiveDataProvider;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use backend\models\UserSearch;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 
 /**

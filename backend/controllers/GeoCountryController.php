@@ -8,6 +8,7 @@ use frontend\models\GeoCountry;
 use yii\data\ActiveDataProvider;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 
 
 /**

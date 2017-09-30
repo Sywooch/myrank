@@ -9,6 +9,7 @@ use backend\models\UserProfession1Search;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 
 /**

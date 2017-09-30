@@ -11,6 +11,7 @@ use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\filters\AccessControl;
 
 
 class ArticleController extends Controller

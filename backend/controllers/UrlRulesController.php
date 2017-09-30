@@ -11,6 +11,8 @@ namespace backend\controllers;
 use Yii;
 use frontend\models\UrlRules;
 use yii\data\ActiveDataProvider;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 
 class UrlRulesController extends \backend\components\Controller

@@ -9,6 +9,8 @@ use backend\models\CitySearch;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\filters\AccessControl;
 
 
 /**

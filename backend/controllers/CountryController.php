@@ -10,6 +10,7 @@ use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use frontend\models\GeoCountry;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 
 /**

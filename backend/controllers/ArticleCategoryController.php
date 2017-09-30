@@ -9,6 +9,7 @@ use backend\models\ArticleCategorySearch;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 
 class ArticleCategoryController extends Controller
