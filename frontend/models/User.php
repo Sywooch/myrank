@@ -2,12 +2,14 @@
 
 namespace frontend\models;
 
+
 use Yii;
 use yii\web\IdentityInterface;
 use yii\helpers\Json;
 
 //use frontend\models\UserTrustees;
 //use frontend\models\Testimonials;
+
 
 /**
  * This is the model class for table "user".
@@ -29,17 +31,28 @@ use yii\helpers\Json;
  * @property string $way
  * @property string $mark
  */
-class User extends UserConstant implements IdentityInterface {
+class User extends UserConstant implements IdentityInterface
+{
+
 
     const LIMIT_VIEW = 10;
+
     const ROLE_ACCESS_TYPE_STANDART = 0;
+
     const ROLE_ACCESS_TYPE_ADVANCED = 1;
+
     const ROLE_ACCESS_TYPE_PREMIUM = 2;
+
     const GENDER_DEFAULT = 0;
+
     const GENDER_MALE = 1;
+
     const GENDER_FEMALE = 2;
+
     const STEP_NEXT_NONE = 0;
+
     const STEP_NEXT_USER = 2;
+
     const STEP_NEXT_COMPANY = 3;
 
     public static $roleAccess = [
@@ -47,36 +60,50 @@ class User extends UserConstant implements IdentityInterface {
         self::ROLE_ACCESS_TYPE_ADVANCED => "advanced",
         self::ROLE_ACCESS_TYPE_PREMIUM => "premium",
     ];
+
     static public $typeUser = [
         self::TYPE_USER_USER => "Пользователь",
         self::TYPE_USER_COMPANY => "Компания",
         self::TYPE_USER_ADMIN => "Администратор",
     ];
+
     public $genderUser = [
         self::GENDER_DEFAULT => "Не выбрано",
         self::GENDER_MALE => "Мужской",
         self::GENDER_FEMALE => "Женский"
     ];
+
     private $_user;
+
     public $country_id;
+
     public $professionField;
+
     public $password;
+
     public $rePassword;
+
     public $github;
+
     public $username;
+
     public $defMarks = [];
+
 
     /**
      * @inheritdoc
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return '{{user}}';
     }
 
+
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             //[['first_name', 'last_name', 'city_id'], 'required'],
             [['profileviews', 'rating'], 'integer'],
@@ -103,10 +130,12 @@ class User extends UserConstant implements IdentityInterface {
         ];
     }
 
+
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => Yii::t('app', 'ID'),
             'contact_id' => Yii::t('app', 'CONTACT_ID'),
@@ -131,37 +160,48 @@ class User extends UserConstant implements IdentityInterface {
         ];
     }
 
+
     // Связи
-    public function getCity() {
+    public function getCity()
+    {
         return $this->hasOne(City::className(), ['city_id' => 'city_id']);
     }
 
-    public function getCompany() {
-        return $this->hasOne(Company::className(), ['id' => 'company_id'])->via("userCompanies");
+
+    public function getCompany()
+    {
+        return $this->hasOne(Company::className(), ['id' => 'company_id'])->viaTable(UserCompany::tableName(), ['user_id' => 'id']);
     }
 
-    public function getUserCompanies() {
+
+    public function getUserCompanies()
+    {
         return $this->hasMany(UserCompany::className(), ['user_id' => 'id']);
     }
 
-    public function getUserCompany() {
+
+    public function getUserCompany()
+    {
         return $this->hasOne(UserCompany::className(), ['user_id' => 'id']);
     }
-
     /*
       public function getProfileProfession() {
       return $this->getUserProfession();
       }
      */
 
-    public function getFullName() {
+
+    public function getFullName()
+    {
         if ($this->isCompany && isset($this->company->name)) {
             return $this->company->name;
         }
         return $this->first_name . " " . $this->last_name;
     }
 
-    public function getCityList($id = 3159) {
+
+    public function getCityList($id = 3159)
+    {
         $city = City::find()->where(['country_id' => $id])->orderBy("name")->all();
         foreach ($city as $item) {
             $arr[$item->city_id] = $item->name;
@@ -169,11 +209,15 @@ class User extends UserConstant implements IdentityInterface {
         return $arr;
     }
 
-    public function getCityName() {
+
+    public function getCityName()
+    {
         return ($this->city_id == 0) ? FALSE : $this->getCity()->one()->name;
     }
 
-    public function getCountries() {
+
+    public function getCountries()
+    {
         $model = Country::find()->select(['country_id', 'name'])->orderBy("name ASC")->all();
         foreach ($model as $item) {
             $out[$item->country_id] = $item->name;
@@ -181,20 +225,28 @@ class User extends UserConstant implements IdentityInterface {
         return $out;
     }
 
-    public function getCountryCity() {
+
+    public function getCountryCity()
+    {
         return $this->city->country_id;
     }
 
-    public function getCountryName() {
+
+    public function getCountryName()
+    {
         return ($this->city_id == 0) ? FALSE : $this->getCity()->one()->countryName;
     }
 
-    public function getPosition() {
+
+    public function getPosition()
+    {
         return $this->getCityName() && $this->getCountryName() ? $this->getCityName() . ", " . $this->getCountryName() : ((string) \Yii::t('app', 'NOT_LISTED') );
     }
 
+
     // Marks End
-    public function getProfList() {
+    public function getProfList()
+    {
         $model = Profession::find()->orderBy("title")->all();
         $arr[""] = 'Все';
         foreach ($model as $item) {
@@ -203,7 +255,9 @@ class User extends UserConstant implements IdentityInterface {
         return $arr;
     }
 
-    public function saveProfession() {
+
+    public function saveProfession()
+    {
         if (isset($this->professionField) && (count($this->professionField) > 0)) {
             UserProfession::deleteAll(['user_id' => $this->id]);
             foreach ($this->professionField as $item) {
@@ -217,19 +271,27 @@ class User extends UserConstant implements IdentityInterface {
         }
     }
 
-    public function getIsCompany() {
+
+    public function getIsCompany()
+    {
         return $this->type == self::TYPE_USER_COMPANY;
     }
 
-    public function getIsClient() {
+
+    public function getIsClient()
+    {
         return $this->type == self::TYPE_USER_USER;
     }
 
-    public function getIsAdmin() {
+
+    public function getIsAdmin()
+    {
         return $this->type == self::TYPE_USER_ADMIN;
     }
 
-    public function beforeSave($insert) {
+
+    public function beforeSave($insert)
+    {
         isset($this->id) ? $this->saveProfession() : NULL;
         if (isset($this->password) && ($this->password != "")) {
             $this->setPassword($this->password);
@@ -238,12 +300,14 @@ class User extends UserConstant implements IdentityInterface {
         return parent::beforeSave($insert);
     }
 
-    public function beforeDelete() {
+
+    public function beforeDelete()
+    {
         Images::deleteAll(['type' => $this->objType, 'type_id' => $this->objId]);
 
         $condFrom = ['type_from' => $this->objType, 'from_id' => $this->objId];
         $condTo = ['type_to' => $this->objType, 'to_id' => $this->objId];
-        
+
         Auth::deleteAll(['user_id' => $this->id]);
 
         Testimonials::deleteAll($condFrom);
@@ -268,19 +332,24 @@ class User extends UserConstant implements IdentityInterface {
         return parent::beforeDelete();
     }
 
-    /**
-     * @inheritdoc
-     */
-    public static function findIdentity($id) {
-        return static::findOne(['id' => $id]);
-    }
 
     /**
      * @inheritdoc
      */
-    public static function findIdentityByAccessToken($token, $type = null) {
+    public static function findIdentity($id)
+    {
+        return static::findOne(['id' => $id]);
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
         throw new NotSupportedException('"findIdentityByAccessToken"' . ((string) \Yii::t('app', 'IS_NOT_IMPLEMENTED') ));
     }
+
 
     /**
      * Finds user by username
@@ -288,17 +357,23 @@ class User extends UserConstant implements IdentityInterface {
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username) {
+    public static function findByUsername($username)
+    {
         return static::findOne(['username' => $username]);
     }
 
-    public static function findByEmail($email) {
+
+    public static function findByEmail($email)
+    {
         return static::findOne(['email' => $email]);
     }
 
-    public static function getProfile() {
+
+    public static function getProfile()
+    {
         return static::findOne(\Yii::$app->user->id);
     }
+
 
     /**
      * Finds user by password reset token
@@ -306,7 +381,8 @@ class User extends UserConstant implements IdentityInterface {
      * @param string $token password reset token
      * @return static|null
      */
-    public static function findByPasswordResetToken($token) {
+    public static function findByPasswordResetToken($token)
+    {
         if (!static::isPasswordResetTokenValid($token)) {
             return null;
         }
@@ -314,13 +390,15 @@ class User extends UserConstant implements IdentityInterface {
         return static::findOne(['password_reset_token' => $token]);
     }
 
+
     /**
      * Finds out if password reset token is valid
      *
      * @param string $token password reset token
      * @return bool
      */
-    public static function isPasswordResetTokenValid($token) {
+    public static function isPasswordResetTokenValid($token)
+    {
         if (empty($token)) {
             return false;
         }
@@ -330,26 +408,33 @@ class User extends UserConstant implements IdentityInterface {
         return $timestamp + $expire >= time();
     }
 
+
     /**
      * @inheritdoc
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->getPrimaryKey();
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getAuthKey() {
-        return $this->auth_key;
-    }
 
     /**
      * @inheritdoc
      */
-    public function validateAuthKey($authKey) {
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    public function validateAuthKey($authKey)
+    {
         return $this->getAuthKey() === $authKey;
     }
+
 
     /**
      * Validates password
@@ -357,41 +442,49 @@ class User extends UserConstant implements IdentityInterface {
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      */
-    public function validatePassword($password) {
+    public function validatePassword($password)
+    {
         //Logs::saveLog(var_export([$this->password_hash, $password], true));
         //return $this->password_hash === sha1($password);
         return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
+
 
     /**
      * Generates password hash from password and sets it to the model
      *
      * @param string $password
      */
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         Logs::saveLog(var_export([sha1($password), $password], true));
         $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
 
+
     /**
      * Generates "remember me" authentication key
      */
-    public function generateAuthKey() {
+    public function generateAuthKey()
+    {
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
+
 
     /**
      * Generates new password reset token
      */
-    public function generatePasswordResetToken() {
+    public function generatePasswordResetToken()
+    {
         $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
+
 
     /**
      * Removes password reset token
      */
-    public function removePasswordResetToken() {
+    public function removePasswordResetToken()
+    {
         $this->password_reset_token = null;
     }
-
 }

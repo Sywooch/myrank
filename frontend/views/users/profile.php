@@ -75,13 +75,19 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => [$bUrl, 'id'
                                     <?= $model->position ?>
                                 </div>
                             </div>
-                            <?php if (isset($model->company_name) && ($model->company_name != "")) { ?>
+                            <?php if (isset($model->company_name) && ($model->company_name != "")) : ?>
                                 <div class="b-user__data__content__item">
                                     <div class="b-user__data__content__item__work">
                                         <?= $model->company_name ?>
                                     </div>
                                 </div>
-                            <?php } ?>
+                            <?php elseif (!$model->isCompany && ($model instanceof frontend\models\User) && $model->company) : ?>
+                                <div class="b-user__data__content__item">
+                                    <div class="b-user__data__content__item__work">
+                                        <?= Html::a($model->company->name, $model->company->profileLink); ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="b-tags">
                             <?php foreach ($model->profileProfession as $item) { ?>
