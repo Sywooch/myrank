@@ -527,6 +527,11 @@ class UsersController extends Controller {
 
     public function actionAlltestimonials($id) {
         $mObj = User::findOne($id);
+        
+        if (!$mObj) {
+            throw new NotFoundHttpException();
+        }
+        
         return $this->render("/profile/alltestimonials", ['model' => $mObj]);
     }
 
