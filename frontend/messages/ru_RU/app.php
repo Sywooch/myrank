@@ -327,7 +327,7 @@ return [
     'SPECIALISTS' => 'Специалисты',
     'RATING_COMP' => 'Рейтинг компании',
     'RATING_COMPANY' => 'Рейтинг компании',
-    'MY_MARKS' => 'Оценки пользователя',
+    'MY_MARKS' => 'Мои оценки',
     'TRUSTED_COMPANY' => 'Доверенные компании',
     'MY_TRUSTEES' => 'Мои доверенные',
     'ALL_TRUSTEES' => 'Все доверенные',

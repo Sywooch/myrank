@@ -38,10 +38,12 @@ class RatingAmongCompaniesWidget extends Widget {
     private function randomList () {
         $count = Company::find()->count();
         $q = "";
-        $mProfession = Profession::find()->where(['id' => $this->model->main_prof])->one();
-        if($this->model->isCompany && isset($mProfession->id)) {
-            $q = "WHERE main_prof = " . $this->model->main_prof;
-            $this->profName = isset($mProfession->title) ? $mProfession->title : "";
+        if($this->model->isCompany) {
+            $mProfession = Profession::find()->where(['id' => $this->model->main_prof])->one();
+            if(isset($mProfession->id)) {
+                $q = "WHERE main_prof = " . $this->model->main_prof;
+                $this->profName = isset($mProfession->title) ? $mProfession->title : "";
+            }
         }
         
         $arr = [];
