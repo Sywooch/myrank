@@ -534,6 +534,19 @@ class UsersController extends Controller {
         $mObj = User::findOne($id);
         return $this->render("/profile/allmarks", ['model' => $mObj]);
     }
+    
+    public function actionAddNotifTrust ($id) {
+        $mTrust = UserTrustees::findOne($id);
+        $mTrust->status = UserTrustees::STATUS_CONFIRM;
+        
+        return Json::encode(['code' => $mTrust->save() ? 1 : 0]);
+    }
+    
+    public function actionRemoveNotifTrust ($id) {
+        $mTrust = UserTrustees::findOne($id);
+        
+        return Json::encode(['code' => $mTrust->delete() ? 1 : 0]);
+    }
 
     public function actionAlltestimonials($id) {
         $mObj = User::findOne($id);

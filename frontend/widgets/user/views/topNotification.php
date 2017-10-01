@@ -69,6 +69,9 @@ $count = $trustClone
 $url = Url::toRoute(['site/notifseen']);
 $urlCheck = Url::toRoute(['site/notifcheck']);
 
+$urlAddTrustUser = Url::toRoute(['users/add-notif-trust']);
+$urlRemoveTrustUser = Url::toRoute(['users/remove-notif-trust']);
+
 $objUrl = $mObj->isCompany ? 'company' : 'users';
 $notifTrustees = Url::toRoute(["$objUrl/alltrustees", 'id' => $mObj->id]);
 $notifMarks = Url::toRoute(["$objUrl/allmarks", 'id' => $mObj->id]);
@@ -79,7 +82,7 @@ $this->registerJs("
     var notifMarks = '#notifMarks';
     var notifTestim = '#notifTestimonials';
     
-    $(notifTrust).on('click', function () {
+    $(notifTrust + ' .b-header__user__stats__item__icon_1').on('click', function () {
         document.location.href = '".$notifTrustees."';
     });
     
@@ -99,6 +102,28 @@ $this->registerJs("
         
         $(this).removeClass('b-tooltip__item_unread');
         $(this).find('.b-small-message__member-status_online').remove();
+    });
+    
+    $('body').on('click', '.addTrustUser', function () {
+        var block = $(this).closest('.b-tooltip__item');
+        id = block.attr('data-id');
+        $.get('$urlAddTrustUser', {id:id}, function (out) {
+            if(out.code == 1) {
+                block.find('.actions').hide('slow', function () { $(this).remove(); });
+            } else {
+            
+            }
+        }, 'json');
+    });
+    
+    $('body').on('click', '.removeTrustUser', function () {
+        var block = $(this).closest('.b-tooltip__item');
+        id = block.attr('data-id');
+        $.get('$urlRemoveTrustUser', {id:id}, function (out) {
+            if(out.code == 1) {
+                block.hide('slow', function () { $(this).remove(); });
+            }
+        }, 'json');
     });
     
     setInterval(function() {
@@ -172,7 +197,7 @@ $this->registerJs("
         countPres = parseInt(that.find('.notifCount').text());
         
         if(count != countPres) {
-            that.find('.notifCount').text(count + countPres);
+            //that.find('.notifCount').text(count + countPres);
             that.addClass('active');
         }
         if(count == 0) {

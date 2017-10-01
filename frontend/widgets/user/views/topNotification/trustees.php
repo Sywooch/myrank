@@ -1,10 +1,11 @@
 <?php
+
 /**
  * @author Shilo Dmitry
  * @email dmitrywp@gmail.com
  */
-
 use frontend\models\UserNotification;
+use frontend\models\UserTrustees;
 ?>
 
 <?php foreach ($model as $item) { ?>
@@ -28,11 +29,18 @@ use frontend\models\UserNotification;
                 </div>
             </div>
         </div>
+        <?php if($item->status == UserTrustees::STATUS_REQUEST) { ?>
+        <div class="b-text-image__text center actions">
+            <a class="button-extrasmall b-tooltip__button-send addTrustUser" href="#">Ок</a>
+            <a href="#" class="b-link b-link_red removeTrustUser">Удалить</a>
+        </div>
+        <?php } ?>
         <div 
             class="b-small-message__member-status b-small-message__member-status_online"
             style="<?= !$item->seen ?: 'display:none;' ?>"></div>
     </div>
-<?php } /* ?>
+    <?php
+} /* ?>
 
 <!-- a class="b-tooltip__more-link" href="#">
     <span class="b-more b-more_icon-down">
