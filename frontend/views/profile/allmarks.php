@@ -36,6 +36,8 @@ $this->params['breadcrumbs'] = [
             ?>
         </div>
         <!-- end b-content -->
-        <?= RatingAmongCompaniesWidget::widget() ?>
+        <?= RatingAmongCompaniesWidget::widget([
+            'model' => $model
+        ]) ?>
     </div>
 </div>

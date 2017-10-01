@@ -12,7 +12,7 @@ use frontend\models\Company;
     <div class="b-list-rating b-block">
         <div class="b-title">
             <?=
-            $mObj->isCompany ?
+            $profName != "" ?
                     Yii::t('app', 'RATING_FROM_COMPANY_IN') . $profName :
                     Yii::t('app', 'RATING_FROM_COMPANY')
             ?>
