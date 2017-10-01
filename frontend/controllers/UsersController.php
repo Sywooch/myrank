@@ -165,10 +165,12 @@ class UsersController extends Controller {
                 $arr[0]['p' . $item->id] = $item->title;
                 foreach ($item->professionMarksValue as $item2) {
                     $arr['p' . $item->id][$item2->id] = $item2->name;
+                    $ids[] = $item2->id;
                 }
-                $ids[] = $item->id;
+                //$ids[] = $item->id;
             }
         }
+        //echo "<pre>"; var_dump($arr); echo "</pre>";
 
         $model = Marks::find()
                 ->where([
@@ -176,6 +178,7 @@ class UsersController extends Controller {
                     'type' => $mUser->objType,
                     'prof_only' => 0
                 ])
+                ->orWhere(['id' => $ids])
                 ->all();
         if (!is_null($mUser->marks_config)) {
             $configArr = Json::decode($mUser->marks_config, true);

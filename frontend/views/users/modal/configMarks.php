@@ -53,9 +53,9 @@ use yii\helpers\Url;
 	    <div class="col-xs-12 col-sm-12" id="configMarksError" style="display: none; color:red;"></div>
 	</div>
 	<div class="b-modal__content__buttons">
-	    <!-- div class="b-modal__content__buttons__item">
-		<a id="configMarks_save" class="button-small" href="#"><?= \Yii::t('app','REFRESH'); ?></a>
-	    </div -->
+	    <div class="b-modal__content__buttons__item">
+		<a id="configMarks_save" class="button-small" href="#"><?= \Yii::t('app','SAVE'); ?></a>
+	    </div>
 	    <div class="b-modal__content__buttons__item">
 		<span><a id="configMarks_cancel" class="cancel" href="#"><?= \Yii::t('app','CANCEL'); ?></a></span>
 	    </div>
