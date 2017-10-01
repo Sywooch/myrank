@@ -12,13 +12,26 @@ use yii\filters\VerbFilter;
 /**
  * ProfessionController implements the CRUD actions for Profession model.
  */
-class ProfessionController extends Controller {
+class ProfessionController extends Controller
+{
+
 
     /**
      * @inheritdoc
      */
-    public function behaviors() {
+    public function behaviors()
+    {
 	return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
 	    'verbs' => [
 		'class' => VerbFilter::className(),
 		'actions' => [
@@ -32,7 +45,8 @@ class ProfessionController extends Controller {
      * Lists all Profession models.
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
 	$searchModel = new ProfessionSearch();
 	$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -47,7 +61,8 @@ class ProfessionController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id) {
+    public function actionView($id)
+    {
 	return $this->render('view', [
 		    'model' => $this->findModel($id),
 	]);
@@ -94,7 +109,8 @@ class ProfessionController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id) {
+    public function actionDelete($id)
+    {
 	$this->findModel($id)->delete();
 
 	return $this->redirect(['index']);
@@ -107,11 +123,12 @@ class ProfessionController extends Controller {
      * @return Profession the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id) {
+    protected function findModel($id)
+    {
 	if (($model = Profession::findOne($id)) !== null) {
 	    return $model;
 	} else {
-	    throw new NotFoundHttpException(((string) \Yii::t('app','REQUESTED_PAGE_WAS_NOT_FOUND') ));
+            throw new NotFoundHttpException(((string) \Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND')));
 	}
     }
 
