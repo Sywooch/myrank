@@ -133,7 +133,8 @@ class Testimonials extends \yii\db\ActiveRecord {
     }
 
     public function getAnswer() {
-        return static::findOne(['parent_id' => $this->id]);
+        return $this->hasOne(Testimonials::className(), ['parent_id' => 'id'])->from(Testimonials::tableName(). ' ta');
+        //return static::findOne(['parent_id' => $this->id]); // Even not singleton? Facepalm...
     }
 
     public function beforeSave($insert) {

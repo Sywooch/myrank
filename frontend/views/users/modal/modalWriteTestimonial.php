@@ -15,7 +15,7 @@ use yii\helpers\Html;
 			'tag' => false,
 		    ],
 		]
-    ]);
+    ]); 
     ?>
     <div class="b-modal__header">
     <?= \Yii::t('app','GIVE_FEEDBACK'); ?>

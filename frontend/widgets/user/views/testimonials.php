@@ -4,6 +4,7 @@ use frontend\models\Testimonials;
 use yii\helpers\Url;
 use yii\helpers\Html;
 ?>
+
 <div class="b-comments b-block">
     <div class="b-title">
         <?= \Yii::t('app', 'TESTIMONIALS'); ?>
@@ -30,13 +31,14 @@ use yii\helpers\Html;
             <?php foreach ($list as $key => $item) { ?>
                 <div class="b-comments__item" data-id="<?= $item->id ?>" id="testimonials<?= $item->id ?>">
                     <div class="b-comments__item__image">
-                        <?php 
+                        <?php
                         $img = Html::img($item->userFromImage);
-                        if(!$item->isAnonim) { ?>
-                        <?= Html::a($img, $item->userFrom->profileLink); ?>
-                        <div class="b-comments__item__number">
-                            <?= $item->userFrom->rating ?>
-                        </div>
+                        if (!$item->isAnonim) {
+                            ?>
+                            <?= Html::a($img, $item->userFrom->profileLink); ?>
+                            <div class="b-comments__item__number">
+                                <?= $item->userFrom->rating ?>
+                            </div>
                         <?php } else { ?>
                             <?= $img ?>
                         <?php } ?>
@@ -47,10 +49,14 @@ use yii\helpers\Html;
                         </div>
                         <div class="b-comments__item__smile <?= Testimonials::$smiles[$item->smile] ?>"></div>
                         <div class="b-comments__item__actions">
-                            <?php if ($item->userTo->owner) { ?>
-                                <?php if (!isset($item->answer->id)) { ?><a class="answerTestimonial" href="#"><?= \Yii::t('app', 'REPLY'); ?></a><?php } ?>
+                            <?php if ($item->userTo->owner) : ?>
+                                <?php if (!isset($item->answer->id)) : ?>
+                                    <a class="answerTestimonial" href="#"><?= \Yii::t('app', 'REPLY'); ?></a>
+                                <?php else : ?>
+                                    <a class="editTestimonial" data-answer="<?= $item->answer->id; ?>" href="#"><?= \Yii::t('app', 'EDIT_REPLY'); ?></a>
+                                <?php endif; ?>
                                 <a class="claimTestimonial" href="#"><?= \Yii::t('app', 'COMPLAIN'); ?></a>
-                            <?php } ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="b-comments__item__content">
@@ -106,6 +112,13 @@ $this->registerJs("
 	$('.answerTestimonial').on('click', function() {
 	    id = $(this).closest('.b-comments__item').attr('data-id');
 	    url = '" . Url::toRoute(["users/writetestimonials", "id" => $mObj->id, 'typeTo' => $mObj->objType]) . "';
+	    showModal(url, {'parent':id}, 1);
+		
+	    return false;
+	});
+	$('.editTestimonial').on('click', function() {
+	    id = $(this).attr('data-answer');
+	    url = '" . Url::toRoute(["users/edittestimonial"]) . "' + '?id=' + id;
 	    showModal(url, {'parent':id}, 1);
 		
 	    return false;
