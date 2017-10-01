@@ -10,6 +10,7 @@ namespace frontend\widgets\profile;
 
 use yii\base\Widget;
 use frontend\models\Company;
+use frontend\models\Profession;
 
 class RatingAmongCompaniesWidget extends Widget {
     
@@ -18,6 +19,7 @@ class RatingAmongCompaniesWidget extends Widget {
     public $count = 5;
     
     private $queryArr = [];
+    private $profName = "";
 
     public function init() {
         parent::init();
@@ -26,14 +28,25 @@ class RatingAmongCompaniesWidget extends Widget {
     
     public function run() {
         $model = $this->randomList();
-        return $this->render("ratingAmongCompanies", ['model' => $model]);
+        return $this->render("ratingAmongCompanies", [
+            'model' => $model, 
+            'mObj' => $this->model,
+            'profName' => $this->profName,
+        ]);
     }
     
     private function randomList () {
         $count = Company::find()->count();
+        // Main profession ID
+        $q = "";
+        if($this->model->isCompany) {
+            $q = "WHERE main_prof = " . $this->model->main_prof;
+            $this->profName = Profession::find()->where(['id' => $this->model->main_prof])->one()->title;
+        }
+        
         $arr = [];
         while (count($arr) < $this->count) {
-            $arr[] = '(SELECT * FROM company LIMIT '.rand(0, $count).', 1)';
+            $arr[] = '(SELECT * FROM company '.$q.' LIMIT '.rand(0, $count).', 1)';
         }
         $query = implode(' UNION ', $arr);
         

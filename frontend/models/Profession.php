@@ -55,6 +55,15 @@ class Profession extends \yii\db\ActiveRecord {
 	];
     }
     
+    public static function find($default = false) {
+        if($default) {
+            return parent::find();
+        } else {
+            $lang = \Yii::$app->language;
+            return parent::find()->select(["*" , self::$locales[$lang]. " AS title"]);
+        }
+    }
+    
     public function beforeSave($insert) {
 	if($this->listProf != "") {
 	    $arr = explode("\n", $this->listProf);

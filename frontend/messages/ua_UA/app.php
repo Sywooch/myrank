@@ -325,6 +325,7 @@ return [
     'MY_TRUSTEES' => 'Мої довірені',
     'ALL_TRUSTEES' => 'Всі довірені',
     'RATING_FROM_COMPANY' => 'Рейтинг серед компаній',
+    'RATING_FROM_COMPANY_IN' => 'Рейтинг серед компаній у ',
     'RATING_FROM_USERS' => 'Рейтинг користувачів',
     'ALL_RATING' => 'Весь рейтинг',
     'AVERAGE_RATING' => 'Середня <br> оцінка',

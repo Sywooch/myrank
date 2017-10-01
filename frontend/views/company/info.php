@@ -42,7 +42,9 @@ $this->params['breadcrumbs'] = [
         </div>
         <!-- end b-content -->
 
-        <?= \frontend\widgets\profile\RatingAmongCompaniesWidget::widget() ?>
+        <?= \frontend\widgets\profile\RatingAmongCompaniesWidget::widget([
+            'model' => $model
+        ]) ?>
 
     </div>
 </div>

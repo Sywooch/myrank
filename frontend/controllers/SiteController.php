@@ -17,6 +17,7 @@ use frontend\models\ContactForm;
 use frontend\models\Article;
 use frontend\components\AuthHandler;
 use frontend\models\User;
+use frontend\models\Profession;
 
 /**
  * Site controller
@@ -79,9 +80,10 @@ class SiteController extends Controller {
                 'pageSize' => 4,
             ]
         ]);
-        return $this->render(
-                        'index', [
+        $mProf = Profession::find()->where(['hide_main_page' => 0])->asArray()->all();
+        return $this->render('index', [
                     'listDataProvider' => $dataProvider,
+                    'mProf' => $mProf
         ]);
     }
 
@@ -259,19 +261,19 @@ class SiteController extends Controller {
 
     public function actionTest() {
         /*
-        $model = User::find()->where(['type' => User::TYPE_USER_USER])->all();
-        foreach ($model as $item) {
-            if ($item->type == User::TYPE_USER_USER) {
-                $mUC = \frontend\models\UserCompany::findOne(['user_id' => $item->id]);
-                if (!isset($mUC->id)) {
-                    $mUC = new \frontend\models\UserCompany();
-                }
-                $mUC->user_id = $item->id;
-                $mUC->company_id = 6;
-                $mUC->company_post = 'default';
-                $mUC->save();
-            }
-        }*/
+          $model = User::find()->where(['type' => User::TYPE_USER_USER])->all();
+          foreach ($model as $item) {
+          if ($item->type == User::TYPE_USER_USER) {
+          $mUC = \frontend\models\UserCompany::findOne(['user_id' => $item->id]);
+          if (!isset($mUC->id)) {
+          $mUC = new \frontend\models\UserCompany();
+          }
+          $mUC->user_id = $item->id;
+          $mUC->company_id = 6;
+          $mUC->company_post = 'default';
+          $mUC->save();
+          }
+          } */
         return $this->render('test');
     }
 

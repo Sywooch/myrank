@@ -331,6 +331,7 @@ return [
     'MY_TRUSTEES' => 'My trusted',
     'ALL_TRUSTEES' => 'All trusted',
     'RATING_FROM_COMPANY' => 'Rating among companies',
+    'RATING_FROM_COMPANY_IN' => 'Rating among companies in ',
     'RATING_FROM_USERS' => 'Rating among users',
     'ALL_RATING' => 'Full rating',
     'AVERAGE_RATING' => 'Average<br> rating',
