@@ -28,7 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'text',
                 'content' => function ($data) {
                     $list = Marks::getList();
-                    return $data->parent_id > 0 ? $list[$data->parent_id] . " - " . $data->name : $data->name . " (".$data->id.")";
+                    $parentLink = Html::a($list[$data->parent_id], ['update', 'id' => $data->parent_id]);
+                    return $data->parent_id > 0 ? $parentLink . " - " . $data->name : $data->name . " (".$data->id.")";
                 }
             ],
             [

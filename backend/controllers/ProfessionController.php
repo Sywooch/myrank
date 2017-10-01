@@ -24,7 +24,7 @@ class ProfessionController extends Controller
      */
     public function behaviors()
     {
-        return [
+	return [
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -35,31 +35,14 @@ class ProfessionController extends Controller
                     ],
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
+	    'verbs' => [
+		'class' => VerbFilter::className(),
+		'actions' => [
+		    'delete' => ['POST'],
+		],
+	    ],
+	]; 
     }
-
-
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
 
     /**
      * Lists all Profession models.
@@ -67,13 +50,13 @@ class ProfessionController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ProfessionSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+	$searchModel = new ProfessionSearch();
+	$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-        ]);
+	return $this->render('index', [
+		    'searchModel' => $searchModel,
+		    'dataProvider' => $dataProvider,
+	]);
     }
 
 
@@ -84,30 +67,27 @@ class ProfessionController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-                'model' => $this->findModel($id),
-        ]);
+	return $this->render('view', [
+		    'model' => $this->findModel($id),
+	]);
     }
-
 
     /**
      * Creates a new Profession model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $model = new Profession();
+    public function actionCreate() {
+	$model = new Profession();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->render('create', [
-                    'model' => $model,
-            ]);
-        }
+	if ($model->load(Yii::$app->request->post()) && $model->save()) {
+	    return $this->redirect(['index']);
+	} else {
+	    return $this->render('create', [
+			'model' => $model,
+	    ]);
+	}
     }
-
 
     /**
      * Updates an existing Profession model.
@@ -115,19 +95,17 @@ class ProfessionController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+    public function actionUpdate($id) {
+	$model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->render('update', [
-                    'model' => $model,
-            ]);
-        }
+	if ($model->load(Yii::$app->request->post()) && $model->save()) {
+	    return $this->redirect(['index']);
+	} else {
+	    return $this->render('update', [
+			'model' => $model,
+	    ]);
+	}
     }
-
 
     /**
      * Deletes an existing Profession model.
@@ -137,9 +115,9 @@ class ProfessionController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+	$this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+	return $this->redirect(['index']);
     }
 
 
@@ -152,10 +130,10 @@ class ProfessionController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Profession::findOne($id)) !== null) {
-            return $model;
-        } else {
+	if (($model = Profession::findOne($id)) !== null) {
+	    return $model;
+	} else {
             throw new NotFoundHttpException(((string) \Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND')));
-        }
+	}
     }
 }

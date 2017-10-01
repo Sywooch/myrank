@@ -5,6 +5,7 @@
  */
 
 use frontend\models\UserCompany;
+use yii\helpers\Html;
 ?>
 
 <div class="b-title b-title_grey">
@@ -38,10 +39,23 @@ use frontend\models\UserCompany;
                 </div>
                 <div class="actions" data-id="<?= $item->id ?>">
                     <?php if ($item->status == UserCompany::STATUS_REQUEST) { ?>
-                        <a class="button-small b-card__button action_but" href="#" data-id="<?= UserCompany::ACTION_BUT_CONFIRM ?>">Подтвердить</a>
-                        <div><a href="#" class="b-link action_but" data-id="<?= UserCompany::ACTION_BUT_REFUSE ?>">Отказать</a></div>
+                        <?= Html::a('Подтвердить', "#", [
+                            'class' => 'button-small b-card__button action_but',
+                            'data-id' => UserCompany::ACTION_BUT_CONFIRM
+                        ]) ?>
+                        <div>
+                            <?= Html::a('Отказать', "#", [
+                                'class' => 'b-link action_but',
+                                'data-id' => UserCompany::ACTION_BUT_REFUSE
+                            ]) ?>
+                        </div>
                     <?php } else { ?>
-                        <div><a href="#" class="b-link b-link_red action_but remove" data-id="<?= UserCompany::ACTION_BUT_REMOVE ?>">Удалить</a></div>
+                        <div>
+                            <?= Html::a('Удалить', '#', [
+                                'class' => 'b-link b-link_red action_but remove',
+                                'data-id' => UserCompany::ACTION_BUT_REMOVE
+                            ]) ?>
+                        </div>
                     <?php } ?>
                 </div>
             </div>

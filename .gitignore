@@ -2,7 +2,7 @@
 /backend/web/index-test.php
 /frontend/web/index.php
 /frontend/web/index-test.php
-/frontend/web/files/
+/frontend/web/files
 
 /composer.json
 /composer.lock
