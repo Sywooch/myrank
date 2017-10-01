@@ -36,6 +36,7 @@ $url = Url::toRoute(['users/change-trustees-status']);
                         <div class="b-card__post">
                             <?= "" //$item->userFrom->objUserCompany->company_post ?>
                         </div>
+                        <?php if ($editable) : ?>
                         <div class="actions" data-id="<?= $item->id ?>">
                             <?php if ($item->status == UserTrustees::BACK_TRUSTEES_NO) { ?>
                                 <a href="#" 
@@ -53,6 +54,7 @@ $url = Url::toRoute(['users/change-trustees-status']);
                                        data-id="<?= UserTrustees::STATUS_REMOVE ?>"><?= Yii::t('app', 'REMOVE') ?></a></div>
                             <?php } ?>
                         </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php } ?>

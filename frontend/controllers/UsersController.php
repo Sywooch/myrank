@@ -317,7 +317,7 @@ class UsersController extends Controller
         
         $mUser = UserConstant::getProfile();
         
-        if (($model->from_id != $model->to_id) && ($mUser->id != $model->from_id)) {
+        if (($model->from_id != $model->to_id) && ($mUser->id != $model->from_id) && ($mUser->objType != $model->type_from)) {
             throw new \yii\web\ForbiddenHttpException();
         }
 
