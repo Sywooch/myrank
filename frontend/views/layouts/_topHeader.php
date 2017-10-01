@@ -28,9 +28,19 @@ if (Yii::$app->user->id === null) {
     $userTrusteesCount = $model->getUserTrusteesTo()->count();
     $userMarksCount = $model->getUserMarksTo()->count();
     $testimonialsCount = $model->getTestimonialsActive()->andWhere(['parent_id' => 0])->count();
+    
+    $newUserTrusteesCount = $model->getUserTrusteesTo()->where(['seen' => 0])->count();
+    $newUserMarksCount = $model->getUserMarksTo()->where(['seen' => 0])->count();
+    $newTestimonialsCount = $model->getTestimonialsActive()->andWhere(['parent_id' => 0, 'seen' => 0])->count();
 
+    $personCount = UserCompany::find()->where([
+                'status' => UserCompany::STATUS_CONFIRM,
+                'company_id' => $model->objId,
+                'admin' => UserCompany::USER_NOADMIN,
+    ])->count();
+    
     $personActCount = UserCompany::find()->where([
-                //'status' => UserCompany::STATUS_CONFIRM,
+                'status' => UserCompany::STATUS_REQUEST,
                 'company_id' => $model->objId,
                 'admin' => UserCompany::USER_NOADMIN,
     ])->count();
@@ -60,19 +70,20 @@ if (Yii::$app->user->id === null) {
                             [
                                 'label' => Yii::t('app', 'MY_MARKS'),
                                 'url' => ["$objUrl/allmarks", 'id' => $model->id],
-                                'template' => '<a href="{url}">{label} <span>' . $userMarksCount . '</span></a>',
+                                'template' => '<a href="{url}">{label} '
+                                .$userMarksCount. ($newUserMarksCount > 0 ? ' <span>' . $newUserMarksCount . '</span>' : '') . '</a>',
                             ],
                             [
                                 'label' => Yii::t('app', 'MY_TESTIMONIAL'),
                                 'url' => ["$objUrl/alltestimonials", 'id' => $model->id],
-                                'template' => '<a href="{url}">{label} <span>' . $testimonialsCount . '</span></a>',
+                                'template' => '<a href="{url}">{label} '
+                                . $testimonialsCount . ($newUserMarksCount > 0 ? ' <span>' . $newTestimonialsCount . '</span>' : '') . '</a>',
                             ],
-                            //['label' => 'Количество просмотров профиля', 'url' => ['#']],
-                            //['label' => 'Мои избранные' , 'url' => ['#']],
                             [
                                 'label' => Yii::t('app', 'MY_TRUSTEES'),
                                 'url' => ["$objUrl/alltrustees", 'id' => $model->id],
-                                'template' => '<a href="{url}">{label} <span>' . $userTrusteesCount . '</span></a>',
+                                'template' => '<a href="{url}">{label} '
+                                .$userTrusteesCount . ($newUserTrusteesCount > 0 ? ' <span>' . $newUserTrusteesCount . '</span>' : '') . '</a>',
                             ],
                             [
                                 'label' => Yii::t('app', 'STRUCT'),
@@ -83,7 +94,8 @@ if (Yii::$app->user->id === null) {
                                 'label' => Yii::t('app', 'PERSONALS'),
                                 'url' => ['company/personal'],
                                 'visible' => $model->isCompany,
-                                'template' => '<a href="{url}">{label} <span>'.$personActCount.'</span></a>',
+                                'template' => '<a href="{url}">{label} '
+                                . $personCount .($personActCount > 0 ? ' <span>'. $personActCount .'</span>' : '') . '</a>',
                             ],
                             ['label' => \Yii::t('app', 'EXIT'), 'url' => ['site/logout']],
                         ],
@@ -94,7 +106,7 @@ if (Yii::$app->user->id === null) {
             <?= TopNotificationWidget::widget() ?>
         </div>
     </div>
-    <?php
+    <?php 
 }
 
 $this->registerJs("$('.signin').on('click', function () {

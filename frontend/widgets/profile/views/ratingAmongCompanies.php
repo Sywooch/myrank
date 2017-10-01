@@ -1,6 +1,8 @@
 <?php
+
 use yii\bootstrap\Html;
 use frontend\models\Company;
+
 //echo "<pre>"; var_dump($model); echo "</pre>";
 ?>
 <!-- begin b-sidebar -->
@@ -8,9 +10,16 @@ use frontend\models\Company;
 
     <!-- begin b-list-rating -->
     <div class="b-list-rating b-block">
-        <div class="b-title"><?= Yii::t('app', 'RATING_FROM_COMPANY') ?></div>
+        <div class="b-title">
+            <?=
+            $profName != "" ?
+                    Yii::t('app', 'RATING_FROM_COMPANY_IN') . $profName :
+                    Yii::t('app', 'RATING_FROM_COMPANY')
+            ?>
+        </div>
         <div class="b-list-rating__container">
-            <?php foreach ($model as $item) { 
+            <?php
+            foreach ($model as $item) {
                 $mObj = Company::findOne($item['id']);
                 ?>
                 <div class="b-list-rating__item">
