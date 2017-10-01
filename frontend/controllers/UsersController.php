@@ -162,9 +162,9 @@ class UsersController extends Controller {
         if ($mUser->isCompany) {
             $mUserProf = $mUser->profileProfession;
             foreach ($mUserProf as $item) {
-                $arr[0]['p' . $item->id] = $item->title;
+                //$arr[0]['p' . $item->id] = $item->title;
                 foreach ($item->professionMarksValue as $item2) {
-                    $arr['p' . $item->id][$item2->id] = $item2->name;
+                    //$arr['p' . $item->id][$item2->id] = $item2->name;
                     $ids[] = $item2->id;
                 }
                 //$ids[] = $item->id;

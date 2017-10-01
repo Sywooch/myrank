@@ -42,13 +42,16 @@ class MarksWidget extends Widget {
         if($this->model->isCompany) {
             $mUser = $this->model->profileProfession;
             foreach ($mUser as $item) {
-                $arr['full'][0]['p'.$item->id] = $item->title;
+                //$arr['full'][0]['p'.$item->id] = $item->title;
                 //$arr['short'][0]['p'.$item->id] = $item->title;
                 foreach ($item->professionMarksValue as $item2) {
-                    $arr['full']['p' . $item->id][$item2->id] = $item2->name;
+                    $arr['full'][0][$item2->id] = $item2->name;
+                    $arr['short'][0][$item2->id] = $item2->short_name;
                     
-                    $arr['short'][0]['p' . $item->id] = $item2->short_name;
-                    $arr['short']['p' . $item->id][$item2->id] = $item2->short_name;
+                    //$arr['full']['p' . $item->id][$item2->id] = $item2->name;
+                    
+                    //$arr['short'][0]['p' . $item->id] = $item2->short_name;
+                    //$arr['short']['p' . $item->id][$item2->id] = $item2->short_name;
                 }
             }
         }
