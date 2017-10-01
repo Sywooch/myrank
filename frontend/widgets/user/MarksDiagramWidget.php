@@ -15,7 +15,7 @@ class MarksDiagramWidget extends MarksWidget {
 
     public function init() {
         parent::init();
-        $out = [];
+        $out = $outEl = [];
 
         $markUsers = $this->model->getUserMarksTo()->select('description')->asArray()->all();
         
