@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+
 /**
  *
  * @author Shilo Dmitry
@@ -10,16 +11,26 @@ namespace frontend\models;
  */
 use yii\base\Model;
 
-class HelpForm extends Model {
-    
+
+class HelpForm extends Model
+{
+
+
     public $name;
+
     public $problem;
+
     public $email;
+
     public $otherMail;
+
     public $problemTypeVal;
+
     public $question;
-    
-    public function problemType () {
+
+
+    public function problemType()
+    {
         return [
             0 => \Yii::t('app', 'PROBLEM_NONE'),
             1 => \Yii::t('app', 'PROBLEM_1'),
@@ -33,16 +44,21 @@ class HelpForm extends Model {
             9 => \Yii::t('app', 'PROBLEM_9'),
         ];
     }
-    
-    public function rules() {
+
+
+    public function rules()
+    {
         return [
-            [['name', 'email'], 'required'],
+            [['name', 'problem', 'question'], 'filter', 'filter' => 'trim'],
+            [['name', 'email', 'problem', 'question'], 'required'],
             [['problemTypeVal', 'question', 'problem'], 'safe'],
             [['email'], 'email']
         ];
     }
-    
-    public function attributeLabels() {
+
+
+    public function attributeLabels()
+    {
         return [
             'name' => \Yii::t('app', 'NAME'),
             'problem' => \Yii::t('app', 'PROBLEM'),
@@ -52,21 +68,23 @@ class HelpForm extends Model {
             'question' => \Yii::t('app', 'QUESTION'),
         ];
     }
-    
-    public function getProblemTypeName () {
+
+
+    public function getProblemTypeName()
+    {
         $arr = $this->problemType();
         return $arr[$this->problemTypeVal];
     }
-    
-    
-    public function sendEmail($email) {
+
+
+    public function sendEmail($email)
+    {
         $body = implode("<br/>", [$this->name, $this->email, $this->problem, $this->problemTypeName, $this->question]);
         return \Yii::$app->mailer->compose()
-                        ->setTo($email)
-                        ->setFrom([$this->email => $this->name])
-                        ->setSubject("Страница помощи")
-                        ->setTextBody($body)
-                        ->send();
+                ->setTo($email)
+                ->setFrom([$this->email => $this->name])
+                ->setSubject("Страница помощи")
+                ->setTextBody($body)
+                ->send();
     }
-    
 }

@@ -2,18 +2,23 @@
 
 namespace frontend\controllers;
 
+
 use Yii;
 use frontend\components\Controller;
 use frontend\models\StaticPages;
 use yii\web\NotFoundHttpException;
 use frontend\models\ContactForm;
 
-class StaticPagesController extends Controller {
-    
+
+class StaticPagesController extends Controller
+{
+
+
     /**
      * @inheritdoc
      */
-    public function actions() {
+    public function actions()
+    {
         return [
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
@@ -21,33 +26,44 @@ class StaticPagesController extends Controller {
             ],
         ];
     }
-    
+
+
     public function actionIndex($page)
     {
         $model = $this->findModel($page);
         return $this->render('index', [
-            'model' => $model,
+                'model' => $model,
         ]);
     }
-    
-    public function actionAboutus () {
+
+
+    public function actionAboutus()
+    {
         return $this->render('index', ['model' => $this->findModel('aboutus')]);
-    }    
-    
-    public function actionBalance () {
+    }
+
+
+    public function actionBalance()
+    {
         return $this->render('index', ['model' => $this->findModel('balance')]);
     }
-    
-    public function actionHelp () {
+
+
+    public function actionHelp()
+    {
         $mHelp = new \frontend\models\HelpForm();
-        
-        if(\Yii::$app->user->id !== NULL) {
+
+        if (\Yii::$app->user->id !== NULL) {
             $mUser = \Yii::$app->user->identity;
             $mHelp->email = $mUser->email;
             $mHelp->name = $mUser->fullName;
         }
-        
+
         if ($mHelp->load(Yii::$app->request->post()) && $mHelp->validate()) {
+            $mHelp->problem = htmlspecialchars($mHelp->problem);
+            $mHelp->question = htmlspecialchars($mHelp->question);
+            $mHelp->name = htmlspecialchars($mHelp->question);
+
             if ($mHelp->sendEmail(Yii::$app->params['adminEmail'])) {
                 \Yii::$app->notification->set('global', \Yii::t('app', 'HELP_FORM_SEND_MESSAGE'));
             } else {
@@ -56,32 +72,37 @@ class StaticPagesController extends Controller {
             return $this->refresh();
         } else {
             return $this->render('help', [
-                'model' => $this->findModel('help'),
-                'mHelp' => $mHelp,
+                    'model' => $this->findModel('help'),
+                    'mHelp' => $mHelp,
             ]);
         }
     }
-    
-    public function actionContacts () {
+
+
+    public function actionContacts()
+    {
         return $this->render('index', ['model' => $this->findModel('contacts')]);
     }
-    
-    public function actionLegalinfo () {
+
+
+    public function actionLegalinfo()
+    {
         return $this->render('index', ['model' => $this->findModel('legalinfo')]);
     }
 
-    protected function findModel($alias) {
+
+    protected function findModel($alias)
+    {
         $model = StaticPages::find()
-                ->where([
-                    'alias' => $alias,
-                    'published' => StaticPages::PUBLISHED_YES,
-                    'locale' => Yii::$app->language
-                ])
-                ->one();
+            ->where([
+                'alias' => $alias,
+                'published' => StaticPages::PUBLISHED_YES,
+                'locale' => Yii::$app->language
+            ])
+            ->one();
         if ($model !== null) {
             return $model;
         }
         throw new NotFoundHttpException(Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND'));
     }
-
 }
