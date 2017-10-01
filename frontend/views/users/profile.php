@@ -171,14 +171,15 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => [$bUrl, 'id'
                                         </div>
                                     <?php } ?>
                                 </div>
-                                <!-- FIXME div class="b-user__portfolio__carousel__nav">
+                                <div class="b-user__portfolio__carousel__nav">
                                     <div class="b-user__portfolio__carousel__prev"></div>
                                     <div class="b-user__portfolio__carousel__next"></div>
-                                </div -->
+                                </div>
                             </div>
-
+                            
+                            <?php if(count($model->usersCompanyList) > 0) { ?>
                             <div class="b-title"><?= Yii::t('app', 'SPECIALISTS') ?></div>
-
+                            
                             <div class="b-user__portfolio__carousel js-portfolio-slider">
                                 <div class="owl-carousel">
                                     <?php foreach($model->usersCompanyList as $item) { ?>
@@ -199,12 +200,13 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => [$bUrl, 'id'
                                 </div>
                             </div>
 
-                            <!-- FIXME div class="b-user__portfolio__more-link">
+                            <!--div class="b-user__portfolio__more-link">
                                 <span class="b-user__portfolio__edit"></span>
                                 <a href="#" class="b-more b-more_icon-right">
                                     <span class="b-more__text">Все специалисты</span>
                                 </a>
                             </div -->
+                            <?php } ?>
                         </div>
                     </div>
                 <?php } ?>

@@ -5,7 +5,9 @@ use yii\helpers\Url;
 use frontend\models\UserConstant;
 use frontend\models\Testimonials;
 
+//echo "<pre>";
 //var_dump($allList);
+//echo "</pre>";
 if(isset($allList[0]) && (count($allList[0]) > 0)) {
 ?>
     <div class="b-marks b-block">

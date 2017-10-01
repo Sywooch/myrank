@@ -35,9 +35,17 @@ class Company extends UserConstant {
     const COUNT_PERSONS_150400 = 5;
     const COUNT_PERSONS_4001000 = 6;
     const COUNT_PERSONS_1000 = 7;
-    const CASH_SMALL = 1;
-    const CASH_MEDIUM = 2;
-    const CASH_BIG = 3;
+    
+    const CASH_UPTO_NONE = 0;
+    const CASH_UPTO_1000 = 1;
+    const CASH_UPTO_10000 = 2;
+    const CASH_UPTO_50000 = 3;
+    const CASH_UPTO_100000 = 4;
+    const CASH_UPTO_300000 = 5;
+    const CASH_UPTO_500000 = 6;
+    const CASH_UPTO_1000000 = 7;
+    const CASH_UPTO_10000000 = 8;
+    const CASH_UPTOMORE_10000000 = 9;
     
     const PUBLISH = 1;
     const UNPUBLISH = 0;
@@ -53,11 +61,46 @@ class Company extends UserConstant {
         self::COUNT_PERSONS_4001000 => "400 - 1000",
         self::COUNT_PERSONS_1000 => "> 1000",
     ];
+    
     public $cashList = [
-        self::CASH_SMALL => "1 000 000 руб - 5 000 000 руб",
-        self::CASH_MEDIUM => "1 000 000 руб - 10 000 000 руб",
-        self::CASH_BIG => "1 000 000 руб - 15 000 000 руб",
+        'ru_RU' => [
+            self::CASH_UPTO_NONE => 'Не выбрано',
+            self::CASH_UPTO_1000 => 'до 1000',
+            self::CASH_UPTO_10000 => 'до 10 000',
+            self::CASH_UPTO_50000 => 'до 50 000',
+            self::CASH_UPTO_100000 => 'до 100 000',
+            self::CASH_UPTO_300000 => 'до 300 000',
+            self::CASH_UPTO_500000 => 'до 500 000',
+            self::CASH_UPTO_1000000 => 'до 1 000 000',
+            self::CASH_UPTO_10000000 => 'до 10 000 000',
+            self::CASH_UPTOMORE_10000000 => 'свыше 10 000 000',
+        ],
+        'en_US' => [
+            self::CASH_UPTO_NONE => 'No select',
+            self::CASH_UPTO_1000 => 'up to 1000',
+            self::CASH_UPTO_10000 => 'up to 10 000',
+            self::CASH_UPTO_50000 => 'up to 50 000',
+            self::CASH_UPTO_100000 => 'up to 100 000',
+            self::CASH_UPTO_300000 => 'up to 300 000',
+            self::CASH_UPTO_500000 => 'up to 500 000',
+            self::CASH_UPTO_1000000 => 'up to 1 000 000',
+            self::CASH_UPTO_10000000 => 'up to 10 000 000',
+            self::CASH_UPTOMORE_10000000 => 'more than 10 000 000',
+        ],
+        'ua_UA' => [
+            self::CASH_UPTO_NONE => 'Не обрано', 
+            self::CASH_UPTO_1000 => 'до 1000',
+            self::CASH_UPTO_10000 => 'до 10 000',
+            self::CASH_UPTO_50000 => 'до 50 000',
+            self::CASH_UPTO_100000 => 'до 100 000',
+            self::CASH_UPTO_300000 => 'до 300 000',
+            self::CASH_UPTO_500000 => 'до 500 000',
+            self::CASH_UPTO_1000000 => 'до 1 000 000',
+            self::CASH_UPTO_10000000 => 'до 10 000 000',
+            self::CASH_UPTOMORE_10000000 => 'більше ніж 10 000 000',
+        ],
     ];
+    
     public $user_id;
     
     //public $rating;
@@ -185,7 +228,8 @@ class Company extends UserConstant {
     }
     
     public function getCashName () {
-        return $this->cashList[$this->cash];
+        $lang = Yii::$app->language;
+        return $this->cashList[$lang][$this->cash];
     }
 
     public function beforeSave($insert) {

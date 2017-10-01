@@ -7,25 +7,16 @@
 
 namespace frontend\widgets\profile;
 
-
 use frontend\models\UserConstant;
 
-
-class StatTrusteesWidget extends \frontend\widgets\user\UserTrusteesWidget
-{
-
+class StatTrusteesWidget extends \frontend\widgets\user\UserTrusteesWidget {
 
     public $model;
-
     public $list;
-
     public $count;
-
     public $countListView = 8;
 
-
-    public function init()
-    {
+    public function init() {
         parent::init();
 
         $query = $this->model->getUserTrusteesList();
@@ -34,9 +25,7 @@ class StatTrusteesWidget extends \frontend\widgets\user\UserTrusteesWidget
         $this->count = $model->count();
     }
 
-
-    public function run()
-    {
+    public function run() {
         if (!\Yii::$app->user->isGuest) {
             $current = UserConstant::getProfile();
             $editable = $current->id == $this->model->id && $current->isCompany == $this->model->isCompany;
@@ -46,11 +35,12 @@ class StatTrusteesWidget extends \frontend\widgets\user\UserTrusteesWidget
 
         $title = $this->model->isCompany ? \Yii::t('app', 'TRUSTED_COMPANY') : \Yii::t('app', 'MY_TRUSTEES');
         return $this->render("statTrustees", [
-                'list' => $this->list,
-                'count' => $this->countListView,
-                'title' => $title,
-                'editable' => $editable,
+                    'list' => $this->list,
+                    'count' => $this->countListView,
+                    'title' => $title,
+                    'editable' => $editable,
         ]);
         //parent::run();
     }
+
 }
