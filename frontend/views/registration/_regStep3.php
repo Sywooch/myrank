@@ -4,6 +4,8 @@ use frontend\widgets\user\ModalWidget;
 use yii\helpers\Url;
 use frontend\models\UserConstant;
 
+$lang = Yii::$app->language;
+
 echo ModalWidget::widget([
     'title' => $title,
     'model' => $mCompany,
@@ -37,7 +39,7 @@ echo ModalWidget::widget([
 		'label' => \Yii::t('app','ANNUAL_TURNOVER').':',
 		'divClass' => 'select-wrapper',
 		'type' => 'dropDownList',
-		'options' => $mCompany->cashList,
+		'options' => $mCompany->cashList[$lang], 
                 'posOpt' => ['prompt' => ""]
 	    ]
 	],

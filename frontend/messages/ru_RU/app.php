@@ -121,7 +121,7 @@ return [
     'COMPANY_NAME'=>'Название компании',
     'THE_NUMBER_OF_EMPLOYEES'=>'Количество сотрудников',
     'DATE_OF_REGISTRATION_OF_THE_COMPANY'=>'Дата регистрации компании',
-    'ANNUAL_TURNOVER'=>'Годовой оборот',
+    'ANNUAL_TURNOVER'=>'Годовой оборот, РУБ',
     'DIRECTOR'=>'Директор',
     'CONTACT_PERSON'=>'Контактное лицо',
     'INFORMATION_ABOUT_THE_COMPANY'=>'Информация о компании',

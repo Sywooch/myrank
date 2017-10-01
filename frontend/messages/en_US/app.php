@@ -121,7 +121,7 @@ return [
     'COMPANY_NAME'=>'Company name',
     'THE_NUMBER_OF_EMPLOYEES'=>'The number of employees',
     'DATE_OF_REGISTRATION_OF_THE_COMPANY'=>'Date of registration of the company',
-    'ANNUAL_TURNOVER'=>'Annual turnover',
+    'ANNUAL_TURNOVER'=>'Annual turnover, $',
     'DIRECTOR'=>'Director',
     'CONTACT_PERSON'=>'The contact person',
     'INFORMATION_ABOUT_THE_COMPANY'=>'Information about the company',

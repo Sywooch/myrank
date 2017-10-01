@@ -7,7 +7,6 @@
 
 namespace frontend\controllers;
 
-
 use frontend\components\Controller;
 use frontend\models\User;
 use frontend\models\UserMarks;
@@ -30,18 +29,14 @@ use yii\helpers\Html;
 use frontend\models\UserCompany;
 use frontend\models\CurseWords;
 
-
 /**
  * Description of UserController
  *
  * @author dmitrywp
  */
-class UsersController extends Controller
-{
+class UsersController extends Controller {
 
-
-    public function actionProfile()
-    {
+    public function actionProfile() {
         $req = \Yii::$app->request->get();
         if (!isset($req['id'])) {
             $req['id'] = \Yii::$app->user->id;
@@ -53,40 +48,34 @@ class UsersController extends Controller
         }
         if (isset($mUser->id) && !$mUser->isCompany) {
             return $this->render("profile", [
-                    'model' => $mUser,
+                        'model' => $mUser,
             ]);
         } else {
             throw new NotFoundHttpException(\Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND'));
         }
     }
 
-
-    public function actionInfo()
-    {
+    public function actionInfo() {
         $mUser = \Yii::$app->user->identity;
 
         $title = \Yii::t('app', 'INFORMATION');
         return $this->render('/company/info', [
-                'model' => $mUser,
-                'title' => $title,
-                'breadcrumbs' => [
-                    ['label' => \Yii::t('app', 'USER_PROFILE'), 'url' => ['users/profile', 'id' => $mUser->id]],
-                    ['label' => $title, 'url' => ['users/info']]
-                ]
+                    'model' => $mUser,
+                    'title' => $title,
+                    'breadcrumbs' => [
+                        ['label' => \Yii::t('app', 'USER_PROFILE'), 'url' => ['users/profile', 'id' => $mUser->id]],
+                        ['label' => $title, 'url' => ['users/info']]
+                    ]
         ]);
     }
 
-
-    public function actionPhotouserupload()
-    {
+    public function actionPhotouserupload() {
         \Yii::$app->session->remove('userImages');
         //$uId = \Yii::$app->user->id;
         echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/uploadPhotoUser')]);
     }
 
-
-    public function actionSaveuserimage()
-    {
+    public function actionSaveuserimage() {
         $arr = \Yii::$app->session->get('userImages');
 
         $mObj = UserConstant::getProfile();
@@ -98,17 +87,13 @@ class UsersController extends Controller
         \Yii::$app->end();
     }
 
-
-    public function actionRemoveAvatar()
-    {
+    public function actionRemoveAvatar() {
         $mObj = UserConstant::getProfile();
         $mObj->image = "";
         return Json::encode(['code' => $mObj->save() ? 1 : 0]);
     }
 
-
-    public function actionSavemarks($id, $typeTo)
-    {
+    public function actionSavemarks($id, $typeTo) {
         $req = \Yii::$app->request->post('mark');
         $code = 0;
 
@@ -170,9 +155,7 @@ class UsersController extends Controller
         \Yii::$app->end();
     }
 
-
-    public function actionConfigmarks()
-    {
+    public function actionConfigmarks() {
         $mUser = UserConstant::getProfile();
         /*
           $ids = [];
@@ -188,12 +171,12 @@ class UsersController extends Controller
           } */
 
         $model = Marks::find()
-            ->where([
-                'parent_id' => 0,
-                'type' => $mUser->objType,
-                'prof_only' => 0
-            ])
-            ->all();
+                ->where([
+                    'parent_id' => 0,
+                    'type' => $mUser->objType,
+                    'prof_only' => 0
+                ])
+                ->all();
         if (!is_null($mUser->marks_config)) {
             $configArr = Json::decode($mUser->marks_config, true);
         } else {
@@ -210,9 +193,7 @@ class UsersController extends Controller
         \Yii::$app->end();
     }
 
-
-    public function actionConfigmarkschange()
-    {
+    public function actionConfigmarkschange() {
         $post = \Yii::$app->request->post('Marks');
         $mUser = UserConstant::getProfile();
         $marksArr = Json::decode($mUser->marks_config, true);
@@ -226,18 +207,14 @@ class UsersController extends Controller
         return Json::encode(['code' => $mUser->save() ? 1 : 0]);
     }
 
-
-    public function actionConfigmarkssave()
-    {
+    public function actionConfigmarkssave() {
         $post = \Yii::$app->request->post('Marks');
         $mUser = UserConstant::getProfile();
         $mUser->marks_config = Json::encode($post);
         echo Json::encode(['code' => $mUser->save() ? 1 : 0]);
     }
 
-
-    public function actionCustomConfigMarks($id, $obj_id, $obj_type)
-    {
+    public function actionCustomConfigMarks($id, $obj_id, $obj_type) {
         $mUmcArr = [];
         $mMarks = Marks::findOne($id);
         $mObj = UserConstant::findModel(['type' => $obj_type, 'id' => $obj_id]);
@@ -261,9 +238,7 @@ class UsersController extends Controller
         }
     }
 
-
-    public function actionCustomConfigMarksSave($id)
-    {
+    public function actionCustomConfigMarksSave($id) {
         $mObj = UserConstant::getProfile();
         $post = \Yii::$app->request->post('UserMarksCustom');
 
@@ -281,13 +256,11 @@ class UsersController extends Controller
         echo Json::encode(['code' => 1]);
     }
 
-
     /**
      * Модальное окно комментария
      * @param int $id - айди юзверя, которому адресован коммент
      */
-    public function actionWritetestimonials($id, $typeTo)
-    {
+    public function actionWritetestimonials($id, $typeTo) {
         $param = \Yii::$app->request->post('param');
         $mObj = UserConstant::getProfile();
         $model = new Testimonials();
@@ -305,18 +278,16 @@ class UsersController extends Controller
         \Yii::$app->end();
     }
 
-
-    public function actionEdittestimonial($id)
-    {
+    public function actionEdittestimonial($id) {
         $model = Testimonials::findOne($id);
 
         if (!$model) {
             throw new NotFoundHttpException();
         }
-        
-        
+
+
         $mUser = UserConstant::getProfile();
-        
+
         if (($model->from_id != $model->to_id) && ($mUser->id != $model->from_id) && ($mUser->objType != $model->type_from)) {
             throw new \yii\web\ForbiddenHttpException();
         }
@@ -330,12 +301,10 @@ class UsersController extends Controller
         \Yii::$app->end();
     }
 
-
     /**
      * Сохранение комента
      */
-    public function actionSavetestimonials()
-    {
+    public function actionSavetestimonials() {
         $post = \Yii::$app->request->post('Testimonials');
         $mCurseWords = CurseWords::find()->asArray()->all();
         foreach ($mCurseWords as $item) {
@@ -345,11 +314,11 @@ class UsersController extends Controller
 
         $code = 0;
         $model = Testimonials::findOne([
-                'type_from' => $post['type_from'],
-                'from_id' => $post['from_id'],
-                'type_to' => $post['type_to'],
-                'to_id' => $post['to_id'],
-                'parent_id' => (!empty($post['parent_id'])) ? $post['parent_id'] : '0',
+                    'type_from' => $post['type_from'],
+                    'from_id' => $post['from_id'],
+                    'type_to' => $post['type_to'],
+                    'to_id' => $post['to_id'],
+                    'parent_id' => (!empty($post['parent_id'])) ? $post['parent_id'] : '0',
         ]);
         if (!isset($model->id)) {
             $model = new Testimonials();
@@ -363,9 +332,7 @@ class UsersController extends Controller
         echo Json::encode(['code' => $code, 'errors' => $model->errors]);
     }
 
-
-    public function actionSendclaim()
-    {
+    public function actionSendclaim() {
         $post = \Yii::$app->request->post();
         if (isset($post['param'])) {
             $mObj = UserConstant::getProfile();
@@ -384,10 +351,8 @@ class UsersController extends Controller
         echo Json::encode(['code' => $code]);
     }
 
-
     // Edit profile
-    public function actionEditmaininfo()
-    {
+    public function actionEditmaininfo() {
         $uId = \Yii::$app->user->id;
         $model = Registration::findOne($uId);
         $profArr = [];
@@ -428,9 +393,7 @@ class UsersController extends Controller
         \Yii::$app->end();
     }
 
-
-    public function actionEditcompanysave()
-    {
+    public function actionEditcompanysave() {
         $post = \Yii::$app->request->post();
         $mObj = \Yii::$app->user->identity;
         $mCompany = Company::findOne($mObj->objId);
@@ -450,9 +413,7 @@ class UsersController extends Controller
         \Yii::$app->end();
     }
 
-
-    public function actionSavemaininfo()
-    {
+    public function actionSavemaininfo() {
         $post = \Yii::$app->request->post('Registration');
         $uId = \Yii::$app->user->id;
         $mUser = Registration::findOne($uId);
@@ -484,26 +445,20 @@ class UsersController extends Controller
         \Yii::$app->end();
     }
 
-
-    public function actionEditportfolio()
-    {
+    public function actionEditportfolio() {
         \Yii::$app->session->remove("userImages");
         $mUser = UserConstant::getProfile();
         echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/editProfile', ['model' => $mUser->images])]);
         \Yii::$app->end();
     }
 
-
-    public function actionViewportfolio($id)
-    {
+    public function actionViewportfolio($id) {
         $model = Images::findOne($id);
         echo Json::encode(['code' => 1, 'data' => $this->renderPartial('modal/viewPortfolio', ['model' => $model])]);
         \Yii::$app->end();
     }
 
-
-    public function actionSaveportfolio()
-    {
+    public function actionSaveportfolio() {
         $req = \Yii::$app->request->post("Images");
         $sess = \Yii::$app->session;
 
@@ -514,30 +469,25 @@ class UsersController extends Controller
         $mUser = UserConstant::getProfile();
 
         foreach ($req['title'] as $key => $item) {
-            if (($item != "") && isset($userImages[$key])) {
-                if ($req['new'][$key] == 1) {
+            if (($item != "")/* && isset($userImages[$key]) */) {
+                $model = Images::findOne(['name' => $req['new'][$key], 'user_id' => $mUser->id]);
+                if (!isset($model->id)) {
                     $model = new Images();
-                } else {
-                    $model = Images::findOne($req['new'][$key]);
+                    $model->type = $mUser->objType;
+                    $model->type_id = $mUser->objId;
+                    $model->user_id = $mUser->id;
+                    $model->name = $userImages[$key];
                 }
-
-                $model->attributes = [
-                    'type' => $mUser->objType,
-                    'type_id' => $mUser->objId,
-                    'user_id' => $mUser->id,
-                    'name' => $userImages[$key],
-                    'title' => $item,
-                    'description' => $req['description'][$key],
-                ];
+                
+                $model->title = $item;
+                $model->description = $req['description'][$key];
                 $model->save();
             }
         }
         echo Json::encode(['code' => 1]);
     }
 
-
-    public function actionGetcities()
-    {
+    public function actionGetcities() {
         $post = \Yii::$app->request->post('id');
         $model = City::find()->where(['country_id' => $post])->all();
         $out = "";
@@ -548,14 +498,12 @@ class UsersController extends Controller
         \Yii::$app->end();
     }
 
-
-    public function actionTrustees($id, $typeTo)
-    {
+    public function actionTrustees($id, $typeTo) {
         $post = \Yii::$app->request->post();
         $userFrom = \Yii::$app->user->identity;
         $params = [
             'type_from' => $userFrom->objType,
-            'from_id' => $userFrom->objId, // FIXME: Сделать через связующую таблицу
+            'from_id' => $userFrom->objId,
             'type_to' => $typeTo,
             'to_id' => $id,
         ];
@@ -577,23 +525,17 @@ class UsersController extends Controller
         \Yii::$app->end();
     }
 
-
-    public function actionAlltrustees($id)
-    {
+    public function actionAlltrustees($id) {
         $mObj = User::findOne($id);
         return $this->render("/profile/alltrustees", ['model' => $mObj]);
     }
 
-
-    public function actionAllmarks($id)
-    {
+    public function actionAllmarks($id) {
         $mObj = User::findOne($id);
         return $this->render("/profile/allmarks", ['model' => $mObj]);
     }
 
-
-    public function actionAlltestimonials($id)
-    {
+    public function actionAlltestimonials($id) {
         $mObj = User::findOne($id);
 
         if (!$mObj) {
@@ -603,9 +545,7 @@ class UsersController extends Controller
         return $this->render("/profile/alltestimonials", ['model' => $mObj]);
     }
 
-
-    public function actionSearch()
-    {
+    public function actionSearch() {
         $req = \Yii::$app->request->get();
 
         if (!isset($req['UsersSearch']['limit'])) {
@@ -632,21 +572,19 @@ class UsersController extends Controller
         return $this->render("search", ['model' => $model, 'mSearch' => $search, 'pagin' => $pagin]);
     }
 
-
-    public function actionUserslist($startsWith)
-    {
+    public function actionUserslist($startsWith) {
         $out = [];
         $mUserArr = User::find()
-            ->select(['last_name', 'type', 'first_name'])
-            ->where(['like', 'last_name', $startsWith])
-            ->orWhere(['like', 'first_name', $startsWith])
-            ->asArray()
-            ->all();
+                ->select(['last_name', 'type', 'first_name'])
+                ->where(['like', 'last_name', $startsWith])
+                ->orWhere(['like', 'first_name', $startsWith])
+                ->asArray()
+                ->all();
         $mCompanyArr = Company::find()
-            ->select(['name'])
-            ->where(['like', 'name', $startsWith])
-            ->asArray()
-            ->all();
+                ->select(['name'])
+                ->where(['like', 'name', $startsWith])
+                ->asArray()
+                ->all();
         $arr = $mUserArr + $mCompanyArr;
         foreach ($arr as $item) {
             if (isset($item['name'])) {
@@ -658,9 +596,7 @@ class UsersController extends Controller
         return Json::encode($out);
     }
 
-
-    public function actionLastmarksuser($id)
-    {
+    public function actionLastmarksuser($id) {
         $model = UserMarks::find()->where(['user_to' => $id])->all();
         echo Json::encode([
             'code' => 1,
@@ -669,9 +605,7 @@ class UsersController extends Controller
         \Yii::$app->end();
     }
 
-
-    public function actionMarkview($id)
-    {
+    public function actionMarkview($id) {
         $marksProfArr = [];
         $model = UserMarks::findOne($id);
 
@@ -690,9 +624,7 @@ class UsersController extends Controller
         ]);
     }
 
-
-    public function actionAlltrustuser($id)
-    {
+    public function actionAlltrustuser($id) {
         $model = UserTrustees::find()->where(['user_from' => $id])->all();
         echo Json::encode([
             'code' => 1,
@@ -704,9 +636,7 @@ class UsersController extends Controller
         \Yii::$app->end();
     }
 
-
-    public function actionChangeTrusteesStatus()
-    {
+    public function actionChangeTrusteesStatus() {
         $out = "";
         $post = \Yii::$app->request->post();
         $mUserTrustees = UserTrustees::findOne($post['id']);
@@ -716,8 +646,8 @@ class UsersController extends Controller
         switch ($post['actid']) {
             case UserTrustees::STATUS_CONFIRM:
                 $out = Html::tag("div", Html::a("Удалить", "#", [
-                            'class' => "b-link b-link_red action_but",
-                            'data-id' => UserCompany::ACTION_BUT_REMOVE
+                                    'class' => "b-link b-link_red action_but",
+                                    'data-id' => UserCompany::ACTION_BUT_REMOVE
                 ]));
                 break;
             case UserTrustees::STATUS_REFUSE:
@@ -728,13 +658,12 @@ class UsersController extends Controller
         echo Json::encode(['code' => $code, 'data' => $out]);
     }
 
-
-    public function actionShowDetailMarks($id)
-    {
+    public function actionShowDetailMarks($id) {
         $mUserMarks = UserMarks::findOne($id);
         return Json::encode([
-                'code' => 1,
-                'data' => $this->renderPartial('modal/showDetailMarks', ['model' => $mUserMarks])
+                    'code' => 1,
+                    'data' => $this->renderPartial('modal/showDetailMarks', ['model' => $mUserMarks])
         ]);
     }
+
 }

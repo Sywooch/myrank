@@ -62,7 +62,7 @@ class Testimonials extends \yii\db\ActiveRecord {
             self::WHO_FROM_TO_FAMILIAR => (string) \Yii::t('app', 'WHO_FROM_TO_FAMILIAR'),
             self::WHO_FROM_TO_SLAVE => (string) \Yii::t('app', 'WHO_FROM_TO_SLAVE'),
             self::WHO_FROM_TO_UNKNOW => (string) \Yii::t('app', 'WHO_FROM_TO_UNKNOW'),
-            self::WHO_FROM_TO_ANONIM => (string) \Yii::t('app', 'WHO_FROM_TO_ANONIM'),
+            //self::WHO_FROM_TO_ANONIM => (string) \Yii::t('app', 'WHO_FROM_TO_ANONIM'),
         ];
         if(isset($id)) {
             return $arr[$id];
