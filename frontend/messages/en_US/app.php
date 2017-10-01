@@ -343,6 +343,7 @@ return [
     'CUSTOM_CONFIGURE_THE_DISPLAY_OF_MARKS' => 'Configure marks',
     'SELECT_UP_TO_TEN_CRITERIA' => 'Select up to ten evaluation criteria',
     'MAIN_PROFESSION' => 'Main profession',
+    'SELECT2_MAX_LENGTH_MESSAGE' => 'You can only select 10 items',
     
     // STATUSES
     'CONFIRM' => 'Confirm',

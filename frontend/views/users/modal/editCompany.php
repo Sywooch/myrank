@@ -123,12 +123,24 @@ echo ModalWidget::widget([
 		$("#company-country_id").on("change", function () {
 		    setCityList($(this).val());
 		});
-		
-
-		$(".specialization-select select").select2({
-		    placeholder: "'.\Yii::t('app','SPECIALIZATION').'"
-		});
                 
+                $(".modal").on("shown.bs.modal", function () {
+                    $(".specialization-select select").select2({
+                        placeholder: "'.\Yii::t('app','SPECIALIZATION').'",
+                        maximumSelectionLength: 10,
+                        language: {
+                            // You can find all of the options in the language files provided in the
+                            // build. They all must be functions that return the string that should be
+                            // displayed.
+                            maximumSelected: function (e) {
+                                //var t = "You can only select " + e.maximum + " item111";
+                                //e.maximum != 1 && (t += "s");
+                                return "'.Yii::t('app', 'SELECT2_MAX_LENGTH_MESSAGE').'";
+                            }
+                        }
+                    });
+                });
+		
 		$(".specialization-select select").on("select2:select", function (e) {
                     var data = e.params.data;
                     $("#company-main_prof").append($("<option></option>").attr("value", data.id).text(data.text));

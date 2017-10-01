@@ -157,18 +157,18 @@ class UsersController extends Controller {
 
     public function actionConfigmarks() {
         $mUser = UserConstant::getProfile();
-        /*
-          $ids = [];
-          if($mUser->isCompany) {
-          $mUserProf = $mUser->profileProfession;
-          foreach ($mUserProf as $item) {
-          $arr[0]['p'.$item->id] = $item->title;
-          foreach ($item->professionMarksValue as $item2) {
-          $arr['p' . $item->id][$item2->id] = $item2->name;
-          }
-          $ids[] = $item->id;
-          }
-          } */
+
+        $ids = [];
+        if ($mUser->isCompany) {
+            $mUserProf = $mUser->profileProfession;
+            foreach ($mUserProf as $item) {
+                $arr[0]['p' . $item->id] = $item->title;
+                foreach ($item->professionMarksValue as $item2) {
+                    $arr['p' . $item->id][$item2->id] = $item2->name;
+                }
+                $ids[] = $item->id;
+            }
+        }
 
         $model = Marks::find()
                 ->where([
@@ -478,7 +478,7 @@ class UsersController extends Controller {
                     $model->user_id = $mUser->id;
                     $model->name = $userImages[$key];
                 }
-                
+
                 $model->title = $item;
                 $model->description = $req['description'][$key];
                 $model->save();
@@ -534,17 +534,17 @@ class UsersController extends Controller {
         $mObj = User::findOne($id);
         return $this->render("/profile/allmarks", ['model' => $mObj]);
     }
-    
-    public function actionAddNotifTrust ($id) {
+
+    public function actionAddNotifTrust($id) {
         $mTrust = UserTrustees::findOne($id);
         $mTrust->status = UserTrustees::STATUS_CONFIRM;
-        
+
         return Json::encode(['code' => $mTrust->save() ? 1 : 0]);
     }
-    
-    public function actionRemoveNotifTrust ($id) {
+
+    public function actionRemoveNotifTrust($id) {
         $mTrust = UserTrustees::findOne($id);
-        
+
         return Json::encode(['code' => $mTrust->delete() ? 1 : 0]);
     }
 

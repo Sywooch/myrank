@@ -240,7 +240,7 @@ $(document).ready(function () {
 
     $('.modal').on('shown.bs.modal', function () {
         $('.specialization-select select').select2({
-            placeholder: "Специализация"
+            maximumSelectionLength: 10,
         });
         $('.country-select select').select2({
             placeholder: "Страна"

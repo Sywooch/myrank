@@ -339,6 +339,8 @@ return [
     'MARKS' => 'Оцінки',
     'TRUSTEES' => 'Довірені',
     'SELECT_UP_TO_TEN_CRITERIA' => 'Виберіть до десяти критеріїв оцінки',
+    'MAIN_PROFESSION' => 'Основний вид діяльності',
+    'SELECT2_MAX_LENGTH_MESSAGE' => 'Ви можете вибрати тільки 10 пунктів',
     
     // STATUSES
     'CONFIRM' => 'Підтвердити',

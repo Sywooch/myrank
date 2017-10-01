@@ -348,6 +348,7 @@ return [
     'TRUSTEES' => 'Доверенные',
     'SELECT_UP_TO_TEN_CRITERIA' => 'Выберите до десяти критериев оценки',
     'MAIN_PROFESSION' => 'Основной вид деятельности',
+    'SELECT2_MAX_LENGTH_MESSAGE' => 'Вы можете выбрать только 10 элементов',
     
     // STATUSES
     'CONFIRM' => 'Подтвердить',

@@ -87,9 +87,17 @@ echo ModalWidget::widget([
 	$(".city-select select").select2({
 	    placeholder: "' . \Yii::t('app', 'CITY') . '"
 	});
-	$(".specialization-select select").select2({
-	    placeholder: "' . \Yii::t('app', 'SPECIALIZATION') . '"
-	});
+        $(".modal").on("shown.bs.modal", function () {
+            $(".specialization-select select").select2({
+                placeholder: "'.\Yii::t('app','SPECIALIZATION').'",
+                maximumSelectionLength: 10,
+                language: {
+                    maximumSelected: function (e) {
+                        return "'.Yii::t('app', 'SELECT2_MAX_LENGTH_MESSAGE').'";
+                    }
+                }
+            });
+        });
 	$("#regstep1-country_id").on("change", function () {
 	    setCityList($(this).val());
 	});
