@@ -198,16 +198,24 @@ class UsersController extends Controller {
 
     public function actionConfigmarkschange() {
         $post = \Yii::$app->request->post('Marks');
-        $mUser = UserConstant::getProfile();
-        $marksArr = Json::decode($mUser->marks_config, true);
+        $mObj = UserConstant::getProfile();
+        $marksArr = Json::decode($mObj->marks_config, true);
 
         $keys = array_keys($post);
         $vals = array_values($post);
+        
+        if($vals[0] == Marks::MARKS_ACCESS_FRONT_NONE) {
+            $userMarks = Json::decode($mObj->mark, true);
+            if(isset($userMarks[$keys[0]])) {
+                unset($userMarks[$keys[0]]);
+                $mObj->mark = Json::encode($userMarks);
+            }
+        }
 
         $marksArr[$keys[0]] = $vals[0];
 
-        $mUser->marks_config = Json::encode($marksArr);
-        return Json::encode(['code' => $mUser->save() ? 1 : 0]);
+        $mObj->marks_config = Json::encode($marksArr);
+        return Json::encode(['code' => $mObj->save() ? 1 : 0]);
     }
 
     public function actionConfigmarkssave() {
