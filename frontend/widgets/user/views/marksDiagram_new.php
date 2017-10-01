@@ -7,6 +7,7 @@ $outItems = [];
 $outVal = [];
 $userVal = [];
 $check = 0;
+$shortNames = [];
 
 foreach (isset($allList['full'][0]) ? $allList['full'][0] : [] as $key => $item) {
     if((isset($allList['full'][$key]) && count($allList['full'][$key]) > 0) || (isset($userList[$key]) && (count($userList[$key]) > 0))) {
@@ -70,5 +71,3 @@ if($check != 0) {
         });", yii\web\View::POS_END);
 }
 ?>
-
-
