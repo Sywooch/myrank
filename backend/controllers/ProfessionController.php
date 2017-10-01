@@ -2,15 +2,12 @@
 
 namespace backend\controllers;
 
-
 use Yii;
 use frontend\models\Profession;
 use backend\models\ProfessionSearch;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-
 
 /**
  * ProfessionController implements the CRUD actions for Profession model.
@@ -58,7 +55,6 @@ class ProfessionController extends Controller
 		    'dataProvider' => $dataProvider,
 	]);
     }
-
 
     /**
      * Displays a single Profession model.
@@ -120,7 +116,6 @@ class ProfessionController extends Controller
 	return $this->redirect(['index']);
     }
 
-
     /**
      * Finds the Profession model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -136,4 +131,5 @@ class ProfessionController extends Controller
             throw new NotFoundHttpException(((string) \Yii::t('app', 'REQUESTED_PAGE_WAS_NOT_FOUND')));
 	}
     }
+
 }
