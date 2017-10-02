@@ -5,6 +5,7 @@
  * @email dmitrywp@gmail.com
  */
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 $viewMarks = isset($model[0]) && count($model[0]) > 0;
 ?>
@@ -38,10 +39,11 @@ $viewMarks = isset($model[0]) && count($model[0]) > 0;
                                         foreach ($model[$key] as $key2 => $item2) {
                                             ?>
                                             <div class="<?= $i % 2 == 0 ? 'panel-footer' : 'panel-body' ?>">
-                                                <span 
+                                                <!-- span 
                                                     class="glyphicon addCritMarks glyphicon-<?= isset($mUMC[$key2]) ? "minus" : "plus" ?>" 
                                                     data-id="<?= $key2 ?>"
-                                                    ></span>
+                                                    ></span -->
+                                                <?= Html::checkbox("Marks", isset($mUMC[$key2]), ['data-id' => $key2, 'class' => 'critMarks']) ?>
                                                 <?= $item2 ?>
                                             </div>
                                             <?php
@@ -90,8 +92,8 @@ $viewMarks = isset($model[0]) && count($model[0]) > 0;
         var obj = {};
         obj['_csrf-frontend'] = $('[name="csrf-token"]').attr('content');
         var url = '<?= Url::toRoute(['users/custom-config-marks-save', 'id' => $id]); ?>';
-        $(this).closest("#configureMarks").find('.addCritMarks').each(function (i, val) {
-            if ($(val).hasClass('glyphicon-minus')) {
+        $(this).closest("#configureMarks").find('.critMarks').each(function (i, val) {
+            if ($(val).is(":checked")) {
                 id = $(val).attr('data-id');
                 obj['UserMarksCustom[marks][' + i + ']'] = id;
             }
